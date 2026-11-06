@@ -6,11 +6,53 @@ Public source: [Amlck/mediport-pocket](https://github.com/Amlck/mediport-pocket)
 
 **[Open Mediport Pocket](https://mediport-pocket.abuzz-moth-0863.chatgpt.site/)** · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Media credits](THIRD_PARTY_NOTICES.md)
 
-Open the site in Safari or Chrome and add it to your home screen. No account,
-Tailscale connection or app store is required. Open the installed app online
-until **Installed pack** reports **Offline copy verified** before relying on
-an offline copy. External source links and updates need connectivity; browser
-storage can be cleared or evicted.
+## Install on your phone
+
+Scan this QR code, or [open the installation page](https://mediport-pocket.abuzz-moth-0863.chatgpt.site/#/install).
+No account, Tailscale connection or app store is required.
+
+<a href="https://mediport-pocket.abuzz-moth-0863.chatgpt.site/#/install"><img src="docs/mediport-pocket-qr.png" width="240" height="240" alt="Scan to open Mediport Pocket installation instructions"></a>
+
+[Download the QR image to share](docs/mediport-pocket-qr.png).
+
+### iPhone
+
+1. Open the link in **Safari**. If it opened inside another app, choose **Open in Safari**.
+2. Tap **Share → Add to Home Screen**.
+3. Keep **Open as Web App** enabled if shown, then tap **Add**.
+4. Open the new **Pocket** icon while online. In **Installed pack**, wait for **Offline copy verified**.
+
+### Android
+
+1. Open the link in **Chrome**.
+2. Open the **⋮ menu → Install app**, or **Install and create shortcut → Install**, and follow the prompts.
+3. Open the new **Pocket** icon while online. In **Installed pack**, wait for **Offline copy verified**.
+
+Once verified, the downloaded references and calculators work offline. External
+source links need internet access. Browser storage can be cleared or evicted;
+check the offline status again if the copy becomes unavailable.
+
+## Updates
+
+Keep the same home-screen icon, link and QR code. There is no need to reinstall.
+
+1. Connect to the internet and open Pocket.
+2. Open **Installed pack → Check for update**.
+3. If an update is available, wait for **Downloaded · ready to install**.
+4. Close **every Pocket app window and any Pocket tabs in Safari or Chrome**, then reopen Pocket.
+5. Confirm the version under **In use** and **Offline copy verified**.
+
+The current pack stays in use while the new one downloads and is verified. A
+failed download keeps the previous usable pack. Pocket never forces a reload
+in the middle of a calculation. Your phone can also discover updates when
+reopened online, but **Check for update** is the explicit way to check now.
+Public updates need an internet connection; no Mac or Tailscale is required.
+
+For maintainers: review the change, run the tests, build and verify the release,
+then deploy it to the existing public address. **GitHub CI currently tests and
+builds only; a push or merged pull request does not automatically update the
+live app.** Once a release is deployed, installed users can download it using
+the steps above. A GitHub README edit does not require an app deployment.
 
 ## What is included
 
