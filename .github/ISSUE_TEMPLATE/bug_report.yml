@@ -1,0 +1,40 @@
+name: Bug report
+description: Report a reproducible app or offline-installation issue.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: "Use fictional inputs only. Do not include patient data, credentials, private screenshots or hospital captures. For sensitive vulnerabilities, follow SECURITY.md."
+  - type: input
+    id: version
+    attributes:
+      label: Installed pack version or source commit
+      description: Find the pack version under Installed pack.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser, operating system and device
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include minimal fictional inputs and whether the app was online or offline.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: This report contains no real patient data, credentials or private hospital content.
+          required: true

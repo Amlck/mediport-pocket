@@ -1,0 +1,47 @@
+name: Clinical reference concern
+description: Report an interpretation, source, unit or calculator concern using fictional data.
+title: "[Reference] "
+body:
+  - type: markdown
+    attributes:
+      value: "This is a software/reference review, not a patient-specific consultation. Use fictional data and direct primary sources. Do not post patient records or private captures."
+  - type: input
+    id: version
+    attributes:
+      label: Pack version or source commit
+    validations:
+      required: true
+  - type: input
+    id: module
+    attributes:
+      label: Guide, calculator, monograph or POCUS item
+    validations:
+      required: true
+  - type: textarea
+    id: concern
+    attributes:
+      label: Current behavior and concern
+      description: Include the exact units, fictional inputs, population and affected output.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Primary-source evidence
+      description: Link the original guideline, official product information or original research. Include version/date and the relevant section.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed correction and uncertainty
+      description: Distinguish what the source establishes from what still needs review.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: This report uses fictional data and contains no credentials or private hospital content.
+          required: true

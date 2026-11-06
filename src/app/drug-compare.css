@@ -1,0 +1,57 @@
+.drug-comparison-page { gap: 12px; padding-bottom: 30px; }
+.drug-compare-return-host:empty { display: none; }
+.drug-compare-intro, .drug-compare-scope { color: var(--ink-2); font-size: .875rem; line-height: 1.45; }
+.drug-compare-fluid-link { font-size: .8125rem; font-weight: 650; text-decoration: none; }
+.drug-compare-pickers { display: grid; gap: 9px; }
+.drug-compare-picker-wrap { min-width: 0; }
+.drug-compare-picker { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.drug-compare-picker > summary { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; min-height: 66px; padding: 11px 13px; list-style: none; cursor: pointer; }
+.drug-compare-picker > summary::-webkit-details-marker { display: none; }
+.drug-compare-picker-locked { display: grid; align-content: center; gap: 2px; min-height: 66px; padding: 11px 13px; color: var(--ink-3); }
+.drug-compare-picker-locked strong { font-size: .9375rem; }
+.drug-compare-picker-label { grid-column: 1; color: var(--ink-2); font-size: .75rem; font-weight: 750; text-transform: uppercase; letter-spacing: .055em; }
+.drug-compare-picker > summary strong { grid-column: 1; min-width: 0; overflow-wrap: anywhere; font-size: .9375rem; }
+.drug-compare-picker-review { grid-column: 1; color: var(--ink-2); font-size: .6875rem; line-height: 1.3; overflow-wrap: anywhere; }
+.drug-compare-picker-action { grid-column: 2; grid-row: 1 / span 3; align-self: center; color: var(--accent); font-size: .8125rem; font-weight: 700; }
+.drug-compare-picker-body { padding: 0 11px 12px; }
+.drug-compare-picker-body input { display: block; width: 100%; min-height: 48px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-2); }
+.drug-compare-picker-count { margin: 8px 2px; color: var(--ink-2); font-size: .75rem; }
+.drug-compare-picker-results { display: grid; max-height: 260px; overflow-y: auto; overscroll-behavior: contain; }
+.drug-compare-picker-results button { display: grid; gap: 3px; min-height: 52px; padding: 9px 6px; border-top: 1px solid var(--line); text-align: left; }
+.drug-compare-picker-results button strong { font-size: .875rem; overflow-wrap: anywhere; }
+.drug-compare-picker-results button small { color: var(--ink-2); font-size: .75rem; overflow-wrap: anywhere; }
+.drug-compare-picker-results button:disabled { opacity: .55; }
+.drug-compare-picker-results button:active:not(:disabled) { background: var(--accent-soft); }
+.drug-compare-actions { display: flex; justify-content: flex-end; }
+.drug-compare-actions button { min-height: 44px; padding: 0 12px; border-radius: 9px; background: var(--accent-soft); color: var(--accent); font-size: .8125rem; font-weight: 700; }
+.drug-compare-actions button:disabled { opacity: .45; }
+.drug-compare-error { color: var(--urgent); font-size: .8125rem; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+.drug-compare-error:empty { display: none; }
+.drug-compare-prompt { padding: 16px; border: 1px dashed var(--line); border-radius: 11px; color: var(--ink-2); text-align: center; font-size: .875rem; }
+.drug-compare-fields { display: grid; gap: 10px; }
+.drug-compare-field { min-width: 0; }
+.drug-compare-disclosure { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.drug-compare-disclosure > summary { min-height: 48px; padding: 10px 13px; }
+.drug-compare-disclosure h2 { font-size: .9375rem; line-height: 1.3; }
+.drug-compare-disclosure > .body { padding: 0 12px 12px; }
+.drug-compare-caption { margin: 0 0 8px; color: var(--ink-2); font-size: .75rem; line-height: 1.35; }
+.drug-compare-pair { display: grid; gap: 8px; }
+.drug-compare-side { min-width: 0; padding: 11px; border-radius: 9px; background: var(--surface-2); overflow-wrap: anywhere; }
+.drug-compare-side h3 { display: flex; align-items: baseline; gap: 8px; margin: 0 0 8px; font-size: .875rem; line-height: 1.3; }
+.drug-compare-letter { display: inline-grid; place-items: center; flex: none; width: 23px; height: 23px; border-radius: 7px; background: var(--accent-soft); color: var(--accent); font-size: .75rem; }
+.drug-compare-side p { margin: 0 0 6px; font-size: .8125rem; line-height: 1.45; }
+.drug-compare-side p:last-child { margin-bottom: 0; }
+.drug-compare-side .drug-compare-review { color: var(--ink-2); font-weight: 650; }
+.drug-compare-absent { color: var(--ink-3); font-style: italic; }
+.drug-compare-list { display: grid; gap: 5px; margin: 0; padding-left: 18px; font-size: .8125rem; line-height: 1.4; }
+.drug-compare-dl { display: grid; gap: 9px; margin: 0; }
+.drug-compare-dl > div { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.drug-compare-dl > div:last-child { padding-bottom: 0; border: 0; }
+.drug-compare-dl dt { margin-bottom: 2px; color: var(--ink-2); font-size: .75rem; font-weight: 750; }
+.drug-compare-dl dd { margin: 0; font-size: .8125rem; line-height: 1.45; }
+.drug-compare-subhead { margin-top: 9px !important; color: var(--ink-2); font-size: .75rem !important; font-weight: 750; }
+.drug-compare-subhead:first-child { margin-top: 0 !important; }
+.drug-compare-tags { color: var(--ink-2); }
+.drug-compare-monograph { display: inline-block; min-height: 44px; padding: 12px 0 0; font-size: .8125rem; font-weight: 700; text-decoration: none; }
+.drug-compare-source-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent); overflow-wrap: anywhere; }
+.drug-compare-online-note { margin-top: 7px !important; color: var(--ink-2); font-size: .75rem !important; }

@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-06",
+  "label": "Mediport Pocket · public source release",
+  "changes": [
+    "Public self-contained source, tests and contribution guidelines are available on GitHub.",
+    "Verified public NTUH formulary pages may be linked as online sources; captured internal records remain excluded.",
+    "Install from a shared HTTPS link without Tailscale or an app store.",
+    "Calculators, portable guides, drug references and licensed POCUS teaching media download for offline use.",
+    "Hospital catalog records, saved local regimens and guides containing captured hospital material are omitted from this edition.",
+    "ECG illustrations without recorded reuse provenance are omitted; the text-based reading workflow remains available."
+  ]
+}

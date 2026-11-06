@@ -1,0 +1,17 @@
+{
+  "name": "mediport-pocket",
+  "version": "0.1.0",
+  "description": "Installable offline clinical reference with calculators, portable guides, drug references and licensed POCUS teaching media.",
+  "type": "module",
+  "repository": { "type": "git", "url": "https://github.com/Amlck/mediport-pocket" },
+  "license": "MIT",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "serve": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "playwright test",
+    "verify": "node scripts/verify.mjs dist"
+  },
+  "devDependencies": { "@playwright/test": "1.58.2" }
+}

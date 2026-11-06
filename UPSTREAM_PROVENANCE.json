@@ -1,0 +1,78 @@
+{
+  "exportedAt": "2026-11-06",
+  "initialPublicPack": "pocket-public-8b5626386eb1",
+  "source": "Mediport Medical public-share extraction",
+  "sourceHashes": {
+    "portal/static/js/portal-calculators.js": "8f23cb6a0e8734560ba60f40ee62ca5baddbfaafbbb4ac0a5428da265cbd6151",
+    "portal/static/js/portal-calculator-registry.js": "c1e07bb498d59a3663d3f642b4614ff21232d05f0cb252a6490026f323f7cecb",
+    "portal/static/js/portal-calculator-formulas.js": "e88b0249743ec68c90050e0a19212aef81c6d31900939f9a8d4ed3ae28d1b6de",
+    "portal/static/js/portal-calculator-scores.js": "c5bea5ed02017796edabeeb86f093102f5aca49a4cb7daa729e4ab72e28bfe95",
+    "portal/static/js/portal-cockcroft-gault.js": "e6a7f41454c991ad7b140070c19ca4e641204b299b223223c5113331b53d1cf6",
+    "portal/static/js/portal-ekg-engine.js": "b38e19dff0d25cc69830ae44d17f9d15cda360f5e09de97b5069029d32649e2b",
+    "portal/static/js/portal-glycemic.js": "03bef97c296b84d9170b057f742c5f4d05e70c2ddedf7858b5c3dc5dcde8c105",
+    "portal/static/js/portal-ekg-wizard.js": "9527995119067664c1db1b588101f589e479375c1a3b80acba53f9bd0bf69f23",
+    "portal/static/js/management-guides/index.mjs": "fb90db3da552bebc1ff3f00fd9d55ff23303499cd1f45b1f12e22a7d036344fd",
+    "portal/static/js/management-guides/manifest.mjs": "e5f844008f0a4511e0702b5908344ed2d24be2696109c42872016c185ca56191",
+    "portal/static/data/management-guide-resources.json": "a373fef2e98d7ef5a8549068e1282a2e2a36ff7303a7116db102fd14fa3f9e0a",
+    "portal/static/data/pocus-reference.json": "87265d3665d4c5d59b6180beeb9cc6ff7e89691515633cc54bec9f00cdc3dc28",
+    "portal_capture/ntuh-symptom-synonyms.json": "06f43209184845a2b2628461d91e7c06a0dbef82e3275f61ae327e9bbf8bd102",
+    "portal/static/data/drug-data.js": "6d1aacf5b66b0788df28f4313423a198099ab6776b3413b660c0d5696c837e72",
+    "portal/static/data/drug-data-expansion-antimicrobial.js": "82087769befed260db29090d1675f0d986eb7a6bc0757d4d9e69554bfa403970",
+    "portal/static/data/drug-data-expansion-systemic.js": "9e03b682f357cbf70c855881033f228297e777af9efca48594265cf69b48c015",
+    "portal/static/data/drug-data-expansion-supportive.js": "c7cd1085f2a3f9d1e570f2156ca9d1f8ad53c8c0f2cc5ef479de483e5257bb67",
+    "portal/static/js/management-guides/delirium-engine.mjs": "2a3c78d45e2febebfecc6c31c8db7d9240ed907e47e8d722b4732d40cbf27f09",
+    "portal/static/js/management-guides/transfusion-reaction-engine.mjs": "529382c96487334410b83027b7645e0eb399c0a08fdd9f26b4a2d96698a66c92",
+    "portal/static/js/management-guides/heart-failure-engine.mjs": "d7cf39520540e334f6734e94b879fc20a7b99121d7b352139045ceba89a9cb6d",
+    "portal/static/js/management-guides/syncope-engine.mjs": "89e582211f14b1544e1e30fc8fb7e229e6713f12e5b654500ceca571b581855f",
+    "portal/static/js/management-guides/tachycardia-engine.mjs": "48e190b8c9f6bdc9a2ba38983de9a70a238cc93a7701419f241a9972fa5ffd11",
+    "portal/static/js/management-guides/hyperkalemia-engine.mjs": "11f08161daec5ba4a12d3f32f01e3e933525bc5d3089d4a2414a74cae9229e34",
+    "portal/static/js/management-guides/hypoglycemia-engine.mjs": "7a3b1aa4e4ee2f7472512ad7e33192a47095d6a7f7f60c13b5dc0ee1f43c723d",
+    "portal/static/js/management-guides/hypokalemia-engine.mjs": "8f74f7f15cbdcadda07dd31355b34b7bb5ce3847b463ea2357f7c4dbc53c568c",
+    "portal/static/js/management-guides/aki-composed.mjs": "a6105c0b5978c6bd1cf05e498a0e5892f537facd1383a6dfbdad2456a83094c9",
+    "portal/static/js/management-guides/aki-engine.mjs": "b5751426b6b6b0eb46e67dc7db3686f7c71b4a80d35499350e35226c0ce97337",
+    "portal/static/js/management-guides/aki-entry.mjs": "a69433614f105eb793a2fc42484e7d84c33a16798221e48c85d89f0d09e44f61",
+    "portal/static/js/management-guides/hypocalcemia-engine.mjs": "5a1f2cb1edb68b820007cd9c24690febc76979b2e2459f9e897d10891ae2848b",
+    "portal/static/js/management-guides/hypotension-engine.mjs": "aa01f65f4d9b923bb28241c700e48e1a2136030ba03ae3ed2a0ab2132b83c363",
+    "portal/static/js/management-guides/new-inpatient-fever-engine.mjs": "9b34b028c16123794fda8f9a8064682f285a42ebde859dd7eda4c4cf2a2cacdf"
+  },
+  "transformations": [
+    {
+      "drugId": "colistin",
+      "field": "monitoring.1",
+      "transformation": "Remove only the institutional service attribution; preserve the complete clinical monitoring target.",
+      "originalSha256": "c4d65a2062bed3c54aeec3a2cef9b9185704a6b75661d97fe0295768715b1b0f",
+      "outputSha256": "a9d57e3ff09a0c02457afd67b7a831b5bf9585c362308c336a129282e2857272"
+    },
+    {
+      "drugId": "vancomycin",
+      "field": "monitoring.0",
+      "transformation": "Remove only the institutional service attribution; preserve the complete clinical monitoring target.",
+      "originalSha256": "d99cf6fffcb2ea49e63817020933ac02bce4d8a67aa35a1335624a87ee97d7a4",
+      "outputSha256": "e3855156a625dc356f8a10a22887d6642aa02cb02a608c5202ec3b6126b09a03"
+    },
+    {
+      "drugId": "voriconazole",
+      "field": "monitoring.0",
+      "transformation": "Remove only the institutional service attribution; preserve the complete clinical monitoring target.",
+      "originalSha256": "bace825da23f6bcc5986ef67a330f0d7ebd50baa311616c1bdddf59594b330a2",
+      "outputSha256": "f8b721c7dac38814a861a73d40ec4a1780ceec5e527830bbb24821a4ea21dd88"
+    },
+    {
+      "sourcePath": "portal/static/js/portal-calculator-formulas.js",
+      "transformation": "Omit captured glucocorticoid product identity table; clinical equivalence formulas are unchanged.",
+      "originalSha256": "e88b0249743ec68c90050e0a19212aef81c6d31900939f9a8d4ed3ae28d1b6de",
+      "outputSha256": "2121e98dc1a44b9a048c470d2cc90ccb7c622745456c27e7f8e5780e12dd81d2"
+    },
+    {
+      "sourcePath": "portal/static/js/portal-ekg-engine.js",
+      "transformation": "Omit four ECG illustration references without recorded redistribution provenance; retain textual criteria.",
+      "originalSha256": "b38e19dff0d25cc69830ae44d17f9d15cda360f5e09de97b5069029d32649e2b",
+      "outputSha256": "99107a8cdb098d534b1ab49bb4c7567fc36dfced7419af359650314cf54d984b"
+    },
+    {
+      "sourcePath": "portal/static/js/management-guides/lab-review-entry.mjs",
+      "transformation": "Omit guided numeric-entry bridge and its desktop registry import closure; standard calculator lab review remains available."
+    }
+  ],
+  "notice": "Historical extraction provenance. The src files in this repository are now the maintained public source; builds record their own hashes and public commit."
+}
