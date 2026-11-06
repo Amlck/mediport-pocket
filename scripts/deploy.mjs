@@ -139,19 +139,24 @@ export async function verifyLive({ origin, manifest, fetchImpl = fetch, sleep = 
 
 export async function deploy({ directory = 'dist', sourceCommit = process.env.GITHUB_SHA, origin = DEPLOY_ORIGIN,
   eventName = process.env.GITHUB_EVENT_NAME, ref = process.env.GITHUB_REF, fetchImpl = fetch,
-  getToken, getHead, sleep = wait } = {}) {
+  sourceToken = process.env.GITHUB_TOKEN, getToken, getHead, sleep = wait } = {}) {
   if (!deploymentAllowed(eventName, ref)) return { status: 'skipped', reason: 'not_main_push' };
   const target = deploymentOrigin(origin);
   const manifest = await artifactManifest(directory, sourceCommit);
+  if (sourceToken !== undefined && typeof sourceToken !== 'string') throw new Error('Read-only source authorization must be a string.');
+  // This short-lived, contents:read token is transport-only authorization for
+  // the host's fixed GitHub source lease check. Never add it to the artifact
+  // manifest, uploaded files, deployment result, logs or persistent metadata.
+  const sourceAuthorization = sourceToken ? { sourceToken } : {};
   const authorize = getToken || oidcProvider({ audience: target, fetchImpl });
-  const head = getHead || (() => mainHead({ fetchImpl }));
+  const head = getHead || (() => mainHead({ fetchImpl, token: sourceToken }));
   const ensureCurrent = async () => { if (await head() !== sourceCommit) throw new StaleDeployment(); };
   const authenticated = async (pathname, options, refresh = false) => request(fetchImpl, target + pathname, {
     ...options, headers: { ...options.headers, Authorization: `Bearer ${await authorize(refresh)}` },
   }, { sleep, timeoutMs: pathname === '/__deploy/activate' ? 90_000 : 30_000 });
   try {
     await ensureCurrent();
-    await authenticated('/__deploy/prepare', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(manifest.body) });
+    await authenticated('/__deploy/prepare', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...manifest.body, ...sourceAuthorization }) });
     await parallel(manifest.entries, 4, entry => authenticated(`/__deploy/releases/${manifest.body.version}/${entry.path}`, {
       method: 'PUT', headers: { 'Content-Type': 'application/octet-stream' }, body: entry.bytes,
     }));
@@ -159,7 +164,7 @@ export async function deploy({ directory = 'dist', sourceCommit = process.env.GI
     // build which completed after a newer main commit. The server checks again.
     await ensureCurrent();
     const activated = await authenticated('/__deploy/activate', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ version: manifest.body.version }),
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ version: manifest.body.version, ...sourceAuthorization }),
     }, true);
     const result = await activated.json();
     if (result.active?.version !== manifest.body.version || result.active?.sourceCommit !== sourceCommit) throw new Error('Hosting did not activate the requested tested release.');

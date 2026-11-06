@@ -122,3 +122,38 @@ test('stale runs skip without activation both before prepare and after uploads',
   assert.equal((await deploy({ ...context(pack.directory), fetchImpl: backend.fetchImpl })).reason, 'stale_source');
   assert.equal(backend.active, null);
 });
+
+test('read-only source authorization is transport-only and never enters the release or public checks', async t => {
+  const pack = await artifact(t);
+  const sourceToken = 'ephemeral-source-token-MUST-NOT-LEAK-83d0';
+  const before = await artifactManifest(pack.directory, SOURCE);
+  const originalManifest = JSON.stringify(before.body);
+  const host = hostingFixture();
+  const observed = [];
+  const base = context(pack.directory);
+  delete base.getHead;
+  const result = await deploy({ ...base, sourceToken, fetchImpl: async (url, options = {}) => {
+    const parsed = new URL(url);
+    observed.push({ origin: parsed.origin, pathname: parsed.pathname, options });
+    if (parsed.origin === 'https://api.github.com') {
+      assert.equal(parsed.pathname, '/repos/Amlck/mediport-pocket/git/ref/heads/main');
+      assert.equal(options.headers.Authorization, `Bearer ${sourceToken}`);
+      assert.equal(options.redirect, 'error');
+      assert.equal(options.body, undefined);
+      return json({ object: { sha: SOURCE } });
+    }
+    assert.equal(parsed.origin, ORIGIN, 'no other origin receives source authorization');
+    assert.ok(!JSON.stringify(options.headers || {}).includes(sourceToken), 'source token is never a hosting request header');
+    const isLease = ['/__deploy/prepare', '/__deploy/activate'].includes(parsed.pathname);
+    if (isLease) assert.equal(JSON.parse(options.body).sourceToken, sourceToken);
+    else assert.ok(!String(options.body || '').includes(sourceToken), 'uploads and public verification never carry the source token');
+    return host.fetchImpl(url, options);
+  } });
+  assert.equal(result.status, 'deployed');
+  assert.equal(observed.filter(call => call.origin === ORIGIN && String(call.options.body || '').includes(sourceToken)).length, 2);
+  for (const bytes of host.uploads.values()) assert.ok(!bytes.includes(Buffer.from(sourceToken)), 'stored file bytes cannot contain the source token');
+  const after = await artifactManifest(pack.directory, SOURCE);
+  assert.equal(JSON.stringify(after.body), originalManifest, 'transport authorization does not mutate the upload manifest');
+  assert.equal(Object.hasOwn(after.body, 'sourceToken'), false);
+  assert.ok(!JSON.stringify(result).includes(sourceToken), 'the logged/output deployment result excludes source authorization');
+});

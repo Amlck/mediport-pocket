@@ -154,6 +154,11 @@ async function putImmutable(bucket, key, bytes) {
 function parseStored(bytes, label) {
   try { return JSON.parse(decoder.decode(bytes)); } catch { error(400, 'invalid_release', 'Invalid ' + label + '.'); }
 }
+function requestSourceToken(value) {
+  if (value === undefined) return undefined;
+  if (typeof value !== 'string' || !/^[\x21-\x7e]{1,4096}$/.test(value)) error(400, 'invalid_source_token', 'Invalid request-local GitHub source credential.');
+  return value;
+}
 async function verifyRelease(manifest, load) {
   const received = new Map();
   // R2 reads incur network latency. Verify a bounded group concurrently while
@@ -254,8 +259,8 @@ export function createDeploymentWorker({ verifyIdentity, fetchImpl = (...args) =
     const claims = verifyIdentity ? await verifyIdentity(match[1]) : await verifyGitHubIdentity(match[1], { fetchImpl, now: now() });
     return validateClaims(claims, now());
   }
-  async function requireMain(sourceCommit) {
-    const response = await fetchImpl(MAIN_URL, { redirect: 'manual', headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'Mediport-Pocket-Deploy', 'Cache-Control': 'no-cache' } });
+  async function requireMain(sourceCommit, sourceToken) {
+    const response = await fetchImpl(MAIN_URL, { redirect: 'manual', headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'Mediport-Pocket-Deploy', 'Cache-Control': 'no-cache', ...(sourceToken ? { Authorization: 'Bearer ' + sourceToken } : {}) } });
     if (!response.ok) error(503, 'source_unavailable', 'Could not verify the current GitHub main commit.');
     const body = await parseJSON(response, 65536);
     if (body.object?.sha !== sourceCommit) error(409, 'stale_source', 'This release is no longer the current main commit.');
@@ -268,9 +273,13 @@ export function createDeploymentWorker({ verifyIdentity, fetchImpl = (...args) =
     if (url.pathname.startsWith('/__deploy/')) {
       const who = await identity(request);
       if (request.method === 'POST' && url.pathname === '/__deploy/prepare') {
-        const manifest = validateManifest(await parseJSON(request));
+        const body = await parseJSON(request);
+        const sourceToken = requestSourceToken(body?.sourceToken);
+        // Normalize only release metadata; this request-local credential must
+        // never enter manifests, active pointers, public responses or storage.
+        const manifest = validateManifest(body);
         if (manifest.sourceCommit !== who.sourceCommit) error(401, 'source_mismatch', 'The release source differs from the deployment identity.');
-        await requireMain(who.sourceCommit);
+        await requireMain(who.sourceCommit, sourceToken);
         const key = releaseKey(manifest.version) + 'manifest.json';
         const previous = await objectJSON(bucket, key);
         if (previous && JSON.stringify(previous) !== JSON.stringify(manifest)) error(409, 'immutable_release', 'This release version already identifies different files.');
@@ -293,16 +302,17 @@ export function createDeploymentWorker({ verifyIdentity, fetchImpl = (...args) =
         return json({ uploaded: upload[2], version: upload[1] }, previous ? 200 : 201);
       }
       if (request.method === 'POST' && url.pathname === '/__deploy/activate') {
-        const body = await parseJSON(request, 4096);
+        const body = await parseJSON(request, 8192);
+        const sourceToken = requestSourceToken(body?.sourceToken);
         if (!VERSION.test(body?.version)) error(400, 'invalid_manifest', 'Invalid public release version.');
         const manifest = await objectJSON(bucket, releaseKey(body.version) + 'manifest.json');
         if (!manifest) error(400, 'unprepared_release', 'Prepare the release before activation.');
         if (manifest.sourceCommit !== who.sourceCommit) error(401, 'source_mismatch', 'The release source differs from the deployment identity.');
-        await requireMain(who.sourceCommit);
+        await requireMain(who.sourceCommit, sourceToken);
         const active = await objectJSON(bucket, ACTIVE_KEY);
         if (active && (who.runNumber < active.runNumber || who.runNumber === active.runNumber && who.runAttempt < active.runAttempt)) error(409, 'stale_source', 'A newer workflow run has already published.');
         const verified = await verifyRelease(manifest, file => objectBytes(bucket, releaseKey(body.version) + 'files/' + file));
-        await requireMain(who.sourceCommit);
+        await requireMain(who.sourceCommit, sourceToken);
         const next = { version: manifest.version, sourceCommit: manifest.sourceCommit, runNumber: who.runNumber, runId: who.runId, runAttempt: who.runAttempt };
         if (active?.version === next.version && active?.sourceCommit === next.sourceCommit) return json({ active, activated: false });
         await putImmutable(bucket, releaseKey(body.version) + 'verified.json', encoder.encode(JSON.stringify(verified)));
@@ -310,7 +320,7 @@ export function createDeploymentWorker({ verifyIdentity, fetchImpl = (...args) =
           const latest = await recordJSON(bucket, ACTIVE_KEY);
           if (latest && (next.runNumber < latest.value.runNumber || next.runNumber === latest.value.runNumber && next.runAttempt < latest.value.runAttempt)) error(409, 'stale_source', 'A newer workflow run has already published.');
           if (latest?.value.version === next.version && latest.value.sourceCommit === next.sourceCommit) return json({ active: latest.value, activated: false });
-          await requireMain(who.sourceCommit);
+          await requireMain(who.sourceCommit, sourceToken);
           const written = await bucket.put(ACTIVE_KEY, JSON.stringify(next), { onlyIf: latest ? { etagMatches: latest.etag } : { etagDoesNotMatch: '*' } });
           if (written) return json({ active: next, activated: true });
         }

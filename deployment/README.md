@@ -31,6 +31,16 @@ Actions OIDC token with the exact Site origin as its audience; the host validate
 that identity, the production environment, workflow and `main` push source.
 The token is never printed or written to repository files.
 
+For the source lease lookup, the job also uses its short-lived, read-only
+`GITHUB_TOKEN` (`contents: read`). It is sent in the JSON bodies of prepare
+and activate only, so the host can check the fixed repository's `main` ref
+without exhausting GitHub's anonymous API quota. It does not authorize a
+deployment by itself: GitHub OIDC validation remains required on every write.
+The host uses it only for that fixed GitHub API lookup and does not persist it.
+It is excluded from uploaded manifests, files, R2 metadata, public verification,
+deployment results and application logs. No additional GitHub permission or
+long-lived secret is introduced.
+
 The client uploads at most 300 files, 4 MiB per file and 32 MiB per release.
 Requests reject redirects and use bounded retries. Activation obtains a fresh
 OIDC token and rechecks `main`; the host independently enforces its source lease.

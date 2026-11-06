@@ -256,3 +256,60 @@ test('bootstrap redirects remain unfollowed and cannot supply a release', async 
   assert.equal((await response.json()).code,'bootstrap_unavailable');
   assert.equal(calls.length,1);
 });
+
+test('request-local GitHub credential is used only for fixed main checks and never persisted or returned', async () => {
+  const sourceToken = 'ghs_requestLocalSecretForTestOnly_123';
+  const h = harness(); const f = await fixture();
+  const responses = [];
+  const prepared = await h.request('/__deploy/prepare', { method: 'POST', body: { ...f.manifest, sourceToken } });
+  assert.equal(prepared.status, 201); responses.push(await prepared.text());
+  for (const [path, bytes] of f.files) {
+    const uploaded = await h.request('/__deploy/releases/' + VERSION + '/' + path, { method: 'PUT', body: bytes });
+    assert.equal(uploaded.status, 201); responses.push(await uploaded.text());
+  }
+  // Make the first CAS lose to an older pointer, exercising the retry path.
+  h.bucket.activeRace = async (key, bucket) => bucket.put(key, JSON.stringify({ version: 'pocket-public-' + '0'.repeat(12), sourceCommit: 'b'.repeat(40), runNumber: 11, runId: '2', runAttempt: 1 }));
+  const activated = await h.request('/__deploy/activate', { method: 'POST', body: { version: VERSION, sourceToken } });
+  assert.equal(activated.status, 200, await activated.clone().text()); responses.push(await activated.text());
+  assert.ok(h.calls.length >= 5, 'prepare, activation and CAS retry all recheck main');
+  for (const call of h.calls) {
+    assert.equal(call.url, 'https://api.github.com/repos/Amlck/mediport-pocket/git/ref/heads/main');
+    assert.equal(call.options.headers.Authorization, 'Bearer ' + sourceToken);
+    assert.equal(call.options.redirect, 'manual');
+  }
+  for (const stored of h.bucket.objects.values()) assert.ok(!new TextDecoder().decode(stored.bytes).includes(sourceToken), 'credential must not enter any R2 object');
+  assert.ok(responses.every(body => !body.includes(sourceToken) && !body.includes('sourceToken')));
+});
+
+test('invalid request-local source credentials are rejected before any outbound call or storage write', async () => {
+  const f = await fixture();
+  for (const sourceToken of [null, true, 42, '', 'token\nsecret', 'token\rsecret', 'token\0secret', 'token secret', 'non-ascii-é', 'x'.repeat(4097)]) {
+    const h = harness();
+    const response = await h.request('/__deploy/prepare', { method: 'POST', body: { ...f.manifest, sourceToken } });
+    assert.equal(response.status, 400); assert.equal((await response.json()).code, 'invalid_source_token');
+    assert.equal(h.calls.length, 0); assert.equal(h.bucket.objects.size, 0);
+    const activation = await h.request('/__deploy/activate', { method: 'POST', body: { version: VERSION, sourceToken } });
+    assert.equal(activation.status, 400); assert.equal((await activation.json()).code, 'invalid_source_token');
+  }
+});
+
+test('production OIDC verification never forwards the GitHub API credential to JWKS or redirected endpoints', async () => {
+  const sourceToken = 'ghs_requestLocalSecretForTestOnly_456';
+  const signed = await token(claims(), { alg: 'RS256', kid: 'source-credential-separate-key' });
+  const calls = [];
+  const worker = createDeploymentWorker({ now: () => NOW + 70000, bootstrap: null, fetchImpl: async (url, options) => {
+    calls.push({ url, options });
+    assert.equal(options.redirect, 'manual');
+    if (url === 'https://token.actions.githubusercontent.com/.well-known/jwks') {
+      assert.equal(options.headers.Authorization, undefined);
+      return new Response(JSON.stringify({ keys: [{ ...jwk, kid: 'source-credential-separate-key' }] }));
+    }
+    assert.equal(url, 'https://api.github.com/repos/Amlck/mediport-pocket/git/ref/heads/main');
+    assert.equal(options.headers.Authorization, 'Bearer ' + sourceToken);
+    return new Response(null, { status: 302, headers: { Location: 'https://attacker.invalid/main' } });
+  } });
+  const f = await fixture(); const bucket = new MemoryBucket();
+  const response = await worker.fetch(new Request(ORIGIN + '/__deploy/prepare', { method: 'POST', headers: { Authorization: 'Bearer ' + signed }, body: JSON.stringify({ ...f.manifest, sourceToken }) }), { BUCKET: bucket });
+  assert.equal(response.status, 503); assert.equal((await response.json()).code, 'source_unavailable');
+  assert.equal(calls.length, 2, 'redirect targets are never followed'); assert.equal(bucket.objects.size, 0);
+});
