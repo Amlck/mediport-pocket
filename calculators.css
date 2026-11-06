@@ -1,0 +1,279 @@
+/* Calculator presentation. Clinical rules and result text live in the engines. */
+.calculator-page .calculator-inputs,
+.calculator-page .calculator-choice,
+.calculator-page .calculator-choices > .seg-row {
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 10px rgba(30, 41, 59, .025);
+  scroll-margin-top: 64px;
+}
+
+.calculator-page .calculator-inputs .card-title {
+  color: var(--ink-2);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: .045em;
+}
+
+.calculator-page .calculator-choices { scroll-margin-top: 64px; }
+.calculator-page .calculator-choices > .seg-row {
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.calculator-page .calculator-choices .seg-label {
+  color: var(--ink-2);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+.calculator-page .calculator-choice .q-label {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.calculator-page .results {
+  gap: 16px;
+  scroll-margin-top: 58px;
+}
+.calculator-result-content { display: grid; gap: 14px; min-width: 0; }
+.calculator-result-content > * { min-width: 0; }
+.calculator-result-state {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  min-height: 48px;
+  padding: 5px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.calculator-result-state p {
+  color: var(--ink-2);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.calculator-result-state.is-stale {
+  border-color: var(--attention);
+  background: color-mix(in srgb, var(--attention-soft) 35%, var(--surface));
+}
+.calculator-result-state.is-stale p { color: var(--attention); }
+.calculator-page .results.stale .calculator-result-content > .timeline,
+.calculator-page .results.stale .calculator-result-content > .conclusion { opacity: .72; }
+.calc-edit-values {
+  min-height: 44px;
+  padding: 0 4px;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.calculator-page .results-head { margin-top: 1px; }
+.calculator-page .results-head h2 {
+  font-size: 1.21875rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -.025em;
+}
+.calculator-page .timeline { gap: 14px; }
+.calculator-page .tcard {
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(30, 41, 59, .025);
+}
+.calculator-page .tcard h3 {
+  font-size: 1rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+.calculator-page .tvalues {
+  color: var(--accent);
+  font-size: 0.84375rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.calculator-page .formula {
+  padding: 7px 9px;
+  border: 0;
+  border-radius: 7px;
+  background: var(--surface-2);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+.calculator-page .branches { gap: 0; }
+.calculator-page .branch {
+  gap: 1px;
+  padding: 7px 9px;
+  border-left: 3px solid transparent;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--ink-2);
+}
+.calculator-page .branch:last-child { border-bottom: 0; }
+.calculator-page .branch .branch-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  color: var(--ink-2);
+  font-size: 0.84375rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.calculator-page .branch .branch-rule {
+  color: var(--ink-3);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+.calculator-page .branch.on {
+  margin: 1px 0;
+  border-left-color: var(--accent);
+  border-bottom-color: transparent;
+  border-radius: 7px;
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+.calculator-page .branch.on + .branch { border-top: 1px solid var(--line); }
+.calculator-page .branch.on .branch-label { color: var(--accent); }
+.calculator-page .branch.on .branch-rule { color: var(--ink-2); }
+.calculator-page .branch-match {
+  flex: none;
+  padding: 3px 6px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  color: var(--accent);
+  font-size: 0.625rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.calculator-page .conclusion {
+  gap: 4px;
+  border: 1px solid var(--line);
+  padding: 12px 14px;
+}
+.calculator-page .conclusion .v { font-size: 1rem; line-height: 1.3; }
+.calculator-page .criteria { gap: 4px; }
+.calculator-page .criterion { border-bottom: 1px solid var(--line); padding-block: 8px; }
+.calculator-page .criterion:last-child { border-bottom: 0; }
+.calculator-page .calc-disclosure > summary { font-size: 0.875rem; }
+.calculator-page .calculator-result-content > .calc-disclosure {
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.calculator-page .calc-source-card { border: 1px solid var(--line); }
+.calculator-page .calc-source-card .body { overflow-wrap: anywhere; }
+
+/* ABG summary sits above the complete primary, compensation and gap branches. */
+.abg-page .abg-summary {
+  display: grid;
+  gap: 0;
+  min-width: 0;
+  padding: 8px 12px 5px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 2px 12px rgba(30, 41, 59, .035);
+}
+.abg-page .abg-summary-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+.abg-page .abg-summary-primary {
+  min-width: 0;
+  color: var(--accent);
+  font-size: clamp(1.125rem, calc(4.8vw * var(--text-scale)), 1.3125rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.025em;
+  overflow-wrap: anywhere;
+}
+.abg-page .abg-summary-head .chip {
+  flex: none;
+  margin-top: 1px;
+  padding: 3px 8px;
+}
+.abg-page .abg-summary-secondary {
+  color: var(--ink-2);
+  font-size: 0.78125rem;
+  font-weight: 700;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+.abg-page .abg-summary-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  min-width: 0;
+}
+.abg-page .abg-summary-assumption {
+  flex: 1 1 160px;
+  min-width: 0;
+  color: var(--ink-3);
+  font-size: 0.71875rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+.abg-page .abg-summary.is-stale {
+  border-color: var(--attention);
+  background: color-mix(in srgb, var(--attention-soft) 35%, var(--surface));
+}
+.abg-page .abg-summary-eyebrow {
+  color: var(--attention);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.abg-page .results.stale .timeline,
+.abg-page .results.stale .conclusion { opacity: .72; }
+
+/* ECG follows the same question, reference, and result rhythm. */
+.ecg-page .ekg-crumbs { gap: 6px; scroll-margin-top: 64px; }
+.ecg-page .ekg-crumbs .chip {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+.ecg-page .ecg-question { border: 1px solid var(--line); scroll-margin-top: 64px; }
+.ecg-page .ecg-progress {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.ecg-page .ecg-question .q-label { font-size: 1.125rem; line-height: 1.3; font-weight: 700; }
+.ecg-page .ecg-question .choice.two-line { border-radius: 10px; min-height: 54px; }
+.ecg-page .ecg-question .choice-sub { line-height: 1.4; }
+.ecg-page .ecg-reference { margin-top: 12px; border-top: 1px solid var(--line); }
+.ecg-page .ekg-ref { padding-block: 9px; }
+.ecg-page .ecg-results { display: grid; }
+.ecg-page .ecg-results .card { border: 1px solid var(--line); }
+.ecg-page .ecg-results .card-title { color: var(--ink-2); }
+.ecg-page .ecg-results .criteria { margin-top: 4px; }
+
+@media (max-width: 350px) {
+  .calculator-page .tstep { gap: 8px; }
+  .calculator-page .tcard { padding: 11px; }
+  .calculator-page .branch { padding-inline: 8px; }
+  .calculator-page .tile { padding-inline: 7px; }
+  .calculator-page .tile input { font-size: 1.125rem; }
+  .abg-page .abg-summary { padding-inline: 11px; }
+  .abg-page .abg-summary-head .chip { font-size: 0.6875rem; padding-inline: 7px; }
+}

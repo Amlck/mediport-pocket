@@ -1,0 +1,906 @@
+{
+  "release": {
+    "version": "pocket-public-e4ae9d3bdab0",
+    "builtAt": "2026-11-06T08:41:43.000Z",
+    "releaseNotes": {
+      "date": "2026-11-06",
+      "label": "Mediport Pocket · public source release",
+      "changes": [
+        "Public self-contained source, tests and contribution guidelines are available on GitHub.",
+        "Verified public NTUH formulary pages may be linked as online sources; captured internal records remain excluded.",
+        "Install from a shared HTTPS link without Tailscale or an app store.",
+        "Calculators, portable guides, drug references and licensed POCUS teaching media download for offline use.",
+        "Hospital catalog records, saved local regimens and guides containing captured hospital material are omitted from this edition.",
+        "ECG illustrations without recorded reuse provenance are omitted; the text-based reading workflow remains available."
+      ]
+    },
+    "profile": "public-share",
+    "publishingApproved": true,
+    "source": {
+      "repository": "https://github.com/Amlck/mediport-pocket",
+      "commit": "4f46a8406a2ea143f08dc4b8e5dac02f22fdb7fa",
+      "tag": "v0.1.1",
+      "packageVersion": "0.1.1",
+      "dirty": false
+    },
+    "clinicalReviewNotice": "Packaging date is not a clinical review date. Original reference review labels and uncertainties are retained.",
+    "references": {
+      "sourceHashes": {
+        "src/app/app.js": "4b1d483b7c94ec54e9d39445b0f73b6196afca6fecc58e66d21cddfa28c01959",
+        "src/app/calculators.css": "9b12d3e7277ca4e9c80cad7275cd74c4db3bfe88abd307613694fd4865234e81",
+        "src/data/reference.json": "e57a70365305122faa21571aeb689fa10fe0b1066cab23ef0a5b3a65f86d6cd1",
+        "src/app/drug-compare.css": "5846db6f1a6380b6de15c6f722d43018921dd9fabf7bcacefe1952af3fa1e889",
+        "src/app/drugs.css": "43db7e19e30754a19922cb627de9f8b43d51f522032be87d927a3e1c99fd043c",
+        "src/app/ekg.css": "38fa5368292d5142c3ba30d42d32410195bfece7563bcccd432623a966e15ffd",
+        "src/app/fluids.css": "26a79a9296909b42a6032da6cba5b9f8d2fd695a41b7c851dda5b3a1e2f9078a",
+        "src/app/guides.css": "ef89c0a11606f74464c7897dc0ae19117a43d8f74aab162cbc45444dbdc91f0e",
+        "src/app/icon-180.png": "3e41fad02da877bf0a2c956616237cc38fcdfbc179f6842e939ffad28cd00548",
+        "src/app/icon-192.png": "b74dfffed0d47f25ac60a229eee42feec32e4618f80f800c357876371cdd8626",
+        "src/app/icon-512.png": "8053c6a615ab57c950661593a7b890d83fec01f796b344f6bd492670d92853ad",
+        "src/app/icon.svg": "b7a300fc87fa4a955237303769edaa9f118da3fcf221b041c53d22a9c454d80a",
+        "src/images/pocus/aorta-aneurysm-thrombus.png": "11c1c3f4e36b13aec2ad9d50565ed9539f4956e38e1384d9741e881af621c11f",
+        "src/images/pocus/bile-duct-measurement.png": "1b79f2bdecdcf07f5cad6ba2a713f2dfb0eed90180a3211d8a54fc8b68179d0c",
+        "src/images/pocus/cardiac-ef-biplane.png": "58f97389ce23e845525449f46d4fbcdd71b2232903da176e6e241e04cc26d115",
+        "src/images/pocus/cardiac-tapse.png": "3e4f5746c0243d30ecd4ec7c4057a5d816ce22ef7b75babaa2f3cf72de714d52",
+        "src/images/pocus/gallbladder-acute-pattern.png": "8bd5385c3067d6880c1a2430a4795d16f5c92d4549b076d1f3d4fa80a6db6141",
+        "src/images/pocus/gallbladder-congestive-wall.png": "eb6732d0b06ffda0f8d98da0bbb29c9d33537e8edf3b7f75a20ce85890bedfa5",
+        "src/images/pocus/gallbladder-normal-wall.png": "c991c7769e3099dc4765d306a4b6491077247dea058faadf9b084a5323289d16",
+        "src/images/pocus/hepatic-normal.png": "641ecf143f23303c5f6cee883fc073519d5bf9a313ea4f446c75b40ba98ff416",
+        "src/images/pocus/hepatic-severe.png": "d64dfa2e7cb6cb43c86700c64def5c66d76b0d22a3603ec00d893bcae89c447a",
+        "src/images/pocus/intrarenal-normal.png": "441e0174e0806c7da23c228bc807b1f8b79592089eb01da8e33d2212d8923e85",
+        "src/images/pocus/intrarenal-severe.png": "6504bddc6154d4d3e056e3f7945434217583f63e4730050f33338ee7f5a430ee",
+        "src/images/pocus/ivc-m-mode.png": "9c34925f2688ffe1ac3e9cff5ea3ae3c6c466112d56dde138fafa86ca9837a22",
+        "src/images/pocus/ivc-respiration.png": "5942ed6ec7c83765ee564793b44baf69965b01d98f2dad7eff69ede1b8b07ed4",
+        "src/images/pocus/lung-a-lines.png": "4f015506e3ee2461b815c3ec3a349ddf3b8b70fbc2c5a6989a6d5374317217ea",
+        "src/images/pocus/lung-b-lines.png": "ec076de549d2785e59983ae68272b4f8357bb7bdf500cbddbb281a6ff8eb2365",
+        "src/images/pocus/lung-consolidation-hepatization.png": "d059319f313906ceb010c53f6399ab0c1c1ebae950587bd34a60f490d660dbfd",
+        "src/images/pocus/lung-point-respiratory.mp4": "fa629c81861e8c5439af7abf3bb92e2c4bc5efc4d38f55fcc601cfd9d44cc2e2",
+        "src/images/pocus/lung-point-respiratory.png": "cd80b6a6d9098dc6238727bf3fb4fcdab20a0e650fbbdbd273510c6197354ef3",
+        "src/images/pocus/lung-pulse-neonatal.mp4": "2e5562952c9a2cc2a88a51ea9e044c6e4e51d42e400b3fed492162f5afa4f357",
+        "src/images/pocus/lung-pulse-neonatal.png": "c9c8c9b21c7b4c5116c81ff5f311f9cceb7d61f31840d1152768e1e229d8a2e8",
+        "src/images/pocus/lung-shred-effusion.png": "1b3b8a5cef91612eb4fd33b2207a8c33a858bf561703c8a58277f09ef55e89c6",
+        "src/images/pocus/lung-sliding-normal.mp4": "3e3dd8ea686a85fcac513b88cb1b8ada9f8bf7156374c35866a7ffe43a777688",
+        "src/images/pocus/lung-sliding-normal.png": "20933b0c0efaa8d0d9f922bcb0e60dd3dd91810e3cb0c45f835dde46d62bba01",
+        "src/images/pocus/pleural-effusion-complex.png": "dfc5e79e2009f314c547cb134ff781cc2f0be6a871526583f65e24615c5d9b31",
+        "src/images/pocus/pleural-effusion-simple.png": "ef6e5603bc05e447ce2cc4cbdd35ae884604fdedee5a8321d4309f4a00d7292c",
+        "src/images/pocus/portal-normal.png": "a82e115bfeef1685ae6322aeebbd5812c1767eedd695f180674e086cd7ee2333",
+        "src/images/pocus/portal-severe.png": "66bf05cb5061030f7f848a2e8ab49e177a7a9ee763db3c7b31d081b58a090149",
+        "src/images/pocus/ptx-barcode-mmode.png": "ac92c7f2cab0dbdde992732761ac65e52a64e5131420b13b009965f8be6afe2d",
+        "src/images/pocus/ptx-lung-point-bmode.png": "16c327fb665298dbf66cc851211f81b7aad87e71770220cfcf443402449fd406",
+        "src/images/pocus/ptx-lung-point-mmode.png": "6e1fc6b982cb3f710e9773287a9ec95c44c4fd448d4bfbaf38a327fe62969945",
+        "src/images/pocus/ptx-seashore-mmode.png": "e7bbe386d508f68cb9f3a8af3468e263234cffba211cabc26a27d63484b8dfe8",
+        "src/images/pocus/renal-acute.png": "90ab4933a949bd3053e71eabd3faf038686173d5ef362a8fad641245acd5c8e9",
+        "src/images/pocus/renal-bright.png": "18f717bea025ac6bcd473fc1ad73b86f9e910ce1d8aaa5b2f6c2d89982c8bcbc",
+        "src/images/pocus/renal-chronic.png": "8b39b6345f772749cee916b923d5eb0f1745daa2b62572721d620a023289572f",
+        "src/images/pocus/renal-cyst.png": "01491fed4bb7188bdd7358ed9ff1ab2f2b139467c7ac01645dd94eef63acbc8f",
+        "src/images/pocus/renal-dilation.png": "423532fdba2ae2d1f57c48dddc110bc4146665e424f2bb05e915d049158669f7",
+        "src/images/pocus/renal-normal.png": "1b577ec26bb38a09931b50f40ac927f5e5267f51190e7f66d15d9ef0c05ce5b9",
+        "src/images/pocus/rush-aorta-aneurysm.png": "3f3651b8a6bf3a70c4af1416a9f609b36878fcb7f0a54d54ecf660a506ebad2c",
+        "src/images/pocus/rush-dvt-failed-compression-poster.png": "90080b80b770dc59d276e7c298a286daff30f3ba4f74d863a1ebfde25bb80ff0",
+        "src/images/pocus/rush-dvt-failed-compression.mp4": "08457efdd1cbb86748c85d89d3d346baa8002248ac8360c2009d4db4bd4c9328",
+        "src/images/pocus/rush-dvt-normal-compression-poster.png": "8dbeef0eb0914289133331fc9babfba95981e5bf2abe1abb481ddef72dd015ab",
+        "src/images/pocus/rush-dvt-normal-compression.mp4": "19714f6ebf65cc35d10100a9d82a068984b3c3ba4d99fae08d41bd2da4f13532",
+        "src/images/pocus/rush-dvt-probe-positions.png": "3cea0a6a8ea9dfafdacad090b7c160b38b8b74c2b42f8a12e9070f06037c21da",
+        "src/images/pocus/rush-dvt-proximal-map.png": "4c3850e9c9f8eea37b9468c4547f8097a92a059c3147bf64b87cd1a8e3c095a1",
+        "src/images/pocus/rush-fast-luq-splenorenal.png": "006325093b7dea68d2ee5a1af6cae81e2bdcb475e995f572673347e7e1163c1d",
+        "src/images/pocus/rush-fast-pelvic-fluid.png": "37607db63c4a86d8d991d4d9ed1522b1044ed755d9f2de05b9797725433c94d5",
+        "src/images/pocus/rush-fast-ruq-fluid.png": "1caf105e1631b4174bde7bd1a12e94fd188c04f0329c0147169c6798c0089d2a",
+        "src/images/pocus/rush-fast-views.png": "efae5023869b3dc662a7dfe75c6dee8933a1e8d850be29d521fbd0fe3deff051",
+        "src/images/pocus/rush-femoral-dvt.png": "082110115e2bd454c335ee2c3f8a8c652130a51089c1c0a1f31f1e8691cc3e88",
+        "src/images/pocus/rush-lv-paired.png": "5e95ec51539ca2a59b36a96aa9954451ee7afb53f82ba8eb6973559dad3d7ef3",
+        "src/images/pocus/rush-pericardial-effusion.png": "87faddc3e80f1a4ebd047c8fb4972b5ad1890a6a3dfafeb74a03cae144ba8a58",
+        "src/images/pocus/rush-rv-enlarged.png": "baeb24965459c5749122658c7f5c65f929adfb99fb6540842f1cec011d3e6030",
+        "src/images/pocus/sfu-grade-four.png": "ab493958e669bdca99f80aaae2474ccffd1442934ace43b29654945f02dbf00f",
+        "src/images/pocus/sfu-grade-one.png": "a3bf6dce1b555dd59b09ded38173bed0dc2341dbc36d27dd9f6747af004a09f3",
+        "src/images/pocus/sfu-grade-three.png": "4933ea7813b29a8ce88b52ef9f932e7f76cbe982b71ef0706d35d055d7aeb033",
+        "src/images/pocus/sfu-grade-two.png": "2e6cf6cb53f5719a4498db603c2040ff21057a52d4e5c2d053ed896143e203a2",
+        "src/images/pocus/sfu-scan-four.png": "f7c3cae020cdf7c740e44a536d8e4f04bfac8a800189c60c0b3ee1f8ea15323d",
+        "src/images/pocus/sfu-scan-one.png": "e8133acb1c51ee51ec373ae6ac20d2af0fa87fb07d8d35c0756b94837b290973",
+        "src/images/pocus/sfu-scan-three.png": "48f62647f8b0bfda243e5cb374e1c58e67891e3e57b7331fb52c2f9b9bafe664",
+        "src/images/pocus/sfu-scan-two.png": "ea72a9acf85c98be42949f4af94c725b08fc37ff436efbe65fbeb754241170c8",
+        "src/app/index.html": "11f6b8f0d95b54c15819fa54f06c672c7a2e62ceb43e1d06f5a04723e9660e90",
+        "src/app/lab-review.css": "5f908cae2d2bb84b6952b5e9c5a335c71de87da1afdf8383ac480e5202b20130",
+        "src/app/lib/boot.js": "b42ac64e047be8ba5dab8bd1b33c2d8385c9762d569e3416f195fa55407b30f0",
+        "src/app/lib/drug-comparison.js": "c6e3f338477a7728be4800c7a63a0d2a74ade3e5ada24db4dfbc16a842fd18b0",
+        "src/app/lib/fluid-contents.js": "e4e284ee3f2c7f9a19ffa0381a77cb842a26869293df7304aba7ffc7709d68ef",
+        "src/app/lib/guide-dose-presentation.js": "f7402d0d094532aa4448f6472489cd4b58b3e64ff30116425e162517c7ad00a0",
+        "src/app/lib/guide-drug-links.js": "1acb0e4233d9b1ce920dbc021e404ebd88c9e3961de4789c42af22961bd31ac3",
+        "src/app/lib/lab-review-extra.js": "9e2832a08f4e26ad327f4226d84130e125acf1cd9f3d4e2e1fe763807f22804e",
+        "src/app/lib/lab-review.js": "51a2525e0cb36e6f41f1bd5cfa379b64fda350f9f73b805b95efac36bc7e8cda",
+        "src/app/lib/mark.js": "eaab45a44b116550ba0bc0f686522959644d9d54eae6f71a5d38a00e9146f24e",
+        "src/app/lib/offline.js": "ffb439a393548e0021888b8d91e8bc28297aa5cb90a76689ff0b6f907d1bbc9b",
+        "src/app/lib/pack-presentation.js": "c0dccd5373f374ac027f3321d74aa42a30f8de279981aeaed3f2e7ad2d17e5ad",
+        "src/app/lib/pocus-atlas.js": "fa8ec6c4b306ad1eb3bb11be0866707b7aca9b1b92b2011bc498d7567ff2f968",
+        "src/app/lib/reference-navigation.js": "3d6101f1d6b13d6f78ec3769d4562393de6dbd9022c82980f5cead3e63677e16",
+        "src/app/lib/search.js": "a19bcab823c933a3b0bbc7efda4d6e2e4090006524e26507f1247feca0261df0",
+        "src/app/lib/session.js": "7ce0a2018893bf5451c6a0f974382b2392a0630aa8f43fefebc426e1bf75dbcd",
+        "src/app/lib/source.js": "309d82b2e2a74ae1ebe770ab03a6f022e29e4367a85aca04b39258eae65d600f",
+        "src/app/lib/theme.js": "3b98edeb8f94423d7b2fe1ffac2540b3401128211443fd5e8c3a08990aaa7920",
+        "src/app/lib/ui.js": "347f9dcd223d4c5a697da3261c2392118084881cedf574fa7ec8323da3be5c16",
+        "src/app/pocus.css": "bc2f3be84d1d7357b25f87c026718d80244f0897e621ef1197e182e8f2671c94",
+        "src/app/refinement.css": "12c47dbb75b7746140bef8375e42b866877c5371a5acaa4b24d507d8eb797880",
+        "src/shared/abg.mjs": "6de96f81aafc8bbd986376b59fd077f00ef2d09461963c55db1adcec6ef638c9",
+        "src/shared/aki-composed.mjs": "a6105c0b5978c6bd1cf05e498a0e5892f537facd1383a6dfbdad2456a83094c9",
+        "src/shared/aki-engine.mjs": "b5751426b6b6b0eb46e67dc7db3686f7c71b4a80d35499350e35226c0ce97337",
+        "src/shared/aki-entry.mjs": "a69433614f105eb793a2fc42484e7d84c33a16798221e48c85d89f0d09e44f61",
+        "src/shared/calculators.mjs": "cedd5dd3047839e2ac0a2cda2378f0e70177ad7ecb1ba1521949c2f54c8d6aa2",
+        "src/shared/delirium-engine.mjs": "2a3c78d45e2febebfecc6c31c8db7d9240ed907e47e8d722b4732d40cbf27f09",
+        "src/shared/glycemic.mjs": "e2331363dece4e868924927eecc57b7b5cb48d75f11561c9c2dc26f9281bd8d2",
+        "src/shared/heart-failure-engine.mjs": "d7cf39520540e334f6734e94b879fc20a7b99121d7b352139045ceba89a9cb6d",
+        "src/shared/hyperkalemia-engine.mjs": "11f08161daec5ba4a12d3f32f01e3e933525bc5d3089d4a2414a74cae9229e34",
+        "src/shared/hypocalcemia-engine.mjs": "5a1f2cb1edb68b820007cd9c24690febc76979b2e2459f9e897d10891ae2848b",
+        "src/shared/hypoglycemia-engine.mjs": "7a3b1aa4e4ee2f7472512ad7e33192a47095d6a7f7f60c13b5dc0ee1f43c723d",
+        "src/shared/hypokalemia-engine.mjs": "8f74f7f15cbdcadda07dd31355b34b7bb5ce3847b463ea2357f7c4dbc53c568c",
+        "src/shared/hypotension-engine.mjs": "aa01f65f4d9b923bb28241c700e48e1a2136030ba03ae3ed2a0ab2132b83c363",
+        "src/shared/lab-review-entry.mjs": "467fa0967eaf61976cf2d66bb09163332d4a539ca69805ae6b36421ab4d7db0c",
+        "src/shared/new-inpatient-fever-engine.mjs": "9b34b028c16123794fda8f9a8064682f285a42ebde859dd7eda4c4cf2a2cacdf",
+        "src/shared/syncope-engine.mjs": "89e582211f14b1544e1e30fc8fb7e229e6713f12e5b654500ceca571b581855f",
+        "src/shared/tachycardia-engine.mjs": "48e190b8c9f6bdc9a2ba38983de9a70a238cc93a7701419f241a9972fa5ffd11",
+        "src/shared/transfusion-reaction-engine.mjs": "529382c96487334410b83027b7645e0eb399c0a08fdd9f26b4a2d96698a66c92",
+        "src/app/style.css": "155b22a2a5cd2124ceefe15f4b56ddf01a21e1f475b72277f9da7bab50091802",
+        "src/app/views/abg.js": "4d9f084710efbb4f3c26ef2e8694b7201e37e401ffcce01626a31f60768cf15e",
+        "src/app/views/calc-bedside.js": "0b98588bab023d97b4f32f9a32ebe4c99beadf1dff0388a6a24515503bc16dc4",
+        "src/app/views/calc-chem.js": "227d5f7f538df79a5bc78c4a90d45132bb9c0c145032cd001071289a4562e416",
+        "src/app/views/calc-heme.js": "b4eb43093d75028de6b2f89e3cd26ee71b217aeb3bd9fe3d22e3d70fe64b31cc",
+        "src/app/views/calc-kidney.js": "8edde1920141b24fbf428a656200c7f62b88eafc78d7d976cb5df1a000649285",
+        "src/app/views/calc-parts.js": "76474c3fbfb40778f21bef8e4eabdb2104fbb96262c3552581fa654d5f5bb662",
+        "src/app/views/calc-renal.js": "f48483a6d796482b6c3d36b2b5d936bfd3d7d24fa259894ad2ddeb3d8ed2b8b3",
+        "src/app/views/calc-scores.js": "68c9cdfab3aca8a622858d60cea4678fe4cfa9a4d443da2b0d415b294b7114d2",
+        "src/app/views/calc-steroid.js": "5c12e96fc18dc8bb155c1fa7facbb35a6f8ec377d9c6a061ee9321fe7a550206",
+        "src/app/views/calc-vitals.js": "20eccfcc9de32d704f2f602408007526494345ff5532fbbb373050fae3261fda",
+        "src/app/views/calculators.js": "a5c1e4283c92a95b1a123ede444d72bc20b8bb12ea39de00f0191438fd5e2d41",
+        "src/app/views/drug-compare.js": "9bbaa8dfde53546daacec0a216b07f54a09100ca23235f5e033724e3dfdfce42",
+        "src/app/views/drugs.js": "ff754a1a0801764e86be27eaca6d9116b7a92a723b0615c6250ebe503112b2f0",
+        "src/app/views/ekg.js": "06cf295b17a09d124586e85fbdb2a2b1b8fd7f4e6ee5e06eae3779ce7d7b8683",
+        "src/app/views/fluid-parts.js": "c248fa2d672331ce33d3e5bfb9be99c9c1820ce6260a7b032ac81295629b6cbd",
+        "src/app/views/fluids.js": "cafca2b8be319b77d6bda1a64724229d8e43c69bcc4d850d3ab9fb48c437b89d",
+        "src/app/views/guides.js": "fc3726e5ca81312efeec77a8e9a02023734e34b3b7701638c8c4b42e197e337f",
+        "src/app/views/home.js": "475a034ee4bd25b2b2fcda108a29540fe3bb6ad161916b2d35572bfb559f473b",
+        "src/app/views/install.js": "d80350b10a75c6062943acc29c44a85ff7bbc996724a9f99cab381eea7a36ed3",
+        "src/app/views/lab-review.js": "8d115a94e2fd9fbd7439d5977d8dfea7a4bec8bfb5aeeb42533c79292eb13dd5",
+        "src/app/views/pack.js": "fd162da937b0956db3c50361b157d5352ace1f2bd668041dd5f9dbb92b785cc4",
+        "src/app/views/pocus.js": "ae75dba5ba7985bae7a028460739c5eb959d4d749b770416155bad8fe3f667b5",
+        "src/app/views/search.js": "fbcd16b89496315d1f791ebb1135ad2b3c4c542840cf7c649c60e6f181709900",
+        "src/sw-template.js": "aebc7706c40ff1af4e87f65b2aceec2ccc4b8627d9f0fce81c0155066f6398b2",
+        "src/byte-range.mjs": "4a34287d708a9b9404fcd97df4f0ba785fa888cff193f3dc98e3d3648b51f067"
+      },
+      "drugCount": 175,
+      "guideCount": 12,
+      "pocusCount": 7,
+      "guides": [
+        {
+          "id": "delirium",
+          "title": "Delirium / acute confusional state",
+          "reviewedAt": "2026-09-19",
+          "localRowCount": 0
+        },
+        {
+          "id": "transfusion-reaction",
+          "title": "Acute Transfusion Reaction",
+          "reviewedAt": "2026-09-19",
+          "localRowCount": 0
+        },
+        {
+          "id": "heart-failure",
+          "title": "Heart Failure",
+          "reviewedAt": "2026-09-19",
+          "localRowCount": 0
+        },
+        {
+          "id": "syncope",
+          "title": "Syncope",
+          "reviewedAt": "2026-09-19",
+          "localRowCount": 0
+        },
+        {
+          "id": "tachycardia-with-pulse",
+          "title": "Tachycardia With a Pulse",
+          "reviewedAt": "2026-09-17",
+          "localRowCount": 0
+        },
+        {
+          "id": "hyperkalemia",
+          "title": "Hyperkalemia",
+          "reviewedAt": "2026-09-09",
+          "localRowCount": 0
+        },
+        {
+          "id": "hypoglycemia",
+          "title": "Hypoglycemia",
+          "reviewedAt": "2026-09-15",
+          "localRowCount": 0
+        },
+        {
+          "id": "hypokalemia",
+          "title": "Hypokalemia",
+          "reviewedAt": "2026-09-15",
+          "localRowCount": 0
+        },
+        {
+          "id": "aki",
+          "title": "Acute Kidney Injury",
+          "reviewedAt": "2026-09-15",
+          "localRowCount": 0
+        },
+        {
+          "id": "hypocalcemia",
+          "title": "Hypocalcemia",
+          "reviewedAt": "2026-09-15",
+          "localRowCount": 0
+        },
+        {
+          "id": "hypotension",
+          "title": "Acute Hypotension",
+          "reviewedAt": "2026-09-15",
+          "localRowCount": 0
+        },
+        {
+          "id": "new-inpatient-fever",
+          "title": "New Inpatient Fever",
+          "reviewedAt": "2026-09-15",
+          "localRowCount": 0
+        }
+      ],
+      "excludedGuides": [
+        {
+          "id": "acute-stroke",
+          "title": "Acute Stroke / Focal Neuro Deficit",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "status-epilepticus",
+          "title": "Seizure / Status Epilepticus",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "acute-agitation",
+          "title": "Acute Agitation",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "systemic-corticosteroids",
+          "title": "Systemic Corticosteroids",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "gi-bleed",
+          "title": "Acute GI Bleeding",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "anticoagulant-bleeding",
+          "title": "Anticoagulant-Related Bleeding",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "hypertensive-emergency",
+          "title": "Severely Elevated Blood Pressure",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "acute-chest-pain-acs",
+          "title": "Acute Chest Pain / Possible ACS",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "atrial-fibrillation-rvr",
+          "title": "Atrial Fibrillation with RVR",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "bradycardia",
+          "title": "Bradycardia With a Pulse",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "acute-severe-asthma",
+          "title": "Acute Severe Asthma",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "anaphylaxis",
+          "title": "Anaphylaxis",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "acute-hypoxemia-dyspnea",
+          "title": "Acute Hypoxemia / Dyspnea",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "hyponatremia",
+          "title": "Hyponatremia",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "hypercalcemia",
+          "title": "Hypercalcemia",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "hypomagnesemia",
+          "title": "Hypomagnesemia",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "hypermagnesemia",
+          "title": "Hypermagnesemia",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "hypernatremia",
+          "title": "Hypernatremia",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "dka-hhs",
+          "title": "DKA / HHS",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        },
+        {
+          "id": "sepsis-septic-shock",
+          "title": "Sepsis / Septic Shock",
+          "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
+        }
+      ],
+      "omittedReferenceCount": 0,
+      "omittedReferencesByReason": {}
+    }
+  },
+  "assets": [
+    {
+      "path": "app.js",
+      "sha256": "4b1d483b7c94ec54e9d39445b0f73b6196afca6fecc58e66d21cddfa28c01959"
+    },
+    {
+      "path": "calculators.css",
+      "sha256": "9b12d3e7277ca4e9c80cad7275cd74c4db3bfe88abd307613694fd4865234e81"
+    },
+    {
+      "path": "data/reference.json",
+      "sha256": "e57a70365305122faa21571aeb689fa10fe0b1066cab23ef0a5b3a65f86d6cd1"
+    },
+    {
+      "path": "drug-compare.css",
+      "sha256": "5846db6f1a6380b6de15c6f722d43018921dd9fabf7bcacefe1952af3fa1e889"
+    },
+    {
+      "path": "drugs.css",
+      "sha256": "43db7e19e30754a19922cb627de9f8b43d51f522032be87d927a3e1c99fd043c"
+    },
+    {
+      "path": "ekg.css",
+      "sha256": "38fa5368292d5142c3ba30d42d32410195bfece7563bcccd432623a966e15ffd"
+    },
+    {
+      "path": "fluids.css",
+      "sha256": "26a79a9296909b42a6032da6cba5b9f8d2fd695a41b7c851dda5b3a1e2f9078a"
+    },
+    {
+      "path": "guides.css",
+      "sha256": "ef89c0a11606f74464c7897dc0ae19117a43d8f74aab162cbc45444dbdc91f0e"
+    },
+    {
+      "path": "icon-180.png",
+      "sha256": "3e41fad02da877bf0a2c956616237cc38fcdfbc179f6842e939ffad28cd00548"
+    },
+    {
+      "path": "icon-192.png",
+      "sha256": "b74dfffed0d47f25ac60a229eee42feec32e4618f80f800c357876371cdd8626"
+    },
+    {
+      "path": "icon-512.png",
+      "sha256": "8053c6a615ab57c950661593a7b890d83fec01f796b344f6bd492670d92853ad"
+    },
+    {
+      "path": "icon.svg",
+      "sha256": "b7a300fc87fa4a955237303769edaa9f118da3fcf221b041c53d22a9c454d80a"
+    },
+    {
+      "path": "images/pocus/aorta-aneurysm-thrombus.png",
+      "sha256": "11c1c3f4e36b13aec2ad9d50565ed9539f4956e38e1384d9741e881af621c11f"
+    },
+    {
+      "path": "images/pocus/bile-duct-measurement.png",
+      "sha256": "1b79f2bdecdcf07f5cad6ba2a713f2dfb0eed90180a3211d8a54fc8b68179d0c"
+    },
+    {
+      "path": "images/pocus/cardiac-ef-biplane.png",
+      "sha256": "58f97389ce23e845525449f46d4fbcdd71b2232903da176e6e241e04cc26d115"
+    },
+    {
+      "path": "images/pocus/cardiac-tapse.png",
+      "sha256": "3e4f5746c0243d30ecd4ec7c4057a5d816ce22ef7b75babaa2f3cf72de714d52"
+    },
+    {
+      "path": "images/pocus/gallbladder-acute-pattern.png",
+      "sha256": "8bd5385c3067d6880c1a2430a4795d16f5c92d4549b076d1f3d4fa80a6db6141"
+    },
+    {
+      "path": "images/pocus/gallbladder-congestive-wall.png",
+      "sha256": "eb6732d0b06ffda0f8d98da0bbb29c9d33537e8edf3b7f75a20ce85890bedfa5"
+    },
+    {
+      "path": "images/pocus/gallbladder-normal-wall.png",
+      "sha256": "c991c7769e3099dc4765d306a4b6491077247dea058faadf9b084a5323289d16"
+    },
+    {
+      "path": "images/pocus/hepatic-normal.png",
+      "sha256": "641ecf143f23303c5f6cee883fc073519d5bf9a313ea4f446c75b40ba98ff416"
+    },
+    {
+      "path": "images/pocus/hepatic-severe.png",
+      "sha256": "d64dfa2e7cb6cb43c86700c64def5c66d76b0d22a3603ec00d893bcae89c447a"
+    },
+    {
+      "path": "images/pocus/intrarenal-normal.png",
+      "sha256": "441e0174e0806c7da23c228bc807b1f8b79592089eb01da8e33d2212d8923e85"
+    },
+    {
+      "path": "images/pocus/intrarenal-severe.png",
+      "sha256": "6504bddc6154d4d3e056e3f7945434217583f63e4730050f33338ee7f5a430ee"
+    },
+    {
+      "path": "images/pocus/ivc-m-mode.png",
+      "sha256": "9c34925f2688ffe1ac3e9cff5ea3ae3c6c466112d56dde138fafa86ca9837a22"
+    },
+    {
+      "path": "images/pocus/ivc-respiration.png",
+      "sha256": "5942ed6ec7c83765ee564793b44baf69965b01d98f2dad7eff69ede1b8b07ed4"
+    },
+    {
+      "path": "images/pocus/lung-a-lines.png",
+      "sha256": "4f015506e3ee2461b815c3ec3a349ddf3b8b70fbc2c5a6989a6d5374317217ea"
+    },
+    {
+      "path": "images/pocus/lung-b-lines.png",
+      "sha256": "ec076de549d2785e59983ae68272b4f8357bb7bdf500cbddbb281a6ff8eb2365"
+    },
+    {
+      "path": "images/pocus/lung-consolidation-hepatization.png",
+      "sha256": "d059319f313906ceb010c53f6399ab0c1c1ebae950587bd34a60f490d660dbfd"
+    },
+    {
+      "path": "images/pocus/lung-point-respiratory.mp4",
+      "sha256": "fa629c81861e8c5439af7abf3bb92e2c4bc5efc4d38f55fcc601cfd9d44cc2e2"
+    },
+    {
+      "path": "images/pocus/lung-point-respiratory.png",
+      "sha256": "cd80b6a6d9098dc6238727bf3fb4fcdab20a0e650fbbdbd273510c6197354ef3"
+    },
+    {
+      "path": "images/pocus/lung-pulse-neonatal.mp4",
+      "sha256": "2e5562952c9a2cc2a88a51ea9e044c6e4e51d42e400b3fed492162f5afa4f357"
+    },
+    {
+      "path": "images/pocus/lung-pulse-neonatal.png",
+      "sha256": "c9c8c9b21c7b4c5116c81ff5f311f9cceb7d61f31840d1152768e1e229d8a2e8"
+    },
+    {
+      "path": "images/pocus/lung-shred-effusion.png",
+      "sha256": "1b3b8a5cef91612eb4fd33b2207a8c33a858bf561703c8a58277f09ef55e89c6"
+    },
+    {
+      "path": "images/pocus/lung-sliding-normal.mp4",
+      "sha256": "3e3dd8ea686a85fcac513b88cb1b8ada9f8bf7156374c35866a7ffe43a777688"
+    },
+    {
+      "path": "images/pocus/lung-sliding-normal.png",
+      "sha256": "20933b0c0efaa8d0d9f922bcb0e60dd3dd91810e3cb0c45f835dde46d62bba01"
+    },
+    {
+      "path": "images/pocus/pleural-effusion-complex.png",
+      "sha256": "dfc5e79e2009f314c547cb134ff781cc2f0be6a871526583f65e24615c5d9b31"
+    },
+    {
+      "path": "images/pocus/pleural-effusion-simple.png",
+      "sha256": "ef6e5603bc05e447ce2cc4cbdd35ae884604fdedee5a8321d4309f4a00d7292c"
+    },
+    {
+      "path": "images/pocus/portal-normal.png",
+      "sha256": "a82e115bfeef1685ae6322aeebbd5812c1767eedd695f180674e086cd7ee2333"
+    },
+    {
+      "path": "images/pocus/portal-severe.png",
+      "sha256": "66bf05cb5061030f7f848a2e8ab49e177a7a9ee763db3c7b31d081b58a090149"
+    },
+    {
+      "path": "images/pocus/ptx-barcode-mmode.png",
+      "sha256": "ac92c7f2cab0dbdde992732761ac65e52a64e5131420b13b009965f8be6afe2d"
+    },
+    {
+      "path": "images/pocus/ptx-lung-point-bmode.png",
+      "sha256": "16c327fb665298dbf66cc851211f81b7aad87e71770220cfcf443402449fd406"
+    },
+    {
+      "path": "images/pocus/ptx-lung-point-mmode.png",
+      "sha256": "6e1fc6b982cb3f710e9773287a9ec95c44c4fd448d4bfbaf38a327fe62969945"
+    },
+    {
+      "path": "images/pocus/ptx-seashore-mmode.png",
+      "sha256": "e7bbe386d508f68cb9f3a8af3468e263234cffba211cabc26a27d63484b8dfe8"
+    },
+    {
+      "path": "images/pocus/renal-acute.png",
+      "sha256": "90ab4933a949bd3053e71eabd3faf038686173d5ef362a8fad641245acd5c8e9"
+    },
+    {
+      "path": "images/pocus/renal-bright.png",
+      "sha256": "18f717bea025ac6bcd473fc1ad73b86f9e910ce1d8aaa5b2f6c2d89982c8bcbc"
+    },
+    {
+      "path": "images/pocus/renal-chronic.png",
+      "sha256": "8b39b6345f772749cee916b923d5eb0f1745daa2b62572721d620a023289572f"
+    },
+    {
+      "path": "images/pocus/renal-cyst.png",
+      "sha256": "01491fed4bb7188bdd7358ed9ff1ab2f2b139467c7ac01645dd94eef63acbc8f"
+    },
+    {
+      "path": "images/pocus/renal-dilation.png",
+      "sha256": "423532fdba2ae2d1f57c48dddc110bc4146665e424f2bb05e915d049158669f7"
+    },
+    {
+      "path": "images/pocus/renal-normal.png",
+      "sha256": "1b577ec26bb38a09931b50f40ac927f5e5267f51190e7f66d15d9ef0c05ce5b9"
+    },
+    {
+      "path": "images/pocus/rush-aorta-aneurysm.png",
+      "sha256": "3f3651b8a6bf3a70c4af1416a9f609b36878fcb7f0a54d54ecf660a506ebad2c"
+    },
+    {
+      "path": "images/pocus/rush-dvt-failed-compression-poster.png",
+      "sha256": "90080b80b770dc59d276e7c298a286daff30f3ba4f74d863a1ebfde25bb80ff0"
+    },
+    {
+      "path": "images/pocus/rush-dvt-failed-compression.mp4",
+      "sha256": "08457efdd1cbb86748c85d89d3d346baa8002248ac8360c2009d4db4bd4c9328"
+    },
+    {
+      "path": "images/pocus/rush-dvt-normal-compression-poster.png",
+      "sha256": "8dbeef0eb0914289133331fc9babfba95981e5bf2abe1abb481ddef72dd015ab"
+    },
+    {
+      "path": "images/pocus/rush-dvt-normal-compression.mp4",
+      "sha256": "19714f6ebf65cc35d10100a9d82a068984b3c3ba4d99fae08d41bd2da4f13532"
+    },
+    {
+      "path": "images/pocus/rush-dvt-probe-positions.png",
+      "sha256": "3cea0a6a8ea9dfafdacad090b7c160b38b8b74c2b42f8a12e9070f06037c21da"
+    },
+    {
+      "path": "images/pocus/rush-dvt-proximal-map.png",
+      "sha256": "4c3850e9c9f8eea37b9468c4547f8097a92a059c3147bf64b87cd1a8e3c095a1"
+    },
+    {
+      "path": "images/pocus/rush-fast-luq-splenorenal.png",
+      "sha256": "006325093b7dea68d2ee5a1af6cae81e2bdcb475e995f572673347e7e1163c1d"
+    },
+    {
+      "path": "images/pocus/rush-fast-pelvic-fluid.png",
+      "sha256": "37607db63c4a86d8d991d4d9ed1522b1044ed755d9f2de05b9797725433c94d5"
+    },
+    {
+      "path": "images/pocus/rush-fast-ruq-fluid.png",
+      "sha256": "1caf105e1631b4174bde7bd1a12e94fd188c04f0329c0147169c6798c0089d2a"
+    },
+    {
+      "path": "images/pocus/rush-fast-views.png",
+      "sha256": "efae5023869b3dc662a7dfe75c6dee8933a1e8d850be29d521fbd0fe3deff051"
+    },
+    {
+      "path": "images/pocus/rush-femoral-dvt.png",
+      "sha256": "082110115e2bd454c335ee2c3f8a8c652130a51089c1c0a1f31f1e8691cc3e88"
+    },
+    {
+      "path": "images/pocus/rush-lv-paired.png",
+      "sha256": "5e95ec51539ca2a59b36a96aa9954451ee7afb53f82ba8eb6973559dad3d7ef3"
+    },
+    {
+      "path": "images/pocus/rush-pericardial-effusion.png",
+      "sha256": "87faddc3e80f1a4ebd047c8fb4972b5ad1890a6a3dfafeb74a03cae144ba8a58"
+    },
+    {
+      "path": "images/pocus/rush-rv-enlarged.png",
+      "sha256": "baeb24965459c5749122658c7f5c65f929adfb99fb6540842f1cec011d3e6030"
+    },
+    {
+      "path": "images/pocus/sfu-grade-four.png",
+      "sha256": "ab493958e669bdca99f80aaae2474ccffd1442934ace43b29654945f02dbf00f"
+    },
+    {
+      "path": "images/pocus/sfu-grade-one.png",
+      "sha256": "a3bf6dce1b555dd59b09ded38173bed0dc2341dbc36d27dd9f6747af004a09f3"
+    },
+    {
+      "path": "images/pocus/sfu-grade-three.png",
+      "sha256": "4933ea7813b29a8ce88b52ef9f932e7f76cbe982b71ef0706d35d055d7aeb033"
+    },
+    {
+      "path": "images/pocus/sfu-grade-two.png",
+      "sha256": "2e6cf6cb53f5719a4498db603c2040ff21057a52d4e5c2d053ed896143e203a2"
+    },
+    {
+      "path": "images/pocus/sfu-scan-four.png",
+      "sha256": "f7c3cae020cdf7c740e44a536d8e4f04bfac8a800189c60c0b3ee1f8ea15323d"
+    },
+    {
+      "path": "images/pocus/sfu-scan-one.png",
+      "sha256": "e8133acb1c51ee51ec373ae6ac20d2af0fa87fb07d8d35c0756b94837b290973"
+    },
+    {
+      "path": "images/pocus/sfu-scan-three.png",
+      "sha256": "48f62647f8b0bfda243e5cb374e1c58e67891e3e57b7331fb52c2f9b9bafe664"
+    },
+    {
+      "path": "images/pocus/sfu-scan-two.png",
+      "sha256": "ea72a9acf85c98be42949f4af94c725b08fc37ff436efbe65fbeb754241170c8"
+    },
+    {
+      "path": "index.html",
+      "sha256": "11f6b8f0d95b54c15819fa54f06c672c7a2e62ceb43e1d06f5a04723e9660e90"
+    },
+    {
+      "path": "lab-review.css",
+      "sha256": "5f908cae2d2bb84b6952b5e9c5a335c71de87da1afdf8383ac480e5202b20130"
+    },
+    {
+      "path": "lib/boot.js",
+      "sha256": "b42ac64e047be8ba5dab8bd1b33c2d8385c9762d569e3416f195fa55407b30f0"
+    },
+    {
+      "path": "lib/drug-comparison.js",
+      "sha256": "c6e3f338477a7728be4800c7a63a0d2a74ade3e5ada24db4dfbc16a842fd18b0"
+    },
+    {
+      "path": "lib/fluid-contents.js",
+      "sha256": "e4e284ee3f2c7f9a19ffa0381a77cb842a26869293df7304aba7ffc7709d68ef"
+    },
+    {
+      "path": "lib/guide-dose-presentation.js",
+      "sha256": "f7402d0d094532aa4448f6472489cd4b58b3e64ff30116425e162517c7ad00a0"
+    },
+    {
+      "path": "lib/guide-drug-links.js",
+      "sha256": "1acb0e4233d9b1ce920dbc021e404ebd88c9e3961de4789c42af22961bd31ac3"
+    },
+    {
+      "path": "lib/lab-review-extra.js",
+      "sha256": "9e2832a08f4e26ad327f4226d84130e125acf1cd9f3d4e2e1fe763807f22804e"
+    },
+    {
+      "path": "lib/lab-review.js",
+      "sha256": "51a2525e0cb36e6f41f1bd5cfa379b64fda350f9f73b805b95efac36bc7e8cda"
+    },
+    {
+      "path": "lib/mark.js",
+      "sha256": "eaab45a44b116550ba0bc0f686522959644d9d54eae6f71a5d38a00e9146f24e"
+    },
+    {
+      "path": "lib/offline.js",
+      "sha256": "ffb439a393548e0021888b8d91e8bc28297aa5cb90a76689ff0b6f907d1bbc9b"
+    },
+    {
+      "path": "lib/pack-presentation.js",
+      "sha256": "c0dccd5373f374ac027f3321d74aa42a30f8de279981aeaed3f2e7ad2d17e5ad"
+    },
+    {
+      "path": "lib/pocus-atlas.js",
+      "sha256": "fa8ec6c4b306ad1eb3bb11be0866707b7aca9b1b92b2011bc498d7567ff2f968"
+    },
+    {
+      "path": "lib/reference-navigation.js",
+      "sha256": "3d6101f1d6b13d6f78ec3769d4562393de6dbd9022c82980f5cead3e63677e16"
+    },
+    {
+      "path": "lib/search.js",
+      "sha256": "a19bcab823c933a3b0bbc7efda4d6e2e4090006524e26507f1247feca0261df0"
+    },
+    {
+      "path": "lib/session.js",
+      "sha256": "7ce0a2018893bf5451c6a0f974382b2392a0630aa8f43fefebc426e1bf75dbcd"
+    },
+    {
+      "path": "lib/source.js",
+      "sha256": "309d82b2e2a74ae1ebe770ab03a6f022e29e4367a85aca04b39258eae65d600f"
+    },
+    {
+      "path": "lib/theme.js",
+      "sha256": "3b98edeb8f94423d7b2fe1ffac2540b3401128211443fd5e8c3a08990aaa7920"
+    },
+    {
+      "path": "lib/ui.js",
+      "sha256": "347f9dcd223d4c5a697da3261c2392118084881cedf574fa7ec8323da3be5c16"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "sha256": "358649dd555240d5a9a6341f6841836081516ef4d576ed366503300cfb118d9a"
+    },
+    {
+      "path": "offline-shell.txt",
+      "sha256": "11f6b8f0d95b54c15819fa54f06c672c7a2e62ceb43e1d06f5a04723e9660e90"
+    },
+    {
+      "path": "pocus.css",
+      "sha256": "bc2f3be84d1d7357b25f87c026718d80244f0897e621ef1197e182e8f2671c94"
+    },
+    {
+      "path": "refinement.css",
+      "sha256": "12c47dbb75b7746140bef8375e42b866877c5371a5acaa4b24d507d8eb797880"
+    },
+    {
+      "path": "shared/abg.mjs",
+      "sha256": "6de96f81aafc8bbd986376b59fd077f00ef2d09461963c55db1adcec6ef638c9"
+    },
+    {
+      "path": "shared/aki-composed.mjs",
+      "sha256": "a6105c0b5978c6bd1cf05e498a0e5892f537facd1383a6dfbdad2456a83094c9"
+    },
+    {
+      "path": "shared/aki-engine.mjs",
+      "sha256": "b5751426b6b6b0eb46e67dc7db3686f7c71b4a80d35499350e35226c0ce97337"
+    },
+    {
+      "path": "shared/aki-entry.mjs",
+      "sha256": "a69433614f105eb793a2fc42484e7d84c33a16798221e48c85d89f0d09e44f61"
+    },
+    {
+      "path": "shared/calculators.mjs",
+      "sha256": "cedd5dd3047839e2ac0a2cda2378f0e70177ad7ecb1ba1521949c2f54c8d6aa2"
+    },
+    {
+      "path": "shared/delirium-engine.mjs",
+      "sha256": "2a3c78d45e2febebfecc6c31c8db7d9240ed907e47e8d722b4732d40cbf27f09"
+    },
+    {
+      "path": "shared/glycemic.mjs",
+      "sha256": "e2331363dece4e868924927eecc57b7b5cb48d75f11561c9c2dc26f9281bd8d2"
+    },
+    {
+      "path": "shared/heart-failure-engine.mjs",
+      "sha256": "d7cf39520540e334f6734e94b879fc20a7b99121d7b352139045ceba89a9cb6d"
+    },
+    {
+      "path": "shared/hyperkalemia-engine.mjs",
+      "sha256": "11f08161daec5ba4a12d3f32f01e3e933525bc5d3089d4a2414a74cae9229e34"
+    },
+    {
+      "path": "shared/hypocalcemia-engine.mjs",
+      "sha256": "5a1f2cb1edb68b820007cd9c24690febc76979b2e2459f9e897d10891ae2848b"
+    },
+    {
+      "path": "shared/hypoglycemia-engine.mjs",
+      "sha256": "7a3b1aa4e4ee2f7472512ad7e33192a47095d6a7f7f60c13b5dc0ee1f43c723d"
+    },
+    {
+      "path": "shared/hypokalemia-engine.mjs",
+      "sha256": "8f74f7f15cbdcadda07dd31355b34b7bb5ce3847b463ea2357f7c4dbc53c568c"
+    },
+    {
+      "path": "shared/hypotension-engine.mjs",
+      "sha256": "aa01f65f4d9b923bb28241c700e48e1a2136030ba03ae3ed2a0ab2132b83c363"
+    },
+    {
+      "path": "shared/lab-review-entry.mjs",
+      "sha256": "467fa0967eaf61976cf2d66bb09163332d4a539ca69805ae6b36421ab4d7db0c"
+    },
+    {
+      "path": "shared/new-inpatient-fever-engine.mjs",
+      "sha256": "9b34b028c16123794fda8f9a8064682f285a42ebde859dd7eda4c4cf2a2cacdf"
+    },
+    {
+      "path": "shared/syncope-engine.mjs",
+      "sha256": "89e582211f14b1544e1e30fc8fb7e229e6713f12e5b654500ceca571b581855f"
+    },
+    {
+      "path": "shared/tachycardia-engine.mjs",
+      "sha256": "48e190b8c9f6bdc9a2ba38983de9a70a238cc93a7701419f241a9972fa5ffd11"
+    },
+    {
+      "path": "shared/transfusion-reaction-engine.mjs",
+      "sha256": "529382c96487334410b83027b7645e0eb399c0a08fdd9f26b4a2d96698a66c92"
+    },
+    {
+      "path": "style.css",
+      "sha256": "155b22a2a5cd2124ceefe15f4b56ddf01a21e1f475b72277f9da7bab50091802"
+    },
+    {
+      "path": "views/abg.js",
+      "sha256": "4d9f084710efbb4f3c26ef2e8694b7201e37e401ffcce01626a31f60768cf15e"
+    },
+    {
+      "path": "views/calc-bedside.js",
+      "sha256": "0b98588bab023d97b4f32f9a32ebe4c99beadf1dff0388a6a24515503bc16dc4"
+    },
+    {
+      "path": "views/calc-chem.js",
+      "sha256": "227d5f7f538df79a5bc78c4a90d45132bb9c0c145032cd001071289a4562e416"
+    },
+    {
+      "path": "views/calc-heme.js",
+      "sha256": "b4eb43093d75028de6b2f89e3cd26ee71b217aeb3bd9fe3d22e3d70fe64b31cc"
+    },
+    {
+      "path": "views/calc-kidney.js",
+      "sha256": "8edde1920141b24fbf428a656200c7f62b88eafc78d7d976cb5df1a000649285"
+    },
+    {
+      "path": "views/calc-parts.js",
+      "sha256": "76474c3fbfb40778f21bef8e4eabdb2104fbb96262c3552581fa654d5f5bb662"
+    },
+    {
+      "path": "views/calc-renal.js",
+      "sha256": "f48483a6d796482b6c3d36b2b5d936bfd3d7d24fa259894ad2ddeb3d8ed2b8b3"
+    },
+    {
+      "path": "views/calc-scores.js",
+      "sha256": "68c9cdfab3aca8a622858d60cea4678fe4cfa9a4d443da2b0d415b294b7114d2"
+    },
+    {
+      "path": "views/calc-steroid.js",
+      "sha256": "5c12e96fc18dc8bb155c1fa7facbb35a6f8ec377d9c6a061ee9321fe7a550206"
+    },
+    {
+      "path": "views/calc-vitals.js",
+      "sha256": "20eccfcc9de32d704f2f602408007526494345ff5532fbbb373050fae3261fda"
+    },
+    {
+      "path": "views/calculators.js",
+      "sha256": "a5c1e4283c92a95b1a123ede444d72bc20b8bb12ea39de00f0191438fd5e2d41"
+    },
+    {
+      "path": "views/drug-compare.js",
+      "sha256": "9bbaa8dfde53546daacec0a216b07f54a09100ca23235f5e033724e3dfdfce42"
+    },
+    {
+      "path": "views/drugs.js",
+      "sha256": "ff754a1a0801764e86be27eaca6d9116b7a92a723b0615c6250ebe503112b2f0"
+    },
+    {
+      "path": "views/ekg.js",
+      "sha256": "06cf295b17a09d124586e85fbdb2a2b1b8fd7f4e6ee5e06eae3779ce7d7b8683"
+    },
+    {
+      "path": "views/fluid-parts.js",
+      "sha256": "c248fa2d672331ce33d3e5bfb9be99c9c1820ce6260a7b032ac81295629b6cbd"
+    },
+    {
+      "path": "views/fluids.js",
+      "sha256": "cafca2b8be319b77d6bda1a64724229d8e43c69bcc4d850d3ab9fb48c437b89d"
+    },
+    {
+      "path": "views/guides.js",
+      "sha256": "fc3726e5ca81312efeec77a8e9a02023734e34b3b7701638c8c4b42e197e337f"
+    },
+    {
+      "path": "views/home.js",
+      "sha256": "475a034ee4bd25b2b2fcda108a29540fe3bb6ad161916b2d35572bfb559f473b"
+    },
+    {
+      "path": "views/install.js",
+      "sha256": "d80350b10a75c6062943acc29c44a85ff7bbc996724a9f99cab381eea7a36ed3"
+    },
+    {
+      "path": "views/lab-review.js",
+      "sha256": "8d115a94e2fd9fbd7439d5977d8dfea7a4bec8bfb5aeeb42533c79292eb13dd5"
+    },
+    {
+      "path": "views/pack.js",
+      "sha256": "fd162da937b0956db3c50361b157d5352ace1f2bd668041dd5f9dbb92b785cc4"
+    },
+    {
+      "path": "views/pocus.js",
+      "sha256": "ae75dba5ba7985bae7a028460739c5eb959d4d749b770416155bad8fe3f667b5"
+    },
+    {
+      "path": "views/search.js",
+      "sha256": "fbcd16b89496315d1f791ebb1135ad2b3c4c542840cf7c649c60e6f181709900"
+    },
+    {
+      "path": "release.json",
+      "sha256": "ec3ff3330b81444bdf2f8aa52d3806970a905df5f0f0fd63c0e80d059accf7c7"
+    }
+  ],
+  "workerSha256": "fafa5b855180212524d25d595422a2c836e2db1c3516edef5d6cf3c42aa8e355",
+  "headersSha256": "852dde2b107a0b527b446d78fdaada2e8bee94ff0948250622f96ee19d5329d6"
+}

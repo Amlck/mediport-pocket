@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-theme="portal">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Pocket">
+  <!-- default (not black-translucent): iOS 26 sizes a black-translucent web app to
+       screen minus status bar yet anchors it at the top, leaving a band at the bottom.
+       theme-color is kept equal to --bg by lib/theme.js so the status bar blends in. -->
+  <meta name="theme-color" content="#f8fafc">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Mediport Pocket</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icon-180.png">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./refinement.css">
+  <link rel="stylesheet" href="./ekg.css">
+</head>
+<body>
+  <p class="desktop-note">Phone-frame preview · 393 × 852 · open on an iPhone for real safe areas and keyboard behavior</p>
+  <div class="phone" id="phone">
+    <main class="screen" id="screen" tabindex="-1"></main>
+    <div class="footer-slot" id="footer" hidden></div>
+    <nav class="tabbar" id="tabbar" aria-label="Sections"></nav>
+    <div id="sheet-host"></div>
+    <div id="toast-host" aria-live="polite"></div>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

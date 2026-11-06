@@ -1,0 +1,57 @@
+/* Lab review composes the existing calculator controls and severity palette. */
+.lab-launch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+}
+.lab-launch strong { display: block; color: var(--accent); font-size: 1rem; }
+.lab-launch span { display: block; margin-top: 3px; color: var(--ink-3); font-size: .75rem; }
+.lab-launch svg { flex: none; color: var(--accent); }
+.lab-review-page .lab-intro { font-size: .875rem; color: var(--ink-2); padding: 0 2px; }
+.lab-inputs, .lab-results { display: grid; gap: 12px; min-width: 0; }
+.lab-inputs .card-title { margin-bottom: 10px; }
+.lab-inputs .seg-row { margin-top: 12px; flex-wrap: wrap; }
+.lab-inputs .seg-label { flex-basis: 100%; }
+.lab-inputs .segmented { width: 100%; }
+.lab-inputs .segmented button { white-space: normal; overflow-wrap: anywhere; min-height: 44px; }
+.lab-panel > summary { cursor: pointer; min-height: 44px; display: list-item; align-content: center; }
+.lab-panel:not([open]) > summary { margin-bottom: 0; }
+.lab-family { display: grid; gap: 8px; min-width: 0; }
+.lab-family-title { font-size: .8125rem; color: var(--ink-2); padding: 6px 2px 0; }
+.lab-family .lab-check { margin: 0; }
+.lab-inputs .tile input { font-size: 1.125rem; }
+.lab-inputs .tile label { min-height: 1.3em; }
+.lab-inputs .tile .unit { overflow-wrap: anywhere; }
+.lab-results { scroll-margin-top: 64px; }
+.lab-result-heading, .lab-check-head {
+  display: flex; align-items: start; justify-content: space-between; gap: 6px 12px; flex-wrap: wrap;
+}
+.lab-result-heading h2 { font-size: 1.1875rem; line-height: 1.3; scroll-margin-top: 68px; }
+.lab-eyebrow { font-size: .6875rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); margin-bottom: 4px; }
+.lab-coverage { font-size: .75rem; }
+.lab-check { border: 1px solid var(--line); }
+.lab-check h3, .lab-incomplete h3 { font-size: .9375rem; line-height: 1.35; overflow-wrap: anywhere; }
+.lab-check .chip { flex: none; font-size: .625rem; padding: 4px 7px; }
+.lab-check-summary { font-size: .875rem; line-height: 1.5; margin-top: 9px; overflow-wrap: anywhere; }
+.lab-check .disclosure { margin-top: 4px; }
+.lab-open { display: flex; align-items: center; min-height: 44px; color: var(--accent); font-size: .8125rem; font-weight: 700; overflow-wrap: anywhere; }
+.lab-coverage-details > summary { font-size: .875rem; }
+.lab-coverage-details.card { padding-block: 4px; }
+.lab-coverage-details .lab-check { padding: 10px; box-shadow: none; }
+.lab-incomplete { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.lab-incomplete:last-child { border-bottom: 0; }
+.lab-incomplete p { margin-top: 4px; font-size: .8125rem; overflow-wrap: anywhere; }
+.lab-issues:empty, .lab-results:empty { display: none; }
+.lab-issues { color: var(--urgent); font-size: .8125rem; }
+.lab-issues p + p { margin-top: 6px; }
+.lab-review-status { color: var(--attention); font-size: .8125rem; }
+.lab-review-page .body p { overflow-wrap: anywhere; }
+@media (max-width: 350px) {
+  :root[data-text-size="large"] .lab-inputs .tiles { grid-template-columns: minmax(0, 1fr); }
+}

@@ -1,0 +1,50 @@
+.fluids-page { gap: 18px; }
+.fluid-intro { font-size: 0.875rem; line-height: 1.45; color: var(--ink-2); }
+.fluid-select { display: grid; gap: 6px; min-width: 0; color: var(--ink-2); font-size: 0.75rem; }
+.fluid-select select { width: 100%; min-width: 0; min-height: 48px; padding: 9px 30px 9px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit; font-size: 1rem; }
+.fluid-product-body { display: grid; gap: 20px; min-width: 0; }
+.fluid-product-heading h2 { font-size: 1.25rem; line-height: 1.25; overflow-wrap: anywhere; }
+.fluid-product-heading p { color: var(--ink-2); font-size: 0.8125rem; margin-top: 6px; }
+.fluid-product-heading .fluid-review-label { color: var(--attention); font-size: 0.6875rem; }
+.fluid-contents { display: grid; gap: 14px; min-width: 0; }
+.drug-contents + .fluid-contents, .drug-dose-list + .fluid-contents { margin-top: 20px; }
+.fluid-basis { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); padding: 3px; gap: 3px; background: var(--surface-2); border-radius: 9px; }
+.fluid-basis button { min-height: 44px; padding: 6px; font-size: 0.8125rem; line-height: 1.3; font-weight: 600; border-radius: 7px; color: var(--ink-2); }
+.fluid-basis button[aria-pressed="true"] { color: var(--accent); background: var(--surface); box-shadow: 0 1px 3px #0002; }
+.fluid-basis button:disabled { opacity: .5; }
+.fluid-composition { padding: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; min-width: 0; }
+.fluid-composition h3 { font-size: 1rem; line-height: 1.35; margin-bottom: 12px; }
+.fluid-amounts, .fluid-source-facts { margin: 0; }
+.fluid-amounts > div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+.fluid-amounts dt { font-size: 0.875rem; color: var(--ink-2); }
+.fluid-amounts dd { margin: 0; font-size: 0.9375rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.fluid-amounts strong { font-size: 1.1875rem; color: var(--ink); }
+.fluid-source-basis { font-size: 0.75rem; line-height: 1.5; color: var(--ink-2); overflow-wrap: anywhere; }
+.fluid-composition .fluid-source-basis { margin-top: 12px; }
+.fluid-source-facts { display: grid; gap: 12px; }
+.fluid-source-facts dt { color: var(--ink-2); font-size: 0.75rem; }
+.fluid-source-facts dd { margin: 4px 0 0; font-size: 0.875rem; overflow-wrap: anywhere; }
+.fluid-compare-link { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 8px 12px; border-radius: 9px; color: var(--accent-ink); background: var(--accent); font-size: 0.875rem; font-weight: 650; text-decoration: none; }
+.fluid-full-link { display: inline-flex; align-items: center; min-height: 44px; }
+.fluid-product-pickers { display: grid; gap: 12px; }
+.fluid-compare-bags { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.fluid-comparison { display: grid; gap: 14px; min-width: 0; }
+.fluid-volume-note { font-size: 0.75rem; line-height: 1.45; color: var(--attention); background: var(--attention-soft); padding: 10px; border-radius: 7px; }
+.fluid-compare-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 0.875rem; }
+.fluid-compare-table caption { text-align: left; color: var(--ink); font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+.fluid-compare-table th, .fluid-compare-table td { padding: 10px 6px; text-align: right; vertical-align: top; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.fluid-compare-table th:first-child { width: 30%; text-align: left; padding-left: 0; color: var(--ink-2); font-size: 0.75rem; font-weight: 500; }
+.fluid-compare-table thead th { font-size: 0.8125rem; color: var(--ink); }
+.fluid-compare-table small { display: block; font-size: 0.6875rem; font-weight: 400; color: var(--ink-2); margin-top: 4px; }
+.fluid-compare-table .fluid-different td { background: var(--accent-soft); }
+.fluid-compare-table strong { font-size: 1.0625rem; }
+.fluid-not-listed { color: var(--ink-2); font-size: 0.75rem; }
+.fluid-comparison-basis { display: grid; gap: 8px; color: var(--ink-2); font-size: 0.75rem; line-height: 1.45; }
+.fluid-properties { font-size: 0.75rem; }
+.fluid-reference-list { display: grid; gap: 10px; }
+.fluid-details .body ul { display: grid; gap: 8px; }
+.fluids-page .note { font-size: 0.8125rem; }
+@media (max-width: 350px) {
+  .fluid-compare-table th, .fluid-compare-table td { padding-inline: 4px; }
+  .fluid-compare-table strong { font-size: 1rem; }
+}
