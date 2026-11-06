@@ -8,7 +8,7 @@ import { parseByteRange } from '../src/byte-range.mjs';
 const template = await readFile(new URL('../src/sw-template.js', import.meta.url), 'utf8');
 const offlineUi = await readFile(new URL('../src/app/lib/offline.js', import.meta.url), 'utf8');
 const digest = value => createHash('sha256').update(value).digest('hex');
-function harness({ corrupt = false, fail = false, media = false, canonicalShell = false, isolatedShell = false } = {}) {
+function harness({ corrupt = false, fail = false, media = false, canonicalShell = false, isolatedShell = false, pinned = false } = {}) {
   const stores = new Map();
   const handlers = new Map();
   const calls = [];
@@ -24,13 +24,15 @@ function harness({ corrupt = false, fail = false, media = false, canonicalShell 
   };
   const self = { location: { href: 'https://pocket.example/pocket/sw.js' },
     addEventListener(type, callback) { handlers.set(type, callback); } };
-  vm.runInNewContext(`const RELEASE={version:'test-v1',builtAt:'2026-09-24T15:00:00.000Z',releaseNotes:{date:'2026-09-24',label:'Pocket usability update',changes:['Clearer updates']}}; const ASSETS=[{path:'index.html',${isolatedShell ? "downloadPath:'offline-shell.txt',contentType:'text/html; charset=utf-8'," : canonicalShell ? "downloadPath:'./'," : ''}sha256:'${digest('app shell')}'},{path:'reference.json',sha256:'${digest('reference snapshot')}'}${media ? `,{path:'images/pocus/clip.mp4',sha256:'${digest('0123456789')}'}` : ''}];\n${parseByteRange.toString()}\n${template}`, {
+  vm.runInNewContext(`const RELEASE={version:'test-v1',builtAt:'2026-09-24T15:00:00.000Z',releaseNotes:{date:'2026-09-24',label:'Pocket usability update',changes:['Clearer updates']}}; const ASSETS=[{path:'index.html',${isolatedShell ? "downloadPath:'offline-shell.txt',contentType:'text/html; charset=utf-8'," : canonicalShell ? "downloadPath:'./'," : ''}sha256:'${digest('app shell')}'},{path:'reference.json',sha256:'${digest('reference snapshot')}'}${pinned ? `,{path:'app.js',downloadPath:'__releases/test-v1/app.js',sha256:'${digest('pinned application')}'},{path:'data/reference.json',downloadPath:'__releases/test-v1/data/reference.json',sha256:'${digest('pinned clinical data')}'}` : ''}${media ? `,{path:'images/pocus/clip.mp4',sha256:'${digest('0123456789')}'}` : ''}];\n${parseByteRange.toString()}\n${template}`, {
     self, caches, crypto: webcrypto, URL, Response, Headers, Uint8Array,
     fetch: async (url, options) => {
       calls.push({url, options});
       if (canonicalShell && url.endsWith('index.html')) throw new Error('Host redirects index.html; redirects remain forbidden.');
       if (networkFailure) return new Response('unavailable', {status:503});
       if (isolatedShell && url.endsWith('offline-shell.txt')) return new Response(corrupt ? 'injected script' : 'app shell', { headers: { 'Content-Type': 'text/plain', 'Content-Encoding': 'br', 'Content-Length': '1234', 'Content-Security-Policy': "default-src 'self'" } });
+      if (pinned && url.endsWith('/app.js')) return new Response(corrupt ? 'wrong' : 'pinned application');
+      if (pinned && url.endsWith('/data/reference.json')) return new Response(corrupt ? 'wrong' : 'pinned clinical data');
       if (url.endsWith('.mp4')) return new Response(corrupt ? 'wrong' : '0123456789', { headers: { 'Content-Type': 'video/mp4' } });
       return new Response(corrupt ? 'wrong version' : url.endsWith('index.html') || (canonicalShell && url.endsWith('/pocket/')) ? 'app shell' : 'reference snapshot');
     },
@@ -132,6 +134,25 @@ test('offline fetches use only installed files and never cache arbitrary API or 
   }
   assert.equal((await h.event('fetch', {request:new Request('https://pocket.example/pocket/reference.json', {method:'POST',body:'not stored'})})).status, 404);
   assert.equal(h.calls.length, 2, 'runtime requests do not fetch or populate cache');
+});
+test('offline pinned modules, data and media resolve only to this installed release cache', async () => {
+  const h = harness({ pinned: true, media: true });
+  await h.event('install'); h.setFailure(true);
+  const base = 'https://pocket.example/pocket/__releases/test-v1/';
+  for (const [path, body] of [['app.js', 'pinned application'], ['data/reference.json', 'pinned clinical data']]) {
+    const response = await h.event('fetch', { request: new Request(base + path) });
+    assert.equal(response.status, 200); assert.equal(await response.text(), body);
+  }
+  const video = await h.event('fetch', { request: new Request(base + 'images/pocus/clip.mp4', { headers: { Range: 'bytes=2-4' } }) });
+  assert.equal(video.status, 206); assert.equal(await video.text(), '234');
+  for (const url of [
+    'https://pocket.example/pocket/__releases/test-v2/app.js',
+    base + '../app.js', base + '%2e%2e/app.js', base + '%2e%2e%2fapp.js',
+    base + 'app.js?patient=example', base + 'not-in-bundle.js',
+  ]) assert.equal((await h.event('fetch', { request: new Request(url) })).status, 404);
+  assert.equal((await h.event('fetch', { request: new Request(base + 'app.js', { method: 'POST', body: 'not stored' }) })).status, 404);
+  assert.equal(await h.event('fetch', { request: new Request('https://other.example/pocket/__releases/test-v1/app.js') }), undefined, 'foreign origins are outside this worker');
+  assert.equal(h.calls.length, 5, 'pinned runtime requests never fetch or add cache entries');
 });
 test('failed or mismatched download cannot replace a prior installed cache', async () => {
   for (const options of [{fail:true}, {corrupt:true}]) {

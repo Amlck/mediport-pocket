@@ -2,6 +2,7 @@
 const BASE = new URL('./', self.location.href);
 const PREFIX = 'mediport-pocket:' + BASE.pathname + ':';
 const CACHE = PREFIX + RELEASE.version;
+const PINNED = new URL('__releases/' + RELEASE.version + '/', BASE);
 const allowed = new Map(ASSETS.map(asset => [new URL(asset.path, BASE).href, asset]));
 const hex = buffer => Array.from(new Uint8Array(buffer), value => value.toString(16).padStart(2, '0')).join('');
 
@@ -63,7 +64,18 @@ self.addEventListener('fetch', event => {
   if (url.origin !== BASE.origin || !url.pathname.startsWith(BASE.pathname)) return;
   event.respondWith((async () => {
     if (request.method !== 'GET' || url.search) return new Response('Not part of the pocket reference bundle', { status: 404 });
-    const key = url.href === BASE.href ? new URL('index.html', BASE).href : url.href;
+    let key = url.href === BASE.href ? new URL('index.html', BASE).href : url.href;
+    // A built shell imports modules/data from its immutable release URL. Map
+    // only this installed version back to its verified cache keys; never fetch
+    // an unknown path or another release during an existing session.
+    if (url.href.startsWith(PINNED.href)) {
+      const relative = url.href.slice(PINNED.href.length);
+      if (!/^[a-zA-Z0-9][a-zA-Z0-9_./-]*$/.test(relative)
+        || relative.split('/').some(part => !part || part === '.' || part === '..')) {
+        return new Response('Not part of the pocket reference bundle', { status: 404 });
+      }
+      key = new URL(relative, BASE).href;
+    }
     if (!allowed.has(key)) return new Response('Not part of the pocket reference bundle', { status: 404 });
     const cached = await (await caches.open(CACHE)).match(key);
     // Media seeks must stay within the verified full file, including offline.

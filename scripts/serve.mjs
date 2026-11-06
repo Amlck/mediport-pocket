@@ -22,7 +22,10 @@ export async function createPocketServer({ directory = DIST } = {}) {
     let url;
     try { url = new URL(request.url, 'http://127.0.0.1'); }
     catch { response.writeHead(400); response.end('Invalid URL.'); return; }
-    const filename = url.pathname === '/' ? '/index.html' : url.pathname;
+    const releasePrefix = `/__releases/${pack.release.version}/`;
+    const filename = url.pathname === '/' ? '/index.html'
+      : url.pathname.startsWith(releasePrefix) ? '/' + url.pathname.slice(releasePrefix.length)
+        : url.pathname;
     if (!['GET', 'HEAD'].includes(request.method) || url.search || !allowed.has(filename)) {
       response.writeHead(404); response.end('Not part of Mediport Pocket.'); return;
     }

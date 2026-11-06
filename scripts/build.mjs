@@ -113,15 +113,23 @@ export async function build({ directory = DIST, builtAt, sourceCommit } = {}) {
     await copyFile(path.join(stage, 'index.html'), path.join(stage, 'offline-shell.txt'));
     const manifest = { id: './', name: 'Mediport Pocket', short_name: 'Mediport', description: 'Offline clinical reference', start_url: './', scope: './', display: 'standalone', background_color: '#f8fafc', theme_color: '#f8fafc', icons: [192, 512].map(size => ({ src: `./icon-${size}.png`, sizes: `${size}x${size}`, type: 'image/png', purpose: 'any maskable' })) };
     await writeFile(path.join(stage, 'manifest.webmanifest'), JSON.stringify(manifest, null, 2) + '\n');
-    const assets = await Promise.all((await files(stage)).map(async name => ({ path: name, sha256: hash(await readFile(path.join(stage, name))) })));
+    const seedAssets = await Promise.all((await files(stage)).map(async name => ({ path: name, sha256: hash(await readFile(path.join(stage, name))) })));
     const source = { repository: typeof pkg.repository === 'string' ? pkg.repository : pkg.repository?.url || null, commit, tag: identity?.dirty ? null : identity?.tag || null, packageVersion: pkg.version || null, dirty: Boolean(identity?.dirty) };
-    const version = 'pocket-public-' + hash(JSON.stringify({ assets, workerTemplate, releaseNotes, builtAt: date, source })).slice(0, 12);
+    // Derive identity before adding self-referential release URLs. The final
+    // inventory below hashes the rewritten shell, avoiding a version/hash cycle.
+    const version = 'pocket-public-' + hash(JSON.stringify({ assets: seedAssets, workerTemplate, releaseNotes, builtAt: date, source })).slice(0, 12);
+    const shell = (await readFile(path.join(stage, 'index.html'), 'utf8'))
+      .replace(/(<script\b[^>]*\bsrc=")\.\/([^"?#]+\.js)(")/g, `$1/__releases/${version}/$2$3`)
+      .replace(/(<link\b[^>]*\brel="stylesheet"[^>]*\bhref=")\.\/([^"?#]+\.css)(")/g, `$1/__releases/${version}/$2$3`);
+    await writeFile(path.join(stage, 'index.html'), shell);
+    await writeFile(path.join(stage, 'offline-shell.txt'), shell);
+    const assets = await Promise.all((await files(stage)).map(async name => ({ path: name, sha256: hash(await readFile(path.join(stage, name))) })));
     const release = {
       version, builtAt: date, releaseNotes, profile: 'public-share', publishingApproved: true, source,
       clinicalReviewNotice: 'Packaging date is not a clinical review date. Original reference review labels and uncertainties are retained.',
       references: {
         sourceHashes: {
-          ...Object.fromEntries(await Promise.all(inputs.map(async input => [path.relative(ROOT, input.source).split(path.sep).join('/'), hash(await readFile(path.join(stage, input.path)))]))),
+          ...Object.fromEntries(await Promise.all(inputs.map(async input => [path.relative(ROOT, input.source).split(path.sep).join('/'), hash(await readFile(input.source))]))),
           'src/sw-template.js': hash(await readFile(path.join(ROOT, 'src/sw-template.js'))),
           'src/byte-range.mjs': hash(await readFile(path.join(ROOT, 'src/byte-range.mjs'))),
         },
@@ -133,7 +141,13 @@ export async function build({ directory = DIST, builtAt, sourceCommit } = {}) {
     };
     await writeFile(path.join(stage, 'release.json'), JSON.stringify(release, null, 2) + '\n');
     assets.push({ path: 'release.json', sha256: hash(await readFile(path.join(stage, 'release.json'))) });
-    const workerAssets = assets.map(asset => asset.path === 'index.html' ? { ...asset, downloadPath: 'offline-shell.txt', contentType: 'text/html; charset=utf-8' } : asset);
+    // Every worker downloads its own immutable release, even if a later deploy
+    // switches the root URL while this pack is still downloading or repairing.
+    const workerAssets = assets.map(asset => ({
+      ...asset,
+      downloadPath: `__releases/${version}/${asset.path === 'index.html' ? 'offline-shell.txt' : asset.path}`,
+      ...(asset.path === 'index.html' ? { contentType: 'text/html; charset=utf-8' } : {}),
+    }));
     const worker = `const RELEASE = ${JSON.stringify({ version, builtAt: date, releaseNotes })};\nconst ASSETS = ${JSON.stringify(workerAssets)};\n${workerTemplate}`;
     const headers = `/*\n  Content-Security-Policy: ${CSP}\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: no-referrer\n  X-Robots-Tag: noindex, nofollow\n  Cache-Control: no-cache\n`;
     await writeFile(path.join(stage, 'sw.js'), worker);

@@ -3,7 +3,7 @@ import { sourceCard } from '../lib/source.js';
 
 export function installView(ctx) {
   const publicEdition = ctx.release.profile === 'public-share';
-  const url = new URL('./', window.location.href).href;
+  const url = new URL('/', window.location.href).href;
   const status = h('p', { class: 'muted', role: 'status' });
   const copy = h('button', { class: 'btn-small', type: 'button', onclick: async () => {
     try {

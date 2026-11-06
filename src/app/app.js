@@ -80,8 +80,8 @@ class PackTimeoutError extends Error {
 
 async function fetchPack(signal) {
   const [reference, release, abg, calculators, glycemic, labEntry] = await Promise.all([
-    fetch('./data/reference.json', { signal }).then(assertOk).then((r) => r.json()),
-    fetch('./release.json', { signal }).then(assertOk).then((r) => r.json()),
+    fetch(new URL('./data/reference.json', import.meta.url), { signal }).then(assertOk).then((r) => r.json()),
+    fetch(new URL('./release.json', import.meta.url), { signal }).then(assertOk).then((r) => r.json()),
     import('./shared/abg.mjs'),
     import('./shared/calculators.mjs'),
     import('./shared/glycemic.mjs'),

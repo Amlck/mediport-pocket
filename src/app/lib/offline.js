@@ -122,7 +122,7 @@ export async function setupOffline(onState) {
   window.addEventListener('offline', refreshStatus);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshStatus(); });
   try {
-    registration = await navigator.serviceWorker.register('./sw.js', { scope: './', updateViaCache: 'none' });
+    registration = await navigator.serviceWorker.register('/sw.js', { scope: '/', updateViaCache: 'none' });
     registration.addEventListener('updatefound', () => {
       // An update found while a version is already active: say so, because the
       // download and hash check of the whole pack can take a while on a phone.

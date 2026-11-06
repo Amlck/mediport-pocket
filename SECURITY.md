@@ -4,6 +4,13 @@ Mediport Pocket is a public static reference. It is designed to run numeric
 calculations locally and to download only its explicit reference pack. It does
 not need patient records, credentials, databases or a hospital connection.
 
+The hosting deployment bridge accepts release uploads only from this
+repository's approved GitHub Actions workflow on `main`, authenticated by
+short-lived GitHub OIDC identities. Pull requests have no deployment identity.
+Release hashes and source provenance are verified before activation; staged
+uploads are not public until the complete pack passes verification. The app's
+numeric inputs remain on the device and are not deployment data.
+
 ## Report a vulnerability privately
 
 Use GitHub's **Report a vulnerability** option in this repository's Security tab
@@ -23,8 +30,10 @@ coordinate an appropriate fix and disclosure after reviewing the report.
 
 Reports about untrusted input reaching the UI, unsafe source links, incorrect
 offline integrity checks, unexpected network transmission, exposed secrets or
-public-pack content leakage are in scope. Clinical-reference concerns should
-also be reported with primary sources and fictional examples; use private
+public-pack content leakage are in scope. Deployment authentication, artifact
+integrity and stale-release activation problems are also in scope.
+Clinical-reference concerns should be reported with primary sources and
+fictional examples; use private
 reporting if the reproduction contains sensitive information.
 
 The current public source and latest published public pack are the supported

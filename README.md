@@ -48,11 +48,13 @@ in the middle of a calculation. Your phone can also discover updates when
 reopened online, but **Check for update** is the explicit way to check now.
 Public updates need an internet connection; no Mac or Tailscale is required.
 
-For maintainers: review the change, run the tests, build and verify the release,
-then deploy it to the existing public address. **GitHub CI currently tests and
-builds only; a push or merged pull request does not automatically update the
-live app.** Once a release is deployed, installed users can download it using
-the steps above. A GitHub README edit does not require an app deployment.
+For maintainers: changes pushed or merged into **main automatically deploy to
+the existing public address after all Node, build-integrity and browser tests
+pass**. Pull requests run checks but do not deploy. The deployment uses the
+exact tested build, verifies the live release and rejects stale runs; no local
+Mac or manual publishing step is needed. See [deployment details](deployment/README.md).
+Installed users download the published release using the steps above; running
+calculations are never force-reloaded.
 
 ## What is included
 
@@ -122,6 +124,12 @@ with hospital-only content removed. The extracted public files are maintained
 here. Original source paths and hashes are provenance of that extraction;
 they do not imply that a private source checkout is needed or that a changed
 public file is still byte-identical to its ancestor.
+
+Merges here update **public Pocket only**. They do not automatically update the
+private Medical/Portal app. A future shared core package could hold reusable
+logic, with the private app using a pinned version and automated dependency
+pull requests for review. Hospital integrations and internal resources would
+remain private; that cross-project synchronization is not implemented today.
 
 ## Verify a build
 

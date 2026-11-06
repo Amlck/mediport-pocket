@@ -3,7 +3,7 @@ import { h } from './ui.js';
 let viewerNumber = 0;
 
 function imagePath(image) {
-  return `images/pocus/${encodeURIComponent(image.file)}`;
+  return new URL(`../images/pocus/${encodeURIComponent(image.file)}`, import.meta.url).href;
 }
 
 function sourceLink(source, label) {
@@ -84,7 +84,7 @@ function figure(image, sources, viewer) {
 function clipFigure(clip, sources, mediaElements) {
   const descriptionId = `pocus-clip-description-${++viewerNumber}`;
   const player = h('video', {
-    class: 'pocus-atlas-player', src: imagePath(clip), poster: `images/pocus/${encodeURIComponent(clip.poster)}`,
+    class: 'pocus-atlas-player', src: imagePath(clip), poster: imagePath({ file: clip.poster }),
     width: clip.width, height: clip.height, controls: true, playsinline: true, preload: 'none',
     'aria-label': `Play clip: ${clip.caption}`, 'aria-describedby': descriptionId,
   });

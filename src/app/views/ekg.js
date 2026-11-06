@@ -23,7 +23,7 @@ function referenceFigure(img) {
   const source = FIGURE_PATHS[img.src];
   if (!source) return null; // Explicit build allowlist: never load arbitrary engine URLs.
   return h('figure', { class: 'ekg-figure' },
-    h('img', { src: source, alt: img.alt || img.caption || 'ECG reference figure', loading: 'lazy' }),
+    h('img', { src: new URL('../' + source.replace(/^\.\//, ''), import.meta.url).href, alt: img.alt || img.caption || 'ECG reference figure', loading: 'lazy' }),
     img.caption ? h('figcaption', null, img.caption) : null);
 }
 

@@ -27,7 +27,15 @@ test('identical source/date/commit builds reproduce every distributed byte', asy
   assert.equal(checked.assets.length, first.assets.length);
   assert.equal(hash(await readFile(path.join(first.directory, 'index.html'))), hash(await readFile(path.join(first.directory, 'offline-shell.txt'))));
   const worker = await readFile(path.join(first.directory, 'sw.js'), 'utf8');
-  assert.match(worker, /"path":"index\.html","sha256":"[a-f0-9]+","downloadPath":"offline-shell\.txt","contentType":"text\/html; charset=utf-8"/);
+  const shell = await readFile(path.join(first.directory, 'index.html'), 'utf8');
+  assert.ok(shell.includes(`src="/__releases/${first.release.version}/app.js"`));
+  assert.equal([...shell.matchAll(/rel="stylesheet" href="([^"]+)"/g)].length, 3);
+  assert.ok([...shell.matchAll(/rel="stylesheet" href="([^"]+)"/g)].every(match => match[1].startsWith(`/__releases/${first.release.version}/`)));
+  assert.match(shell, /rel="manifest" href="\.\/manifest\.webmanifest"/);
+  assert.equal(first.assets.find(asset => asset.path === 'index.html').sha256, hash(shell));
+  assert.equal(first.release.references.sourceHashes['src/app/index.html'], hash(await readFile(path.join(ROOT, 'src/app/index.html'))));
+  assert.ok(worker.includes(`"downloadPath":"__releases/${first.release.version}/offline-shell.txt","contentType":"text/html; charset=utf-8"`));
+  for (const asset of first.assets) assert.ok(worker.includes(`"downloadPath":"__releases/${first.release.version}/${asset.path === 'index.html' ? 'offline-shell.txt' : asset.path}"`));
   const reference = JSON.parse(await readFile(path.join(first.directory, 'data/reference.json')));
   assert.equal(Object.hasOwn(reference, 'guideResources'), false);
   assert.equal(checked.release.references.drugCount, reference.drugs.length);
