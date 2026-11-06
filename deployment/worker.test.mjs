@@ -97,6 +97,18 @@ test('identity rejects another repository, owner, workflow, PR/ref, audience, en
   for (const extra of [ { repository: 'Other/mediport-pocket' }, { repository_id: '1' }, { repository_owner_id: '1' }, { workflow_ref: 'Amlck/mediport-pocket/.github/workflows/evil.yml@refs/heads/main' }, { event_name: 'pull_request' }, { ref: 'refs/heads/feature' }, { aud: ORIGIN + '/' }, { environment: 'preview' }, { sub: 'repo:Amlck/mediport-pocket:ref:refs/heads/main' }, { exp: NOW / 1000 - 1 }, { iat: NOW / 1000 - 1000 }, { exp: NOW / 1000 + 1000 }, { run_number: '0' }, { sha: '../main' } ]) assert.throws(() => validateClaims(claims(extra), NOW));
 });
 
+test('immutable GitHub subject binds the exact numeric repository and owner IDs', async () => {
+  const identity = claims({ sub: 'repo:Amlck@107248218/mediport-pocket@1448023125:environment:production' });
+  assert.equal(validateClaims(identity, NOW).sourceCommit, COMMIT);
+  const verified = await verifyGitHubIdentity(await token(identity), { now: NOW });
+  assert.equal(verified.sub, identity.sub);
+  for (const sub of [
+    'repo:Amlck@1/mediport-pocket@1448023125:environment:production',
+    'repo:Amlck@107248218/mediport-pocket@1:environment:production',
+    'repo:Amlck@107248218/mediport-pocket@1448023125:environment:preview',
+  ]) assert.throws(() => validateClaims(claims({ sub }), NOW));
+});
+
 test('all deployment operations require authorized identities and declared bounded files', async () => {
   const h = harness(); const f = await fixture();
   assert.equal((await h.request('/__deploy/prepare', { method: 'POST', body: f.manifest, auth: false })).status, 401);

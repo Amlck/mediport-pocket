@@ -15,6 +15,10 @@ const SHA = /^[a-f0-9]{40}$/;
 const HASH = /^[a-f0-9]{64}$/;
 const TYPES = { html: 'text/html; charset=utf-8', txt: 'text/plain; charset=utf-8', css: 'text/css; charset=utf-8', js: 'text/javascript; charset=utf-8', mjs: 'text/javascript; charset=utf-8', json: 'application/json; charset=utf-8', webmanifest: 'application/manifest+json', svg: 'image/svg+xml', png: 'image/png', mp4: 'video/mp4' };
 const ACTIVE_KEY = PREFIX + 'active.json';
+const DEPLOYMENT_SUBJECTS = new Set([
+  'repo:Amlck/mediport-pocket:environment:production',
+  'repo:Amlck@107248218/mediport-pocket@1448023125:environment:production',
+]);
 const BOOTSTRAP = Object.freeze({ repository: REPOSITORY, commit: '5082d0d42456662812012b8bed42e000208d51d2' });
 const encoder = new TextEncoder();
 const decoder = new TextDecoder('utf-8', { fatal: true });
@@ -46,7 +50,7 @@ export function validateClaims(claims, now = Date.now()) {
     || String(claims.repository_owner_id) !== '107248218'
     || claims.ref !== 'refs/heads/main' || claims.event_name !== 'push'
     || claims.workflow_ref !== REPOSITORY + '/.github/workflows/ci.yml@refs/heads/main'
-    || claims.environment !== 'production' || claims.sub !== 'repo:' + REPOSITORY + ':environment:production' || !SHA.test(claims.sha)) {
+    || claims.environment !== 'production' || !DEPLOYMENT_SUBJECTS.has(claims.sub) || !SHA.test(claims.sha)) {
     error(401, 'invalid_identity', 'Only the approved GitHub main push workflow may deploy.');
   }
   if (![claims.iat, claims.nbf, claims.exp].every(Number.isInteger)
