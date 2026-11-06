@@ -38,10 +38,14 @@ async function request(fetchImpl, url, options, { sleep = wait, attempts = 4 } =
     if ([408, 429, 500, 502, 503, 504].includes(response.status) && attempt + 1 < attempts) {
       await sleep(1000 * 2 ** attempt); continue;
     }
-    let code;
-    try { code = safeCode((await response.json()).code); } catch { code = 'request_failed'; }
+    let code, detail = '';
+    try {
+      const body = await response.json();
+      code = safeCode(body.code);
+      if (response.status === 401 && ['A GitHub Actions deployment identity is required.', 'Only the approved GitHub main push workflow may deploy.', 'Invalid deployment signature.', 'Unknown deployment signature.', 'Unsupported deployment signature.', 'Malformed deployment identity.'].includes(body.error)) detail = ' ' + body.error;
+    } catch { code = 'request_failed'; }
     if (response.status === 409 && code === 'stale_source') throw new StaleDeployment();
-    throw new Error(`Deployment request failed (${response.status}, ${code}).`);
+    throw new Error(`Deployment request failed (${response.status}, ${code}).${detail}`);
   }
 }
 
@@ -65,7 +69,13 @@ export function oidcProvider({ audience, env = process.env, fetchImpl = fetch } 
     if (!refresh && token && Date.now() < expiresAt - 120_000) return token;
     if (!pending) pending = requestOidcToken({ audience, env, fetchImpl }).then(value => {
       token = value;
-      try { expiresAt = JSON.parse(Buffer.from(value.split('.')[1], 'base64url').toString()).exp * 1000; }
+      try {
+        const identity = JSON.parse(Buffer.from(value.split('.')[1], 'base64url').toString());
+        expiresAt = identity.exp * 1000;
+        // Public workflow identity only; never log the bearer, signature or jti.
+        const fields = ['iss', 'aud', 'sub', 'repository', 'repository_id', 'repository_owner_id', 'ref', 'event_name', 'workflow_ref', 'environment', 'sha'];
+        console.log('Deployment identity:', JSON.stringify(Object.fromEntries(fields.filter(key => identity[key] !== undefined).map(key => [key, identity[key]]))));
+      }
       catch { expiresAt = Date.now() + 180_000; }
       if (!Number.isFinite(expiresAt)) expiresAt = Date.now() + 180_000;
       return value;
