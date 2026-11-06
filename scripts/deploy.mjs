@@ -26,10 +26,10 @@ export class StaleDeployment extends Error {
 
 function safeCode(value) { return typeof value === 'string' && /^[a-z0-9_]{1,64}$/.test(value) ? value : 'request_failed'; }
 
-async function request(fetchImpl, url, options, { sleep = wait, attempts = 4 } = {}) {
+async function request(fetchImpl, url, options, { sleep = wait, attempts = 4, timeoutMs = 30_000 } = {}) {
   for (let attempt = 0; attempt < attempts; attempt++) {
     let response;
-    try { response = await fetchImpl(url, { ...options, redirect: 'error', signal: AbortSignal.timeout(30_000) }); }
+    try { response = await fetchImpl(url, { ...options, redirect: 'error', signal: AbortSignal.timeout(timeoutMs) }); }
     catch {
       if (attempt + 1 === attempts) throw new Error('Deployment network request failed after bounded retries.');
       await sleep(1000 * 2 ** attempt); continue;
@@ -148,7 +148,7 @@ export async function deploy({ directory = 'dist', sourceCommit = process.env.GI
   const ensureCurrent = async () => { if (await head() !== sourceCommit) throw new StaleDeployment(); };
   const authenticated = async (pathname, options, refresh = false) => request(fetchImpl, target + pathname, {
     ...options, headers: { ...options.headers, Authorization: `Bearer ${await authorize(refresh)}` },
-  }, { sleep });
+  }, { sleep, timeoutMs: pathname === '/__deploy/activate' ? 90_000 : 30_000 });
   try {
     await ensureCurrent();
     await authenticated('/__deploy/prepare', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(manifest.body) });

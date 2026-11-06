@@ -156,12 +156,22 @@ function parseStored(bytes, label) {
 }
 async function verifyRelease(manifest, load) {
   const received = new Map();
-  for (const file of manifest.files) {
-    const bytes = await load(file.path);
-    if (!bytes) error(400, 'incomplete_release', 'The release is missing a required file.');
-    if (bytes.byteLength !== file.size || await sha256(bytes) !== file.sha256) error(400, 'hash_mismatch', 'A release file failed verification.');
-    if (['release.json', 'bundle-inventory.json', 'sw.js', '_headers', 'index.html', 'offline-shell.txt'].includes(file.path)) received.set(file.path, bytes);
+  // R2 reads incur network latency. Verify a bounded group concurrently while
+  // retaining only the small metadata/shell files needed for cross-checks.
+  // Activation below still waits for every declared file to pass its hash.
+  let next = 0; let failed = false;
+  async function verifyFiles() {
+    while (!failed && next < manifest.files.length) {
+      const file = manifest.files[next++];
+      try {
+        const bytes = await load(file.path);
+        if (!bytes) error(400, 'incomplete_release', 'The release is missing a required file.');
+        if (bytes.byteLength !== file.size || await sha256(bytes) !== file.sha256) error(400, 'hash_mismatch', 'A release file failed verification.');
+        if (['release.json', 'bundle-inventory.json', 'sw.js', '_headers', 'index.html', 'offline-shell.txt'].includes(file.path)) received.set(file.path, bytes);
+      } catch (e) { failed = true; throw e; }
+    }
   }
+  await Promise.all(Array.from({ length: Math.min(6, manifest.files.length) }, verifyFiles));
   const inventory = parseStored(received.get('bundle-inventory.json'), 'inventory');
   const release = parseStored(received.get('release.json'), 'release metadata');
   if (release.version !== manifest.version || release.profile !== 'public-share' || release.source?.commit !== manifest.sourceCommit

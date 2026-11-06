@@ -28,6 +28,23 @@ class MemoryBucket {
   }
 }
 
+class DelayedMemoryBucket extends MemoryBucket {
+  constructor() { super(); this.measureReads = false; this.activeReads = 0; this.maxReads = 0; this.readPaths = new Set(); this.activationReads = null; }
+  async get(key) {
+    if (!this.measureReads || !key.includes('/files/')) return super.get(key);
+    this.activeReads++; this.maxReads = Math.max(this.maxReads, this.activeReads); this.readPaths.add(key);
+    try { await new Promise(resolve => setTimeout(resolve, 5)); return await super.get(key); }
+    finally { this.activeReads--; }
+  }
+  async put(key, data, options = {}) {
+    if (this.measureReads && key.endsWith('active.json')) {
+      assert.equal(this.activeReads, 0, 'all file reads must finish before activating');
+      this.activationReads = new Set(this.readPaths);
+    }
+    return super.put(key, data, options);
+  }
+}
+
 async function fixture({ version = VERSION, commit = COMMIT } = {}) {
   const release = { version, builtAt: '2026-11-06T10:00:00.000Z', releaseNotes: { date: '2026-11-06', label: 'Test release', changes: ['Fictional fixture'] }, profile: 'public-share', source: { repository: 'https://github.com/Amlck/mediport-pocket', commit, dirty: false } };
   const files = new Map([
@@ -135,6 +152,33 @@ test('complete verified release activates once and serves only allowlisted bytes
   assert.equal((await h.request('/__releases/' + VERSION + '/app.js')).status, 200);
   const repeated = await h.request('/__deploy/activate', { method: 'POST', body: { version: VERSION } });
   assert.equal((await repeated.json()).activated, false);
+});
+
+test('activation verifies delayed R2 files concurrently with at most six reads and only switches after every file passes', async () => {
+  const bucket = new DelayedMemoryBucket(); const h = harness({ bucket }); const f = await fixture();
+  await upload(h, f); bucket.measureReads = true;
+  const response = await h.request('/__deploy/activate', { method: 'POST', body: { version: VERSION } });
+  assert.equal(response.status, 200, await response.clone().text());
+  assert.ok(bucket.maxReads > 1, 'R2 latency should be overlapped');
+  assert.ok(bucket.maxReads <= 6, 'verification must bound concurrent reads');
+  assert.equal(bucket.activationReads.size, f.files.size, 'every declared file was read before the pointer changed');
+});
+
+test('parallel verification of delayed missing or tampered files preserves the prior active pointer', async () => {
+  for (const corrupt of [false, true]) {
+    const bucket = new DelayedMemoryBucket(); const h = harness({ bucket }); const f = await fixture();
+    await upload(h, f, 'app.js');
+    if (corrupt) await bucket.put('mediport-pocket/deploy-v1/releases/' + VERSION + '/files/app.js', encode('tampered'));
+    const pointerKey = 'mediport-pocket/deploy-v1/active.json';
+    await bucket.put(pointerKey, JSON.stringify({ version: 'pocket-public-' + '0'.repeat(12), sourceCommit: 'b'.repeat(40), runNumber: 10, runId: '1', runAttempt: 1 }));
+    const before = bucket.objects.get(pointerKey).bytes.slice(); bucket.measureReads = true;
+    const response = await h.request('/__deploy/activate', { method: 'POST', body: { version: VERSION } });
+    assert.equal(response.status, 400);
+    assert.equal((await response.json()).code, corrupt ? 'hash_mismatch' : 'incomplete_release');
+    assert.deepEqual(bucket.objects.get(pointerKey).bytes, before);
+    assert.equal(bucket.activationReads, null, 'failed verification must not write an active pointer');
+    assert.ok(bucket.maxReads > 1 && bucket.maxReads <= 6);
+  }
 });
 
 test('missing or tampered upload never replaces a usable active pointer', async () => {
