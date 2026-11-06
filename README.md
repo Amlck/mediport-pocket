@@ -125,11 +125,13 @@ here. Original source paths and hashes are provenance of that extraction;
 they do not imply that a private source checkout is needed or that a changed
 public file is still byte-identical to its ancestor.
 
-Merges here update **public Pocket only**. They do not automatically update the
-private Medical/Portal app. A future shared core package could hold reusable
-logic, with the private app using a pinned version and automated dependency
-pull requests for review. Hospital integrations and internal resources would
-remain private; that cross-project synchronization is not implemented today.
+Merges here deploy **public Pocket** after its checks pass. Downstream private
+integrations can import this shared source at an exact commit and open their
+own tested update pull requests. They maintain their own integration tests,
+private supplements and release process. No private repository credential is
+needed here. Hospital integrations, internal resources and patient data must
+remain outside this repository. Shared fixes belong here; private adaptations
+belong in the consuming project.
 
 ## Verify a build
 
