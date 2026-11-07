@@ -4,6 +4,7 @@ import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseByteRange } from '../src/byte-range.mjs';
+import { CATALOG_URL, monographForListing, cleanProduct, cleanChineseName } from './generate-ntuh-index.mjs';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const DIST = path.join(ROOT, 'dist');
@@ -72,7 +73,7 @@ async function sourceAssets() {
   const roots = [
     { directory: 'app', prefix: '', pattern: /\.(html|css|js|svg|png)$/ },
     { directory: 'shared', prefix: 'shared', pattern: /\.(mjs|js)$/ },
-    { directory: 'data', prefix: 'data', pattern: /^reference\.json$/ },
+    { directory: 'data', prefix: 'data', pattern: /^(reference|ntuh-index)\.json$/ },
     { directory: 'images', prefix: 'images', pattern: /\.(png|mp4)$/ },
   ];
   for (const root of roots) {
@@ -85,6 +86,30 @@ async function sourceAssets() {
   return selected.sort((a, b) => a.path.localeCompare(b.path, 'en'));
 }
 
+// Keep this index a bounded list of public product identities and source links.
+// Availability notes and clinical reference content belong to their own sources.
+export const NTUH_DETAIL_URL = 'https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=';
+const NTUH_ENTRY_KEYS = new Set(['code', 'generic', 'product', 'chinese', 'schedule', 'classes', 'monograph']);
+const textField = value => typeof value === 'string' && value.trim().length > 0 && value.length <= 2000;
+export function assertNtuhIndex(index, reference) {
+  if (index?.schemaVersion !== 1 || !Array.isArray(index.entries) || !index.entries.length || index.entries.length > 10000 || !Array.isArray(index.classes) || !index.classes.every(textField)) throw new Error('NTUH index has an unexpected shape.');
+  if (index.source?.detailUrl !== NTUH_DETAIL_URL || index.source?.catalogUrl !== CATALOG_URL || !/^\d{4}-\d{2}-\d{2}$/.test(index.source?.snapshotDate)) throw new Error('NTUH index must identify its dated public detail page and catalog.');
+  const codes = new Set();
+  for (const entry of index.entries) {
+    if (!entry || typeof entry !== 'object') throw new Error('NTUH index entry has an unexpected shape.');
+    for (const key of Object.keys(entry)) if (!NTUH_ENTRY_KEYS.has(key)) throw new Error(`NTUH index entry carries a non-link field: ${key}`);
+    if (typeof entry.code !== 'string' || !/^[A-Z0-9 ]{8}$/.test(entry.code) || codes.has(entry.code)) throw new Error(`Invalid or repeated NTUH code: ${entry.code}`);
+    codes.add(entry.code);
+    if (!textField(entry.generic) || !textField(entry.product) || !(entry.chinese === null || textField(entry.chinese))) throw new Error(`NTUH entry ${entry.code} needs valid product names.`);
+    if (Object.hasOwn(entry, 'schedule') && ![1, 2, 3, 4].includes(entry.schedule)) throw new Error(`NTUH entry ${entry.code} has an invalid schedule.`);
+    const names = [entry.generic, entry.product, entry.chinese].filter(Boolean).join(' ');
+    if (/[@《》]|[（(]\s*DC\s*[）)]|常備|計價|恩慈|停產|關機|不發藥|供外籍|憑單領藥/i.test(names) || cleanProduct(entry.product).product !== entry.product || cleanChineseName(entry.chinese) !== entry.chinese) throw new Error(`NTUH entry ${entry.code} keeps an internal annotation or unlisted status.`);
+    if (entry.monograph !== monographForListing(entry, reference.drugs)) throw new Error(`NTUH entry ${entry.code} lacks a reviewed product/monograph identity.`);
+    if (!Array.isArray(entry.classes) || !entry.classes.every((value) => Number.isInteger(value) && value >= 0 && value < index.classes.length)) throw new Error(`NTUH entry ${entry.code} has an invalid class reference.`);
+  }
+  if (index.counts?.listed !== index.entries.length || index.counts?.withMonograph !== index.entries.filter(entry => entry.monograph).length || !Number.isSafeInteger(index.counts?.notListedOmitted) || index.counts.notListedOmitted < 0) throw new Error('NTUH index counts disagree with its entries.');
+}
+
 export async function build({ directory = DIST, builtAt, sourceCommit } = {}) {
   const output = await safeOutput(directory);
   const date = buildDate(builtAt);
@@ -95,9 +120,11 @@ export async function build({ directory = DIST, builtAt, sourceCommit } = {}) {
   const releaseNotes = JSON.parse(await readFile(path.join(ROOT, 'release-notes.json'), 'utf8'));
   if (!/^\d{4}-\d{2}-\d{2}$/.test(releaseNotes.date) || !releaseNotes.label?.trim() || !Array.isArray(releaseNotes.changes) || !releaseNotes.changes.length || !releaseNotes.changes.every(value => typeof value === 'string' && value.trim())) throw new Error('Release notes need a date, label and nonempty change list.');
   const inputs = await sourceAssets();
-  for (const required of ['index.html', 'app.js', 'icon-192.png', 'icon-512.png', 'data/reference.json', 'shared/abg.mjs', 'shared/calculators.mjs', 'shared/glycemic.mjs', 'shared/lab-review-entry.mjs']) if (!inputs.some(input => input.path === required)) throw new Error(`Required public source is missing: ${required}`);
+  for (const required of ['index.html', 'app.js', 'icon-192.png', 'icon-512.png', 'data/reference.json', 'data/ntuh-index.json', 'shared/abg.mjs', 'shared/calculators.mjs', 'shared/glycemic.mjs', 'shared/lab-review-entry.mjs']) if (!inputs.some(input => input.path === required)) throw new Error(`Required public source is missing: ${required}`);
   const reference = JSON.parse(await readFile(path.join(ROOT, 'src/data/reference.json'), 'utf8'));
   if (Object.hasOwn(reference, 'guideResources')) throw new Error('Internal hospital resource tables may not enter the public build.');
+  const ntuh = JSON.parse(await readFile(path.join(ROOT, 'src/data/ntuh-index.json'), 'utf8'));
+  assertNtuhIndex(ntuh, reference);
   const workerTemplate = `${parseByteRange.toString()}\n${await readFile(path.join(ROOT, 'src/sw-template.js'), 'utf8')}`;
   // A separate stage means failed source reads never remove a prior usable build.
   await mkdir(path.dirname(output), { recursive: true });
@@ -133,7 +160,7 @@ export async function build({ directory = DIST, builtAt, sourceCommit } = {}) {
           'src/sw-template.js': hash(await readFile(path.join(ROOT, 'src/sw-template.js'))),
           'src/byte-range.mjs': hash(await readFile(path.join(ROOT, 'src/byte-range.mjs'))),
         },
-        drugCount: reference.drugs.length, guideCount: reference.guides.length, pocusCount: reference.pocus?.topics?.length || 0,
+        drugCount: reference.drugs.length, ntuhListingCount: ntuh.entries.length, guideCount: reference.guides.length, pocusCount: reference.pocus?.topics?.length || 0,
         guides: reference.guides.map(guide => ({ id: guide.id, title: guide.title, reviewedAt: guide.reviewedAt, localRowCount: 0 })),
         excludedGuides: reference.excludedGuides || [], omittedReferenceCount: reference.publication?.referencePolicy?.omittedCount || 0,
         omittedReferencesByReason: reference.publication?.referencePolicy?.omittedByReason || {},

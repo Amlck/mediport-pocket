@@ -62,17 +62,32 @@ The initial public edition contains 175 drug monographs, 12 management guides,
 clinical calculator workflows and seven POCUS topics. POCUS includes 50 figures,
 five motion clips and five posters with individual credits and reuse licenses.
 
-This public edition omits captured hospital catalog identities, order codes and
-saved local regimens, four Taita monographs and 20 guides containing captured
+Search also covers about 2,300 **NTUH formulary listings**. Each listing is
+only a product name, generic name, Chinese name and drug class, linking to
+NTUH's own public product page (`QueryDrugDetail.aspx?Drug_Code=…`). The NTUH
+code appears only because that public URL needs it. NTUH's dose, dose-adjustment
+and package-insert content stays on NTUH's site and is not copied here. Listings
+open online, come from a dated snapshot, and do not confirm current
+availability. Products marked discontinued, compassionate-use only or not
+dispensed are left out, and NTUH's internal billing, ward-stock and local
+prescribing-restriction notes are removed from product names. Nine explicitly reviewed product identities link to a compatible Pocket
+monograph. Their exact code, full product label, ingredient and monograph scope
+are checked during the build. Other listings link only to NTUH; a shared name,
+ingredient substring or catalog search match does not establish equivalence.
+
+This public edition omits saved local regimens, internal hospital resource
+tables, four Taita monographs and 20 guides containing captured
 hospital context. Four ECG illustrations without recorded reuse provenance are
 omitted while the text reading workflow remains. Steroid equivalence is
 available without historical local product counts. Ordinary calculator lab
 review remains; the guided numeric lab-to-guide bridge is omitted because its
 previous registry imported excluded hospital modules.
 
-Public NTUH formulary links may be included when their original destination
-was publicly accessible. A public link does not authorize copying a private
-hospital capture, catalog export, order set or patient record into this project.
+Hospital code and reference content may be contributed when its original
+source is reliably accessible without a hospital login, intranet or VPN, and
+can be found through public internet sources. Record the public URL, access
+check and reuse rights. Intranet-only captures and patient records stay private.
+See the [NTUH source review](docs/ntuh-source-review.md) for this index.
 
 Reference content retains its review dates, source limitations and uncertainty.
 This is an educational reference; packaging dates and successful tests are not
@@ -113,6 +128,7 @@ not connect to a hospital system or use patient records.
 | `src/app/` | App shell, views, styles and icons |
 | `src/shared/` | Editable public calculator and guide modules |
 | `src/data/reference.json` | Public reference data, review metadata and provenance |
+| `src/data/ntuh-index.json` | Generated NTUH formulary link index; regenerate, do not hand-edit |
 | `src/images/` | Allowlisted teaching media with attribution in the reference data |
 | `src/sw-template.js` | Verified offline download and cache behavior |
 | `scripts/` | Standalone build and loopback preview tooling |
@@ -129,9 +145,29 @@ Merges here deploy **public Pocket** after its checks pass. Downstream private
 integrations can import this shared source at an exact commit and open their
 own tested update pull requests. They maintain their own integration tests,
 private supplements and release process. No private repository credential is
-needed here. Hospital integrations, internal resources and patient data must
-remain outside this repository. Shared fixes belong here; private adaptations
+needed here. Intranet-only integrations, resources without verified public sources and
+patient data remain outside this repository. Shared fixes belong here; private adaptations
 belong in the consuming project.
+
+## Refresh the NTUH listings
+
+The committed index can be regenerated without any private checkout or capture:
+
+```sh
+node scripts/generate-ntuh-index.mjs --from-index src/data/ntuh-index.json
+npm test
+```
+
+This retains the **2026-08-28 snapshot date**; it is a cleanup/rebuild, not a
+fresh catalog check. A new public catalog scrape can instead be supplied as
+`node scripts/generate-ntuh-index.mjs path/to/public-catalog.json`. Record its
+public source and access evidence before committing it. Legacy search-audit
+inputs are ignored because they cannot establish product equivalence.
+
+The build rejects non-link fields, status/administrative notes in either
+language, invalid public-source metadata and unreviewed monograph associations.
+New associations require an explicit review of the exact product, route,
+formulation, mixture and release characteristics against the monograph scope.
 
 ## Verify a build
 

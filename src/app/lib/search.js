@@ -55,6 +55,7 @@ export const SECTIONS = [
   { kind: 'pocus', label: 'POCUS' },
   { kind: 'calculator', label: 'Calculators' },
   { kind: 'drug', label: 'Drug reference' },
+  { kind: 'ntuh', label: 'NTUH formulary listings' },
 ];
 
 // These helpers make the hash route contract testable without loading a view.
@@ -203,6 +204,29 @@ function drugEntry(drug, indicationLookup) {
   };
 }
 
+// An NTUH listing is a link to NTUH's own public product page, never a
+// monograph. Its rows open externally; `monograph` names a Pocket monograph for
+// the same product when one exists. Product and generic names rank like drug
+// names; the Chinese name and code are aliases and the class is body text.
+export function ntuhDetailUrl(index, code) {
+  return `${index.source.detailUrl}${encodeURIComponent(code)}`;
+}
+
+function ntuhEntry(listing, index, drugNames) {
+  const classes = listing.classes.map((value) => index.classes[value]).filter(Boolean);
+  const leaf = classes[0]?.split(' > ').at(-1) || '';
+  return {
+    kind: 'ntuh', id: listing.code, title: listing.product,
+    sub: [listing.generic, listing.chinese, leaf].filter(Boolean).join(' · '),
+    href: ntuhDetailUrl(index, listing.code), external: true, icon: 'external', favoriteId: null,
+    monograph: listing.monograph ? { id: listing.monograph, name: drugNames.get(listing.monograph) || listing.monograph } : null,
+    schedule: listing.schedule || null,
+    primary: fields([listing.product, listing.generic]),
+    aliases: fields([listing.chinese, listing.code]),
+    body: joinText(classes),
+  };
+}
+
 function normalizedIndicationLookup(lookup) {
   const synonyms = new Map();
   for (const [phrase, tags] of Object.entries(lookup?.synonyms || {})) {
@@ -216,13 +240,15 @@ function normalizedIndicationLookup(lookup) {
   return synonyms;
 }
 
-export function buildSearchIndex({ drugs = [], guides = [], pocus = [], pocusScope = '', calculators = [], drugIndicationLookup = {} } = {}) {
+export function buildSearchIndex({ drugs = [], guides = [], pocus = [], pocusScope = '', calculators = [], drugIndicationLookup = {}, ntuh = null } = {}) {
   const indicationLookup = normalizedIndicationLookup(drugIndicationLookup);
+  const drugNames = new Map(drugs.map((drug) => [drug.id, drug.name]));
   const index = [
     ...guides.map(guideEntry),
     ...pocus.map((topic) => pocusEntry(topic, pocusScope)),
     ...calculators.map(calculatorEntry),
     ...drugs.map((drug) => drugEntry(drug, indicationLookup)),
+    ...(ntuh?.entries || []).map((listing) => ntuhEntry(listing, ntuh, drugNames)),
   ];
   // Search scope can be guides/calculators alone, so keep the phrase vocabulary
   // on the index as well as the drug entries.
@@ -403,6 +429,11 @@ export function searchIndex(index, query, { limitPerSection = Infinity, kinds = 
     return { kind, label, total: items.length, best: items.length ? items[0].score : Infinity, items: items.slice(0, limitPerSection) };
   }).filter((section) => section.total > 0);
   sections.sort((a, b) => a.best - b.best);
+  // Pocket's own monographs come before NTUH's external listings for the same
+  // query, even when a product name matches more literally (Lantus SoloStar).
+  const drugAt = sections.findIndex((section) => section.kind === 'drug');
+  const ntuhAt = sections.findIndex((section) => section.kind === 'ntuh');
+  if (drugAt > ntuhAt && ntuhAt >= 0) sections.splice(drugAt, 0, ...sections.splice(ntuhAt, 1));
 
   return { query, tokens, total: hits.length, sections };
 }

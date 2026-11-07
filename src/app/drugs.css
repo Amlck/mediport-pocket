@@ -309,3 +309,4 @@
 @media (max-width: 350px) {
   .drug-detail .drug-renal-entry:not(.stacked) { grid-template-columns: minmax(0, 64px) minmax(0, 1fr); }
 }
+.drug-detail .drug-ntuh-listings { margin-top: 8px; }

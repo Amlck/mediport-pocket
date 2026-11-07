@@ -45,7 +45,7 @@ test('all shared guides and calculator routes load without internal resource pan
 test('public scope is explicit and private assets are unavailable', async ({ page, request }) => {
   await page.goto('/#/pack');
   await expect(page.locator('#screen')).toContainText('About this edition');
-  await expect(page.locator('#screen')).toContainText('Hospital catalog records and saved local regimens are excluded.');
+  await expect(page.locator('#screen')).toContainText('Saved local regimens and internal hospital resource tables are excluded.');
   for (const file of ['/images/ekg/qrs-axis.png', '/shared/index.mjs', '/api/patients', '/.env', '/data/handoff.db']) {
     expect((await request.get(file)).status()).toBe(404);
   }
