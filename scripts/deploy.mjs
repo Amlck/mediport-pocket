@@ -176,6 +176,40 @@ export async function deploy({ directory = 'dist', sourceCommit = process.env.GI
   }
 }
 
+export async function offlineInstallDiagnostics(page, { timeoutMs = 5_000 } = {}) {
+  let timer;
+  try {
+    return await Promise.race([
+      page.evaluate(async () => {
+        // Only known public status titles, lifecycle states and counts enter logs.
+        // Do not return page HTML, inputs, URLs, cache keys or error messages.
+        const state = worker => worker ? (['parsed', 'installing', 'installed', 'activating', 'activated', 'redundant'].includes(worker.state) ? worker.state : 'unknown') : null;
+        const statusTitles = ['Checking the downloaded pack', 'Downloading the complete pack', 'Update ready · Offline copy verified', 'Offline copy verified', 'Offline copy incomplete', 'Offline status unavailable'];
+        const snapshot = {
+          packStatuses: Array.from(document.querySelectorAll('.page [role="status"]')).filter(node => node.checkVisibility()).slice(0, 3)
+            .map(node => {
+              const text = node.innerText.replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim();
+              return statusTitles.find(title => text.startsWith(title)) || 'Unrecognized pack status';
+            }),
+          worker: { controller: state(navigator.serviceWorker?.controller) },
+        };
+        try {
+          const registration = await navigator.serviceWorker?.getRegistration();
+          for (const name of ['installing', 'waiting', 'active']) snapshot.worker[name] = state(registration?.[name]);
+        } catch { snapshot.worker.registration = 'unavailable'; }
+        try {
+          const keys = (await caches.keys()).filter(key => key.startsWith('mediport-pocket:'));
+          snapshot.cacheCount = keys.length;
+          snapshot.sampledCacheAssetCounts = await Promise.all(keys.slice(0, 3).map(async key => (await (await caches.open(key)).keys()).length));
+        } catch { snapshot.cache = 'unavailable'; }
+        return snapshot;
+      }),
+      new Promise(resolve => { timer = setTimeout(() => resolve({ diagnostics: 'timed_out' }), timeoutMs); }),
+    ]);
+  } catch { return { diagnostics: 'unavailable' }; }
+  finally { clearTimeout(timer); }
+}
+
 export async function smoke({ origin = DEPLOY_ORIGIN, sourceCommit, version } = {}) {
   const { chromium } = await import('playwright');
   const browser = await chromium.launch({ ...(process.env.PLAYWRIGHT_CHANNEL ? { channel: process.env.PLAYWRIGHT_CHANNEL } : {}), headless: true });
@@ -183,7 +217,13 @@ export async function smoke({ origin = DEPLOY_ORIGIN, sourceCommit, version } = 
     const context = await browser.newContext({ viewport: { width: 393, height: 852 }, reducedMotion: 'reduce', serviceWorkers: 'allow' });
     let page = await context.newPage();
     await page.goto(`${origin}/#/pack`);
-    await page.locator('.page [role="status"]').first().filter({ hasText: 'Offline copy verified' }).waitFor({ timeout: 90_000 });
+    try {
+      // A cold install downloads and hashes the whole pack sequentially.
+      await page.locator('.page [role="status"]').first().filter({ hasText: 'Offline copy verified' }).waitFor({ timeout: 180_000 });
+    } catch {
+      const diagnostics = await offlineInstallDiagnostics(page);
+      throw new Error(`Live offline installation was not verified. Public install diagnostics: ${JSON.stringify(diagnostics)}`);
+    }
     const live = await page.evaluate(() => fetch('./release.json').then(response => response.json()));
     if (live.version !== version || live.source?.commit !== sourceCommit) throw new Error('Browser installed a different source release.');
     const exactSource = page.getByRole('link', { name: `Source for this version · ${sourceCommit.slice(0, 12)}` });

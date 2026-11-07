@@ -3,8 +3,9 @@ import { randomUUID } from 'node:crypto';
 import { readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
+import { runInNewContext } from 'node:vm';
 import { build, hash, ROOT } from '../scripts/build.mjs';
-import { artifactManifest, deploy, deploymentAllowed, deploymentOrigin, requestOidcToken } from '../scripts/deploy.mjs';
+import { artifactManifest, deploy, deploymentAllowed, deploymentOrigin, offlineInstallDiagnostics, requestOidcToken } from '../scripts/deploy.mjs';
 
 const SOURCE = '0123456789abcdef0123456789abcdef01234567';
 const NEWER = 'fedcba9876543210fedcba9876543210fedcba98';
@@ -77,6 +78,47 @@ test('OIDC tokens are requested only from GitHub Actions with the exact HTTPS au
   assert.equal(seen[0].url.searchParams.get('audience'), ORIGIN);
   assert.equal(seen[0].options.redirect, 'error');
   await assert.rejects(requestOidcToken({ audience: ORIGIN, env: { ...env, ACTIONS_ID_TOKEN_REQUEST_URL: 'https://attacker.example/idtoken' }, fetchImpl: () => { throw new Error('Unexpected network'); } }), /configuration/);
+});
+
+test('install diagnostics report bounded visible public statuses, worker states and cache counts without URLs or keys', async () => {
+  const statuses = [
+    { innerText: '  Downloading\n the complete pack\u001b https://example.org/?token=fictional-test-key ', checkVisibility: () => true },
+    { innerText: 'Hidden status must not enter diagnostics', checkVisibility: () => false },
+    ...Array.from({ length: 4 }, () => ({ innerText: 'x'.repeat(500), checkVisibility: () => true })),
+  ];
+  const cacheKeys = ['unrelated-private-cache', ...Array.from({ length: 4 }, (_, i) => `mediport-pocket:/:public-${i}-key-must-not-be-logged`)];
+  const opened = [];
+  const page = { evaluate: callback => runInNewContext(`(${callback})()`, {
+    document: { querySelectorAll(selector) { assert.equal(selector, '.page [role="status"]'); return statuses; } },
+    navigator: { serviceWorker: { controller: { state: 'activated', scriptURL: 'https://must-not-log.example/?token=secret' },
+      getRegistration: async () => ({ installing: { state: 'installing' }, waiting: null, active: { state: 'unexpected-secret-state' } }) } },
+    caches: { keys: async () => cacheKeys, open: async key => { opened.push(key); return { keys: async () => Array(12 - cacheKeys.indexOf(key)).fill('private-request-url') }; } },
+  }) };
+  const diagnostics = JSON.parse(JSON.stringify(await offlineInstallDiagnostics(page)));
+  assert.deepEqual(diagnostics, {
+    packStatuses: ['Downloading the complete pack', 'Unrecognized pack status', 'Unrecognized pack status'],
+    worker: { controller: 'activated', installing: 'installing', waiting: null, active: 'unknown' },
+    cacheCount: 4, sampledCacheAssetCounts: [11, 10, 9],
+  });
+  assert.equal(opened.length, 3, 'diagnostics sample at most three existing Pocket caches');
+  assert.ok(opened.every(key => key.startsWith('mediport-pocket:')));
+  assert.doesNotMatch(JSON.stringify(diagnostics), /secret|private|must-not|https?:|token|fictional-test-key/);
+});
+
+test('install diagnostics retain public status when service worker or cache inspection is unavailable', async () => {
+  const page = { evaluate: callback => runInNewContext(`(${callback})()`, {
+    document: { querySelectorAll: () => [{ innerText: 'Offline status unavailable', checkVisibility: () => true }] },
+    navigator: { serviceWorker: { getRegistration: async () => { throw new Error('private failure details'); } } },
+    caches: { keys: async () => { throw new Error('private cache details'); } },
+  }) };
+  assert.deepEqual(JSON.parse(JSON.stringify(await offlineInstallDiagnostics(page))), {
+    packStatuses: ['Offline status unavailable'], worker: { controller: null, registration: 'unavailable' }, cache: 'unavailable',
+  });
+  assert.deepEqual(await offlineInstallDiagnostics({ evaluate: async () => { throw new Error('private browser failure'); } }), { diagnostics: 'unavailable' });
+});
+
+test('install diagnostics finish within their bound when the browser stops answering', { timeout: 1000 }, async () => {
+  assert.deepEqual(await offlineInstallDiagnostics({ evaluate: () => new Promise(() => {}) }, { timeoutMs: 10 }), { diagnostics: 'timed_out' });
 });
 
 test('tested artifact uploads every exact file, survives a transient retry and verifies the active release', async t => {

@@ -51,8 +51,9 @@ in each PR. A passing software check does not establish clinical approval.
 
 ## In progress
 
-No active claims remain in this completed change set. New work must be claimed
-before editing; the authorized merge sequence and handoffs are recorded below.
+No active implementation claims. The completed `codex/deploy-offline-install-check`
+follow-up and validation are recorded below; review and merge decisions are
+tracked in its pull request. Claim new work before editing.
 
 ## Decisions
 
@@ -99,6 +100,10 @@ before editing; the authorized merge sequence and handoffs are recorded below.
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-07 · Codex · #7 handoff** · Completed the CI-only 180-second install deadline and five-second diagnostics bound. Independent review, 73 Node tests, the 162-asset build and a live locked-browser smoke passed; diagnostics return only known titles, worker states and counts. PR CI and owner merge authorization are tracked in #7.
+
+- **2026-11-07 · Codex · deployment smoke follow-up** · Claimed/extended the CI-only complete-pack install wait to 180 seconds with allowlisted public status titles and bounded worker/cache diagnostics, retaining source, hash and offline checks. All 73 Node tests and the 162-asset build/verification pass; app, worker and clinical content are unchanged. This follow-up is not authorized to merge.
 
 - **2026-11-07 · Codex · #4 merge preparation** · #2, #3 and #6 merged in order (`551bad7`, `c7fdb6b`, `5d54e2a`). Brought #4 onto that main, preserving the exact jointly reviewed runtime; final required CI and deployment checks complete this owner-authorized sequence. Coordination with `Medical` is ready.
 
