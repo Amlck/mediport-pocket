@@ -45,15 +45,23 @@ content hash and the applicable clinical limits beside its presentation.
 
 ## Public hospital sources
 
-Links to NTUH formulary pages are allowed when the original page is publicly
-accessible without a hospital login or private network. Record the exact public
-URL and the date it was checked. Do not silently substitute an internal HIS
-endpoint or infer current availability from an old catalog identity.
+Hospital code, reference content and NTUH formulary links are allowed when the
+original source is reliably accessible without a hospital login, intranet or
+VPN and discoverable through public internet sources. Record the exact public
+URL, how it can be found, the access-check date and reuse rights. A hospital
+name or drug code alone is not a reason to exclude otherwise public material.
+Do not infer current availability from an old catalog identity.
 
-Captured hospital order sets, private catalog exports, saved local regimen
-rows, internal screenshots and patient data remain outside this public
-repository. A publicly reachable formulary link does not by itself authorize
-redistributing unrelated captured content.
+Intranet-only captures, private exports without a verified public original,
+private screenshots, credentials and patient data stay outside this repository.
+A public link does not authorize redistribution of unrelated captures or
+third-party material without compatible rights.
+
+NTUH product-to-monograph links require review of the exact generic, full
+product label, route, formulation, release and mixture. Search matches and
+shared ingredient names are insufficient. Keep unreviewed products as external
+source links. Run the generator and tests after changing a reviewed association;
+a monograph scope change invalidates its previous compatibility hash.
 
 ## Interface and offline behavior
 

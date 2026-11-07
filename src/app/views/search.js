@@ -121,7 +121,8 @@ export function searchView(ctx, [routeKind] = []) {
   function render() {
     const query = searchSession.query.trim();
     if (!query) { resultsEl.replaceChildren(...idleState().flat(Infinity).filter(Boolean)); return; }
-    const found = searchIndex(entries, query, optionsFor(200));
+    // Keep every hit available to Show more; only sectionBlock limits the DOM.
+    const found = searchIndex(entries, query, optionsFor(Infinity));
     if (!found.total) {
       resultsEl.replaceChildren(h('div', { class: 'empty' }, `Nothing in this pack matches “${query}”. Try a shorter word, a drug brand, or part of a topic title.`));
       return;

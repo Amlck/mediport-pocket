@@ -29,7 +29,7 @@ const TABS = [
 
 const ROUTES = [
   { pattern: /^\/?$|^\/home$/, tab: 'home', view: homeView, root: true },
-  { pattern: /^\/search(?:\/(guide|calculator|drug|pocus))?$/, tab: 'home', view: searchView },
+  { pattern: /^\/search(?:\/(guide|calculator|drug|pocus|ntuh))?$/, tab: 'home', view: searchView },
   { pattern: /^\/pack$/, tab: 'home', view: packView },
   { pattern: /^\/install$/, tab: 'home', view: installView },
   { pattern: /^\/lab-review$/, tab: 'home', view: labReviewView },

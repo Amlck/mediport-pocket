@@ -41,3 +41,56 @@ test('a monograph lists its NTUH products as external public links', async ({ pa
   await page.goto('/#/pack');
   await expect(page.locator('#screen')).toContainText('NTUH formulary listings');
 });
+
+test('NTUH scope works from the chip and a direct URL without Enter opening an external page', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto('/#/search');
+  const input = page.getByRole('searchbox', { name: 'Search everything' });
+  await input.fill('augmentin');
+  await page.getByRole('button', { name: 'NTUH', exact: true }).click();
+  await expect(page).toHaveURL(/#\/search\/ntuh$/);
+  await expect(page.getByRole('button', { name: 'NTUH', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(input).toHaveValue('augmentin');
+  await expect(page.locator('.letter')).toHaveCount(1);
+  await expect(page.locator('.letter')).toContainText('NTUH formulary listings');
+  await expect(page.locator('a.ntuh-row').first()).toHaveAttribute('href', DETAIL);
+  await input.press('Enter');
+  await expect(page).toHaveURL(/#\/search\/ntuh$/);
+
+  // A cold direct route has the same scope; switching back to All retains the
+  // query and restores Enter's in-app monograph navigation.
+  await page.goto('/#/search/ntuh');
+  await page.reload();
+  await expect(page.getByRole('button', { name: 'NTUH', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await input.fill('augmentin');
+  await page.getByRole('button', { name: 'All', exact: true }).click();
+  await expect(page).toHaveURL(/#\/search$/);
+  await expect(input).toHaveValue('augmentin');
+  await input.press('Enter');
+  await expect(page).toHaveURL(/#\/drugs\/amoxicillin-clavulanate$/);
+  expect(errors).toEqual([]);
+});
+
+test('Show more reaches every NTUH result beyond 200 and stops at the actual total', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto('/#/search/ntuh');
+  await page.getByRole('searchbox', { name: 'Search everything' }).fill('injection');
+  const heading = page.locator('.letter');
+  await expect(heading).toContainText('NTUH formulary listings');
+  const total = Number((await heading.textContent()).match(/·\s*(\d+)/)[1]);
+  expect(total).toBeGreaterThan(200);
+  const listings = page.locator('a.ntuh-row');
+  await expect(listings).toHaveCount(6);
+  for (let visible = 6; visible < total;) {
+    const increment = Math.min(20, total - visible);
+    await page.getByRole('button', { name: `Show ${increment} more`, exact: true }).click();
+    visible += increment;
+    await expect(listings).toHaveCount(visible);
+  }
+  await expect(page.getByRole('button', { name: /^Show \d+ more$/ })).toHaveCount(0);
+  const hrefs = await listings.evaluateAll((items) => items.map((item) => item.href));
+  expect(new Set(hrefs).size).toBe(total);
+  expect(errors).toEqual([]);
+});

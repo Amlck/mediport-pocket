@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 import { assertNtuhIndex, NTUH_DETAIL_URL } from '../scripts/build.mjs';
-import { buildNtuhIndex, cleanProduct } from '../scripts/generate-ntuh-index.mjs';
+import { buildNtuhIndex, cleanProduct, cleanChineseName, catalogFromIndex, monographForListing } from '../scripts/generate-ntuh-index.mjs';
 import { buildSearchIndex, ntuhDetailUrl, searchIndex } from '../src/app/lib/search.js';
 
 const reference = JSON.parse(await readFile(new URL('../src/data/reference.json', import.meta.url), 'utf8'));
@@ -48,14 +48,72 @@ test('index omits unlisted products, merges classes and never copies dose conten
   ];
   const index = buildNtuhIndex({ catalog, formulary, drugs });
   assert.deepEqual(index.entries.map((entry) => entry.code), ['AAA1AA01', 'FFF1AA01', 'EEE1AA01']);
-  assert.deepEqual(index.counts, { listed: 3, withMonograph: 2, notListedOmitted: 3 });
+  assert.deepEqual(index.counts, { listed: 3, withMonograph: 0, notListedOmitted: 3 });
   const exampleol = index.entries.find((entry) => entry.code === 'AAA1AA01');
   assert.equal(exampleol.classes.length, 2);
-  assert.equal(exampleol.monograph, 'exampleol');
-  assert.equal(index.entries.find((entry) => entry.code === 'FFF1AA01').monograph, 'insulin-glargine', 'exact monograph outranks a group monograph');
+  assert.equal(exampleol.monograph, null, 'an exact generic name alone does not establish product compatibility');
+  assert.equal(index.entries.find((entry) => entry.code === 'FFF1AA01').monograph, null, 'an audit match is not an approved formulation mapping');
   assert.equal(index.entries.find((entry) => entry.code === 'EEE1AA01').monograph, null, 'irrigation never inherits a systemic monograph');
   assert.doesNotMatch(JSON.stringify(index), /maxDose|4 g\/day/);
   assert.equal(index.source.snapshotDate, '2026-08-28');
+});
+
+test('ingredient substrings, audit matches and generic equality cannot imply product equivalence', () => {
+  const incorrectLinks = {
+    ABR1CC38: 'albumin', DIG1QB37: 'digoxin', MIR1EC35: 'polyethylene-glycol',
+    FUN1AL01: 'amphotericin-b', HUM1LB84: 'insulin-lispro', KCL1FAF9: 'd5w',
+    BOW5HC21: 'mag-oxide', OZU1UC42: 'dexamethasone', 'AT 2UB13': 'atropine',
+    SAN1LD27: 'octreotide', SER4IB42: 'quetiapine',
+  };
+  const entries = ntuh.entries.filter(entry => Object.hasOwn(incorrectLinks, entry.code));
+  assert.equal(entries.length, Object.keys(incorrectLinks).length);
+  const formulary = { drugs: Object.fromEntries(Object.entries(incorrectLinks).map(([code, id]) => [id, {
+    status: 'listed', presentations: [{ drugCode: code }],
+  }])) };
+  const catalog = catalogFromIndex({ ...ntuh, counts: { notListedOmitted: 0 }, entries });
+  const generated = buildNtuhIndex({ catalog, formulary, drugs: reference.drugs });
+  for (const entry of generated.entries) assert.equal(entry.monograph, null, `${entry.code} ${entry.generic} must not inherit ${incorrectLinks[entry.code]}`);
+  for (const code of ['ABR1CC38', 'DIG1QB37', 'MIR1EC35', 'FUN1AL01', 'HUM1LB84', 'KCL1FAF9']) {
+    assert.equal(ntuh.entries.find(entry => entry.code === code).monograph, null, `${code}: committed index correction`);
+  }
+});
+
+test('reviewed links bind exact product qualifiers and the monograph clinical scope', () => {
+  for (const entry of ntuh.entries.filter(item => item.monograph)) assert.equal(monographForListing(entry, reference.drugs), entry.monograph);
+  const amoxicillin = ntuh.entries.find(entry => entry.code === 'AMO4AA16');
+  assert.equal(monographForListing(amoxicillin, reference.drugs), 'amoxicillin');
+  for (const product of ['Amoxicillin Cream 250 mg/g', 'Amoxicillin Extended-Release Capsule 250 mg/cap', 'Amoxicillin and Clavulanate Capsule 250 mg/cap', amoxicillin.product + ' (modified release)']) {
+    assert.equal(monographForListing({ ...amoxicillin, product }, reference.drugs), null);
+  }
+  assert.equal(monographForListing({ ...amoxicillin, code: 'NEW4AA01' }, reference.drugs), null, 'new codes require a product review');
+  const changed = reference.drugs.map(drug => drug.id === 'amoxicillin' ? { ...drug, dose: { standard: 'Changed scope' } } : drug);
+  assert.equal(monographForListing(amoxicillin, changed), null, 'a changed monograph scope requires review');
+  const liposomal = ntuh.entries.find(entry => entry.code === 'AMB1AL18');
+  assert.equal(monographForListing(liposomal, reference.drugs), 'amphotericin-b');
+  assert.equal(monographForListing({ ...liposomal, generic: 'Amphotericin B' }, reference.drugs), null, 'liposomal qualifier is part of identity');
+});
+
+test('Chinese status markers omit products and administrative cleanup preserves Chinese product names', () => {
+  assert.equal(cleanChineseName('@ 麻佳因注射液'), '麻佳因注射液');
+  assert.equal(cleanChineseName('組織修復凝合劑(第二代) (常備查核用線上不開機)'), '組織修復凝合劑(第二代)');
+  assert.equal(cleanChineseName('倍拉維膜衣錠 (供外籍無健保者憑單領藥)'), '倍拉維膜衣錠');
+  assert.equal(cleanChineseName('無正式中文名(供外籍無健保者憑單領藥)'), null);
+  assert.equal(cleanChineseName('測試注射液10% (實際劑量12.5 mg) [PP軟袋]'), '測試注射液10% (實際劑量12.5 mg) [PP軟袋]');
+  const catalog = { generatedAt: '2026-08-28', drugs: [
+    row('SAL1FAB4', 'Sodium Chloride', 'Saline 0.45% 500 mL/bag (7.7 mEq/100 mL)', { chineseName: '沙林注射液0.45% [PP軟袋] (關機)' }),
+    row('DUP1AA01', 'Exampleol', 'Exampleol Tablet', { chineseName: '測試錠' }),
+    row('DUP1AA01', 'Exampleol', 'Exampleol Tablet', { chineseName: '測試錠（DC）' }),
+    row('KEEPAA01', 'Exampleol', 'Exampleol Tablet', { chineseName: '測試錠(第二代)' }),
+  ] };
+  const result = buildNtuhIndex({ catalog });
+  assert.deepEqual(result.entries.map(entry => entry.code), ['KEEPAA01'], 'any source row marked discontinued excludes that code');
+  assert.ok(!ntuh.entries.some(entry => entry.code === 'SAL1FAB4'));
+  assert.doesNotMatch(JSON.stringify(ntuh.entries.map(entry => entry.chinese)), /常備|計價|供外籍|憑單領藥|@/);
+});
+
+test('public-index regeneration preserves source date, products and classes without a private capture', () => {
+  const rebuilt = buildNtuhIndex({ catalog: catalogFromIndex(ntuh), drugs: reference.drugs });
+  assert.deepEqual(rebuilt, ntuh);
 });
 
 test('committed NTUH index is a link list that passes the build guard', () => {

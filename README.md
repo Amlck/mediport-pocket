@@ -70,9 +70,10 @@ and package-insert content stays on NTUH's site and is not copied here. Listings
 open online, come from a dated snapshot, and do not confirm current
 availability. Products marked discontinued, compassionate-use only or not
 dispensed are left out, and NTUH's internal billing, ward-stock and local
-prescribing-restriction notes are removed from product names. Where Pocket has a
-monograph for the product, the listing names it and the monograph links back to
-its NTUH listings.
+prescribing-restriction notes are removed from product names. Nine explicitly reviewed product identities link to a compatible Pocket
+monograph. Their exact code, full product label, ingredient and monograph scope
+are checked during the build. Other listings link only to NTUH; a shared name,
+ingredient substring or catalog search match does not establish equivalence.
 
 This public edition omits saved local regimens, internal hospital resource
 tables, four Taita monographs and 20 guides containing captured
@@ -82,9 +83,11 @@ available without historical local product counts. Ordinary calculator lab
 review remains; the guided numeric lab-to-guide bridge is omitted because its
 previous registry imported excluded hospital modules.
 
-Public NTUH formulary links may be included when their original destination
-was publicly accessible. A public link does not authorize copying a private
-hospital capture, catalog export, order set or patient record into this project.
+Hospital code and reference content may be contributed when its original
+source is reliably accessible without a hospital login, intranet or VPN, and
+can be found through public internet sources. Record the public URL, access
+check and reuse rights. Intranet-only captures and patient records stay private.
+See the [NTUH source review](docs/ntuh-source-review.md) for this index.
 
 Reference content retains its review dates, source limitations and uncertainty.
 This is an educational reference; packaging dates and successful tests are not
@@ -142,23 +145,29 @@ Merges here deploy **public Pocket** after its checks pass. Downstream private
 integrations can import this shared source at an exact commit and open their
 own tested update pull requests. They maintain their own integration tests,
 private supplements and release process. No private repository credential is
-needed here. Hospital integrations, internal resources and patient data must
-remain outside this repository. Shared fixes belong here; private adaptations
+needed here. Intranet-only integrations, resources without verified public sources and
+patient data remain outside this repository. Shared fixes belong here; private adaptations
 belong in the consuming project.
 
 ## Refresh the NTUH listings
 
-The index is generated from a scrape of NTUH's public pharmacology catalog
-(`QueryDrugInfoPhr.aspx`) and, optionally, the public drug-search audit that
-maps monographs to NTUH codes. Both inputs are produced outside this repository:
+The committed index can be regenerated without any private checkout or capture:
 
 ```sh
-node scripts/generate-ntuh-index.mjs path/to/ntuh-pharmacology-catalog.json path/to/ntuh-formulary-data.js
+node scripts/generate-ntuh-index.mjs --from-index src/data/ntuh-index.json
 npm test
 ```
 
-The build rejects an index carrying anything other than link fields, an
-internal annotation, or a link to anything but NTUH's public detail page.
+This retains the **2026-08-28 snapshot date**; it is a cleanup/rebuild, not a
+fresh catalog check. A new public catalog scrape can instead be supplied as
+`node scripts/generate-ntuh-index.mjs path/to/public-catalog.json`. Record its
+public source and access evidence before committing it. Legacy search-audit
+inputs are ignored because they cannot establish product equivalence.
+
+The build rejects non-link fields, status/administrative notes in either
+language, invalid public-source metadata and unreviewed monograph associations.
+New associations require an explicit review of the exact product, route,
+formulation, mixture and release characteristics against the monograph scope.
 
 ## Verify a build
 

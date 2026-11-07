@@ -4,6 +4,7 @@ import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseByteRange } from '../src/byte-range.mjs';
+import { CATALOG_URL, monographForListing, cleanProduct, cleanChineseName } from './generate-ntuh-index.mjs';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const DIST = path.join(ROOT, 'dist');
@@ -85,24 +86,28 @@ async function sourceAssets() {
   return selected.sort((a, b) => a.path.localeCompare(b.path, 'en'));
 }
 
-// The NTUH index is a link list: names, class and the code its public URL
-// needs. Copied NTUH content or internal annotations must not enter the pack.
+// Keep this index a bounded list of public product identities and source links.
+// Availability notes and clinical reference content belong to their own sources.
 export const NTUH_DETAIL_URL = 'https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=';
 const NTUH_ENTRY_KEYS = new Set(['code', 'generic', 'product', 'chinese', 'schedule', 'classes', 'monograph']);
+const textField = value => typeof value === 'string' && value.trim().length > 0 && value.length <= 2000;
 export function assertNtuhIndex(index, reference) {
-  if (index?.schemaVersion !== 1 || !Array.isArray(index.entries) || !Array.isArray(index.classes)) throw new Error('NTUH index has an unexpected shape.');
-  if (index.source?.detailUrl !== NTUH_DETAIL_URL) throw new Error('NTUH index must link only to the public detail page.');
-  const drugIds = new Set(reference.drugs.map((drug) => drug.id));
+  if (index?.schemaVersion !== 1 || !Array.isArray(index.entries) || !index.entries.length || index.entries.length > 10000 || !Array.isArray(index.classes) || !index.classes.every(textField)) throw new Error('NTUH index has an unexpected shape.');
+  if (index.source?.detailUrl !== NTUH_DETAIL_URL || index.source?.catalogUrl !== CATALOG_URL || !/^\d{4}-\d{2}-\d{2}$/.test(index.source?.snapshotDate)) throw new Error('NTUH index must identify its dated public detail page and catalog.');
   const codes = new Set();
   for (const entry of index.entries) {
+    if (!entry || typeof entry !== 'object') throw new Error('NTUH index entry has an unexpected shape.');
     for (const key of Object.keys(entry)) if (!NTUH_ENTRY_KEYS.has(key)) throw new Error(`NTUH index entry carries a non-link field: ${key}`);
-    if (!/^[A-Z0-9 ]{8}$/.test(entry.code) || codes.has(entry.code)) throw new Error(`Invalid or repeated NTUH code: ${entry.code}`);
+    if (typeof entry.code !== 'string' || !/^[A-Z0-9 ]{8}$/.test(entry.code) || codes.has(entry.code)) throw new Error(`Invalid or repeated NTUH code: ${entry.code}`);
     codes.add(entry.code);
-    if (!entry.generic || !entry.product) throw new Error(`NTUH entry ${entry.code} needs a generic and product name.`);
-    if (/[@《》]|\((?:PPCD|Cash|DC)\)|常備|計價|恩慈|停產|關機|不發藥/.test(entry.product)) throw new Error(`NTUH entry ${entry.code} keeps an internal annotation.`);
-    if (entry.monograph !== null && !drugIds.has(entry.monograph)) throw new Error(`NTUH entry ${entry.code} links an unknown monograph.`);
-    if (!entry.classes.every((value) => Number.isInteger(value) && value >= 0 && value < index.classes.length)) throw new Error(`NTUH entry ${entry.code} has an invalid class reference.`);
+    if (!textField(entry.generic) || !textField(entry.product) || !(entry.chinese === null || textField(entry.chinese))) throw new Error(`NTUH entry ${entry.code} needs valid product names.`);
+    if (Object.hasOwn(entry, 'schedule') && ![1, 2, 3, 4].includes(entry.schedule)) throw new Error(`NTUH entry ${entry.code} has an invalid schedule.`);
+    const names = [entry.generic, entry.product, entry.chinese].filter(Boolean).join(' ');
+    if (/[@《》]|[（(]\s*DC\s*[）)]|常備|計價|恩慈|停產|關機|不發藥|供外籍|憑單領藥/i.test(names) || cleanProduct(entry.product).product !== entry.product || cleanChineseName(entry.chinese) !== entry.chinese) throw new Error(`NTUH entry ${entry.code} keeps an internal annotation or unlisted status.`);
+    if (entry.monograph !== monographForListing(entry, reference.drugs)) throw new Error(`NTUH entry ${entry.code} lacks a reviewed product/monograph identity.`);
+    if (!Array.isArray(entry.classes) || !entry.classes.every((value) => Number.isInteger(value) && value >= 0 && value < index.classes.length)) throw new Error(`NTUH entry ${entry.code} has an invalid class reference.`);
   }
+  if (index.counts?.listed !== index.entries.length || index.counts?.withMonograph !== index.entries.filter(entry => entry.monograph).length || !Number.isSafeInteger(index.counts?.notListedOmitted) || index.counts.notListedOmitted < 0) throw new Error('NTUH index counts disagree with its entries.');
 }
 
 export async function build({ directory = DIST, builtAt, sourceCommit } = {}) {
