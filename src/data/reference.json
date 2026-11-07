@@ -88,7 +88,7 @@
       },
       {
         "sourcePath": "portal/static/data/drug-data.js",
-        "transformation": "Public portability edit (2026-11-07): include the four Otsuka Taita-series fluid monographs; describe them as Taiwanese rather than local formulations. Aliases containing 台大 are removed by the public hospital-identity filter.",
+        "transformation": "Public portability edit (2026-11-07): include the four Otsuka Taita-series fluid monographs; describe them as Taiwanese rather than local formulations. Their common product names (台大N號) and the 台N shorthand are kept as search aliases; 台大 aliases are not allowed on any other drug.",
         "originalSha256": "6d1aacf5b66b0788df28f4313423a198099ab6776b3413b660c0d5696c837e72",
         "outputSha256": "a835172469357a05a329906eff32dae4f6cd9661958a2ac4b10d79d4c946f6a2"
       }
@@ -9578,7 +9578,10 @@
       "aliases": [
         "Taita No. 1",
         "大塚1號",
-        "taita 1"
+        "taita 1",
+        "台大一號",
+        "台大1號",
+        "台1"
       ],
       "category": "fluid",
       "pkpd": "Low-sodium maintenance fluid with dextrose plus mixed electrolytes. Official listed ingredients are sodium chloride, potassium acetate, sodium acetate, magnesium chloride, potassium phosphate monobasic, and dextrose.",
@@ -9685,7 +9688,10 @@
       "aliases": [
         "Taita No. 2",
         "大塚2號",
-        "taita 2"
+        "taita 2",
+        "台大二號",
+        "台大2號",
+        "台2"
       ],
       "category": "fluid",
       "pkpd": "Intermediate-sodium maintenance fluid with dextrose and mixed electrolytes. Official listed ingredients are sodium chloride, potassium acetate, sodium acetate, sodium phosphate monobasic, and dextrose.",
@@ -9787,7 +9793,10 @@
       "aliases": [
         "Taita No. 3",
         "大塚3號",
-        "taita 3"
+        "taita 3",
+        "台大三號",
+        "台大3號",
+        "台3"
       ],
       "category": "fluid",
       "pkpd": "Higher-sodium maintenance fluid with dextrose and mixed electrolytes. Official listed ingredients are sodium chloride, potassium acetate, sodium acetate, sodium phosphate monobasic, and dextrose.",
@@ -9889,7 +9898,10 @@
       "aliases": [
         "Taita No. 5",
         "大塚5號",
-        "taita 5"
+        "taita 5",
+        "台大五號",
+        "台大5號",
+        "台5"
       ],
       "category": "fluid",
       "pkpd": "Maintenance fluid with dextrose plus mixed electrolytes. Official Otsuka ingredients are sodium chloride, dextrose, sodium acetate, potassium acetate, magnesium chloride hexahydrate, and potassium phosphate monobasic. This is not the same formulation as generic D5NS.",
