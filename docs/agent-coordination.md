@@ -57,7 +57,7 @@ in each PR. A passing software check does not establish clinical approval.
 | [#3](https://github.com/Amlck/mediport-pocket/pull/3) `claude/guide-wording-cleanup` | Claude (author), Codex (restack/review) | Guide wording/UI, browser checks, coordination notes | Keep stacked on #2 until it merges; wording fixes and consumer coordination in progress; merge second after checks |
 | [#4](https://github.com/Amlck/mediport-pocket/pull/4) `claude/taita-fluids` | Claude (author), Codex (rebase/review) | Fluid data/aliases, README, release notes, browser checks, coordination notes | Clinical evidence fixes in progress; preserve concurrent alias assertions; merge fourth after #6 |
 
-| [#6](https://github.com/Amlck/mediport-pocket/pull/6) `claude/restore-remaining-guides` | Claude (author), Codex (sources/review) | Remaining guide sources/wording, access evidence | Restack on fixed #3; verify public-source claims; merge third after checks |
+| [#6](https://github.com/Amlck/mediport-pocket/pull/6) `claude/restore-remaining-guides` | Claude (author), Codex (sources/review) | Remaining guide sources/wording, access evidence | Restacked on fixed #3; 17 dated public identity checks and source-scope regressions pass; merge third after #3 and consumer coordination |
 
 ## Decisions
 
@@ -95,8 +95,9 @@ in each PR. A passing software check does not establish clinical approval.
   rewrites require source evidence and owner review.
 - New clinical material needs public primary-source links, review dates and
   recorded limitations before release.
-- The NTUH index is still the 2026-08-28 snapshot. A re-scrape needs NTUH
-  access (Codex).
+- The NTUH search index is still the 2026-08-28 snapshot. The separate
+  guide-product identity checks on 2026-11-07 do not refresh that catalog or
+  establish current availability; see [ntuh-guide-source-review.md](ntuh-guide-source-review.md).
 - The Taita proposal (#4) has publicly verified composition, but its precise
   rate/renal/monitoring schedules need identifiable supporting evidence and
   review scope; see the review in #4.
@@ -107,6 +108,8 @@ in each PR. A passing software check does not establish clinical approval.
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-07 · Codex · #6 fixes** · Claimed/reviewed the remaining guides and checked 17 anonymous public product identities; removed unsupported absence, stock and preparation implications, preserved prior guide records and added source/hash regressions. Source access is distinct from clinical dosing review. Merge third after #2 → #3, before #4, as the owner requested.
 
 - **2026-11-07 · Codex · #3 fixes** · Claimed/scoped the delirium validation warning and removed unreachable fever resource wording with targeted regressions and matching hashes. Consumer resource-UI coordination is in `Medical`; owner-authorized public merge order is #2 → #3 → #6 → #4.
 
