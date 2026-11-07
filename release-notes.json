@@ -1,7 +1,8 @@
 {
   "date": "2026-11-07",
-  "label": "Mediport Pocket · NTUH formulary search",
+  "label": "Mediport Pocket · Taita fluids and NTUH formulary",
   "changes": [
+    "Adds the four Otsuka Taita-series maintenance fluids (Taita No. 1, 2, 3 and 5) with contents, osmolarity, calories and monitoring notes. Fluids now opens on Taita No. 5.",
     "Search now finds about 2,300 NTUH formulary products by product, generic or Chinese name, each linking to NTUH's own public product page.",
     "Drug monographs list their NTUH products under Sources. Listings open online and come from a 28 August 2026 snapshot; they do not confirm current availability.",
     "Use Installed pack → Check for update, then close and reopen all Pocket windows to install this release."

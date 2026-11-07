@@ -85,6 +85,12 @@
       {
         "sourcePath": "portal/static/js/management-guides/lab-review-entry.mjs",
         "transformation": "Omit guided numeric-entry bridge and its desktop registry import closure; standard calculator lab review remains available."
+      },
+      {
+        "sourcePath": "portal/static/data/drug-data.js",
+        "transformation": "Public portability edit (2026-11-07): include the four Otsuka Taita-series fluid monographs; describe them as Taiwanese rather than local formulations. Aliases containing 台大 are removed by the public hospital-identity filter.",
+        "originalSha256": "6d1aacf5b66b0788df28f4313423a198099ab6776b3413b660c0d5696c837e72",
+        "outputSha256": "a835172469357a05a329906eff32dae4f6cd9661958a2ac4b10d79d4c946f6a2"
       }
     ],
     "drugDataFiles": [
@@ -9557,6 +9563,427 @@
         {
           "text": "FDA Prescribing Information (DailyMed)",
           "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=spironolactone"
+        }
+      ]
+    },
+    {
+      "id": "taita-1",
+      "indicationTags": [
+        "water and electrolytes"
+      ],
+      "name": "Taita No. 1 Injection",
+      "class": "Maintenance Electrolyte-Glucose Solution",
+      "shortName": "Taita 1",
+      "badge": "IV Infusion",
+      "aliases": [
+        "Taita No. 1",
+        "大塚1號",
+        "taita 1"
+      ],
+      "category": "fluid",
+      "pkpd": "Low-sodium maintenance fluid with dextrose plus mixed electrolytes. Official listed ingredients are sodium chloride, potassium acetate, sodium acetate, magnesium chloride, potassium phosphate monobasic, and dextrose.",
+      "mechanism": "Provides maintenance water, calories, and modest sodium with built-in potassium, magnesium, acetate, and phosphate. It is a Taiwanese maintenance formulation, not a crystalloid resuscitation fluid.",
+      "spectrum": "Water, electrolyte, and nutrition support; neonatal or low-sodium maintenance contexts; ward maintenance when only modest sodium delivery is desired.",
+      "dose": {
+        "standard": "Maintenance: individualize to age, weight, and ongoing losses; adult maintenance is typically 1–1.5 mL/kg/h, but this lower-sodium bag is mainly selected for specific maintenance goals rather than routine bolus use",
+        "loading": ""
+      },
+      "renalAdj": [
+        {
+          "crcl": "≥60",
+          "regimen": "Use for maintenance only; monitor glucose and electrolytes daily"
+        },
+        {
+          "crcl": "30–59",
+          "regimen": "Reduce rate if fluid-sensitive; monitor Na⁺/K⁺/Mg²⁺/phosphate Q12–24h"
+        },
+        {
+          "crcl": "<30 / HD",
+          "regimen": "Use cautiously because K⁺/Mg²⁺/phosphate may accumulate; monitor fluid balance closely"
+        }
+      ],
+      "sideEffects": [
+        "Hyperglycaemia (glucose-containing maintenance fluid)",
+        "Electrolyte accumulation if renal function is poor (K⁺/Mg²⁺/phosphate)",
+        "Hyponatraemia if used when sodium requirements are higher than the bag provides",
+        "Volume overload in CHF/cirrhosis/ESRD"
+      ],
+      "monitoring": [
+        "Glucose",
+        "Serum Na⁺, K⁺, Mg²⁺, and phosphate",
+        "Fluid balance and urine output",
+        "Clinical reason for choosing a lower-sodium maintenance bag"
+      ],
+      "publicNotes": [
+        "Taita No. 1 is not normal saline; it is a maintenance fluid with dextrose and added electrolytes",
+        "Use it for maintenance goals, not for rapid volume resuscitation"
+      ],
+      "contents": {
+        "basis": {
+          "volumeMl": 500,
+          "label": "per 500 mL bag"
+        },
+        "components": [
+          {
+            "name": "Na⁺",
+            "amount": 12.5,
+            "unit": "mEq"
+          },
+          {
+            "name": "K⁺",
+            "amount": 9,
+            "unit": "mEq"
+          },
+          {
+            "name": "Mg²⁺",
+            "amount": 1.5,
+            "unit": "mEq"
+          },
+          {
+            "name": "Cl⁻",
+            "amount": 10,
+            "unit": "mEq"
+          },
+          {
+            "name": "Acetate",
+            "amount": 10,
+            "unit": "mEq"
+          },
+          {
+            "name": "Phosphate",
+            "amount": 3,
+            "unit": "mmol"
+          },
+          {
+            "name": "Glucose",
+            "amount": 19,
+            "unit": "g"
+          }
+        ]
+      },
+      "sizes": [
+        "500 mL bag"
+      ],
+      "osmolarity": "300 mOsm/L",
+      "calories": "76 kcal/500 mL bag (152 kcal/L)",
+      "references": [
+        {
+          "text": "Product Information — Otsuka Pharmaceutical Co., Ltd.",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "taita-2",
+      "indicationTags": [
+        "water and electrolytes"
+      ],
+      "name": "Taita No. 2 Injection",
+      "class": "Maintenance Electrolyte-Glucose Solution",
+      "shortName": "Taita 2",
+      "badge": "IV Infusion",
+      "aliases": [
+        "Taita No. 2",
+        "大塚2號",
+        "taita 2"
+      ],
+      "category": "fluid",
+      "pkpd": "Intermediate-sodium maintenance fluid with dextrose and mixed electrolytes. Official listed ingredients are sodium chloride, potassium acetate, sodium acetate, sodium phosphate monobasic, and dextrose.",
+      "mechanism": "Provides maintenance water, calories, sodium, potassium, acetate, and phosphate. Unlike generic D2.5-1/2NS, it also contains buffer and phosphate.",
+      "spectrum": "Maintenance water/electrolyte/calorie support, historically used for pediatric diarrhea or higher GI losses when a maintenance-style bag with some sodium replacement is desired.",
+      "dose": {
+        "standard": "Maintenance: individualize to age, weight, and ongoing GI losses; not intended for rapid bolus resuscitation",
+        "loading": ""
+      },
+      "renalAdj": [
+        {
+          "crcl": "≥60",
+          "regimen": "Use for maintenance only; monitor glucose and electrolytes daily"
+        },
+        {
+          "crcl": "30–59",
+          "regimen": "Reduce rate if fluid-sensitive; monitor Na⁺/K⁺/phosphate Q12–24h"
+        },
+        {
+          "crcl": "<30 / HD",
+          "regimen": "Use cautiously because K⁺/phosphate may accumulate; choose bag based on electrolyte goals"
+        }
+      ],
+      "sideEffects": [
+        "Hyperglycaemia",
+        "Electrolyte accumulation in renal impairment (especially K⁺ and phosphate)",
+        "Hyponatraemia or inadequate sodium replacement if losses are underestimated",
+        "Volume overload in fluid-sensitive patients"
+      ],
+      "monitoring": [
+        "Glucose",
+        "Serum Na⁺, K⁺, and phosphate",
+        "Fluid balance and urine output",
+        "Trend of GI losses if replacing ongoing diarrhea"
+      ],
+      "publicNotes": [
+        "Taita No. 2 is not the same as generic 2.5% dextrose + 0.45% saline",
+        "It includes acetate and phosphate, so bag choice should match the electrolyte goal rather than the glucose percentage alone"
+      ],
+      "contents": {
+        "basis": {
+          "volumeMl": 500,
+          "label": "per 500 mL bag"
+        },
+        "components": [
+          {
+            "name": "Na⁺",
+            "amount": 20,
+            "unit": "mEq"
+          },
+          {
+            "name": "K⁺",
+            "amount": 6,
+            "unit": "mEq"
+          },
+          {
+            "name": "Cl⁻",
+            "amount": 13,
+            "unit": "mEq"
+          },
+          {
+            "name": "Acetate",
+            "amount": 10,
+            "unit": "mEq"
+          },
+          {
+            "name": "Phosphate",
+            "amount": 3,
+            "unit": "mmol"
+          },
+          {
+            "name": "Glucose",
+            "amount": 16.5,
+            "unit": "g"
+          }
+        ]
+      },
+      "sizes": [
+        "500 mL bag"
+      ],
+      "osmolarity": "287 mOsm/L",
+      "calories": "66 kcal/500 mL bag (132 kcal/L)",
+      "references": [
+        {
+          "text": "Product Information — Otsuka Pharmaceutical Co., Ltd.",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "taita-3",
+      "indicationTags": [
+        "water and electrolytes"
+      ],
+      "name": "Taita No. 3 Injection",
+      "class": "Maintenance Electrolyte-Glucose Solution",
+      "shortName": "Taita 3",
+      "badge": "IV Infusion",
+      "aliases": [
+        "Taita No. 3",
+        "大塚3號",
+        "taita 3"
+      ],
+      "category": "fluid",
+      "pkpd": "Higher-sodium maintenance fluid with dextrose and mixed electrolytes. Official listed ingredients are sodium chloride, potassium acetate, sodium acetate, sodium phosphate monobasic, and dextrose.",
+      "mechanism": "Provides maintenance water with substantially more sodium/chloride than Taita 1 or 2, while still carrying potassium, acetate, phosphate, and glucose. It is not LR/Hartmann.",
+      "spectrum": "Maintenance fluid for patients needing more sodium replacement, isotonic diarrheal loss replacement in older Taiwanese protocols, and ward maintenance when a Taita-series bag with higher sodium is desired.",
+      "dose": {
+        "standard": "Maintenance: individualize to weight, sodium goals, and ongoing losses; not intended for rapid resuscitation boluses",
+        "loading": ""
+      },
+      "renalAdj": [
+        {
+          "crcl": "≥60",
+          "regimen": "Use for maintenance only; monitor glucose and electrolytes daily"
+        },
+        {
+          "crcl": "30–59",
+          "regimen": "Reduce rate if fluid-sensitive; monitor Na⁺/K⁺/phosphate Q12–24h"
+        },
+        {
+          "crcl": "<30 / HD",
+          "regimen": "Use cautiously because K⁺/phosphate may accumulate and sodium load may overshoot goals"
+        }
+      ],
+      "sideEffects": [
+        "Hyperglycaemia",
+        "Electrolyte accumulation in renal impairment (especially K⁺ and phosphate)",
+        "Hypernatremia or chloride load if used without matching the patient’s losses and sodium goals",
+        "Volume overload in fluid-sensitive patients"
+      ],
+      "monitoring": [
+        "Glucose",
+        "Serum Na⁺, K⁺, chloride, and phosphate",
+        "Fluid balance and urine output",
+        "Whether the higher-sodium profile still matches the clinical plan"
+      ],
+      "publicNotes": [
+        "Taita No. 3 is not lactated Ringer’s or Hartmann’s",
+        "Within the Taita series it is the more sodium-rich maintenance option, but it is still a maintenance bag rather than a resuscitation crystalloid"
+      ],
+      "contents": {
+        "basis": {
+          "volumeMl": 500,
+          "label": "per 500 mL bag"
+        },
+        "components": [
+          {
+            "name": "Na⁺",
+            "amount": 37.5,
+            "unit": "mEq"
+          },
+          {
+            "name": "K⁺",
+            "amount": 6,
+            "unit": "mEq"
+          },
+          {
+            "name": "Cl⁻",
+            "amount": 30.5,
+            "unit": "mEq"
+          },
+          {
+            "name": "Acetate",
+            "amount": 10,
+            "unit": "mEq"
+          },
+          {
+            "name": "Phosphate",
+            "amount": 3,
+            "unit": "mmol"
+          },
+          {
+            "name": "Glucose",
+            "amount": 10,
+            "unit": "g"
+          }
+        ]
+      },
+      "sizes": [
+        "500 mL bag"
+      ],
+      "osmolarity": "285 mOsm/L",
+      "calories": "40 kcal/500 mL bag (80 kcal/L)",
+      "references": [
+        {
+          "text": "Product Information — Otsuka Pharmaceutical Co., Ltd.",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "taita-5",
+      "indicationTags": [
+        "water and electrolytes"
+      ],
+      "name": "Taita No. 5 Injection",
+      "class": "Maintenance Electrolyte-Glucose Solution",
+      "shortName": "Taita 5",
+      "badge": "IV Infusion",
+      "aliases": [
+        "Taita No. 5",
+        "大塚5號",
+        "taita 5"
+      ],
+      "category": "fluid",
+      "pkpd": "Maintenance fluid with dextrose plus mixed electrolytes. Official Otsuka ingredients are sodium chloride, dextrose, sodium acetate, potassium acetate, magnesium chloride hexahydrate, and potassium phosphate monobasic. This is not the same formulation as generic D5NS.",
+      "mechanism": "Provides water, glucose calories, sodium/chloride, plus acetate-buffered potassium, magnesium, and phosphate supplementation. Intended as a Taiwanese maintenance formulation rather than a pure saline-dextrose bag.",
+      "spectrum": "Maintenance hydration for patients unable to eat, perioperative water/electrolyte/calorie support, and ward maintenance when mild potassium/phosphate/magnesium supplementation in the bag is desired.",
+      "dose": {
+        "standard": "Maintenance: 1–1.5 mL/kg/h (typical adult: 80–125 mL/h); post-op: 1 mL/kg/h with 2–4 hourly reassessment; adjust rate based on urine output, fluid balance, and current electrolyte goals",
+        "loading": ""
+      },
+      "renalAdj": [
+        {
+          "crcl": "≥60",
+          "regimen": "Standard maintenance rate; monitor glucose and electrolytes daily"
+        },
+        {
+          "crcl": "30–59",
+          "regimen": "Reduce rate 0.5–1 mL/kg/h; monitor Na⁺/K⁺/Mg²⁺/phosphate Q12–24h"
+        },
+        {
+          "crcl": "<30 / HD",
+          "regimen": "Restrict to minimum; use cautiously because K⁺/Mg²⁺/phosphate may accumulate; monitor fluid balance Q8h and electrolytes Q8–12h"
+        }
+      ],
+      "sideEffects": [
+        "Hyperglycaemia (glucose content — monitor Q4–6h in DM, ICU, steroid users)",
+        "Electrolyte accumulation if renal function is poor (especially K⁺, Mg²⁺, and phosphate)",
+        "Volume overload (CHF, cirrhosis, ESRD — restrict accordingly)",
+        "Hyponatraemia or hypo-osmotic effect after dextrose metabolism if prolonged infusion exceeds solute needs"
+      ],
+      "monitoring": [
+        "Glucose (Q4–6h in DM or if on insulin)",
+        "Serum Na⁺, K⁺, Mg²⁺, and phosphate (Q24h routine; Q8–12h if high risk)",
+        "Fluid balance and urine output (Q8h)",
+        "Signs of volume overload (oedema, lung crepitations, weight)"
+      ],
+      "publicNotes": [
+        "Taita No. 5 is not plain D5NS; it also contains potassium, magnesium, acetate, and phosphate",
+        "Treat it as a maintenance formulation, not a resuscitation fluid",
+        "Review renal function and current electrolytes before choosing it for prolonged infusion"
+      ],
+      "contents": {
+        "basis": {
+          "volumeMl": 400,
+          "label": "per 400 mL bag"
+        },
+        "components": [
+          {
+            "name": "Na⁺",
+            "amount": 14.4,
+            "unit": "mEq"
+          },
+          {
+            "name": "K⁺",
+            "amount": 7.2,
+            "unit": "mEq"
+          },
+          {
+            "name": "Mg²⁺",
+            "amount": 1.2,
+            "unit": "mEq"
+          },
+          {
+            "name": "Cl⁻",
+            "amount": 6.8,
+            "unit": "mEq"
+          },
+          {
+            "name": "Acetate",
+            "amount": 11.2,
+            "unit": "mEq"
+          },
+          {
+            "name": "Phosphate",
+            "amount": 4.8,
+            "unit": "mmol"
+          },
+          {
+            "name": "Glucose",
+            "amount": 40,
+            "unit": "g"
+          }
+        ]
+      },
+      "sizes": [
+        "250 mL bag",
+        "400 mL bag",
+        "500 mL bag"
+      ],
+      "osmolarity": "669 mOsm/L",
+      "calories": "160 kcal/400 mL bag (400 kcal/L)",
+      "references": [
+        {
+          "text": "Product Information — Otsuka Pharmaceutical Co., Ltd.",
+          "url": null
         }
       ]
     },

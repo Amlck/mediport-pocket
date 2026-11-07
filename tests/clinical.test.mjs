@@ -153,7 +153,10 @@ test('public reference retains source limitations, verified public NTUH links an
   assert.equal(Object.hasOwn(reference, 'guideResources'), false);
   assert.ok(reference.drugs.length > 100);
   assert.ok(reference.guides.some(item => item.id === 'aki'));
-  assert.ok(reference.drugs.every(item => !item.id.startsWith('taita-')));
+  const taita = reference.drugs.filter(item => item.id.startsWith('taita-'));
+  assert.deepEqual(taita.map(item => item.id), ['taita-1', 'taita-2', 'taita-3', 'taita-5']);
+  assert.ok(taita.every(item => item.contents?.components?.length && item.references.some(ref => ref.url === null && /Otsuka/.test(ref.text))));
+  assert.ok(reference.drugs.every(item => !(item.aliases || []).some(alias => /NTUH|台大|臺大/.test(alias))));
   assert.match(reference.guides.find(item => item.id === 'aki').sourceMetadata.statusOnly, /public-review draft.*not.*final guidance/);
   assert.match(reference.guides.find(item => item.id === 'hypoglycemia').sourceMetadata.statusOnly, /does not make a refreshed-current claim/);
   assert.ok(reference.guides.every(item => Array.isArray(item.reviewLimitations) && item.sources.length > 0));
