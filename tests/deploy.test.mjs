@@ -82,7 +82,7 @@ test('OIDC tokens are requested only from GitHub Actions with the exact HTTPS au
 
 test('install diagnostics report bounded visible public statuses, worker states and cache counts without URLs or keys', async () => {
   const statuses = [
-    { innerText: '  Downloading\n the complete pack\u001b ', checkVisibility: () => true },
+    { innerText: '  Downloading\n the complete pack\u001b https://example.org/?token=fictional-test-key ', checkVisibility: () => true },
     { innerText: 'Hidden status must not enter diagnostics', checkVisibility: () => false },
     ...Array.from({ length: 4 }, () => ({ innerText: 'x'.repeat(500), checkVisibility: () => true })),
   ];
@@ -96,13 +96,13 @@ test('install diagnostics report bounded visible public statuses, worker states 
   }) };
   const diagnostics = JSON.parse(JSON.stringify(await offlineInstallDiagnostics(page)));
   assert.deepEqual(diagnostics, {
-    packStatuses: ['Downloading the complete pack', 'x'.repeat(320), 'x'.repeat(320)],
+    packStatuses: ['Downloading the complete pack', 'Unrecognized pack status', 'Unrecognized pack status'],
     worker: { controller: 'activated', installing: 'installing', waiting: null, active: 'unknown' },
     cacheCount: 4, sampledCacheAssetCounts: [11, 10, 9],
   });
   assert.equal(opened.length, 3, 'diagnostics sample at most three existing Pocket caches');
   assert.ok(opened.every(key => key.startsWith('mediport-pocket:')));
-  assert.doesNotMatch(JSON.stringify(diagnostics), /secret|private|must-not/);
+  assert.doesNotMatch(JSON.stringify(diagnostics), /secret|private|must-not|https?:|token|fictional-test-key/);
 });
 
 test('install diagnostics retain public status when service worker or cache inspection is unavailable', async () => {

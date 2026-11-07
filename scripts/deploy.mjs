@@ -181,12 +181,16 @@ export async function offlineInstallDiagnostics(page, { timeoutMs = 5_000 } = {}
   try {
     return await Promise.race([
       page.evaluate(async () => {
-        // Only the public pack status, lifecycle states and counts enter logs.
-        // Do not collect page HTML, inputs, URLs, cache keys or error messages.
+        // Only known public status titles, lifecycle states and counts enter logs.
+        // Do not return page HTML, inputs, URLs, cache keys or error messages.
         const state = worker => worker ? (['parsed', 'installing', 'installed', 'activating', 'activated', 'redundant'].includes(worker.state) ? worker.state : 'unknown') : null;
+        const statusTitles = ['Checking the downloaded pack', 'Downloading the complete pack', 'Update ready · Offline copy verified', 'Offline copy verified', 'Offline copy incomplete', 'Offline status unavailable'];
         const snapshot = {
           packStatuses: Array.from(document.querySelectorAll('.page [role="status"]')).filter(node => node.checkVisibility()).slice(0, 3)
-            .map(node => node.innerText.replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 320)),
+            .map(node => {
+              const text = node.innerText.replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim();
+              return statusTitles.find(title => text.startsWith(title)) || 'Unrecognized pack status';
+            }),
           worker: { controller: state(navigator.serviceWorker?.controller) },
         };
         try {

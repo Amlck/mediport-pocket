@@ -101,7 +101,7 @@ in each PR. A passing software check does not establish clinical approval.
 
 Newest first. One or two lines each: date, agent, what changed, where.
 
-- **2026-11-07 · Codex · deployment smoke follow-up** · Claimed/extended the CI-only complete-pack install wait to 180 seconds with bounded public status/worker/cache diagnostics, retaining source, hash and offline checks. All 73 Node tests and the 162-asset build/verification pass; app, worker and clinical content are unchanged. This follow-up is not authorized to merge.
+- **2026-11-07 · Codex · deployment smoke follow-up** · Claimed/extended the CI-only complete-pack install wait to 180 seconds with allowlisted public status titles and bounded worker/cache diagnostics, retaining source, hash and offline checks. All 73 Node tests and the 162-asset build/verification pass; app, worker and clinical content are unchanged. This follow-up is not authorized to merge.
 
 - **2026-11-07 · Codex · #4 merge preparation** · #2, #3 and #6 merged in order (`551bad7`, `c7fdb6b`, `5d54e2a`). Brought #4 onto that main, preserving the exact jointly reviewed runtime; final required CI and deployment checks complete this owner-authorized sequence. Coordination with `Medical` is ready.
 
