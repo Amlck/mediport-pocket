@@ -938,6 +938,15 @@ export const sourceMetadata = Object.freeze({
   localResourceStatus: 'NTUH’s public formulary lists ADR1DG02, a 1 mg/mL adrenaline ampoule. Catalog identity, current availability, orderability, and regimen alignment remain separate.',
 });
 
+const NTUH_PUBLIC_PRODUCT_SOURCES = Object.freeze([
+  {
+    "label": "NTUH product identity: Adrenalin Injection 1 mg epinephrine/1 mL/amp (ADR1DG02; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=ADR1DG02",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  }
+]);
+
 export const config = Object.freeze({
   id: 'anaphylaxis',
   title: 'Anaphylaxis',
@@ -945,11 +954,12 @@ export const config = Object.freeze({
   scope: 'Adult suspected anaphylaxis in a healthcare setting: visible WAO acute-presentation criteria, immediate current-ABC rescue, IM-repeat timing, refractory escalation, and post-resolution observation review.',
   reviewLabel: 'Upgraded · adult emergency review',
   reviewLimitations: Object.freeze([
+    "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
     'No paediatric, peri-operative, obstetric, cardiac-arrest, local emergency-cart, IV-adrenaline, infusion, airway-procedure, product-preparation, or pump protocol is encoded.',
     'The supervised allergy-challenge exception to the usual observation categories is outside this engine.',
     'The guide cannot establish diagnosis, resolve product concentration ambiguity, prove administration, prescribe an injector, select an order, or authorize treatment.',
   ]),
-  sources: Object.freeze([rcuK2025, rcuK2021, rcuKAbcde, wao2020, niceObservation2026, niceTryptase2026]),
+  sources: Object.freeze([rcuK2025, rcuK2021, rcuKAbcde, wao2020, niceObservation2026, niceTryptase2026, ...NTUH_PUBLIC_PRODUCT_SOURCES]),
   sourceMetadata,
   entry: Object.freeze({
     title: 'Does this meet adult anaphylaxis criteria?',
@@ -986,7 +996,7 @@ export const config = Object.freeze({
       'Pulse oximetry, non-invasive BP, ECG, ABC trajectory, and exact adrenaline administrations should be monitored/recorded as soon as possible without delaying rescue.',
       'For suspected adult anaphylaxis, NICE NG258: sample tryptase as soon as possible after emergency treatment starts and again ideally at 1–2 hours, no later than 4 hours from onset; specialist follow-up may need baseline tryptase.',
     ]),
-    sources: Object.freeze([rcuK2025, rcuK2021, rcuKAbcde, wao2020, niceObservation2026, niceTryptase2026]),
+    sources: Object.freeze([rcuK2025, rcuK2021, rcuKAbcde, wao2020, niceObservation2026, niceTryptase2026, ...NTUH_PUBLIC_PRODUCT_SOURCES]),
   }),
 });
 

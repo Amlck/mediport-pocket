@@ -323,15 +323,15 @@ function addSepticShockRegimen(add) {
     'regimen',
     'APROCCHSS regimen: hydrocortisone 50 mg IV Q6H plus fludrocortisone 50 µg daily',
     'Seven days, without a taper. There is no loading bolus in the trial regimen.',
-    'APROCCHSS gave hydrocortisone 50 mg IV every 6 hours plus fludrocortisone 50 µg enterally once daily for 7 days without tapering, started within 24 hours of shock onset, and reduced 90-day mortality. The trial did not use a 100 mg loading dose; a stat 100 mg is a local practice addition, not part of this regimen. Locally, Solu-Cortef is supplied as a 100 mg vial, so 50 mg is a partial vial, and Florinef is a 0.1 mg tablet, so 50 µg is half a tablet — confirm both against current local preparation instructions.',
+    'APROCCHSS gave hydrocortisone 50 mg IV every 6 hours plus fludrocortisone 50 µg enterally once daily for 7 days without tapering, started within 24 hours of shock onset, and reduced 90-day mortality. The trial did not use a 100 mg loading dose; a stat 100 mg is a local practice addition, not part of this regimen. Public NTUH pages identify Solu-Cortef 100 mg vials and Florinef 0.1 mg tablets. Product identity does not establish preparation or whether tablet splitting is suitable; confirm both against current instructions.',
     {tone: 'urgent', resourceGroup: 'septic-shock-steroid', source: aprocchss},
   );
   add(
     'steroid-septic-shock-saved-row-discrepancy',
     'regimen',
-    'Older protocols may carry a pressor-threshold and cortisol-first gate',
-    'A “norepinephrine ≥0.25 µg/kg/min for ≥4 h; draw cortisol first” condition is not an SSC 2026 prerequisite.',
-    'Some local protocols still pair hydrocortisone 50 mg IV Q6H with “hydrocortisone if norepinephrine ≥ 0.25 mcg/kg/min for ≥ 4 h; draw cortisol first”. That wording reflects the earlier Surviving Sepsis remark. Per the SSC 2026 review recorded in this project, neither the pressor threshold nor the cortisol draw is a required gate, and a shocked patient should not have hydrocortisone delayed for a cortisol sample. Reconcile any local protocol that still carries it rather than treating it as the current rule.',
+    'Reconcile additional protocol gates with the current source contract',
+    'This guide does not add a cortisol-first or fixed norepinephrine threshold to its recorded SSC 2026 contract.',
+    'The recorded SSC 2026 source review supports a conditional suggestion for IV corticosteroids in adult septic shock. Do not import additional vasopressor-dose/duration or cortisol-testing prerequisites from unverified protocol text. Reconcile differences with the current guideline and accountable treating team before using a local regimen.',
     {tone: 'attention', resourceGroup: 'cortisol-testing', source: ssc},
   );
 }
@@ -342,7 +342,7 @@ function addArdsRegimen(add) {
     'regimen',
     'DEXA-ARDS regimen: dexamethasone 20 mg IV daily ×5 days, then 10 mg daily ×5 days',
     'Moderate-to-severe ARDS, started early, under lung-protective ventilation.',
-    'DEXA-ARDS randomised patients with moderate-to-severe ARDS to dexamethasone 20 mg IV once daily for 5 days then 10 mg IV once daily for 5 days, or usual care, and reported more ventilator-free days and lower 60-day mortality. The older Meduri methylprednisolone 1 mg/kg/day protocol is a different regimen with a different infusion, duration and taper; do not blend the two. NTUH’s public formulary lists a 5 mg/mL dexamethasone ampoule, where a 20 mg dose is four ampoules — confirm the current preparation.',
+    'DEXA-ARDS randomised patients with moderate-to-severe ARDS to dexamethasone 20 mg IV once daily for 5 days then 10 mg IV once daily for 5 days, or usual care, and reported more ventilator-free days and lower 60-day mortality. The older Meduri methylprednisolone 1 mg/kg/day protocol is a different regimen with a different infusion, duration and taper; do not blend the two. An NTUH public page identifies dexamethasone injection 5 mg/1 mL/amp. The source dose remains in milligrams; confirm the exact product, ampoule volume and preparation before any conversion.',
     {resourceGroup: 'steroid-products', source: dexaArds},
   );
   add(
@@ -532,7 +532,7 @@ function addAdrenalRegimen(add, v) {
       'regimen',
       'Maintenance replacement: hydrocortisone 15–25 mg/day in 2–3 divided doses',
       'Largest dose on waking; the local ward shorthand is a larger morning dose with a smaller afternoon dose.',
-      'The Endocrine Society recommends hydrocortisone 15–25 mg daily in two or three divided doses for adults, with the largest portion on waking to mimic the physiological cortisol rhythm, and the last dose well before bedtime. The ward shorthand of one dose in the morning and a half dose in the afternoon describes that split but not the drug or tablet strength: NTUH’s public formulary (2026-08-28 snapshot) lists no oral hydrocortisone product, only the Solu-Cortef 100 mg injection, so confirm which tablet and strength is actually being used before reading the shorthand as a dose.',
+      'The Endocrine Society recommends hydrocortisone 15–25 mg daily in two or three divided doses for adults, with the largest portion on waking to mimic the physiological cortisol rhythm, and the last dose well before bedtime. The ward shorthand of one dose in the morning and a half dose in the afternoon describes that split but not the drug or tablet strength: Confirm the actual oral hydrocortisone product and tablet strength independently before reading that shorthand as a dose. A dated catalog or an injectable Solu-Cortef identity cannot establish current oral-product availability or absence.',
       {tone: 'attention', resourceGroup: 'steroid-products', source: endocrinePai},
     );
     if (v.adrenalAxis === 'primary') {
@@ -541,7 +541,7 @@ function addAdrenalRegimen(add, v) {
         'regimen',
         'Primary adrenal insufficiency also needs fludrocortisone 50–100 µg daily',
         'Mineralocorticoid replacement is not required in secondary or tertiary insufficiency.',
-        'Primary adrenal insufficiency requires mineralocorticoid replacement, typically fludrocortisone 50–100 µg once daily, titrated by blood pressure, postural symptoms, sodium, potassium and renin. Secondary and tertiary insufficiency spare the renin–angiotensin–aldosterone axis and do not need it. NTUH’s public formulary lists Florinef 0.1 mg tablets, so 50 µg is half a tablet.',
+        'Primary adrenal insufficiency requires mineralocorticoid replacement, typically fludrocortisone 50–100 µg once daily, titrated by blood pressure, postural symptoms, sodium, potassium and renin. Secondary and tertiary insufficiency spare the renin–angiotensin–aldosterone axis and do not need it. An NTUH public page identifies Florinef 0.1 mg tablets. Confirm the actual product and whether tablet splitting is suitable before converting the prescribed micrograms into a tablet quantity.',
         {resourceGroup: 'steroid-products', source: endocrinePai},
       );
     } else if (v.adrenalAxis === 'unknown') {
@@ -746,7 +746,7 @@ function addMonitorStage(add, v, indication) {
       'monitor',
       'Convert deliberately when the drug or route changes',
       'Hydrocortisone 20 mg = prednisolone 5 mg = methylprednisolone 4 mg = dexamethasone 0.75 mg.',
-      'Glucocorticoids are not interchangeable milligram for milligram, and their mineralocorticoid activity and duration differ as well: dexamethasone has essentially none, hydrocortisone has the most. Locally this appears as the ward shorthand that one Solu-Medrol 40 mg vial equals two Solu-Cortef 100 mg vials equals ten Predonine 5 mg tablets — methylprednisolone 40 mg, hydrocortisone 200 mg and prednisolone 50 mg, which is internally consistent. Use the Calculator’s steroid equivalence card for the explicit conversion rather than converting from memory at the bedside.',
+      'Glucocorticoids are not interchangeable milligram for milligram, and their mineralocorticoid activity and duration differ as well: dexamethasone has essentially none, hydrocortisone has the most. The equivalent amounts methylprednisolone 40 mg, hydrocortisone 200 mg and prednisolone 50 mg describe glucocorticoid potency, not interchangeable products, preparations or patient-specific regimens. Use the Calculator’s steroid equivalence card for the explicit conversion rather than converting from memory at the bedside.',
       {resourceGroup: 'steroid-products', source: endocrinePai},
     );
   }
@@ -811,6 +811,45 @@ export function evaluate(input = {}) {
   };
 }
 
+const NTUH_PUBLIC_PRODUCT_SOURCES = Object.freeze([
+  {
+    "label": "NTUH product identity: Solu-Cortef Sterile Powder 100 mg hydrocortisone/vial (SOL1LA06; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=SOL1LA06",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  },
+  {
+    "label": "NTUH product identity: Florinef Tablet 0.1 mg/tab (FLO4LA18; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=FLO4LA18",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  },
+  {
+    "label": "NTUH product identity: Dexamethasone Injection 5 mg/1 mL/amp (DEX1LA21; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=DEX1LA21",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  },
+  {
+    "label": "NTUH product identity: Pantoloc i.v. Injection 40 mg pantoprazole/vial (PAN1HA40; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PAN1HA40",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  },
+  {
+    "label": "NTUH product identity: Nexium Tablet 40 mg (as magnesium trihydrate)/tab (NEX4HA41; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=NEX4HA41",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  },
+  {
+    "label": "NTUH product identity: Baktar Tablet 400 mg sulfamethoxazole & 80 mg trimethoprim/tab (BAK4AI02; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=BAK4AI02",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  }
+]);
+
 export const config = Object.freeze({
   id: 'systemic-corticosteroids',
   title: 'Systemic Corticosteroids',
@@ -818,17 +857,19 @@ export const config = Object.freeze({
   reviewLabel: 'Focused source review',
   scope: 'Adult inpatient systemic corticosteroid decisions: which indications have a source regimen, the exact regimen and entry criteria for each, pre-exposure infection screening, glucose and ulcer-risk safeguards, Pneumocystis prophylaxis, and stopping. Not a complete immunosuppression, rheumatology, transplant, oncology-supportive, meningitis or paediatric corticosteroid protocol, and not a dose converter.',
   reviewLimitations: [
+    "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
     'Each indication rests on a different source of a different strength: randomised trials for septic shock, ARDS, COVID-19, severe community-acquired pneumonia and COPD duration; guideline statements for asthma, Pneumocystis and adrenal insufficiency; and observational practice only for acute ILD exacerbations and radiation pneumonitis. The guide shows which is which and does not level them.',
     'GOLD 2026 was confirmed to recommend systemic corticosteroids for up to 5 days in moderate and severe exacerbations through the published report landing page and secondary summaries; the full 2026 report PDF was not directly read, so the exact dose sentence is carried from REDUCE, which was read as the primary trial.',
-    'The septic-shock branch follows the SSC 2026 contract already recorded in this project: a conditional suggestion for IV corticosteroids with no mandated cortisol result and no fixed vasopressor threshold. Older protocols that still carry a norepinephrine ≥0.25 µg/kg/min and cortisol-first instruction are flagged rather than silently followed.',
+    'The septic-shock branch follows the SSC 2026 contract already recorded in this project: a conditional suggestion for IV corticosteroids with no mandated cortisol result and no fixed vasopressor threshold. Additional vasopressor-dose/duration or cortisol-testing prerequisites from unverified protocol text are flagged for source reconciliation.',
     'The ARDS day-14 safety signal comes from LaSRS. A 2025 observational analysis has questioned whether day 14 is a genuine boundary, so this is presented as a reason for specialist review rather than a settled prohibition.',
-    'NTUH’s public formulary (2026-08-28 snapshot) lists no oral hydrocortisone product — only the Solu-Cortef 100 mg injection — so the ward shorthand for oral adrenal replacement cannot be resolved to a product or strength from it. Fludrocortisone is listed as a Florinef 0.1 mg tablet.',
+    'The public Solu-Cortef injection and Florinef tablet identities do not resolve oral hydrocortisone product/strength or current availability. Confirm the actual product independently; a dated catalog cannot establish absence.',
     'Local doses, schedules and conditions require local reconciliation; nothing here establishes current orderability.',
     'Dose equivalence is stated once, for review, and is deliberately not applied: the guide never converts a dose between glucocorticoids or routes. The Calculator’s steroid equivalence card requires explicit manual entry for that.',
   ],
   sources: [
     ssc, aprocchss, dexaArds, lasrs, recovery, capeCod, torres, gold, reduce, gina,
     nihPjp, asco, aeIld, adrenalCrisis, endocrinePai, dexLabel, cdcStrongyloides, idsaInfluenza,
+    ...NTUH_PUBLIC_PRODUCT_SOURCES,
   ],
   entry: {
     title: 'Which indication, and are its entry criteria met?',
@@ -897,7 +938,7 @@ export const config = Object.freeze({
       'Infection signs, blood pressure, mood, sleep and — for longer courses — bone protection, muscle weakness and adrenal suppression.',
       'The recorded stop or taper date at each review, including what appears on the discharge medication list.',
     ],
-    sources: [ssc, aprocchss, dexaArds, recovery, capeCod, gold, nihPjp, asco, adrenalCrisis, endocrinePai],
+    sources: [ssc, aprocchss, dexaArds, recovery, capeCod, gold, nihPjp, asco, adrenalCrisis, endocrinePai, ...NTUH_PUBLIC_PRODUCT_SOURCES],
   },
 });
 

@@ -397,6 +397,33 @@ export function evaluate(input = {}) {
   });
 }
 
+const NTUH_PUBLIC_PRODUCT_SOURCES = Object.freeze([
+  {
+    "label": "NTUH product identity: Beriplex P/N 500 for Injection, (factor II 400-960 IU, factor VII 200-500 IU, factor IX 400-620 IU, factor × 440-1200 IU, protein C 300-900 IU, total protein 120-280 mg)/vial (BER1EB25; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=BER1EB25",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  },
+  {
+    "label": "NTUH product identity: Katimin-1 Injection 10 mg/1 mL/amp (KAT1EB04; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=KAT1EB04",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  },
+  {
+    "label": "NTUH product identity: Praxbind Solution for Injection/Infusion 2.5 g/50 mL/vial, 2 vials/box (PRA1QB42; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PRA1QB42",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  },
+  {
+    "label": "NTUH product identity: Protaminsulfat Solution for Injection and Infusion, 50 mg/5 mL/amp (PRF1QB08; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PRF1QB08",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  }
+]);
+
 export const config = Object.freeze({
   id: 'anticoagulant-bleeding',
   title: 'Anticoagulant-Related Bleeding',
@@ -407,8 +434,9 @@ export const config = Object.freeze({
   visibleFieldKeys,
   evaluate,
   conflictActionIds: Object.freeze(['nonmajor-emergency-contradiction']),
-  sources: ANTICOAG_BLEEDING_SOURCES,
+  sources: Object.freeze([...ANTICOAG_BLEEDING_SOURCES, ...NTUH_PUBLIC_PRODUCT_SOURCES]),
   reviewLimitations: Object.freeze([
+    "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
     'ACC 2020 is the broad oral-anticoagulant pathway source. FDA’s December 2025 safety/availability communication means its historical andexanet regimen is not emitted; Taiwan/NTUH availability and governance were not verified.',
     'Acute GI bleeding is deliberately routed to ACG/CAG 2022 qualifications, which conditionally advise against several routine reversal approaches. Intracranial haemorrhage is routed to the AHA/ASA 2022 emergency pathway; spinal and other neurocritical bleeding require their own urgent route.',
     'NTUH public formulary codes are references only: BER1EB25 (Beriplex four-factor PCC), KAT1EB04 (phytonadione), PRA1QB42 (idarucizumab) and PRF1QB08 (protamine). They do not establish current stock, restriction, orderability or patient suitability.',
@@ -441,7 +469,7 @@ export const config = Object.freeze({
       'Reassess haemodynamics, bleeding, haemoglobin/testing and source-control findings at a defined review point.',
       'Monitor for thrombosis after reversal; do not infer a restart agent, dose or time from this guide.',
     ]),
-    sources: ANTICOAG_BLEEDING_SOURCES,
+    sources: Object.freeze([...ANTICOAG_BLEEDING_SOURCES, ...NTUH_PUBLIC_PRODUCT_SOURCES]),
   }),
   regimenActionIds: Object.freeze([...REGIMEN_ACTION_IDS]),
 });
