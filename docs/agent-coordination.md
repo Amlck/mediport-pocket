@@ -110,6 +110,8 @@ Newest first. One or two lines each: date, agent, what changed, where.
 
 - **2026-11-07 · Codex · #2 fixes** · Claimed and fixed pre-phase emergency rendering and the inaccurate byte-copy notice; four focused browser cases pass. The owner now authorizes fixes and coordinated `Medical` work, with public merge order #2 → #3 → #6 → #4 after validation.
 
+- **2026-11-07 · Codex · #3** · Claimed/restacked only #3's changes onto rebased #2, preserving the NTUH listing count while removing the historical-row count. Reviewed wording/UI and recorded findings; kept the base on `claude/restore-portable-guides` and left #2–#4 unmerged.
+
 - **2026-11-07 · Codex · #2** · Claimed/rebased #2 onto `f640cd7`, retaining NTUH search/source policy and combining release notes. Reviewed restored guides; recorded emergency-phase and provenance findings. The existing NTUH keyboard test now waits for All-scope activation; #3 stays stacked.
 - **2026-11-07 · Codex · #5** · Merged #5 at `f640cd7` after the owner explicitly requested it in this session. The same request authorizes rebase/review of #2–#4 and expressly leaves all three unmerged.
 
