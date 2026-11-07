@@ -51,9 +51,8 @@ in each PR. A passing software check does not establish clinical approval.
 
 ## In progress
 
-| Agent | Branch / PR | Work | Status |
-| --- | --- | --- | --- |
-| Codex | `codex/drugs-formulary-browser` | Unified Drugs browsing/search, explicit monograph/listing labels, pagination and regressions | Ready for review; no merge authorized |
+No active implementation claims. The completed Drugs catalogue work is recorded
+below; claim new work before editing.
 
 ## Decisions
 
@@ -100,6 +99,8 @@ in each PR. A passing software check does not establish clinical approval.
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-07 · Codex · #8 merge preparation** · The owner authorized the coordinated `Medical` work first, then #8, followed by deployment/synchronization verification. The reviewed runtime is unchanged from `0112e79`; 82 Node and 28 browser checks passed. Removed the completed work claim for this authorized merge.
 
 - **2026-11-07 · Codex · Drugs catalogue** · Claimed/implemented unified browsing/search with separate monograph/listing counts, bounded pages, scoped monograph filters and literal product-label lookup. All 82 Node tests, 17 focused Chrome checks and the 162-asset build/verification pass; 320/393 px Home/All/NTUH views were inspected. Clinical records and reviewed product associations are unchanged; no merge is authorized.
 
