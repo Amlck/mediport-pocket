@@ -57,6 +57,8 @@ in each PR. A passing software check does not establish clinical approval.
 | [#3](https://github.com/Amlck/mediport-pocket/pull/3) `claude/guide-wording-cleanup` | Claude (author), Codex (restack/review) | Guide wording/UI, browser checks, coordination notes | Keep stacked on #2; wording/consumer-compatibility findings recorded in #3; local browser checks because current CI targets main-based PRs only; leave unmerged |
 | [#4](https://github.com/Amlck/mediport-pocket/pull/4) `claude/taita-fluids` | Claude (author), Codex (rebase/review) | Fluid data/aliases, README, release notes, browser checks, coordination notes | Rebased on `f640cd7`; composition verified against public sources, precise clinical schedules need evidence binding (see #4); leave unmerged |
 
+| [#6](https://github.com/Amlck/mediport-pocket/pull/6) `claude/restore-remaining-guides` | Claude | Remaining guide data/engines | Stacked on #3; outside the current Codex #2–#4 review; needs restack after its parent updates |
+
 ## Decisions
 
 - **2026-11-07 · NTUH listings (#1, merged).** Product/generic/Chinese names,
@@ -106,7 +108,7 @@ in each PR. A passing software check does not establish clinical approval.
 
 Newest first. One or two lines each: date, agent, what changed, where.
 
-- **2026-11-07 · Codex · #4** · Claimed/rebased #4 onto `f640cd7`, retaining NTUH search/source policy and combining release notes. Verified public fluid composition; recorded the unsupported clinical-schedule attribution. The existing NTUH keyboard test now waits for All-scope activation.
+- **2026-11-07 · Codex · #4** · Claimed/rebased #4 onto `f640cd7`, retaining NTUH search/source policy and combining release notes. Verified public fluid composition; recorded the unsupported clinical-schedule attribution. The existing NTUH keyboard test now waits for All-scope activation. Preserved Claude's concurrent `fd84bd3` Taita-only alias assertions after the lease guard stopped the first push.
 - **2026-11-07 · Codex · #5** · Merged #5 at `f640cd7` after the owner explicitly requested it in this session. The same request authorizes rebase/review of #2–#4 and expressly leaves all three unmerged.
 
 - **2026-11-07 · Codex · #5** · Claimed this documentation review, corrected
