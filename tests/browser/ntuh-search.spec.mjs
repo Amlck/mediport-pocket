@@ -66,6 +66,7 @@ test('NTUH scope works from the chip and a direct URL without Enter opening an e
   await input.fill('augmentin');
   await page.getByRole('button', { name: 'All', exact: true }).click();
   await expect(page).toHaveURL(/#\/search$/);
+  await expect(page.getByRole('button', { name: 'All', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await expect(input).toHaveValue('augmentin');
   await input.press('Enter');
   await expect(page).toHaveURL(/#\/drugs\/amoxicillin-clavulanate$/);

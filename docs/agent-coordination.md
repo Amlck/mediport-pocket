@@ -11,9 +11,8 @@ content here. Refer to private work only by repository and branch name.
 ## Ground rules
 
 1. **Read first.** Read this file on `main`, then the open pull requests and
-   their work claims, before starting. Until #5 merges, use the version on
-   `claude/agent-coordination`. Check the "In progress" table so two agents do
-   not edit the same files at once.
+   their work claims, before starting. Check the "In progress" table so two
+   agents do not edit the same files at once.
 2. **Claim work.** Add a row to "In progress" in your pull request (or say so
    in a PR comment if the work has no PR yet). Remove it when the PR merges or
    closes.
@@ -54,10 +53,11 @@ in each PR. A passing software check does not establish clinical approval.
 
 | PR / branch | Agent | Files mainly touched | Status |
 | --- | --- | --- | --- |
-| [#2](https://github.com/Amlck/mediport-pocket/pull/2) `claude/restore-portable-guides` | Claude | `src/data/reference.json` (guides), new `src/shared/*-engine.mjs`, README, release notes | Awaiting review; needs rebase on current `main` (release notes, README) |
-| [#3](https://github.com/Amlck/mediport-pocket/pull/3) `claude/guide-wording-cleanup` | Claude | guide engines, `src/app/views/guides.js`, guide CSS | Stacked on #2; retarget to `main` after #2 merges |
-| [#4](https://github.com/Amlck/mediport-pocket/pull/4) `claude/taita-fluids` | Claude | `src/data/reference.json` (drugs), `tests/clinical.test.mjs`, README, release notes | Awaiting review; needs rebase onto current `main`; coordinate shared-file conflicts with #2/#3 |
-| [#5](https://github.com/Amlck/mediport-pocket/pull/5) `claude/agent-coordination` | Claude (author), Codex (claimed review/corrections) | `docs/agent-coordination.md`, `AGENTS.md`, `CLAUDE.md` | Codex review corrections complete; awaiting owner review; no merge authorized in the review session |
+| [#2](https://github.com/Amlck/mediport-pocket/pull/2) `claude/restore-portable-guides` | Claude (author), Codex (fix/validation) | Guide renderer, emergency browser regressions, provenance notice, coordination notes | Emergency/provenance fixes complete; owner-authorized merge first, after checks and consumer coordination |
+| [#3](https://github.com/Amlck/mediport-pocket/pull/3) `claude/guide-wording-cleanup` | Claude (author), Codex (restack/review) | Guide wording/UI, browser checks, coordination notes | Keep stacked on #2 until it merges; wording fixes and consumer coordination in progress; merge second after checks |
+| [#4](https://github.com/Amlck/mediport-pocket/pull/4) `claude/taita-fluids` | Claude (author), Codex (rebase/review) | Fluid data/aliases, README, release notes, browser checks, coordination notes | Clinical evidence fixes in progress; preserve concurrent alias assertions; merge fourth after #6 |
+
+| [#6](https://github.com/Amlck/mediport-pocket/pull/6) `claude/restore-remaining-guides` | Claude (author), Codex (sources/review) | Remaining guide sources/wording, access evidence | Restack on fixed #3; verify public-source claims; merge third after checks |
 
 ## Decisions
 
@@ -97,12 +97,21 @@ in each PR. A passing software check does not establish clinical approval.
   recorded limitations before release.
 - The NTUH index is still the 2026-08-28 snapshot. A re-scrape needs NTUH
   access (Codex).
-- The Taita proposal (#4) cites Otsuka product information without a link or
-  review date; verify the public product sources and record review scope.
+- The Taita proposal (#4) has publicly verified composition, but its precise
+  rate/renal/monitoring schedules need identifiable supporting evidence and
+  review scope; see the review in #4.
+- #2 needs emergency outputs visible before routine phase selection and an
+  accurate source-transformation notice. #3 needs a scoped delirium limitation
+  and consumer coordination (`Medical`); details are in the public PR reviews.
 
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-07 · Codex · #2 fixes** · Claimed and fixed pre-phase emergency rendering and the inaccurate byte-copy notice; four focused browser cases pass. The owner now authorizes fixes and coordinated `Medical` work, with public merge order #2 → #3 → #6 → #4 after validation.
+
+- **2026-11-07 · Codex · #2** · Claimed/rebased #2 onto `f640cd7`, retaining NTUH search/source policy and combining release notes. Reviewed restored guides; recorded emergency-phase and provenance findings. The existing NTUH keyboard test now waits for All-scope activation; #3 stays stacked.
+- **2026-11-07 · Codex · #5** · Merged #5 at `f640cd7` after the owner explicitly requested it in this session. The same request authorizes rebase/review of #2–#4 and expressly leaves all three unmerged.
 
 - **2026-11-07 · Codex · #5** · Claimed this documentation review, corrected
   current-session capabilities and #1 history, and clarified public-only notes

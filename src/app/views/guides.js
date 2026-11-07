@@ -70,7 +70,7 @@ export function guidesView(ctx) {
       ? h('div', { class: 'card' }, disclosure(`${excluded.length} main-app guide${excluded.length === 1 ? '' : 's'} not in this pack`,
         excluded.map((item) => h('p', { class: 'small' }, h('strong', null, item.title), ' — ', item.reason))))
       : null,
-    h('p', { class: 'muted pad-x' }, 'Engines are copied from the main app at build time, byte-for-byte apart from cache-buster query strings on imports. Review labels and pending states are the source’s, not the pack’s.'));
+    h('p', { class: 'muted pad-x' }, 'Guides keep their original source review dates and limitations. Public wording adaptations are recorded with the source code.'));
   return { title: 'Guides', subtitle: `${guides.length} management guides`, el };
 }
 
@@ -493,12 +493,20 @@ export function guideView(ctx, [id]) {
     const result = config.evaluate(values);
     const questions = guide.fields.filter((f) => f.key !== 'phase' && visibleKeys.includes(f.key));
     const gated = phaseField && values.phase === UNKNOWN;
+    const urgentActions = (result.actions || []).filter((action) => action.tone === 'urgent');
     const lastDiagnosticKey = config.diagnosticFields?.at(-1)?.key;
     el.replaceChildren(...[
       metaCard(guide, local),
       phaseField ? phaseControl(phaseField, values, set) : h('h2', { id: 'assessment', class: 'guide-section-label', tabindex: '-1' }, 'Assessment'),
       questions.map((field, index) => [questionCard(field, values, set, index + 1), field.key === lastDiagnosticKey ? diagnosisCard(result) : null]),
-      gated ? note('plain', `Choose ${phaseField.label.toLowerCase()} to see staged actions.`)
+      gated && urgentActions.length ? h('section', { class: 'results', id: 'plan', 'aria-label': 'Urgent actions before phase selection' },
+        h('div', { class: 'results-head' },
+          h('h2', { id: 'plan-title', tabindex: '-1' }, 'Urgent actions'),
+          h('div', { class: 'chips' }, h('span', { class: 'chip urgent' }, `${urgentActions.length} urgent`)),
+          h('button', { class: 'guide-back-to-assessment', type: 'button', onclick: () => jumpTo('#assessment') }, 'Assessment ↑')),
+        h('p', { class: 'muted' }, 'Select the review phase for the remaining staged plan.'),
+        urgentActions.map((action) => actionCard(action, local, guide, guideById, ctx.data.drugs))) : null,
+      gated ? note('plain', `Choose ${phaseField.label.toLowerCase()} to see the remaining staged actions.`)
         : resultsSection(guide, result, local, questions, values, () => jumpTo('#assessment'), guideById, ctx.data.drugs),
       localCard(local, guide),
       sepsisReference(guide),
@@ -506,13 +514,13 @@ export function guideView(ctx, [id]) {
       h('button', { class: 'btn-ghost', type: 'button', onclick: reset }, icon('reset', 18), ' Reset answers'),
     ].flat(Infinity).filter(Boolean));
 
-    const urgent = (result.actions || []).filter((a) => a.tone === 'urgent').length;
+    const urgent = urgentActions.length;
     const answered = questions.filter((f) => values[f.key] !== UNKNOWN).length;
     counts.replaceChildren(...[
-      gated ? h('span', null, 'No phase selected') : h('span', null, `${answered}/${questions.length} answered · ${(result.actions || []).length} actions`),
-      !gated && urgent ? h('span', { class: 'chip urgent' }, `${urgent} urgent`) : null,
+      gated ? h('span', null, urgent ? 'Urgent actions · phase not selected' : 'No phase selected') : h('span', null, `${answered}/${questions.length} answered · ${(result.actions || []).length} actions`),
+      urgent ? h('span', { class: 'chip urgent' }, `${urgent} urgent`) : null,
     ].filter(Boolean));
-    planButton.hidden = Boolean(gated);
+    planButton.hidden = Boolean(gated && !urgent);
     restoreReadingPosition();
   }
 
