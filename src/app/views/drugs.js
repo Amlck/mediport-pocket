@@ -1,11 +1,13 @@
 import { h, icon, favorites, starButton, disclosure, listOrText, note } from '../lib/ui.js';
 import { patientSession } from '../lib/session.js';
 import { fluidContentsCard } from './fluid-parts.js';
-import { buildSearchIndex, searchIndex, ntuhDetailUrl } from '../lib/search.js';
+import { buildSearchIndex, drugBrowseResults, ntuhDetailUrl } from '../lib/search.js';
 import { comparisonReturnHref } from '../lib/reference-navigation.js';
 import { doseEntries, reviewLabel } from '../lib/drug-comparison.js';
 
-export const drugSession = { query: '', category: 'all', indication: '', focus: false };
+export const drugSession = { query: '', category: 'all', indication: '', scope: 'all', pages: { drug: 0, ntuh: 0 }, focus: false };
+const BROWSE_PAGE_SIZE = 20;
+const countLabel = (count, noun) => `${count.toLocaleString('en-US')} ${count === 1 ? noun.replace(/s$/, '') : noun}`;
 
 const CATEGORY_LABELS = {
   antimicrobial: 'Antimicrobial', cardiovascular: 'Cardiovascular', 'critical-care': 'Critical care', metabolic: 'Metabolic',
@@ -33,39 +35,26 @@ function drugRow(drug, hit = null) {
     icon('next', 18, 'chev'));
 }
 
-function buildList(drugs, index, status) {
-  const q = drugSession.query.trim();
-  const inCategory = drugs.filter((drug) => (drugSession.category === 'all' || drug.category === drugSession.category)
-    && (!drugSession.indication || drug.indicationTags?.includes(drugSession.indication)));
-  if (q) {
-    const available = new Map(inCategory.map((drug) => [drug.id, drug]));
-    const ranked = (searchIndex(index, q).sections[0]?.items || []).filter((hit) => available.has(hit.entry.id));
-    status.textContent = `${ranked.length} match${ranked.length === 1 ? '' : 'es'}`;
-    if (!ranked.length) return [h('div', { class: 'empty' }, `No match for “${q}”${drugSession.category !== 'all' || drugSession.indication ? ' with these filters' : ' in this pack'}. Try a drug name or another indication.`)];
-    return [ranked.some((hit) => hit.matchedIndications?.length) || drugSession.indication
-      ? h('p', { class: 'drug-lookup-note' }, 'Reference matches · check the monograph.') : null,
-    h('div', { class: 'list' }, ranked.map((hit) => drugRow(available.get(hit.entry.id), hit)))];
-  }
-  status.textContent = `${inCategory.length} monograph${inCategory.length === 1 ? '' : 's'}`;
-  if (!inCategory.length) return [h('div', { class: 'empty' }, 'No monographs match these filters.')];
-  if (drugSession.indication) return [h('p', { class: 'drug-lookup-note' }, 'Reference matches · check the monograph.'),
-    h('div', { class: 'list' }, inCategory.map((drug) => drugRow(drug)))];
-  const favs = inCategory.filter((d) => favorites.has(`drug:${d.id}`));
-  const groups = new Map();
-  for (const drug of inCategory) {
-    const letter = /^[a-z]/i.test(drug.name) ? drug.name[0].toUpperCase() : '#';
-    if (!groups.has(letter)) groups.set(letter, []);
-    groups.get(letter).push(drug);
-  }
-  return [
-    favs.length ? [h('div', { class: 'letter' }, 'Favorites'), h('div', { class: 'list' }, favs.map((drug) => drugRow(drug)))] : null,
-    [...groups.entries()].map(([letter, items]) => [h('div', { class: 'letter' }, letter), h('div', { class: 'list' }, items.map((drug) => drugRow(drug)))]),
-  ];
+function formularyRow({ entry }) {
+  return h('article', { class: 'drug-formulary-row', 'aria-label': entry.title },
+    h('h3', { class: 'row-title' }, entry.title),
+    h('p', { class: 'drug-match' }, `External product listing · ${entry.id}`),
+    h('p', { class: 'drug-formulary-description' }, entry.sub),
+    entry.schedule ? h('p', { class: 'drug-match' }, `管制藥品 第${entry.schedule}級 · Controlled drug schedule ${entry.schedule}`) : null,
+    h('div', { class: 'drug-formulary-links' },
+      h('a', { href: entry.href, target: '_blank', rel: 'noopener noreferrer',
+        'aria-label': `Open ${entry.title} on NTUH (online, opens new tab)` }, 'NTUH public page', icon('external', 16)),
+      entry.monograph ? h('a', { href: `#/drugs/${entry.monograph.id}` }, `Pocket monograph: ${entry.monograph.name}`) : null));
 }
 
 export function drugsView(ctx) {
   const drugs = ctx.data.drugs;
-  const index = buildSearchIndex({ drugs, drugIndicationLookup: ctx.data.drugIndicationLookup });
+  const ntuh = ctx.data.ntuh;
+  const hasFormulary = Boolean(ntuh?.entries?.length);
+  const available = new Map(drugs.map(drug => [drug.id, drug]));
+  const index = buildSearchIndex({ drugs, drugIndicationLookup: ctx.data.drugIndicationLookup, ntuh });
+  if (!['all', 'drug', 'ntuh'].includes(drugSession.scope) || (!hasFormulary && drugSession.scope === 'ntuh')) drugSession.scope = 'all';
+  const resetPages = () => { drugSession.pages = { drug: 0, ntuh: 0 }; };
   const fluidCount = drugs.filter((drug) => drug.category === 'fluid').length;
   const counts = drugs.reduce((acc, d) => { acc[d.category] = (acc[d.category] || 0) + 1; return acc; }, {});
   const categories = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
@@ -74,31 +63,101 @@ export function drugsView(ctx) {
     h('a', { href: '#/fluids/compare' }, h('strong', null, 'Compare'), h('span', null, 'Two fluids side by side'), icon('next', 18))) : null;
   const listEl = h('div', { class: 'stack' });
   const status = h('p', { class: 'muted', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' });
+  const scopes = hasFormulary ? h('div', { class: 'catchips drug-scopes', role: 'group', 'aria-label': 'Drug catalogue scope' },
+    ...[['all', 'All'], ['drug', 'Monographs'], ['ntuh', 'NTUH']].map(([scope, text]) => h('button', {
+      type: 'button', class: 'chip', dataset: { scope }, 'aria-pressed': String(drugSession.scope === scope),
+      onclick: () => { drugSession.scope = scope; renderList(); },
+    }, text))) : null;
+
+  function section(kind, hits) {
+    const isDrug = kind === 'drug';
+    const name = isDrug ? 'Monographs' : 'NTUH listings';
+    const favoriteFirst = isDrug && !drugSession.query.trim() && !drugSession.indication;
+    const ordered = favoriteFirst ? [
+      ...hits.filter(hit => favorites.has(`drug:${hit.entry.id}`)),
+      ...hits.filter(hit => !favorites.has(`drug:${hit.entry.id}`)),
+    ] : hits;
+    const pages = Math.max(1, Math.ceil(ordered.length / BROWSE_PAGE_SIZE));
+    const page = drugSession.pages[kind] = Math.min(drugSession.pages[kind], pages - 1);
+    const rows = ordered.slice(page * BROWSE_PAGE_SIZE, (page + 1) * BROWSE_PAGE_SIZE);
+    const heading = h('h2', { class: 'section-title', id: `drug-browse-${kind}`, tabindex: '-1' }, `${name} · ${ordered.length.toLocaleString('en-US')}`);
+    function changePage(next) {
+      drugSession.pages[kind] = next;
+      renderList();
+      const target = listEl.querySelector(`#drug-browse-${kind}`);
+      target.focus({ preventScroll: true }); target.scrollIntoView({ block: 'start' });
+    }
+    const controls = pages > 1 ? h('nav', { class: 'drug-pagination', 'aria-label': `${name} pages` },
+      h('button', { type: 'button', class: 'btn-small', disabled: page === 0, 'aria-label': `Previous ${name.toLowerCase()}`, onclick: () => changePage(page - 1) }, 'Previous'),
+      h('select', { 'aria-label': `${name} page`, onchange: event => changePage(Number(event.target.value)) },
+        ...Array.from({ length: pages }, (_, number) => h('option', { value: number, selected: page === number }, `Page ${number + 1} of ${pages}`))),
+      h('button', { type: 'button', class: 'btn-small', disabled: page === pages - 1, 'aria-label': `Next ${name.toLowerCase()}`, onclick: () => changePage(page + 1) }, 'Next')) : null;
+    const groups = new Map();
+    if (isDrug) for (const hit of rows) {
+      const title = hit.entry.title;
+      const group = favoriteFirst && favorites.has(`drug:${hit.entry.id}`) ? 'Favorites'
+        : favoriteFirst ? (/^[a-z]/i.test(title) ? title[0].toUpperCase() : '#') : '';
+      if (!groups.has(group)) groups.set(group, []);
+      groups.get(group).push(hit);
+    }
+    const content = !ordered.length ? h('p', { class: 'empty' }, isDrug
+      ? 'No monographs match this search and the selected monograph filters.' : 'No NTUH listings match this search.')
+      : isDrug ? [...groups].flatMap(([group, items]) => [
+        group ? h('h3', { class: 'letter' }, group) : null,
+        h('div', { class: 'list' }, items.map(hit => drugRow(available.get(hit.entry.id), drugSession.query.trim() ? hit : null))),
+      ]) : h('div', { class: 'drug-formulary-list' }, rows.map(formularyRow));
+    return h('section', { class: 'drug-catalogue-section stack', 'aria-labelledby': heading.id },
+      heading,
+      h('p', { class: 'drug-lookup-note' }, isDrug
+        ? 'Detailed clinical reference · check each monograph’s sources, review limits and patient suitability.'
+        : `Offline names · snapshot ${ntuh.source.snapshotDate}. NTUH public pages need internet. Listings do not establish dosing or current availability.`),
+      !isDrug ? h('p', { class: 'drug-lookup-note' }, 'Pocket monograph links are limited to reviewed product matches.') : null,
+      isDrug && (drugSession.indication || hits.some(hit => hit.matchedIndications?.length))
+        ? h('p', { class: 'drug-lookup-note' }, 'Reference matches · check the monograph.') : null,
+      ...[content].flat(Infinity).filter(Boolean),
+      ordered.length ? h('p', { class: 'muted drug-page-range' }, `Showing ${page * BROWSE_PAGE_SIZE + 1}–${page * BROWSE_PAGE_SIZE + rows.length} of ${ordered.length.toLocaleString('en-US')} ${name.toLowerCase()}`) : null,
+      controls);
+  }
+
   const renderList = () => {
+    const filteredIds = new Set(drugs.filter(drug => (drugSession.category === 'all' || drug.category === drugSession.category)
+      && (!drugSession.indication || drug.indicationTags?.includes(drugSession.indication))).map(drug => drug.id));
+    const found = drugBrowseResults(index, drugSession.query, { drugIds: filteredIds });
+    const showMonographs = drugSession.scope !== 'ntuh';
+    const showListings = hasFormulary && drugSession.scope !== 'drug';
+    status.textContent = [showMonographs ? countLabel(found.monographs.length, 'monographs') : null,
+      showListings ? countLabel(found.listings.length, 'NTUH listings') : null].filter(Boolean).join(' · ');
+    scopes?.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.scope === drugSession.scope)));
     resetFilters.hidden = drugSession.category === 'all' && !drugSession.indication;
+    const activeFilters = [drugSession.category !== 'all' ? label(drugSession.category) : null, drugSession.indication].filter(Boolean);
+    filterTitle.textContent = `Monograph filters${activeFilters.length ? `: ${activeFilters.join(' · ')}` : ''}`;
+    monographTools.hidden = !showMonographs;
     if (fluidLinks) fluidLinks.hidden = !!drugSession.query.trim() || !!drugSession.indication || !['all', 'fluid'].includes(drugSession.category);
-    listEl.replaceChildren(...buildList(drugs, index, status).flat(Infinity).filter(Boolean));
+    listEl.replaceChildren(...[showMonographs ? section('drug', found.monographs) : null, showListings ? section('ntuh', found.listings) : null].filter(Boolean));
   };
 
   const input = h('input', {
-    type: 'search', placeholder: 'Name or indication', value: drugSession.query, 'aria-label': 'Search drugs',
+    type: 'search', placeholder: 'Name, 中文, code', value: drugSession.query, 'aria-label': 'Search drugs',
     autocomplete: 'off', autocorrect: 'off', autocapitalize: 'off', spellcheck: 'false', enterkeyhint: 'search',
-    oninput: (event) => { drugSession.query = event.target.value; clearButton.hidden = !drugSession.query; renderList(); },
+    oninput: (event) => { drugSession.query = event.target.value; clearButton.hidden = !drugSession.query; resetPages(); renderList(); },
   });
   const clearButton = h('button', { class: 'iconbtn', type: 'button', 'aria-label': 'Clear search', hidden: !drugSession.query,
-    onclick: () => { drugSession.query = ''; input.value = ''; clearButton.hidden = true; renderList(); input.focus(); } }, icon('close', 18));
+    onclick: () => { drugSession.query = ''; input.value = ''; clearButton.hidden = true; resetPages(); renderList(); input.focus(); } }, icon('close', 18));
 
-  const chipsEl = h('div', { class: 'catchips', role: 'group', 'aria-label': 'Category' });
+  const chipsEl = h('div', { class: 'catchips', role: 'group', 'aria-label': 'Monograph category' });
   const renderChips = () => chipsEl.replaceChildren(...['all', ...categories].map((category) => h('button', {
     type: 'button', class: 'chip', 'aria-pressed': String(drugSession.category === category),
-    onclick: () => { drugSession.category = category; renderChips(); renderList(); },
+    onclick: () => {
+      drugSession.category = category; resetPages(); renderChips(); renderList();
+      chipsEl.querySelector('[aria-pressed="true"]').focus({ preventScroll: true });
+    },
   }, category === 'all' ? `All ${drugs.length}` : `${label(category)} ${counts[category]}`)));
 
   const tagCounts = new Map();
   for (const drug of drugs) for (const tag of new Set(drug.indicationTags || [])) tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
   const taggedCount = drugs.filter((drug) => drug.indicationTags?.length).length;
   const tagTitle = h('span');
-  const tagButtons = h('div', { class: 'drug-indication-options', role: 'group', 'aria-label': 'Indication' });
+  const tagButtons = h('div', { class: 'drug-indication-options', role: 'group', 'aria-label': 'Monograph indication' });
   const indicationPicker = disclosure(tagTitle, [
     h('p', { class: 'drug-lookup-note' }, `Curated tags for ${taggedCount} of ${drugs.length} monographs. Search also accepts English and Chinese terms.`),
     tagButtons,
@@ -108,7 +167,7 @@ export function drugsView(ctx) {
     tagButtons.replaceChildren(...['', ...[...tagCounts.keys()].sort((a, b) => a.localeCompare(b))].map((tag) => h('button', {
       type: 'button', 'aria-pressed': String(drugSession.indication === tag),
       onclick: () => {
-        drugSession.indication = tag;
+        drugSession.indication = tag; resetPages();
         renderIndications(); renderList();
         indicationPicker.open = false;
         indicationPicker.querySelector('summary').focus({ preventScroll: true });
@@ -118,18 +177,28 @@ export function drugsView(ctx) {
   };
   const resetFilters = h('button', { type: 'button', class: 'btn-small', hidden: true,
     onclick: () => {
-      drugSession.category = 'all'; drugSession.indication = '';
+      drugSession.category = 'all'; drugSession.indication = ''; resetPages();
       renderChips(); renderIndications(); renderList();
       input.focus();
-    } }, 'Clear filters');
+    } }, 'Clear monograph filters');
+  const filterTitle = h('span');
+  const monographTools = h('div', { class: 'stack drug-monograph-tools' },
+    h('a', { class: 'drug-compare-link', href: '#/drugs/compare' }, 'Compare two drugs'),
+    fluidLinks,
+    disclosure(filterTitle, [
+      h('p', { class: 'drug-lookup-note' }, hasFormulary
+        ? 'Category and indication filters apply only to monographs. NTUH listings still follow the search above.'
+        : 'Filter monographs by category or indication.'),
+      tagCounts.size ? indicationPicker : null,
+      chipsEl,
+      resetFilters,
+    ], { open: drugSession.category !== 'all' || !!drugSession.indication, className: 'drug-monograph-filters' }));
 
   const el = h('div', { class: 'page drug-browse' },
     h('div', { class: 'searchbar' }, h('div', { class: 'field' }, icon('search', 20), input, clearButton)),
-    h('a', { class: 'drug-compare-link', href: '#/drugs/compare' }, 'Compare two drugs'),
-    fluidLinks,
-    tagCounts.size ? indicationPicker : null,
-    chipsEl,
-    h('div', { class: 'drug-filter-status' }, status, resetFilters),
+    scopes,
+    monographTools,
+    status,
     listEl);
   renderChips();
   renderIndications();
@@ -142,7 +211,7 @@ export function drugsView(ctx) {
     }
   };
   const onUnmount = () => { if (focusTimer) clearTimeout(focusTimer); };
-  return { title: 'Drugs', subtitle: `${drugs.length} monographs`, el, onMount, onUnmount };
+  return { title: 'Drugs', subtitle: `${drugs.length} monographs${hasFormulary ? ` · ${ntuh.entries.length.toLocaleString('en-US')} NTUH listings` : ''}`, el, onMount, onUnmount };
 }
 
 const REVIEW_NOTICE = 'Monograph review date is not recorded in the source data. Verify local product, concentration and protocol before use.';

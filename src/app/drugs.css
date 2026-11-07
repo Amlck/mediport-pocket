@@ -1,4 +1,27 @@
-/* Drug monographs and the fluids entry in the Pocket Drugs tab. */
+/* Drug monographs, public product listings and fluid references. */
+.shortcut-count > span { display: block; text-align: center; line-height: 1.4; }
+.drug-browse .drug-monograph-tools[hidden] { display: none; }
+.drug-monograph-filters > summary { min-height: 44px; }
+.drug-monograph-filters > summary > span { min-width: 0; overflow-wrap: anywhere; }
+.drug-monograph-filters > .body { display: grid; gap: 12px; }
+.drug-monograph-filters .catchips { margin: 0; padding: 0 0 4px; }
+.drug-catalogue-section { min-width: 0; }
+.drug-catalogue-section > .section-title { scroll-margin-top: 16px; }
+.drug-catalogue-section > .drug-lookup-note,
+.drug-catalogue-section > .drug-page-range { margin: 0; }
+.drug-formulary-list { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+.drug-formulary-row { padding: 13px; min-width: 0; }
+.drug-formulary-row + .drug-formulary-row { border-top: 1px solid var(--line); }
+.drug-formulary-row h3 { margin: 0; font-size: 1rem; }
+.drug-formulary-description { margin: 5px 0; color: var(--ink-2); font-size: 0.8125rem; line-height: 1.45; overflow-wrap: anywhere; }
+.drug-formulary-links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.drug-formulary-links a { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; font-size: 0.8125rem; line-height: 1.4; overflow-wrap: anywhere; }
+.drug-formulary-links a svg { flex: none; }
+.drug-pagination { display: flex; align-items: center; gap: 7px; }
+.drug-pagination > * { min-width: 0; min-height: 44px; }
+.drug-pagination button { flex: 0 1 auto; }
+.drug-pagination select { flex: 1 1 100px; width: 100px; padding: 8px 4px; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; font: inherit; font-size: 0.8125rem; }
+.drug-pagination button:disabled { opacity: .5; }
 .drug-browse .catchips .chip { min-height: 44px; }
 .drug-browse .row-title,
 .drug-match { overflow-wrap: anywhere; }

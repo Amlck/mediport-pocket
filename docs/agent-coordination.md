@@ -51,9 +51,9 @@ in each PR. A passing software check does not establish clinical approval.
 
 ## In progress
 
-No active implementation claims. The completed `codex/deploy-offline-install-check`
-follow-up and validation are recorded below; review and merge decisions are
-tracked in its pull request. Claim new work before editing.
+| Agent | Branch / PR | Work | Status |
+| --- | --- | --- | --- |
+| Codex | `codex/drugs-formulary-browser` | Unified Drugs browsing/search, explicit monograph/listing labels, pagination and regressions | Ready for review; no merge authorized |
 
 ## Decisions
 
@@ -100,6 +100,8 @@ tracked in its pull request. Claim new work before editing.
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-07 · Codex · Drugs catalogue** · Claimed/implemented unified browsing/search with separate monograph/listing counts, bounded pages, scoped monograph filters and literal product-label lookup. All 82 Node tests, 17 focused Chrome checks and the 162-asset build/verification pass; 320/393 px Home/All/NTUH views were inspected. Clinical records and reviewed product associations are unchanged; no merge is authorized.
 
 - **2026-11-07 · Codex · #7 handoff** · Completed the CI-only 180-second install deadline and five-second diagnostics bound. Independent review, 73 Node tests, the 162-asset build and a live locked-browser smoke passed; diagnostics return only known titles, worker states and counts. PR CI and owner merge authorization are tracked in #7.
 

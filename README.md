@@ -62,7 +62,15 @@ The public edition contains 179 drug monographs, 32 management guides,
 clinical calculator workflows and seven POCUS topics. POCUS includes 50 figures,
 five motion clips and five posters with individual credits and reuse licenses.
 
-Search also covers about 2,300 **NTUH formulary listings**. Each listing is
+The **Drugs** tab browses and searches both the 179 monographs and all 2,289
+**NTUH formulary listings**, with separate counts. Choose **All**, **Monographs**
+or **NTUH**, search English/Chinese names or a public product code, and use the
+page controls to reach every match. Category and indication filters apply only
+to monographs; they do not hide NTUH listings. Favorites appear first when
+browsing monographs. The names index works offline; NTUH's product pages need
+an internet connection.
+
+Each NTUH listing is
 only a product name, generic name, Chinese name and drug class, linking to
 NTUH's own public product page (`QueryDrugDetail.aspx?Drug_Code=…`). The NTUH
 code appears only because that public URL needs it. NTUH's dose, dose-adjustment

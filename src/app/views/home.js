@@ -65,7 +65,7 @@ function shortcut(iconName, label, count, href) {
   return h('a', { class: 'shortcut', href },
     h('span', { class: 'shortcut-icon' }, icon(iconName, 22)),
     h('span', { class: 'shortcut-label' }, label),
-    h('span', { class: 'shortcut-count' }, String(count)));
+    h('span', { class: 'shortcut-count' }, count));
 }
 
 export function homeView(ctx) {
@@ -79,7 +79,8 @@ export function homeView(ctx) {
     h('nav', { class: 'shortcuts', 'aria-label': 'Browse' },
       shortcut('book', 'Guides', data.guides.length, '#/guides'),
       shortcut('calc', 'Calculators', CATALOGUE.length, '#/calc'),
-      shortcut('pill', 'Drugs', data.drugs.length, '#/drugs')),
+      shortcut('pill', 'Drugs', [h('span', null, `${data.drugs.length} monographs`),
+        data.ntuh?.entries?.length ? h('span', null, `${data.ntuh.entries.length.toLocaleString('en-US')} NTUH listings`) : null], '#/drugs')),
     sessionCard(),
     h('h2', { class: 'section-title' }, 'Favorites'),
     favoriteRows(ctx),

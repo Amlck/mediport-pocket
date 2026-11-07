@@ -437,3 +437,70 @@ export function searchIndex(index, query, { limitPerSection = Infinity, kinds = 
 
   return { query, tokens, total: hits.length, sections };
 }
+
+// Drugs has two independent catalogues. Keep every hit available to its view's
+// pagination, and apply clinical-monograph filters only to monographs. A name
+// match never creates a product-to-monograph association.
+export function drugBrowseResults(index, query = '', { drugIds = null } = {}) {
+  const term = String(query ?? '').trim();
+  let hits = term
+    ? searchIndex(index, term, { kinds: ['drug', 'ntuh'], limitPerSection: Infinity }).sections.flatMap(section => section.items)
+    : index.filter(entry => ['drug', 'ntuh'].includes(entry.kind))
+      .map(entry => ({ entry, where: null }))
+      .sort((left, right) => left.entry.title.localeCompare(right.entry.title) || left.entry.id.localeCompare(right.entry.id));
+  if (term) {
+    // The shared search treats short terms such as "mg" as navigation aliases.
+    // Complete labels and multi-word product/strength lookups also need their
+    // literal primary-name tokens. A lone shorthand retains shared navigation.
+    const folded = foldText(term);
+    // Normalize only notation (µg/μg and leading decimal points); no arithmetic.
+    const literalTokens = value => (String(value).normalize('NFKD').toLowerCase()
+      .replace(/[µμ]\s*g\b/g, 'mcg')
+      .replace(/(^|[^\d.])\.(?=\d)/g, (_, prefix) => `${prefix}0.`)
+      .replace(/[̀-ͯ]/g, '')
+      .match(/[a-z㐀-鿿]+|\d+(?:\.\d+)?/g) || []).map(token => /^\d/.test(token) ? token : foldText(token));
+    const tokens = literalTokens(term);
+    const key = entry => `${entry.kind}:${entry.id}`;
+    const catalogue = index.filter(entry => ['drug', 'ntuh'].includes(entry.kind));
+    const exact = catalogue.filter(entry => folded && entry.primary.some(field => field.folded === folded));
+    const exactIds = new Set(exact.map(key));
+    const units = new Set(['mg', 'mcg', 'g', 'ml', 'l', 'mmol', 'meq', 'iu', 'unit', 'units']);
+    const quantityPhrases = [];
+    for (let start = 0; start < tokens.length; start++) {
+      if (!/^\d+(?:\.\d+)?$/.test(tokens[start])) continue;
+      let end = start + 1;
+      while (end < tokens.length && (/^\d+(?:\.\d+)?$/.test(tokens[end]) || units.has(tokens[end]))) end++;
+      const phrase = tokens.slice(start, end);
+      if (phrase.some(token => units.has(token))) quantityPhrases.push(` ${phrase.join(' ')} `);
+      start = end - 1;
+    }
+    const literal = tokens.length > 1 ? catalogue.filter(entry => {
+      const primary = entry.primary.map(field => literalTokens(field.raw));
+      const fields = primary.map(words => ` ${words.join(' ')} `);
+      const words = new Set(primary.flat());
+      const chineseNames = entry.aliases.filter(field => /[㐀-鿿]/.test(field.raw)).map(field => field.folded);
+      // Preserve number/unit boundaries, including decimals. These are label
+      // tokens, not dose conversions or claims of equivalent formulations.
+      return tokens.every(token => words.has(token) || (/[㐀-鿿]/.test(token) && chineseNames.some(name => name.includes(token))))
+        && quantityPhrases.every(phrase => fields.some(field => field.includes(phrase)));
+    }) : [];
+    const literalIds = new Set(literal.map(key));
+    const seen = new Set(hits.map(hit => key(hit.entry)));
+    for (const entry of [...exact, ...literal]) if (!seen.has(key(entry))) {
+      hits.push({ entry, score: exactIds.has(key(entry)) ? 0 : PRIMARY_WORD, where: null });
+      seen.add(key(entry));
+    }
+    // A quantity-bearing catalogue lookup must not retain a weaker substring
+    // match (9 mL inside 0.9 mL, or a number found only in a product code).
+    // Monograph text matches and the whole-pack search retain their own rules.
+    if (quantityPhrases.length) hits = hits.filter(hit => hit.entry.kind !== 'ntuh' || literalIds.has(key(hit.entry)));
+    // Stable sorting retains shared ranking among the remaining search hits.
+    const priority = entry => exactIds.has(key(entry)) ? 0 : literalIds.has(key(entry)) ? 1 : 2;
+    hits.sort((left, right) => priority(left.entry) - priority(right.entry));
+  }
+  const allowed = drugIds === null ? null : new Set(drugIds);
+  return {
+    monographs: hits.filter(hit => hit.entry.kind === 'drug' && (!allowed || allowed.has(hit.entry.id))),
+    listings: hits.filter(hit => hit.entry.kind === 'ntuh'),
+  };
+}
