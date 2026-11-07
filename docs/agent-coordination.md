@@ -51,9 +51,7 @@ in each PR. A passing software check does not establish clinical approval.
 
 ## In progress
 
-| Agent | Branch | Work |
-| --- | --- | --- |
-| Codex | `codex/offline-registration-recovery` | Bound stalled offline registration/update checks and provide safe retry; investigate the reported Safari stall. |
+No active implementation claims. Offline recovery is ready for the owner-authorized merge and deployment verification below.
 
 ## Decisions
 
@@ -100,6 +98,8 @@ in each PR. A passing software check does not establish clinical approval.
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-07 · Codex · #9 merge preparation** · The owner authorized the coordinated `Medical` compatibility merge first, then #9, followed by live deployment, synchronization and Safari recovery checks. The reviewed runtime is unchanged from `2c49f14`; GitHub passed 99 Node and 29 browser checks. Removed the completed implementation claim; recovery of the previously stuck Safari remains to be confirmed.
 
 - **2026-11-07 · Codex · Offline recovery** · Claimed the reported stuck Installed pack flow. Reproduced an indefinitely pending browser registration leaving the UI checking with an ineffective update button. Added bounded registration/update checks, retained retry and guarded late replies; 99 Node tests pass. The affected Safari still serves the old pack; the new recovery UI needs release and real-browser confirmation. Consumer compatibility work is in `Medical` / `codex/offline-registration-compatibility`; no merge is authorized.
 
