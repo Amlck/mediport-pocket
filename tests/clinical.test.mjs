@@ -153,7 +153,16 @@ test('public reference retains source limitations, verified public NTUH links an
   assert.equal(Object.hasOwn(reference, 'guideResources'), false);
   assert.ok(reference.drugs.length > 100);
   assert.ok(reference.guides.some(item => item.id === 'aki'));
-  assert.ok(reference.drugs.every(item => !item.id.startsWith('taita-')));
+  const taita = reference.drugs.filter(item => item.id.startsWith('taita-'));
+  assert.deepEqual(taita.map(item => item.id), ['taita-1', 'taita-2', 'taita-3', 'taita-5']);
+  assert.ok(taita.every(item => item.contents?.components?.length && item.references.some(ref => ref.url?.startsWith('https://www.otsuka.com.tw/') && /Otsuka/.test(ref.text))));
+  // Each Taita fluid carries its own common names (台大N號, 台N) and no other number's.
+  const cn = { 1: '一', 2: '二', 3: '三', 5: '五' };
+  for (const item of taita) {
+    const n = item.id.split('-')[1];
+    assert.ok([`台大${cn[n]}號`, `台大${n}號`, `台${n}`].every(alias => item.aliases.includes(alias)), item.id);
+    assert.ok(item.aliases.filter(alias => /^台/.test(alias)).every(alias => alias.includes(n) || alias.includes(cn[n])), item.id);
+  }
   assert.match(reference.guides.find(item => item.id === 'aki').sourceMetadata.statusOnly, /public-review draft.*not.*final guidance/);
   assert.match(reference.guides.find(item => item.id === 'hypoglycemia').sourceMetadata.statusOnly, /does not make a refreshed-current claim/);
   assert.ok(reference.guides.every(item => Array.isArray(item.reviewLimitations) && item.sources.length > 0));
@@ -185,3 +194,13 @@ test('all POCUS image and motion bytes retain their explicit CC BY credits and h
     }
   }
 });
+
+test('Taita fluids are found by their common Chinese names and 台N shorthand', async () => {
+  const { buildSearchIndex, searchIndex } = await import('../src/app/lib/search.js');
+  const index = buildSearchIndex({ drugs: reference.drugs, drugIndicationLookup: reference.drugIndicationLookup });
+  const top = (query) => searchIndex(index, query).sections.find(section => section.kind === 'drug')?.items.map(item => item.entry.id) || [];
+  for (const [query, id] of [['台5', 'taita-5'], ['台大五號', 'taita-5'], ['台大5號', 'taita-5'], ['台1', 'taita-1'], ['台大三號', 'taita-3']]) {
+    assert.deepEqual(top(query), [id], query);
+  }
+});
+

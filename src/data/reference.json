@@ -288,6 +288,44 @@
         "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "48e190b8c9f6bdc9a2ba38983de9a70a238cc93a7701419f241a9972fa5ffd11",
         "outputSha256": "d64fc5a5dbd4485cb6b17c72ff5221f4f6810ce325f2fef18c43281a09e1a1bc"
+      },
+      {
+        "sourcePath": "portal/static/data/drug-data.js",
+        "transformation": "Original public portability import (2026-11-07): included four Otsuka Taita-series fluid monographs and their common product names. These hashes describe that import; subsequent public clinical-evidence corrections are recorded per drug below. Public hospital-name policy is governed by CONTRIBUTING.md.",
+        "originalSha256": "6d1aacf5b66b0788df28f4313423a198099ab6776b3413b660c0d5696c837e72",
+        "outputSha256": "a835172469357a05a329906eff32dae4f6cd9661958a2ac4b10d79d4c946f6a2"
+      },
+      {
+        "drugId": "taita-1",
+        "field": "$record",
+        "valueEncoding": "canonical-json-v1",
+        "transformation": "Targeted public-source evidence correction (2026-11-07): retain verified product identity/composition and aliases; replace unsupported numerical infusion/CrCl/monitoring defaults with explicitly scoped manufacturer administration wording and general adult IV-fluid assessment. Record linked sources, insert version and review limits.",
+        "originalSha256": "3956a1f9743b9e001d6ef3f0359c8946758a31d2414c8a4906787f0c9a665357",
+        "outputSha256": "28a848276d10359d1c2e29aeb2af7146181923877fe826bcd442bbe748eff7ae"
+      },
+      {
+        "drugId": "taita-2",
+        "field": "$record",
+        "valueEncoding": "canonical-json-v1",
+        "transformation": "Targeted public-source evidence correction (2026-11-07): retain verified product identity/composition and aliases; replace unsupported numerical infusion/CrCl/monitoring defaults with explicitly scoped manufacturer administration wording and general adult IV-fluid assessment. Record linked sources, insert version and review limits.",
+        "originalSha256": "d664b43f52c30bc35d8b4c847e9a11e6cb01f90afde9e62d210b9ad483cb8449",
+        "outputSha256": "be752b667962a4a362624dc815a63b36b7f5847fbf3b5f0f075253834d3dce8a"
+      },
+      {
+        "drugId": "taita-3",
+        "field": "$record",
+        "valueEncoding": "canonical-json-v1",
+        "transformation": "Targeted public-source evidence correction (2026-11-07): retain verified product identity/composition and aliases; replace unsupported numerical infusion/CrCl/monitoring defaults with explicitly scoped manufacturer administration wording and general adult IV-fluid assessment. Record linked sources, insert version and review limits.",
+        "originalSha256": "7a249440f05d57e85ff2ce910d4ba9c5ad3557bcf00edb9cdc0d19faa7a94f11",
+        "outputSha256": "96dd2103962256eab15ace30106a70893dfd6457bed568e354a57453e9194623"
+      },
+      {
+        "drugId": "taita-5",
+        "field": "$record",
+        "valueEncoding": "canonical-json-v1",
+        "transformation": "Targeted public-source evidence correction (2026-11-07): retain verified product identity/composition and aliases; replace unsupported numerical infusion/CrCl/monitoring defaults with explicitly scoped manufacturer administration wording and general adult IV-fluid assessment. Record linked sources, insert version and review limits.",
+        "originalSha256": "42310d796623620b2c5bc99f07c7fb61c850af16359fdc2ff8247182f49c9dd1",
+        "outputSha256": "9ca0adff9d29b89d8b41bbd82070620369c0affe5cb9cc06d6b565f35678adb0"
       }
     ],
     "drugDataFiles": [
@@ -9782,6 +9820,462 @@
           "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=spironolactone"
         }
       ]
+    },
+    {
+      "id": "taita-1",
+      "indicationTags": [
+        "water and electrolytes"
+      ],
+      "name": "Taita No. 1 Injection",
+      "class": "Maintenance Electrolyte-Glucose Solution",
+      "shortName": "Taita 1",
+      "badge": "IV Infusion",
+      "aliases": [
+        "Taita No. 1",
+        "大塚1號",
+        "taita 1",
+        "台大一號",
+        "台大1號",
+        "台1"
+      ],
+      "category": "fluid",
+      "pkpd": "Low-sodium maintenance fluid with dextrose plus mixed electrolytes. Official listed ingredients are sodium chloride, potassium acetate, sodium acetate, magnesium chloride, potassium phosphate monobasic, and dextrose.",
+      "mechanism": "Provides maintenance water, calories, and modest sodium with built-in potassium, magnesium, acetate, and phosphate. It is a Taiwanese maintenance formulation, not a crystalloid resuscitation fluid.",
+      "spectrum": "Manufacturer-listed water, electrolyte and nutrient supplementation, including neonatal maintenance. The label listing does not establish a neonatal dosing protocol in this reference.",
+      "dose": {
+        "standard": "Manufacturer label statement: usually 500 mL per IV administration, adjusted for age and clinical condition. This is not a universal patient volume or infusion rate; the reviewed insert does not provide a neonatal/paediatric calculation or a CrCl/haemodialysis algorithm.",
+        "loading": ""
+      },
+      "renalAdj": [
+        {
+          "crcl": "Product-specific schedule not established",
+          "regimen": "The reviewed manufacturer insert does not provide a CrCl or haemodialysis dosing table. Individualize the fluid/electrolyte prescription; for adults with renal, hepatic or cardiac impairment, NICE CG174 recommends expert assessment. This is not a default renal-adjusted dose or an assertion that no adjustment is needed."
+        }
+      ],
+      "sideEffects": [
+        "General adult IV-fluid safety considerations include fluid overload and fluid/electrolyte imbalance; assess these risks in the patient's clinical context (NICE CG174).",
+        "This is a glucose/electrolyte-containing product. Review the actual formulation, the patient's current laboratory results and all other fluid/electrolyte inputs before prescribing."
+      ],
+      "monitoring": [
+        "Use an individualized IV-fluid assessment and monitoring plan; assess clinical fluid status, fluid balance and relevant laboratory results (NICE CG174, adult guidance).",
+        "Review renal function and the total prescribed electrolyte/glucose intake. The cited product inserts do not establish product-specific laboratory intervals.",
+        "NICE CG174 monitoring guidance is for adults; neonatal/paediatric monitoring requires an age-specific clinical plan. No fixed Q-hourly schedule is supplied here."
+      ],
+      "publicNotes": [
+        "Taita No. 1 is a distinct electrolyte/glucose formulation; confirm the bag composition rather than substituting another fluid by name alone.",
+        "Source review is limited to the product facts and administration wording identified below. Product-specific weight-based rates, CrCl/haemodialysis regimens, fixed monitoring intervals and neonatal/paediatric protocols are not established by this review.",
+        "NICE CG174 is cited for general adult IV-fluid assessment/reassessment only; it is not a Taita-specific dosing source. Clinician review of this monograph remains pending."
+      ],
+      "contents": {
+        "basis": {
+          "volumeMl": 500,
+          "label": "per 500 mL bag"
+        },
+        "components": [
+          {
+            "name": "Na⁺",
+            "amount": 12.5,
+            "unit": "mEq"
+          },
+          {
+            "name": "K⁺",
+            "amount": 9,
+            "unit": "mEq"
+          },
+          {
+            "name": "Mg²⁺",
+            "amount": 1.5,
+            "unit": "mEq"
+          },
+          {
+            "name": "Cl⁻",
+            "amount": 10,
+            "unit": "mEq"
+          },
+          {
+            "name": "Acetate",
+            "amount": 10,
+            "unit": "mEq"
+          },
+          {
+            "name": "Phosphate",
+            "amount": 3,
+            "unit": "mmol"
+          },
+          {
+            "name": "Glucose",
+            "amount": 19,
+            "unit": "g"
+          }
+        ]
+      },
+      "sizes": [
+        "500 mL bag"
+      ],
+      "osmolarity": "300 mOsm/L",
+      "calories": "76 kcal/500 mL bag (152 kcal/L)",
+      "references": [
+        {
+          "text": "Taiwan Otsuka — Taita No. 1 official product identity, ingredients, listed indications and current pack sizes; accessed 2026-11-07",
+          "url": "https://www.otsuka.com.tw/tw/product/infusion/detail/2"
+        },
+        {
+          "text": "Taiwan Otsuka manufacturer insert IP15-1812 (Taita Nos. 1–4), publicly hosted by CTH; composition and individualized administration wording; undated insert/version code retained; accessed 2026-11-07",
+          "url": "https://www.cth.org.tw/public/medi_news/53026c888ca0d286d1c3e48491f143d1.pdf"
+        },
+        {
+          "text": "NICE CG174 (updated 5 May 2017), recommendations 1.1.6, 1.2.4 and 1.5.2 — general adult IV-fluid assessment, reassessment and expert input; not product-specific or paediatric dosing",
+          "url": "https://www.nice.org.uk/guidance/cg174/chapter/Recommendations"
+        }
+      ],
+      "sourceMetadata": {
+        "reviewedAt": "2026-11-07",
+        "reviewStatus": "Targeted source check; clinician review pending",
+        "reviewScope": "Targeted source review: manufacturer product identity, ingredients, composition, listed indications, packaging and administration wording. General adult assessment/reassessment is supported separately by NICE CG174; no product-specific infusion-rate, CrCl/haemodialysis or fixed monitoring schedule was verified. This is not independent clinician sign-off.",
+        "accessCheckedAt": "2026-11-07",
+        "productInsertVersion": "IP15-1812",
+        "evidenceLimits": "No product-specific weight-based infusion rate, CrCl/haemodialysis table or fixed monitoring intervals are supplied. Manufacturer pages/inserts are not evidence for the removed derived numeric schedules."
+      }
+    },
+    {
+      "id": "taita-2",
+      "indicationTags": [
+        "water and electrolytes"
+      ],
+      "name": "Taita No. 2 Injection",
+      "class": "Maintenance Electrolyte-Glucose Solution",
+      "shortName": "Taita 2",
+      "badge": "IV Infusion",
+      "aliases": [
+        "Taita No. 2",
+        "大塚2號",
+        "taita 2",
+        "台大二號",
+        "台大2號",
+        "台2"
+      ],
+      "category": "fluid",
+      "pkpd": "Intermediate-sodium maintenance fluid with dextrose and mixed electrolytes. Official listed ingredients are sodium chloride, potassium acetate, sodium acetate, sodium phosphate monobasic, and dextrose.",
+      "mechanism": "Provides maintenance water, calories, sodium, potassium, acetate, and phosphate. Unlike generic D2.5-1/2NS, it also contains buffer and phosphate.",
+      "spectrum": "Manufacturer-listed water, electrolyte and nutrient supplementation for hypertonic and paediatric diarrhoea. This product reference does not define disease-specific replacement or paediatric dosing protocols.",
+      "dose": {
+        "standard": "Manufacturer label statement: usually 500 mL per IV administration, adjusted for age and clinical condition. This is not a universal patient volume or infusion rate; the reviewed insert does not provide a neonatal/paediatric calculation or a CrCl/haemodialysis algorithm.",
+        "loading": ""
+      },
+      "renalAdj": [
+        {
+          "crcl": "Product-specific schedule not established",
+          "regimen": "The reviewed manufacturer insert does not provide a CrCl or haemodialysis dosing table. Individualize the fluid/electrolyte prescription; for adults with renal, hepatic or cardiac impairment, NICE CG174 recommends expert assessment. This is not a default renal-adjusted dose or an assertion that no adjustment is needed."
+        }
+      ],
+      "sideEffects": [
+        "General adult IV-fluid safety considerations include fluid overload and fluid/electrolyte imbalance; assess these risks in the patient's clinical context (NICE CG174).",
+        "This is a glucose/electrolyte-containing product. Review the actual formulation, the patient's current laboratory results and all other fluid/electrolyte inputs before prescribing."
+      ],
+      "monitoring": [
+        "Use an individualized IV-fluid assessment and monitoring plan; assess clinical fluid status, fluid balance and relevant laboratory results (NICE CG174, adult guidance).",
+        "Review renal function and the total prescribed electrolyte/glucose intake. The cited product inserts do not establish product-specific laboratory intervals.",
+        "NICE CG174 monitoring guidance is for adults; neonatal/paediatric monitoring requires an age-specific clinical plan. No fixed Q-hourly schedule is supplied here."
+      ],
+      "publicNotes": [
+        "Taita No. 2 is a distinct electrolyte/glucose formulation; confirm the bag composition rather than substituting another fluid by name alone.",
+        "Source review is limited to the product facts and administration wording identified below. Product-specific weight-based rates, CrCl/haemodialysis regimens, fixed monitoring intervals and neonatal/paediatric protocols are not established by this review.",
+        "NICE CG174 is cited for general adult IV-fluid assessment/reassessment only; it is not a Taita-specific dosing source. Clinician review of this monograph remains pending."
+      ],
+      "contents": {
+        "basis": {
+          "volumeMl": 500,
+          "label": "per 500 mL bag"
+        },
+        "components": [
+          {
+            "name": "Na⁺",
+            "amount": 20,
+            "unit": "mEq"
+          },
+          {
+            "name": "K⁺",
+            "amount": 6,
+            "unit": "mEq"
+          },
+          {
+            "name": "Cl⁻",
+            "amount": 13,
+            "unit": "mEq"
+          },
+          {
+            "name": "Acetate",
+            "amount": 10,
+            "unit": "mEq"
+          },
+          {
+            "name": "Phosphate",
+            "amount": 3,
+            "unit": "mmol"
+          },
+          {
+            "name": "Glucose",
+            "amount": 16.5,
+            "unit": "g"
+          }
+        ]
+      },
+      "sizes": [
+        "500 mL bag"
+      ],
+      "osmolarity": "287 mOsm/L",
+      "calories": "66 kcal/500 mL bag (132 kcal/L)",
+      "references": [
+        {
+          "text": "Taiwan Otsuka — Taita No. 2 official product identity, ingredients, listed indications and current pack sizes; accessed 2026-11-07",
+          "url": "https://www.otsuka.com.tw/en/product/infusion/detail/3"
+        },
+        {
+          "text": "Taiwan Otsuka manufacturer insert IP15-1812 (Taita Nos. 1–4), publicly hosted by CTH; composition and individualized administration wording; undated insert/version code retained; accessed 2026-11-07",
+          "url": "https://www.cth.org.tw/public/medi_news/53026c888ca0d286d1c3e48491f143d1.pdf"
+        },
+        {
+          "text": "NICE CG174 (updated 5 May 2017), recommendations 1.1.6, 1.2.4 and 1.5.2 — general adult IV-fluid assessment, reassessment and expert input; not product-specific or paediatric dosing",
+          "url": "https://www.nice.org.uk/guidance/cg174/chapter/Recommendations"
+        }
+      ],
+      "sourceMetadata": {
+        "reviewedAt": "2026-11-07",
+        "reviewStatus": "Targeted source check; clinician review pending",
+        "reviewScope": "Targeted source review: manufacturer product identity, ingredients, composition, listed indications, packaging and administration wording. General adult assessment/reassessment is supported separately by NICE CG174; no product-specific infusion-rate, CrCl/haemodialysis or fixed monitoring schedule was verified. This is not independent clinician sign-off.",
+        "accessCheckedAt": "2026-11-07",
+        "productInsertVersion": "IP15-1812",
+        "evidenceLimits": "No product-specific weight-based infusion rate, CrCl/haemodialysis table or fixed monitoring intervals are supplied. Manufacturer pages/inserts are not evidence for the removed derived numeric schedules."
+      }
+    },
+    {
+      "id": "taita-3",
+      "indicationTags": [
+        "water and electrolytes"
+      ],
+      "name": "Taita No. 3 Injection",
+      "class": "Maintenance Electrolyte-Glucose Solution",
+      "shortName": "Taita 3",
+      "badge": "IV Infusion",
+      "aliases": [
+        "Taita No. 3",
+        "大塚3號",
+        "taita 3",
+        "台大三號",
+        "台大3號",
+        "台3"
+      ],
+      "category": "fluid",
+      "pkpd": "Higher-sodium maintenance fluid with dextrose and mixed electrolytes. Official listed ingredients are sodium chloride, potassium acetate, sodium acetate, sodium phosphate monobasic, and dextrose.",
+      "mechanism": "Provides maintenance water with substantially more sodium/chloride than Taita 1 or 2, while still carrying potassium, acetate, phosphate, and glucose. It is not LR/Hartmann.",
+      "spectrum": "Manufacturer-listed water, electrolyte and nutrient supplementation and maintenance. Product identity/composition does not establish a current diagnosis-specific treatment algorithm.",
+      "dose": {
+        "standard": "Manufacturer label statement: usually 500 mL per IV administration, adjusted for age and clinical condition. This is not a universal patient volume or infusion rate; the reviewed insert does not provide a neonatal/paediatric calculation or a CrCl/haemodialysis algorithm.",
+        "loading": ""
+      },
+      "renalAdj": [
+        {
+          "crcl": "Product-specific schedule not established",
+          "regimen": "The reviewed manufacturer insert does not provide a CrCl or haemodialysis dosing table. Individualize the fluid/electrolyte prescription; for adults with renal, hepatic or cardiac impairment, NICE CG174 recommends expert assessment. This is not a default renal-adjusted dose or an assertion that no adjustment is needed."
+        }
+      ],
+      "sideEffects": [
+        "General adult IV-fluid safety considerations include fluid overload and fluid/electrolyte imbalance; assess these risks in the patient's clinical context (NICE CG174).",
+        "This is a glucose/electrolyte-containing product. Review the actual formulation, the patient's current laboratory results and all other fluid/electrolyte inputs before prescribing."
+      ],
+      "monitoring": [
+        "Use an individualized IV-fluid assessment and monitoring plan; assess clinical fluid status, fluid balance and relevant laboratory results (NICE CG174, adult guidance).",
+        "Review renal function and the total prescribed electrolyte/glucose intake. The cited product inserts do not establish product-specific laboratory intervals.",
+        "NICE CG174 monitoring guidance is for adults; neonatal/paediatric monitoring requires an age-specific clinical plan. No fixed Q-hourly schedule is supplied here."
+      ],
+      "publicNotes": [
+        "Taita No. 3 is a distinct electrolyte/glucose formulation; confirm the bag composition rather than substituting another fluid by name alone.",
+        "Source review is limited to the product facts and administration wording identified below. Product-specific weight-based rates, CrCl/haemodialysis regimens, fixed monitoring intervals and neonatal/paediatric protocols are not established by this review.",
+        "NICE CG174 is cited for general adult IV-fluid assessment/reassessment only; it is not a Taita-specific dosing source. Clinician review of this monograph remains pending."
+      ],
+      "contents": {
+        "basis": {
+          "volumeMl": 500,
+          "label": "per 500 mL bag"
+        },
+        "components": [
+          {
+            "name": "Na⁺",
+            "amount": 37.5,
+            "unit": "mEq"
+          },
+          {
+            "name": "K⁺",
+            "amount": 6,
+            "unit": "mEq"
+          },
+          {
+            "name": "Cl⁻",
+            "amount": 30.5,
+            "unit": "mEq"
+          },
+          {
+            "name": "Acetate",
+            "amount": 10,
+            "unit": "mEq"
+          },
+          {
+            "name": "Phosphate",
+            "amount": 3,
+            "unit": "mmol"
+          },
+          {
+            "name": "Glucose",
+            "amount": 10,
+            "unit": "g"
+          }
+        ]
+      },
+      "sizes": [
+        "500 mL bag"
+      ],
+      "osmolarity": "285 mOsm/L",
+      "calories": "40 kcal/500 mL bag (80 kcal/L)",
+      "references": [
+        {
+          "text": "Taiwan Otsuka — Taita No. 3 official product identity, ingredients, listed indications and current pack sizes; accessed 2026-11-07",
+          "url": "https://www.otsuka.com.tw/tw/product/infusion/detail/4"
+        },
+        {
+          "text": "Taiwan Otsuka manufacturer insert IP15-1812 (Taita Nos. 1–4), publicly hosted by CTH; composition and individualized administration wording; undated insert/version code retained; accessed 2026-11-07",
+          "url": "https://www.cth.org.tw/public/medi_news/53026c888ca0d286d1c3e48491f143d1.pdf"
+        },
+        {
+          "text": "NICE CG174 (updated 5 May 2017), recommendations 1.1.6, 1.2.4 and 1.5.2 — general adult IV-fluid assessment, reassessment and expert input; not product-specific or paediatric dosing",
+          "url": "https://www.nice.org.uk/guidance/cg174/chapter/Recommendations"
+        }
+      ],
+      "sourceMetadata": {
+        "reviewedAt": "2026-11-07",
+        "reviewStatus": "Targeted source check; clinician review pending",
+        "reviewScope": "Targeted source review: manufacturer product identity, ingredients, composition, listed indications, packaging and administration wording. General adult assessment/reassessment is supported separately by NICE CG174; no product-specific infusion-rate, CrCl/haemodialysis or fixed monitoring schedule was verified. This is not independent clinician sign-off.",
+        "accessCheckedAt": "2026-11-07",
+        "productInsertVersion": "IP15-1812",
+        "evidenceLimits": "No product-specific weight-based infusion rate, CrCl/haemodialysis table or fixed monitoring intervals are supplied. Manufacturer pages/inserts are not evidence for the removed derived numeric schedules."
+      }
+    },
+    {
+      "id": "taita-5",
+      "indicationTags": [
+        "water and electrolytes"
+      ],
+      "name": "Taita No. 5 Injection",
+      "class": "Maintenance Electrolyte-Glucose Solution",
+      "shortName": "Taita 5",
+      "badge": "IV Infusion",
+      "aliases": [
+        "Taita No. 5",
+        "大塚5號",
+        "taita 5",
+        "台大五號",
+        "台大5號",
+        "台5"
+      ],
+      "category": "fluid",
+      "pkpd": "Maintenance fluid with dextrose plus mixed electrolytes. Official Otsuka ingredients are sodium chloride, dextrose, sodium acetate, potassium acetate, magnesium chloride hexahydrate, and potassium phosphate monobasic. This is not the same formulation as generic D5NS.",
+      "mechanism": "Provides water, glucose calories, sodium/chloride, plus acetate-buffered potassium, magnesium, and phosphate supplementation. Intended as a Taiwanese maintenance formulation rather than a pure saline-dextrose bag.",
+      "spectrum": "Manufacturer-listed perioperative and unable-to-eat patient water, electrolyte and energy supplementation/maintenance. Select and prescribe for the individual patient's assessed fluid and electrolyte needs.",
+      "dose": {
+        "standard": "Manufacturer label statement: usually 400–1200 mL per administration by peripheral or central IV infusion; children require weight-specific adjustment. Individualize the prescribed volume and rate. The insert does not provide a universal weight-based infusion rate or a CrCl/haemodialysis algorithm.",
+        "loading": ""
+      },
+      "renalAdj": [
+        {
+          "crcl": "Product-specific schedule not established",
+          "regimen": "The reviewed manufacturer insert does not provide a CrCl or haemodialysis dosing table. Individualize the fluid/electrolyte prescription; for adults with renal, hepatic or cardiac impairment, NICE CG174 recommends expert assessment. This is not a default renal-adjusted dose or an assertion that no adjustment is needed."
+        }
+      ],
+      "sideEffects": [
+        "General adult IV-fluid safety considerations include fluid overload and fluid/electrolyte imbalance; assess these risks in the patient's clinical context (NICE CG174).",
+        "This is a glucose/electrolyte-containing product. Review the actual formulation, the patient's current laboratory results and all other fluid/electrolyte inputs before prescribing."
+      ],
+      "monitoring": [
+        "Use an individualized IV-fluid assessment and monitoring plan; assess clinical fluid status, fluid balance and relevant laboratory results (NICE CG174, adult guidance).",
+        "Review renal function and the total prescribed electrolyte/glucose intake. The cited product inserts do not establish product-specific laboratory intervals.",
+        "NICE CG174 monitoring guidance is for adults; neonatal/paediatric monitoring requires an age-specific clinical plan. No fixed Q-hourly schedule is supplied here."
+      ],
+      "publicNotes": [
+        "Taita No. 5 contains glucose, sodium, potassium, magnesium, acetate and phosphate; it is not plain D5NS.",
+        "Source review is limited to the product facts and administration wording identified below. Product-specific weight-based rates, CrCl/haemodialysis regimens, fixed monitoring intervals and neonatal/paediatric protocols are not established by this review.",
+        "NICE CG174 is cited for general adult IV-fluid assessment/reassessment only; it is not a Taita-specific dosing source. Clinician review of this monograph remains pending."
+      ],
+      "contents": {
+        "basis": {
+          "volumeMl": 400,
+          "label": "per 400 mL bag"
+        },
+        "components": [
+          {
+            "name": "Na⁺",
+            "amount": 14.4,
+            "unit": "mEq"
+          },
+          {
+            "name": "K⁺",
+            "amount": 7.2,
+            "unit": "mEq"
+          },
+          {
+            "name": "Mg²⁺",
+            "amount": 1.2,
+            "unit": "mEq"
+          },
+          {
+            "name": "Cl⁻",
+            "amount": 6.8,
+            "unit": "mEq"
+          },
+          {
+            "name": "Acetate",
+            "amount": 11.2,
+            "unit": "mEq"
+          },
+          {
+            "name": "Phosphate",
+            "amount": 4.8,
+            "unit": "mmol"
+          },
+          {
+            "name": "Glucose",
+            "amount": 40,
+            "unit": "g"
+          }
+        ]
+      },
+      "sizes": [
+        "250 mL bag",
+        "400 mL bag",
+        "500 mL bag"
+      ],
+      "osmolarity": "669 mOsm/L",
+      "calories": "160 kcal/400 mL bag (400 kcal/L)",
+      "references": [
+        {
+          "text": "Taiwan Otsuka — Taita No. 5 official product identity, ingredients, listed indications and current pack sizes; accessed 2026-11-07",
+          "url": "https://www.otsuka.com.tw/tw/product/infusion/detail/6"
+        },
+        {
+          "text": "Taiwan Otsuka manufacturer insert IP1911 (Taita No. 5), publicly hosted by CTH; composition and individualized administration wording; undated insert/version code retained; accessed 2026-11-07",
+          "url": "https://www.cth.org.tw/public/medi_news/a63f09fec4ec2f2894fe53e1f8d74cdd.pdf"
+        },
+        {
+          "text": "NICE CG174 (updated 5 May 2017), recommendations 1.1.6, 1.2.4 and 1.5.2 — general adult IV-fluid assessment, reassessment and expert input; not product-specific or paediatric dosing",
+          "url": "https://www.nice.org.uk/guidance/cg174/chapter/Recommendations"
+        }
+      ],
+      "sourceMetadata": {
+        "reviewedAt": "2026-11-07",
+        "reviewStatus": "Targeted source check; clinician review pending",
+        "reviewScope": "Targeted source review: manufacturer product identity, ingredients, composition, listed indications, packaging and administration wording. General adult assessment/reassessment is supported separately by NICE CG174; no product-specific infusion-rate, CrCl/haemodialysis or fixed monitoring schedule was verified. This is not independent clinician sign-off.",
+        "accessCheckedAt": "2026-11-07",
+        "productInsertVersion": "IP1911",
+        "evidenceLimits": "No product-specific weight-based infusion rate, CrCl/haemodialysis table or fixed monitoring intervals are supplied. Manufacturer pages/inserts are not evidence for the removed derived numeric schedules."
+      }
     },
     {
       "id": "teicoplanin",
