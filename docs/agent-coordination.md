@@ -53,8 +53,7 @@ in each PR. A passing software check does not establish clinical approval.
 
 | PR / branch | Agent | Files mainly touched | Status |
 | --- | --- | --- | --- |
-| [#2](https://github.com/Amlck/mediport-pocket/pull/2) `claude/restore-portable-guides` | Claude (author), Codex (fix/validation) | Guide renderer, emergency browser regressions, provenance notice, coordination notes | Emergency/provenance fixes complete; owner-authorized merge first, after checks and consumer coordination |
-| [#3](https://github.com/Amlck/mediport-pocket/pull/3) `claude/guide-wording-cleanup` | Claude (author), Codex (restack/review) | Guide wording/UI, browser checks, coordination notes | Keep stacked on #2 until it merges; wording fixes and consumer coordination in progress; merge second after checks |
+| [#3](https://github.com/Amlck/mediport-pocket/pull/3) `claude/guide-wording-cleanup` | Claude (author), Codex (restack/review) | Guide wording/UI, browser checks, coordination notes | Rebased onto merged #2; wording fixes and consumer coordination complete; required CI before second merge |
 | [#4](https://github.com/Amlck/mediport-pocket/pull/4) `claude/taita-fluids` | Claude (author), Codex (rebase/review) | Fluid data/aliases, README, release notes, browser checks, coordination notes | Clinical evidence fixes in progress; preserve concurrent alias assertions; merge fourth after #6 |
 
 | [#6](https://github.com/Amlck/mediport-pocket/pull/6) `claude/restore-remaining-guides` | Claude (author), Codex (sources/review) | Remaining guide sources/wording, access evidence | Restack on fixed #3; verify public-source claims; merge third after checks |
@@ -87,7 +86,7 @@ in each PR. A passing software check does not establish clinical approval.
 
 ## Open items
 
-- `main` currently has 12 guides. If #2 merges as proposed, seven would remain
+- `main` now has 25 guides after #2. Seven remain
   excluded: status epilepticus, systemic corticosteroids, anticoagulant
   bleeding, hypertensive emergency, anaphylaxis, hypomagnesaemia and
   hypermagnesaemia. Review public provenance, portability and clinical scope
@@ -100,15 +99,20 @@ in each PR. A passing software check does not establish clinical approval.
 - The Taita proposal (#4) has publicly verified composition, but its precise
   rate/renal/monitoring schedules need identifiable supporting evidence and
   review scope; see the review in #4.
-- #2 needs emergency outputs visible before routine phase selection and an
-  accurate source-transformation notice. #3 needs a scoped delirium limitation
-  and consumer coordination (`Medical`); details are in the public PR reviews.
+- #2 emergency/provenance fixes are merged. #3 scopes the delirium limitation
+  and removes unavailable-resource wording; coordinated `Medical` work is ready.
 
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
 
+- **2026-11-07 · Codex · #3 merge preparation** · #2 merged at `551bad7` after checks; restacked #3 onto that main without runtime changes, then retargeted it for required CI. Coordinated `Medical` work is complete; continuing the owner-requested #2 → #3 → #6 → #4 order.
+
+- **2026-11-07 · Codex · #3 fixes** · Claimed/scoped the delirium validation warning and removed unreachable fever resource wording with targeted regressions and matching hashes. Consumer resource-UI coordination is in `Medical`; owner-authorized public merge order is #2 → #3 → #6 → #4.
+
 - **2026-11-07 · Codex · #2 fixes** · Claimed and fixed pre-phase emergency rendering and the inaccurate byte-copy notice; four focused browser cases pass. The owner now authorizes fixes and coordinated `Medical` work, with public merge order #2 → #3 → #6 → #4 after validation.
+
+- **2026-11-07 · Codex · #3** · Claimed/restacked only #3's changes onto rebased #2, preserving the NTUH listing count while removing the historical-row count. Reviewed wording/UI and recorded findings; kept the base on `claude/restore-portable-guides` and left #2–#4 unmerged.
 
 - **2026-11-07 · Codex · #2** · Claimed/rebased #2 onto `f640cd7`, retaining NTUH search/source policy and combining release notes. Reviewed restored guides; recorded emergency-phase and provenance findings. The existing NTUH keyboard test now waits for All-scope activation; #3 stays stacked.
 - **2026-11-07 · Codex · #5** · Merged #5 at `f640cd7` after the owner explicitly requested it in this session. The same request authorizes rebase/review of #2–#4 and expressly leaves all three unmerged.

@@ -104,87 +104,141 @@
       },
       {
         "sourcePath": "portal/static/js/management-guides/acs-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "7bfbdc05216a3da78b1edee4b78e7961641a81d51c0f9972b6be83643332edcd",
         "outputSha256": "3478603436f2a7a481a2320811d332e719c1844f667063e922f197a33d669560"
       },
       {
         "sourcePath": "portal/static/js/management-guides/af-rvr-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "40a89012c338f92ba68ba8a60499e93a9ca58502e5f50a2eaca05a335cc02cf6",
         "outputSha256": "15454f2930cf5a8b9b8ce7dfad13d7716d15343ff960c44ea1b2370880ef462b"
       },
       {
         "sourcePath": "portal/static/js/management-guides/agitation-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "7ce5d38213a21f562384ce69f577a87efe7322581425be2030224bb16f4b15cc",
         "outputSha256": "fbe9f274ee474750312d389050fa00926834c7bd37023e8a182b5f96ef8feb0a"
       },
       {
         "sourcePath": "portal/static/js/management-guides/asthma-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "7a9a432f04fae25700a5244fb7d0fa2fd01f48a110a4001b8c210af3d6ab2bb8",
         "outputSha256": "83621d80646ca1e50522bf16465e5f18e78c1a904fbbb958e7fe9fe19bd867c8"
       },
       {
         "sourcePath": "portal/static/js/management-guides/bradycardia-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "24dd306bb3679aa14b927ac60d53694d634b3ad3071ba67982d84f11c9dab932",
         "outputSha256": "62ecf15111c0ecd42a5fa383fa7ebaf33d86415779f7876ba55af7e1d032eb8f"
       },
       {
+        "sourcePath": "portal/static/js/management-guides/delirium-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged. Follow-up portability review (2026-11-07): scope the local-protocol validation limitation to this guide and remove remaining unavailable resource-row descriptions; numeric clinical rules and cited sources are unchanged.",
+        "originalSha256": "2a3c78d45e2febebfecc6c31c8db7d9240ed907e47e8d722b4732d40cbf27f09",
+        "outputSha256": "15ae8b10474a80d37577557bc06ab107d03b5e2013216ab4cb5d6fc98f56a3c7"
+      },
+      {
         "sourcePath": "portal/static/js/management-guides/dka-hhs-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "1d9ccbe67551180f5b238c54713da598e1f1931df5de663115fef3feaade1fb1",
         "outputSha256": "604447c96886634573473ca5b1a86723bfe7270773af0da92e4716ff93b93577"
       },
       {
         "sourcePath": "portal/static/js/management-guides/gi-bleeding-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "efec69e2692db88a8aaf16f733118ae22af21d4b28882385910f7a262142a74d",
         "outputSha256": "fce807200e119a8d721a0c43ee37cff692d5f39c9368f7804a3ed62f27cee784"
       },
       {
+        "sourcePath": "portal/static/js/management-guides/heart-failure-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
+        "originalSha256": "d7cf39520540e334f6734e94b879fc20a7b99121d7b352139045ceba89a9cb6d",
+        "outputSha256": "8d92910482461a54d846d45b925d8a4dc9e6fcd365543e656660b2fb9c6a387e"
+      },
+      {
         "sourcePath": "portal/static/js/management-guides/hypercalcemia-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "53a10a34450ff63f15d44514e8f2b0b064313315e9c8b349dcb0f4065ac44517",
         "outputSha256": "08d808615c7057763e7846ca76b202a55038eb7b56ef288d1c559b3345369c52"
       },
       {
+        "sourcePath": "portal/static/js/management-guides/hyperkalemia-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
+        "originalSha256": "11f08161daec5ba4a12d3f32f01e3e933525bc5d3089d4a2414a74cae9229e34",
+        "outputSha256": "c0269a14829d9c110b1013bd6dc862abc2e438b707dafe2d6ba4df61bedb8060"
+      },
+      {
         "sourcePath": "portal/static/js/management-guides/hypernatremia-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "d1a134840d89f9a7d1c2dd2eb1b7de0927ab5ffc0f225d6127cd3856db697534",
         "outputSha256": "ad8ffc4d9aa34ceb5388c05b8e2471b717c72adc27ce4703483ce8db4c7f65c1"
       },
       {
+        "sourcePath": "portal/static/js/management-guides/hypocalcemia-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
+        "originalSha256": "5a1f2cb1edb68b820007cd9c24690febc76979b2e2459f9e897d10891ae2848b",
+        "outputSha256": "d7b49d8241d70408451dd5b668049a06490f39e8c926cd6ca53a3810aad9f82d"
+      },
+      {
+        "sourcePath": "portal/static/js/management-guides/hypokalemia-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
+        "originalSha256": "8f74f7f15cbdcadda07dd31355b34b7bb5ce3847b463ea2357f7c4dbc53c568c",
+        "outputSha256": "272b93814b6106057080f5855e7c6d096e5d8055955f5ba1eb5922af1db9e30e"
+      },
+      {
         "sourcePath": "portal/static/js/management-guides/hyponatremia-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "9cd3c32fa66f4c6e93a22b20186ea808edca9fdd4a52d512761c305d3a16bec0",
         "outputSha256": "8b2fe1cd977fb910e73f49d0ed88af616012895728bee961d2f48b64c7d45776"
       },
       {
+        "sourcePath": "portal/static/js/management-guides/hypotension-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
+        "originalSha256": "aa01f65f4d9b923bb28241c700e48e1a2136030ba03ae3ed2a0ab2132b83c363",
+        "outputSha256": "35c200daa77e0b25cda0ab96df7866f4129095b3fb29caf22268f85d68f5cb91"
+      },
+      {
+        "sourcePath": "portal/static/js/management-guides/index.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
+        "originalSha256": "fb90db3da552bebc1ff3f00fd9d55ff23303499cd1f45b1f12e22a7d036344fd",
+        "outputSha256": "b9c51add688ea5aaf08d17560e1edc376118fc0ad3c027a1fe0dc678f5bafbb6"
+      },
+      {
+        "sourcePath": "portal/static/js/management-guides/manifest.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
+        "originalSha256": "e5f844008f0a4511e0702b5908344ed2d24be2696109c42872016c185ca56191",
+        "outputSha256": "f154c49108f804dd13e08c81a7f71d005612677528f9e146a841be3fe8d6bba7"
+      },
+      {
+        "sourcePath": "portal/static/js/management-guides/new-inpatient-fever-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged. Follow-up portability review (2026-11-07): scope the local-protocol validation limitation to this guide and remove remaining unavailable resource-row descriptions; numeric clinical rules and cited sources are unchanged.",
+        "originalSha256": "9b34b028c16123794fda8f9a8064682f285a42ebde859dd7eda4c4cf2a2cacdf",
+        "outputSha256": "eeefb3658be1e8ecf5a6e4f3fb90620181a59ac11a829bba8c744c51cda97919"
+      },
+      {
         "sourcePath": "portal/static/js/management-guides/sepsis-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "81c4c0117c51d80122ab9182250f38ce446a8caf10529c848c3b050ab0ee3ae1",
         "outputSha256": "2674e2e109b7b187d9a5deca897f8d95da4659461c26b4400533da4a9e70b072"
       },
       {
         "sourcePath": "portal/static/js/management-guides/stroke-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "2ee67e09e59e80f3c33132492bd6c47c984abdb10609bf19c01f631acd87a70e",
         "outputSha256": "efd57302ce79f404b5ad5720df426292621628b5c7a01a2ff2e880ff0fab660b"
       },
       {
-        "sourcePath": "portal/static/js/management-guides/manifest.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
-        "originalSha256": "e5f844008f0a4511e0702b5908344ed2d24be2696109c42872016c185ca56191",
-        "outputSha256": "cb988a69d8f4c242587e5179da2743ec2843e080566d2ce31194ee41f1fec8aa"
+        "sourcePath": "portal/static/js/management-guides/syncope-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
+        "originalSha256": "89e582211f14b1544e1e30fc8fb7e229e6713f12e5b654500ceca571b581855f",
+        "outputSha256": "db0e475a6e566ed814533090b2e053d3de4232a25d301ddaab24002686001f6c"
       },
       {
-        "sourcePath": "portal/static/js/management-guides/index.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths) and an internal maintenance note; clinical recommendations, thresholds and sources are unchanged.",
-        "originalSha256": "fb90db3da552bebc1ff3f00fd9d55ff23303499cd1f45b1f12e22a7d036344fd",
-        "outputSha256": "b9c51add688ea5aaf08d17560e1edc376118fc0ad3c027a1fe0dc678f5bafbb6"
+        "sourcePath": "portal/static/js/management-guides/tachycardia-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
+        "originalSha256": "48e190b8c9f6bdc9a2ba38983de9a70a238cc93a7701419f241a9972fa5ffd11",
+        "outputSha256": "d64fc5a5dbd4485cb6b17c72ff5221f4f6810ce325f2fef18c43281a09e1a1bc"
       }
     ],
     "drugDataFiles": [
@@ -14280,7 +14334,7 @@
       "scope": "Adult ward/long-term-care delirium recognition, screening, cause review, support, short-term behavioural-safety consideration and reassessment. It is not a diagnosis, emergency-neurology protocol, medication order, dosing protocol or discharge decision.",
       "reviewLimitations": [
         "NICE supplies the current ward-screening and short-term-haloperidol principles, not a universal numeric delirium regimen.",
-        "The linked 106 local source rows are retained as product/order identity references. Their headings, raw doses and embedded advice were not treated as current prescribing guidance."
+        "This guide has not validated local order sets or regimens. Verify their current source, version and patient-specific suitability separately."
       ],
       "sources": [
         {
@@ -14581,12 +14635,12 @@
       "engine": {
         "module": "../shared/delirium-engine.mjs",
         "sourcePath": "portal/static/js/management-guides/delirium-engine.mjs",
-        "sha256": "2a3c78d45e2febebfecc6c31c8db7d9240ed907e47e8d722b4732d40cbf27f09",
+        "sha256": "15ae8b10474a80d37577557bc06ab107d03b5e2013216ab4cb5d6fc98f56a3c7",
         "files": [
           {
             "path": "shared/delirium-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/delirium-engine.mjs",
-            "sha256": "2a3c78d45e2febebfecc6c31c8db7d9240ed907e47e8d722b4732d40cbf27f09",
+            "sha256": "15ae8b10474a80d37577557bc06ab107d03b5e2013216ab4cb5d6fc98f56a3c7",
             "rewritten": false
           }
         ]
@@ -15742,15 +15796,15 @@
       "reviewedAt": "2026-09-19",
       "reviewLabel": "Upgraded · ACC 2024 scope / ESC 2026 review pending",
       "reviewState": "source-reviewed-local-regimen-review-pending",
-      "reviewNotice": "ACC 2024 decongestion and existing GDMT workspace; detailed ESC 2026 review remains pending.",
+      "reviewNotice": "ACC 2024 decongestion with a handoff to GDMT review; detailed ESC 2026 review remains pending.",
       "guideVersion": "Focused adult source review 2026-09-19",
       "resourceNotice": "Internal hospital resource tables are omitted from this shared edition.",
       "resourceCaution": null,
-      "scope": "Adult inpatient HF review: emergency routing, congestion/perfusion, source-labelled loop references, cautious nitrate consideration, and a handoff to existing GDMT/discharge workspaces. It uses AHA/ACC 2022 and ACC 2024 sources; ESC 2026 review is pending. It is not a diagnosis engine, medication order interface, dose calculator, or discharge authority.",
+      "scope": "Adult inpatient HF review: emergency routing, congestion/perfusion, source-labelled loop references, cautious nitrate consideration, and a handoff to GDMT and discharge review. It uses AHA/ACC 2022 and ACC 2024 sources; ESC 2026 review is pending. It is not a diagnosis engine, medication order interface, dose calculator, or discharge authority.",
       "reviewLimitations": [
-        "The current 2026 ESC material defines HFrEF as LVEF <50%, while the legacy 2022 US workspace uses ≤40%. A dedicated ESC 2026 source mode remains review pending; this engine does not claim ESC 2026 implementation.",
-        "The engine intentionally retains the existing local HF dose, four-pillar readiness and cardiovascular discharge workspaces rather than duplicating their numeric catalogues or changing their behavior.",
-        "No dedicated captured HF bundle was established in this batch. Resource groups expose exact catalog identities and related source rows for inspection; orderability, formulation and local protocol remain separate reviews."
+        "The current 2026 ESC material defines HFrEF as LVEF <50%, while the 2022 US guideline used here uses ≤40%. A dedicated ESC 2026 source mode remains review pending; this engine does not claim ESC 2026 implementation.",
+        "Detailed loop-diuretic dosing, four-pillar GDMT titration and discharge planning are outside this guide.",
+        "Orderability, formulation and local protocol remain separate reviews."
       ],
       "sources": [
         {
@@ -16038,7 +16092,7 @@
               "Active decompensation, hypotension/hypoperfusion, or other blocker remains"
             ]
           ],
-          "threshold": "The legacy workspace checks four pillars, exact drug/formulation, safety, tolerance and ownership."
+          "threshold": "A GDMT readiness review checks the four pillars, exact drug/formulation, safety, tolerance and ownership."
         },
         {
           "key": "dischargeReview",
@@ -16119,7 +16173,7 @@
           },
           {
             "role": "Stable HFrEF",
-            "text": "Use the existing four-pillar readiness workspace only after a compensated window is explicit."
+            "text": "Start four-pillar GDMT review only after a compensated window is explicit."
           }
         ],
         "monitoring": [
@@ -16144,12 +16198,12 @@
       "engine": {
         "module": "../shared/heart-failure-engine.mjs",
         "sourcePath": "portal/static/js/management-guides/heart-failure-engine.mjs",
-        "sha256": "d7cf39520540e334f6734e94b879fc20a7b99121d7b352139045ceba89a9cb6d",
+        "sha256": "8d92910482461a54d846d45b925d8a4dc9e6fcd365543e656660b2fb9c6a387e",
         "files": [
           {
             "path": "shared/heart-failure-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/heart-failure-engine.mjs",
-            "sha256": "d7cf39520540e334f6734e94b879fc20a7b99121d7b352139045ceba89a9cb6d",
+            "sha256": "8d92910482461a54d846d45b925d8a4dc9e6fcd365543e656660b2fb9c6a387e",
             "rewritten": false
           }
         ]
@@ -16382,7 +16436,7 @@
               "Structural cardiac concern"
             ]
           ],
-          "threshold": "Choose tests for the suspected cause. The linked source folders are not a routine syncope panel."
+          "threshold": "Choose tests for the suspected cause. There is no routine syncope panel."
         },
         {
           "key": "testResult",
@@ -16511,12 +16565,12 @@
       "engine": {
         "module": "../shared/syncope-engine.mjs",
         "sourcePath": "portal/static/js/management-guides/syncope-engine.mjs",
-        "sha256": "89e582211f14b1544e1e30fc8fb7e229e6713f12e5b654500ceca571b581855f",
+        "sha256": "db0e475a6e566ed814533090b2e053d3de4232a25d301ddaab24002686001f6c",
         "files": [
           {
             "path": "shared/syncope-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/syncope-engine.mjs",
-            "sha256": "89e582211f14b1544e1e30fc8fb7e229e6713f12e5b654500ceca571b581855f",
+            "sha256": "db0e475a6e566ed814533090b2e053d3de4232a25d301ddaab24002686001f6c",
             "rewritten": false
           }
         ]
@@ -17411,7 +17465,7 @@
       "scope": "Adult pulse-tachycardia recognition, emergency electrical routing, selected stable-rhythm strategies and post-treatment response. Not automated ECG interpretation or device configuration.",
       "reviewLimitations": [
         "Drug references require explicit eligibility and prior-exposure review. Device energy, sedation and infusion preparation remain bedside responsibilities.",
-        "Procainamide has no verified local product mapping. Raw saved schedules remain unreconciled."
+        "Procainamide availability varies; confirm the local product and regimen."
       ],
       "sources": [
         {
@@ -17781,12 +17835,12 @@
       "engine": {
         "module": "../shared/tachycardia-engine.mjs",
         "sourcePath": "portal/static/js/management-guides/tachycardia-engine.mjs",
-        "sha256": "48e190b8c9f6bdc9a2ba38983de9a70a238cc93a7701419f241a9972fa5ffd11",
+        "sha256": "d64fc5a5dbd4485cb6b17c72ff5221f4f6810ce325f2fef18c43281a09e1a1bc",
         "files": [
           {
             "path": "shared/tachycardia-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/tachycardia-engine.mjs",
-            "sha256": "48e190b8c9f6bdc9a2ba38983de9a70a238cc93a7701419f241a9972fa5ffd11",
+            "sha256": "d64fc5a5dbd4485cb6b17c72ff5221f4f6810ce325f2fef18c43281a09e1a1bc",
             "rewritten": false
           }
         ]
@@ -18492,16 +18546,16 @@
       "id": "hyperkalemia",
       "title": "Hyperkalemia",
       "reviewedAt": "2026-09-09",
-      "reviewLabel": "Upgraded guide · historical local references",
+      "reviewLabel": "Upgraded guide · UKKA 2026 source review",
       "reviewState": "source-reviewed-prototype-vendored-historical-local-snapshot",
-      "reviewNotice": "The UKKA July 2026 review is vendored as recorded. The retained 49-row local Hyper K set is a historical 2026-09-09 snapshot that differs from the current restructured HyperK folder; deliberate re-mapping and reconciliation are pending.",
+      "reviewNotice": "The UKKA July 2026 source review is retained as recorded.",
       "guideVersion": "UK Kidney Association Treatment of Acute Hyperkalaemia in Adults, July 2026 update, as recorded in the frozen source review.",
       "resourceNotice": "Internal hospital resource tables are omitted from this shared edition.",
       "resourceCaution": null,
       "scope": "Adult acute hyperkalemia: initial priority review and separate after-treatment surveillance.",
       "reviewLimitations": [
         "This is adult acute decision support, not a cardiac-arrest algorithm, local protocol, prescription, order set, medication-administration record, or authorization.",
-        "The July 2026 UKKA source review is distinct from the retained 9 September local Hyper K saved-set snapshot. The latter is historical and requires deliberate re-mapping before it can be treated as current local row identity.",
+        "The July 2026 UKKA source review guides this engine; local hyperkalaemia order sets require separate reconciliation.",
         "Product identity, current availability/orderability, prepared concentration, device/pump settings, route, dose, and patient-specific suitability require separate local verification.",
         "The phase selector intentionally keeps initial findings and post-treatment response apart; a potassium fall does not establish episode resolution or a safe disposition."
       ],
@@ -18749,12 +18803,12 @@
       "engine": {
         "module": "../shared/hyperkalemia-engine.mjs",
         "sourcePath": "portal/static/js/management-guides/hyperkalemia-engine.mjs",
-        "sha256": "11f08161daec5ba4a12d3f32f01e3e933525bc5d3089d4a2414a74cae9229e34",
+        "sha256": "c0269a14829d9c110b1013bd6dc862abc2e438b707dafe2d6ba4df61bedb8060",
         "files": [
           {
             "path": "shared/hyperkalemia-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/hyperkalemia-engine.mjs",
-            "sha256": "11f08161daec5ba4a12d3f32f01e3e933525bc5d3089d4a2414a74cae9229e34",
+            "sha256": "c0269a14829d9c110b1013bd6dc862abc2e438b707dafe2d6ba4df61bedb8060",
             "rewritten": false
           }
         ]
@@ -19285,7 +19339,7 @@
         "AAFP is a published clinical review rather than a local hospital protocol; DailyMed labels are U.S. product-specific prescribing information. Local formulation, availability, concentration, access, monitoring and authorization still govern care.",
         "The engine never assigns an IV dose, total replacement deficit, infusion rate, line or automatic repeat dose. It deliberately excludes a routine high-rate ward regimen and never supports IV push.",
         "K ≤2.5 mmol/L, ECG/rhythm/neuromuscular danger, pregnancy, DKA, refeeding, dialysis, critical illness and complex acid-base disease require context-specific escalation or separate pathways.",
-        "A catalog product or local resource link establishes only product identity, not current orderability, suitability, dose, route safety, or permission to prescribe."
+        "A product listing establishes only product identity, not current orderability, suitability, dose, route safety, or permission to prescribe."
       ],
       "sources": [
         {
@@ -19547,12 +19601,12 @@
       "engine": {
         "module": "../shared/hypokalemia-engine.mjs",
         "sourcePath": "portal/static/js/management-guides/hypokalemia-engine.mjs",
-        "sha256": "8f74f7f15cbdcadda07dd31355b34b7bb5ce3847b463ea2357f7c4dbc53c568c",
+        "sha256": "272b93814b6106057080f5855e7c6d096e5d8055955f5ba1eb5922af1db9e30e",
         "files": [
           {
             "path": "shared/hypokalemia-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/hypokalemia-engine.mjs",
-            "sha256": "8f74f7f15cbdcadda07dd31355b34b7bb5ce3847b463ea2357f7c4dbc53c568c",
+            "sha256": "272b93814b6106057080f5855e7c6d096e5d8055955f5ba1eb5922af1db9e30e",
             "rewritten": false
           }
         ]
@@ -20336,7 +20390,7 @@
         "The 2019 addendum makes calcium salts non-volume-equivalent. This module exposes only calcium-gluconate source actions and never treats local calcium chloride as a gluconate equivalent or selects a chloride product.",
         "The IV route is source detail, not an order. This aid never selects an infusion pump, line, dilution, volume, repeat dose, calcium-chloride conversion, local concentration or automatic replacement schedule.",
         "End-stage renal failure/dialysis blocks the general large-volume infusion and chronic oral/active-vitamin-D resource links. Severe symptoms remain urgent and require renal/monitored-care decisions outside this engine.",
-        "A catalog product or local resource link establishes only product identity, not availability, suitability, dose, route safety, prescribing authorization or an approved local regimen."
+        "A product listing establishes only product identity, not availability, suitability, dose, route safety, prescribing authorization or an approved local regimen."
       ],
       "sources": [
         {
@@ -20659,12 +20713,12 @@
       "engine": {
         "module": "../shared/hypocalcemia-engine.mjs",
         "sourcePath": "portal/static/js/management-guides/hypocalcemia-engine.mjs",
-        "sha256": "5a1f2cb1edb68b820007cd9c24690febc76979b2e2459f9e897d10891ae2848b",
+        "sha256": "d7b49d8241d70408451dd5b668049a06490f39e8c926cd6ca53a3810aad9f82d",
         "files": [
           {
             "path": "shared/hypocalcemia-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/hypocalcemia-engine.mjs",
-            "sha256": "5a1f2cb1edb68b820007cd9c24690febc76979b2e2459f9e897d10891ae2848b",
+            "sha256": "d7b49d8241d70408451dd5b668049a06490f39e8c926cd6ca53a3810aad9f82d",
             "rewritten": false
           }
         ]
@@ -21979,7 +22033,7 @@
         "NICE NG253 (2025) uses reassessed 250 mL sepsis boluses, while SSC 2026 suggests at least 30 mL/kg in 3 hours for sepsis-induced hypoperfusion or septic shock. The engine deliberately delegates this choice to the dedicated sepsis pathway and never combines the standards.",
         "The NICE CG174 500 mL crystalloid criterion is limited here to credible non-haemorrhagic hypovolaemia with current hypoperfusion and no high/unknown fluid-harm concern; it never authorizes automatic repeats.",
         "Norepinephrine is referenced only as a septic-shock critical-care handoff. Concentration, access, duration, monitoring, titration, add-on agents and patient-specific MAP target require the local protocol and clinician assessment.",
-        "Local shock rows, catalog identity, product availability, major-haemorrhage process, pressor safety, antimicrobial selection, anaphylaxis dosing and ACS treatment remain separately reviewed local work."
+        "Product availability, major-haemorrhage process, pressor safety, antimicrobial selection, anaphylaxis dosing and ACS treatment remain separately reviewed local work."
       ],
       "sources": [
         {
@@ -22266,12 +22320,12 @@
       "engine": {
         "module": "../shared/hypotension-engine.mjs",
         "sourcePath": "portal/static/js/management-guides/hypotension-engine.mjs",
-        "sha256": "aa01f65f4d9b923bb28241c700e48e1a2136030ba03ae3ed2a0ab2132b83c363",
+        "sha256": "35c200daa77e0b25cda0ab96df7866f4129095b3fb29caf22268f85d68f5cb91",
         "files": [
           {
             "path": "shared/hypotension-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/hypotension-engine.mjs",
-            "sha256": "aa01f65f4d9b923bb28241c700e48e1a2136030ba03ae3ed2a0ab2132b83c363",
+            "sha256": "35c200daa77e0b25cda0ab96df7866f4129095b3fb29caf22268f85d68f5cb91",
             "rewritten": false
           }
         ]
@@ -22728,8 +22782,8 @@
         "NICE CG151 is an official but older 2012 anticancer-treatment guideline; its 2019 surveillance decision found no evidence requiring an update. It supplies the emergency neutropenic-sepsis route, not a local antimicrobial regimen, dose, or Taiwan formulary recommendation.",
         "The heat branch uses CDC/NIOSH heat-exposure guidance for emergency recognition/cooling only. A separate focused CMAJ serotonin-toxicity review supports recognition-only escalation for drug/toxin concern; neither branch diagnoses a toxic syndrome or provides syndrome-specific treatment.",
         "The conditional IV acetaminophen amounts come from a 2025 DailyMed injection label. They are not a reconciled local regimen or automatic local-vial selection; verify product compatibility, weight, route, all-source exposure, organ/volume risk, allergy, local policy and prescribing authority.",
-        "Resource groups are inspectable source references, not proposed orders. The complete local folders remain visible separately; source-row presence, catalog identity, regimen alignment and live orderability are distinct statuses.",
-        "The existing fever-episode tracker is a durable local documentation loop. This data engine neither opens an episode nor writes a culture, medication, source-control, precaution, chart, or order state."
+        "Regimen alignment and live orderability are separate reviews.",
+        "This data engine does not write a culture, medication, source-control, precaution, chart or order state."
       ],
       "sources": [
         {
@@ -23075,12 +23129,12 @@
       "engine": {
         "module": "../shared/new-inpatient-fever-engine.mjs",
         "sourcePath": "portal/static/js/management-guides/new-inpatient-fever-engine.mjs",
-        "sha256": "9b34b028c16123794fda8f9a8064682f285a42ebde859dd7eda4c4cf2a2cacdf",
+        "sha256": "eeefb3658be1e8ecf5a6e4f3fb90620181a59ac11a829bba8c744c51cda97919",
         "files": [
           {
             "path": "shared/new-inpatient-fever-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/new-inpatient-fever-engine.mjs",
-            "sha256": "9b34b028c16123794fda8f9a8064682f285a42ebde859dd7eda4c4cf2a2cacdf",
+            "sha256": "eeefb3658be1e8ecf5a6e4f3fb90620181a59ac11a829bba8c744c51cda97919",
             "rewritten": false
           }
         ]
