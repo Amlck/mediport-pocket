@@ -62,7 +62,14 @@
       "portal/static/js/management-guides/hypernatremia-engine.mjs": "d1a134840d89f9a7d1c2dd2eb1b7de0927ab5ffc0f225d6127cd3856db697534",
       "portal/static/js/management-guides/hyponatremia-engine.mjs": "9cd3c32fa66f4c6e93a22b20186ea808edca9fdd4a52d512761c305d3a16bec0",
       "portal/static/js/management-guides/sepsis-engine.mjs": "81c4c0117c51d80122ab9182250f38ce446a8caf10529c848c3b050ab0ee3ae1",
-      "portal/static/js/management-guides/stroke-engine.mjs": "2ee67e09e59e80f3c33132492bd6c47c984abdb10609bf19c01f631acd87a70e"
+      "portal/static/js/management-guides/stroke-engine.mjs": "2ee67e09e59e80f3c33132492bd6c47c984abdb10609bf19c01f631acd87a70e",
+      "portal/static/js/management-guides/anaphylaxis-engine.mjs": "0fc84ed8089535ed675308cc3edb3af384c37bcfd22b062b55baebdcac19d8a2",
+      "portal/static/js/management-guides/anticoagulant-bleeding-engine.mjs": "e15275201e39cecdd34a1b0885fffb1d027d60e1d3f97cf8f5c6831a21a32b8b",
+      "portal/static/js/management-guides/hypermagnesemia-engine.mjs": "fcca9abccb616899511628c2fedfca1e1280ce953d5f2e284ed99f4febd3d090",
+      "portal/static/js/management-guides/hypomagnesemia-engine.mjs": "5d4f02466cf1a985c35e91b8925139f83eeab782546a5ea69922b93e4e7a4ee7",
+      "portal/static/js/management-guides/seizure-engine.mjs": "ae78782b06a63ea52b4f2fa86246764af33e9215bf5beed7234dbbbf13bc6290",
+      "portal/static/js/management-guides/severe-bp-engine.mjs": "c5d9a93f3c7551905e13a30e8b8c408f181c36f1956665ed26a49958c0c74381",
+      "portal/static/js/management-guides/systemic-corticosteroid-engine.mjs": "b41a0ce5aa75cccf4761ce3329c4718904fca30828dd87228e86015cf658951b"
     },
     "transformations": [
       {
@@ -121,6 +128,18 @@
         "outputSha256": "fbe9f274ee474750312d389050fa00926834c7bd37023e8a182b5f96ef8feb0a"
       },
       {
+        "sourcePath": "portal/static/js/management-guides/anaphylaxis-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes, and attribute product facts to NTUH’s public formulary (2026-08-28 catalog snapshot) where verified; clinical recommendations, thresholds and sources are unchanged. Follow-up public-source review (2026-11-07): record anonymous product-identity access evidence, remove unsupported catalog absence/exclusivity and unit-quantity assumptions, and scope unverified protocol statements; clinical regimen and eligibility logic are unchanged.",
+        "originalSha256": "0fc84ed8089535ed675308cc3edb3af384c37bcfd22b062b55baebdcac19d8a2",
+        "outputSha256": "1d22fd34475f6c62a57614f4fb10b4f4197d0fc7c7486b73f1877cd6a722eea3"
+      },
+      {
+        "sourcePath": "portal/static/js/management-guides/anticoagulant-bleeding-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes, and attribute product facts to NTUH’s public formulary (2026-08-28 catalog snapshot) where verified; clinical recommendations, thresholds and sources are unchanged. Follow-up public-source review (2026-11-07): record anonymous product-identity access evidence, remove unsupported catalog absence/exclusivity and unit-quantity assumptions, and scope unverified protocol statements; clinical regimen and eligibility logic are unchanged.",
+        "originalSha256": "e15275201e39cecdd34a1b0885fffb1d027d60e1d3f97cf8f5c6831a21a32b8b",
+        "outputSha256": "d01c5d6b15f8c6919793ae12345d4e174aa5527a540a00bcd5c2a3fc65cef234"
+      },
+      {
         "sourcePath": "portal/static/js/management-guides/asthma-engine.mjs",
         "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "7a9a432f04fae25700a5244fb7d0fa2fd01f48a110a4001b8c210af3d6ab2bb8",
@@ -169,6 +188,12 @@
         "outputSha256": "c0269a14829d9c110b1013bd6dc862abc2e438b707dafe2d6ba4df61bedb8060"
       },
       {
+        "sourcePath": "portal/static/js/management-guides/hypermagnesemia-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes, and attribute product facts to NTUH’s public formulary (2026-08-28 catalog snapshot) where verified; clinical recommendations, thresholds and sources are unchanged. Follow-up public-source review (2026-11-07): record anonymous product-identity access evidence, remove unsupported catalog absence/exclusivity and unit-quantity assumptions, and scope unverified protocol statements; clinical regimen and eligibility logic are unchanged.",
+        "originalSha256": "fcca9abccb616899511628c2fedfca1e1280ce953d5f2e284ed99f4febd3d090",
+        "outputSha256": "d848d881760e2e850d71e55afca02040a5172adb9b2b4f27b521b3a0711eba1c"
+      },
+      {
         "sourcePath": "portal/static/js/management-guides/hypernatremia-engine.mjs",
         "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "d1a134840d89f9a7d1c2dd2eb1b7de0927ab5ffc0f225d6127cd3856db697534",
@@ -185,6 +210,12 @@
         "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "8f74f7f15cbdcadda07dd31355b34b7bb5ce3847b463ea2357f7c4dbc53c568c",
         "outputSha256": "272b93814b6106057080f5855e7c6d096e5d8055955f5ba1eb5922af1db9e30e"
+      },
+      {
+        "sourcePath": "portal/static/js/management-guides/hypomagnesemia-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes, and attribute product facts to NTUH’s public formulary (2026-08-28 catalog snapshot) where verified; clinical recommendations, thresholds and sources are unchanged. Follow-up public-source review (2026-11-07): record anonymous product-identity access evidence, remove unsupported catalog absence/exclusivity and unit-quantity assumptions, and scope unverified protocol statements; clinical regimen and eligibility logic are unchanged.",
+        "originalSha256": "5d4f02466cf1a985c35e91b8925139f83eeab782546a5ea69922b93e4e7a4ee7",
+        "outputSha256": "dbe41009e90e32691b5ad79827fdeaacdaf47407207caab5555fb5ca06d3bfce"
       },
       {
         "sourcePath": "portal/static/js/management-guides/hyponatremia-engine.mjs",
@@ -217,10 +248,22 @@
         "outputSha256": "eeefb3658be1e8ecf5a6e4f3fb90620181a59ac11a829bba8c744c51cda97919"
       },
       {
+        "sourcePath": "portal/static/js/management-guides/seizure-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes, and attribute product facts to NTUH’s public formulary (2026-08-28 catalog snapshot) where verified; clinical recommendations, thresholds and sources are unchanged. Follow-up public-source review (2026-11-07): record anonymous product-identity access evidence, remove unsupported catalog absence/exclusivity and unit-quantity assumptions, and scope unverified protocol statements; clinical regimen and eligibility logic are unchanged.",
+        "originalSha256": "ae78782b06a63ea52b4f2fa86246764af33e9215bf5beed7234dbbbf13bc6290",
+        "outputSha256": "eab3ab387097b1912f0baad6053682e13005996439c0e238fbd56ef3439c9e22"
+      },
+      {
         "sourcePath": "portal/static/js/management-guides/sepsis-engine.mjs",
         "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "81c4c0117c51d80122ab9182250f38ce446a8caf10529c848c3b050ab0ee3ae1",
         "outputSha256": "2674e2e109b7b187d9a5deca897f8d95da4659461c26b4400533da4a9e70b072"
+      },
+      {
+        "sourcePath": "portal/static/js/management-guides/severe-bp-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes, and attribute product facts to NTUH’s public formulary (2026-08-28 catalog snapshot) where verified; clinical recommendations, thresholds and sources are unchanged. Follow-up public-source review (2026-11-07): record anonymous product-identity access evidence, remove unsupported catalog absence/exclusivity and unit-quantity assumptions, and scope unverified protocol statements; clinical regimen and eligibility logic are unchanged.",
+        "originalSha256": "c5d9a93f3c7551905e13a30e8b8c408f181c36f1956665ed26a49958c0c74381",
+        "outputSha256": "685cc29b40e031b924bf16c06ea0829ea6ce4efdad7908d6c0dbfa7c2e37d9d1"
       },
       {
         "sourcePath": "portal/static/js/management-guides/stroke-engine.mjs",
@@ -233,6 +276,12 @@
         "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
         "originalSha256": "89e582211f14b1544e1e30fc8fb7e229e6713f12e5b654500ceca571b581855f",
         "outputSha256": "db0e475a6e566ed814533090b2e053d3de4232a25d301ddaab24002686001f6c"
+      },
+      {
+        "sourcePath": "portal/static/js/management-guides/systemic-corticosteroid-engine.mjs",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes, and attribute product facts to NTUH’s public formulary (2026-08-28 catalog snapshot) where verified; clinical recommendations, thresholds and sources are unchanged. Follow-up public-source review (2026-11-07): record anonymous product-identity access evidence, remove unsupported catalog absence/exclusivity and unit-quantity assumptions, and scope unverified protocol statements; clinical regimen and eligibility logic are unchanged.",
+        "originalSha256": "b41a0ce5aa75cccf4761ce3329c4718904fca30828dd87228e86015cf658951b",
+        "outputSha256": "dbd5399eee998cbfe186eecf6d3f0ca9bd56a333318ebbc10213ac91032d6c79"
       },
       {
         "sourcePath": "portal/static/js/management-guides/tachycardia-engine.mjs",
@@ -250,17 +299,22 @@
     "guideRegistry": "portal/static/js/management-guides/index.mjs",
     "guideEngines": {
       "acute-stroke": "portal/static/js/management-guides/stroke-engine.mjs",
+      "status-epilepticus": "portal/static/js/management-guides/seizure-engine.mjs",
       "delirium": "portal/static/js/management-guides/delirium-engine.mjs",
       "acute-agitation": "portal/static/js/management-guides/agitation-engine.mjs",
+      "systemic-corticosteroids": "portal/static/js/management-guides/systemic-corticosteroid-engine.mjs",
       "gi-bleed": "portal/static/js/management-guides/gi-bleeding-engine.mjs",
+      "anticoagulant-bleeding": "portal/static/js/management-guides/anticoagulant-bleeding-engine.mjs",
       "transfusion-reaction": "portal/static/js/management-guides/transfusion-reaction-engine.mjs",
       "heart-failure": "portal/static/js/management-guides/heart-failure-engine.mjs",
+      "hypertensive-emergency": "portal/static/js/management-guides/severe-bp-engine.mjs",
       "syncope": "portal/static/js/management-guides/syncope-engine.mjs",
       "acute-chest-pain-acs": "portal/static/js/management-guides/acs-engine.mjs",
       "atrial-fibrillation-rvr": "portal/static/js/management-guides/af-rvr-engine.mjs",
       "tachycardia-with-pulse": "portal/static/js/management-guides/tachycardia-engine.mjs",
       "bradycardia": "portal/static/js/management-guides/bradycardia-engine.mjs",
       "acute-severe-asthma": "portal/static/js/management-guides/asthma-engine.mjs",
+      "anaphylaxis": "portal/static/js/management-guides/anaphylaxis-engine.mjs",
       "hyperkalemia": "portal/static/js/management-guides/hyperkalemia-engine.mjs",
       "hypoglycemia": "portal/static/js/management-guides/hypoglycemia-engine.mjs",
       "acute-hypoxemia-dyspnea": "portal/static/js/management-guides/acute-hypoxemia-dyspnea-engine.mjs",
@@ -269,6 +323,8 @@
       "aki": "portal/static/js/management-guides/aki-composed.mjs",
       "hypocalcemia": "portal/static/js/management-guides/hypocalcemia-engine.mjs",
       "hypercalcemia": "portal/static/js/management-guides/hypercalcemia-engine.mjs",
+      "hypomagnesemia": "portal/static/js/management-guides/hypomagnesemia-engine.mjs",
+      "hypermagnesemia": "portal/static/js/management-guides/hypermagnesemia-engine.mjs",
       "hypernatremia": "portal/static/js/management-guides/hypernatremia-engine.mjs",
       "dka-hhs": "portal/static/js/management-guides/dka-hhs-composed.mjs",
       "hypotension": "portal/static/js/management-guides/hypotension-engine.mjs",
@@ -14322,6 +14378,460 @@
       }
     },
     {
+      "id": "status-epilepticus",
+      "title": "Seizure / Status Epilepticus",
+      "reviewedAt": "2026-09-19",
+      "reviewLabel": "Focused source review",
+      "reviewState": "source-reviewed-local-regimen-review-pending",
+      "reviewNotice": "Adult convulsive status review: AES, NICE, ESETT and ACNS source scope. Source access and local phenytoin/fosphenytoin distinctions are recorded below.",
+      "guideVersion": "Focused adult review 2026-09-19",
+      "resourceNotice": "Internal hospital resource tables are omitted from this shared edition.",
+      "resourceCaution": null,
+      "scope": "Adult acute convulsive seizure/status recognition, immediate danger and glucose review, benzodiazepine/second-line exposure reconciliation, response, refractory-status and nonconvulsive-status routing. It is not an order set, medication-administration record, airway procedure, ICU/EEG request, diagnosis, or authorization.",
+      "reviewLimitations": [
+        "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
+        "The guide is scoped to adult acute convulsive seizure/status review. It does not diagnose epilepsy, psychogenic events, aetiology, nonconvulsive status, post-ictal state or an individual medicine contraindication.",
+        "All fields default to unknown. Missing seizure duration, recovery between events, ABC status, glucose, medication exposure, timing, completion or response never establishes a benign seizure, treatment failure, recovery, local availability or permission to repeat treatment.",
+        "The first-line numeric references appear only in an explicitly initial active status episode after current danger is assessed absent, no worsening response or second-line activity is entered, and no benzodiazepine exposure is confirmed. IM midazolam also requires its explicit AES weight band. Response and later phases deliberately withhold these references to avoid a stale repeat dose.",
+        "ESETT fosphenytoin mg-PE evidence is not converted into a phenytoin regimen. Product identity, current stock, infusion preparation, rate, monitoring and regimen authority remain separate checks.",
+        "A routine awake EEG is not continuous EEG. Refractory status and persistent altered consciousness require accountable critical-care/neurology/EEG pathways."
+      ],
+      "sources": [
+        {
+          "label": "American Epilepsy Society guideline for convulsive status epilepticus (2016)",
+          "url": "https://aesnet.org/clinical-care/clinical-guidance/guideline-prolonged-seizures"
+        },
+        {
+          "label": "NICE NG217 status-epilepticus recommendations (updated 2025)",
+          "url": "https://www.nice.org.uk/guidance/ng217/chapter/7-Treating-status-epilepticus-repeated-or-cluster-seizures-and-prolonged-seizures"
+        },
+        {
+          "label": "ESETT randomized trial (NEJM 2019)",
+          "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1905795"
+        },
+        {
+          "label": "ACNS consensus: continuous EEG in critical care (2015)",
+          "url": "https://www.acns.org/UserFiles/file/Consensus_Statement_on_Continuous_EEG_in.1.pdf"
+        },
+        {
+          "label": "ILAE status-epilepticus definition and classification (2015)",
+          "url": "https://www.ilae.org/guidelines/definition-and-classification"
+        },
+        {
+          "label": "NTUH product identity: Aleviatin Injection 250 mg/5 mL/amp (ALE1JA07; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=ALE1JA07",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        }
+      ],
+      "entry": {
+        "kind": "derived-criteria",
+        "title": "Confirm presentation and current danger",
+        "scope": "Entry, actual treatment exposure and current response are separate. Unknown remains unconfirmed."
+      },
+      "fields": [
+        {
+          "key": "reviewPhase",
+          "label": "Review point",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / not reconciled"
+            ],
+            [
+              "initial-active-episode",
+              "Initial active-episode review"
+            ],
+            [
+              "after-benzodiazepine",
+              "After benzodiazepine response review"
+            ],
+            [
+              "after-second-line-or-later",
+              "After second-line treatment / later rescue review"
+            ]
+          ],
+          "essential": "The initial treatment reference, response review and refractory route are separate. A later phase never reopens an initial loading card automatically."
+        },
+        {
+          "key": "convulsiveCourse",
+          "label": "Current convulsive course",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / not reconciled"
+            ],
+            [
+              "active-under-5-minutes",
+              "Active convulsion; under 5 minutes so far"
+            ],
+            [
+              "active-5-minutes-or-more",
+              "Active convulsion for 5 minutes or more"
+            ],
+            [
+              "recurrent-without-recovery",
+              "Repeated convulsions without recovery between them"
+            ],
+            [
+              "convulsions-stopped",
+              "Visible convulsions have stopped"
+            ]
+          ],
+          "essential": "For generalized convulsive seizures, 5 minutes or more, or recurrent seizures without recovery, reaches the emergency treatment threshold. A stopped convulsion still needs response and cause review."
+        },
+        {
+          "key": "currentDanger",
+          "label": "Immediate danger now?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / not reconciled"
+            ],
+            [
+              "present",
+              "Present — airway, breathing, circulation, trauma, or rapid neurologic deterioration concern"
+            ],
+            [
+              "absent-after-assessment",
+              "Absent after current assessment"
+            ]
+          ],
+          "essential": "Immediate ABC compromise or rapid deterioration overrides the selected phase. Stabilization and emergency support run in parallel with seizure treatment."
+        },
+        {
+          "key": "bedsideGlucose",
+          "label": "Bedside glucose / reversible hypoglycaemia",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / not reconciled"
+            ],
+            [
+              "low-or-treatment-needed",
+              "Low or hypoglycaemia treatment needed"
+            ],
+            [
+              "not-low-after-check",
+              "Not low after a current check"
+            ]
+          ],
+          "essential": "Check glucose promptly. Hypoglycaemia is a reversible trigger and can mimic or accompany a seizure; thiamine must not delay glucose rescue."
+        },
+        {
+          "key": "benzodiazepineExposure",
+          "label": "Actual benzodiazepine exposure in this episode",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / not reconciled"
+            ],
+            [
+              "none-confirmed",
+              "No dose confirmed"
+            ],
+            [
+              "one-adequate-dose-confirmed",
+              "One adequate dose confirmed"
+            ],
+            [
+              "two-adequate-doses-confirmed",
+              "Two adequate doses confirmed"
+            ],
+            [
+              "one-or-more-doses-unclear",
+              "One or more doses given, but agent / route / dose / time is unclear"
+            ]
+          ],
+          "essential": "Count pre-hospital doses. “Adequate” requires the actual agent, route, dose and time to be reconciled against the applicable emergency protocol; never infer it from an order record alone."
+        },
+        {
+          "key": "benzodiazepineTiming",
+          "label": "Time since the latest adequate benzodiazepine dose",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / not reconciled"
+            ],
+            [
+              "under-5-minutes",
+              "Under 5 minutes"
+            ],
+            [
+              "five-to-ten-or-more-minutes",
+              "5–10 minutes or more"
+            ]
+          ],
+          "essential": "Use the documented administration time, not a guessed seizure duration. Timing helps identify a response window; ongoing failed treatment must not wait for a fixed clock milestone."
+        },
+        {
+          "key": "initialBenzodiazepineStrategy",
+          "label": "Selected first-line source reference",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / not reconciled"
+            ],
+            [
+              "lorazepam-iv",
+              "IV lorazepam — IV access and resuscitation facilities immediately available"
+            ],
+            [
+              "midazolam-im-no-iv",
+              "IM midazolam — no immediately usable IV access"
+            ],
+            [
+              "individualised-emergency-plan",
+              "Immediately available individualised emergency plan"
+            ],
+            [
+              "other-expert-plan",
+              "Other accountable emergency / specialist plan"
+            ]
+          ],
+          "essential": "Shown only for a current initial status episode with no confirmed benzodiazepine exposure and current safety assessment complete."
+        },
+        {
+          "key": "midazolamWeightBand",
+          "label": "Weight band for the IM midazolam source reference",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / not reconciled"
+            ],
+            [
+              "13-to-40-kg",
+              "13–40 kg"
+            ],
+            [
+              "over-40-kg",
+              "Over 40 kg"
+            ],
+            [
+              "under-13-kg-or-not-adult-context",
+              "Under 13 kg / not an adult-reference context"
+            ]
+          ],
+          "essential": "AES uses 5 mg IM for 13–40 kg and 10 mg IM for over 40 kg. This focused guide is adult-only; a non-adult or out-of-scope weight must use an accountable age-specific protocol."
+        },
+        {
+          "key": "secondLineExposure",
+          "label": "Actual second-line antiseizure exposure in this episode",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / not reconciled"
+            ],
+            [
+              "not-started",
+              "Not started after review"
+            ],
+            [
+              "started-or-completion-unclear",
+              "Started or completion/timing unclear"
+            ],
+            [
+              "completed-this-episode",
+              "Completed this episode; response now needs review"
+            ]
+          ],
+          "essential": "A second-line loading course and its completion must be reconciled before another load or a refractory label. This guide does not infer completion from a source-row frequency."
+        },
+        {
+          "key": "secondLineStrategy",
+          "label": "Selected eligible second-line source reference",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / not reconciled"
+            ],
+            [
+              "levetiracetam",
+              "IV levetiracetam"
+            ],
+            [
+              "valproate",
+              "IV sodium valproate"
+            ],
+            [
+              "phenytoin-local-protocol",
+              "IV phenytoin through a current local/expert protocol"
+            ],
+            [
+              "other-expert-plan",
+              "Other accountable expert plan"
+            ]
+          ],
+          "essential": "Shown only after two adequate benzodiazepine doses are confirmed, convulsive status persists, and no second-line loading exposure is confirmed."
+        },
+        {
+          "key": "secondLineSafety",
+          "label": "Selected valproate or phenytoin suitability",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / not reconciled"
+            ],
+            [
+              "reviewed-suitable",
+              "Reviewed suitable for the selected source reference"
+            ],
+            [
+              "contraindication-or-specialist-route",
+              "Contraindication, interaction, haemodynamic/conduction concern, or specialist route"
+            ]
+          ],
+          "essential": "For valproate, reconcile pregnancy potential, hepatic/mitochondrial/urea-cycle risk and major interactions. For phenytoin, reconcile haemodynamics, rhythm/conduction, preparation and the current local protocol."
+        },
+        {
+          "key": "responseState",
+          "label": "Current response after the reviewed treatment",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / not reconciled"
+            ],
+            [
+              "convulsions-stopped-awareness-returning",
+              "Convulsions stopped; awareness is returning"
+            ],
+            [
+              "persistent-convulsions",
+              "Persistent or recurrent convulsions"
+            ],
+            [
+              "no-motor-seizure-persistent-altered",
+              "No visible convulsions, but consciousness is not returning as expected"
+            ],
+            [
+              "worsening-or-new-danger",
+              "Worsening course or new danger"
+            ]
+          ],
+          "essential": "A lower motor burden alone is not recovery. Persistent altered consciousness after visible convulsions needs nonconvulsive-seizure/status assessment, not an assumed post-ictal label."
+        }
+      ],
+      "hasVisibleFieldKeys": true,
+      "stages": [
+        {
+          "id": "recognize",
+          "title": "Recognize the current seizure course",
+          "empty": "Establish whether convulsions are active for 5 minutes or more, recurring without recovery, or have stopped."
+        },
+        {
+          "id": "stabilize",
+          "title": "Stabilize and correct immediate reversible danger",
+          "empty": "Current ABC danger and glucose remain independent of the treatment phase."
+        },
+        {
+          "id": "first-line",
+          "title": "Reconcile benzodiazepine exposure before another dose",
+          "empty": "Count actual pre-hospital and in-hospital exposure; do not repeat an initial dose from a stale entry."
+        },
+        {
+          "id": "second-line",
+          "title": "Second-line route after adequate benzodiazepines",
+          "empty": "Persistent convulsive status after two adequate benzodiazepine doses needs a reviewed second-line route."
+        },
+        {
+          "id": "reassess",
+          "title": "Response, refractory status, or nonconvulsive status route",
+          "empty": "Separate completed treatment, clinical response and EEG-directed escalation."
+        }
+      ],
+      "conflictActionIds": [
+        "seizure-reviewpoint-benzodiazepine-exposure-conflict",
+        "seizure-later-phase-second-line-not-started-conflict",
+        "seizure-course-response-conflict",
+        "seizure-active-course-response-conflict"
+      ],
+      "quickReference": {
+        "summary": "Treat ≥5 minutes of convulsion or repeated seizures without recovery as status; stabilize ABC/glucose in parallel, reconcile real benzodiazepine exposure, then keep second-line response and EEG escalation separate.",
+        "recognition": [
+          "NICE treats convulsive seizures lasting 5 minutes or more as status epilepticus requiring resuscitation and immediate emergency treatment.",
+          "Repeated convulsions without recovery meet the status route even without a continuous visible seizure or a reliable duration estimate.",
+          "Visible motor cessation does not establish normal recovery or exclude nonconvulsive seizure/status."
+        ],
+        "redFlags": [
+          "Airway, breathing or circulation compromise; trauma; rapidly worsening neurologic course; recurrent/persistent convulsions.",
+          "Low glucose or a cause requiring parallel rescue, including eclampsia, withdrawal, toxin, infection, trauma/structural lesion or metabolic disturbance.",
+          "Persistent convulsions after completed second-line treatment, or persistent altered consciousness after visible convulsions stop."
+        ],
+        "steps": [
+          {
+            "role": "Recognize",
+            "text": "At ≥5 minutes or recurrent seizures without recovery, use the status route immediately; record onset and interval recovery."
+          },
+          {
+            "role": "Stabilize",
+            "text": "Assess ABC danger and bedside glucose in parallel; hypoglycaemia rescue must not wait for thiamine, imaging or EEG."
+          },
+          {
+            "role": "First-line",
+            "text": "Count actual pre-hospital and in-hospital benzodiazepines. Never repeat an initial card after an entered exposure or response phase."
+          },
+          {
+            "role": "Second-line",
+            "text": "After two adequate benzodiazepine doses and persistent convulsive status, reconcile second-line eligibility, safety and actual completion."
+          },
+          {
+            "role": "Reassess",
+            "text": "Persistent convulsions after completed second-line treatment need critical-care/continuous-EEG escalation; persistent altered consciousness needs nonconvulsive-status assessment."
+          }
+        ],
+        "monitoring": [
+          "Use continuous cardiorespiratory observation and repeat consciousness/ABC assessment while the episode evolves; record each actual medicine, dose, route and time separately.",
+          "ACNS recommends continuous EEG for persistent abnormal mental status after convulsive seizures/status and for monitoring refractory-status therapy.",
+          "An order record, selected strategy, timer, infusion order or routine awake EEG does not prove medication completion, seizure control or continuous-EEG availability."
+        ],
+        "sources": [
+          {
+            "label": "American Epilepsy Society guideline for convulsive status epilepticus (2016)",
+            "url": "https://aesnet.org/clinical-care/clinical-guidance/guideline-prolonged-seizures"
+          },
+          {
+            "label": "NICE NG217 status-epilepticus recommendations (updated 2025)",
+            "url": "https://www.nice.org.uk/guidance/ng217/chapter/7-Treating-status-epilepticus-repeated-or-cluster-seizures-and-prolonged-seizures"
+          },
+          {
+            "label": "ESETT randomized trial (NEJM 2019)",
+            "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa1905795"
+          },
+          {
+            "label": "ACNS consensus: continuous EEG in critical care (2015)",
+            "url": "https://www.acns.org/UserFiles/file/Consensus_Statement_on_Continuous_EEG_in.1.pdf"
+          },
+          {
+            "label": "ILAE status-epilepticus definition and classification (2015)",
+            "url": "https://www.ilae.org/guidelines/definition-and-classification"
+          },
+          {
+            "label": "NTUH product identity: Aleviatin Injection 250 mg/5 mL/amp (ALE1JA07; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=ALE1JA07",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          }
+        ]
+      },
+      "sourceMetadata": {
+        "reviewedAt": "2026-09-19",
+        "sourceReview": "Focused adult primary-source review; source access and scope are recorded per guide."
+      },
+      "engine": {
+        "module": "../shared/seizure-engine.mjs",
+        "sourcePath": "portal/static/js/management-guides/seizure-engine.mjs",
+        "sha256": "eab3ab387097b1912f0baad6053682e13005996439c0e238fbd56ef3439c9e22",
+        "files": [
+          {
+            "path": "shared/seizure-engine.mjs",
+            "sourcePath": "portal/static/js/management-guides/seizure-engine.mjs",
+            "sha256": "eab3ab387097b1912f0baad6053682e13005996439c0e238fbd56ef3439c9e22",
+            "rewritten": false
+          }
+        ]
+      }
+    },
+    {
       "id": "delirium",
       "title": "Delirium / acute confusional state",
       "reviewedAt": "2026-09-19",
@@ -15016,6 +15526,628 @@
       }
     },
     {
+      "id": "systemic-corticosteroids",
+      "title": "Systemic Corticosteroids",
+      "reviewedAt": "2026-09-23",
+      "reviewLabel": "Focused source review · mixed evidence strength",
+      "reviewState": "source-reviewed-local-regimen-review-pending",
+      "reviewNotice": "Every indication has its own entry criteria, regimen and evidence strength, from randomised trials to observational practice only. No dose carries between indications and the guide never converts between glucocorticoids.",
+      "guideVersion": "Focused adult review 2026-09-23",
+      "resourceNotice": "Internal hospital resource tables are omitted from this shared edition.",
+      "resourceCaution": null,
+      "scope": "Adult inpatient systemic corticosteroid decisions: which indications have a source regimen, the exact regimen and entry criteria for each, pre-exposure infection screening, glucose and ulcer-risk safeguards, Pneumocystis prophylaxis, and stopping. Not a complete immunosuppression, rheumatology, transplant, oncology-supportive, meningitis or paediatric corticosteroid protocol, and not a dose converter.",
+      "reviewLimitations": [
+        "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
+        "Each indication rests on a different source of a different strength: randomised trials for septic shock, ARDS, COVID-19, severe community-acquired pneumonia and COPD duration; guideline statements for asthma, Pneumocystis and adrenal insufficiency; and observational practice only for acute ILD exacerbations and radiation pneumonitis. The guide shows which is which and does not level them.",
+        "GOLD 2026 was confirmed to recommend systemic corticosteroids for up to 5 days in moderate and severe exacerbations through the published report landing page and secondary summaries; the full 2026 report PDF was not directly read, so the exact dose sentence is carried from REDUCE, which was read as the primary trial.",
+        "The septic-shock branch follows the SSC 2026 contract already recorded in this project: a conditional suggestion for IV corticosteroids with no mandated cortisol result and no fixed vasopressor threshold. Additional vasopressor-dose/duration or cortisol-testing prerequisites from unverified protocol text are flagged for source reconciliation.",
+        "The ARDS day-14 safety signal comes from LaSRS. A 2025 observational analysis has questioned whether day 14 is a genuine boundary, so this is presented as a reason for specialist review rather than a settled prohibition.",
+        "The public Solu-Cortef injection and Florinef tablet identities do not resolve oral hydrocortisone product/strength or current availability. Confirm the actual product independently; a dated catalog cannot establish absence.",
+        "Local doses, schedules and conditions require local reconciliation; nothing here establishes current orderability.",
+        "Dose equivalence is stated once, for review, and is deliberately not applied: the guide never converts a dose between glucocorticoids or routes. The Calculator’s steroid equivalence card requires explicit manual entry for that."
+      ],
+      "sources": [
+        {
+          "label": "SSC 2026 adult guideline — corticosteroids in septic shock",
+          "url": "https://sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-campaign-international-guidelines-for-management-of-sepsis-and-septic-shock-2026"
+        },
+        {
+          "label": "APROCCHSS (Annane 2018) — hydrocortisone plus fludrocortisone regimen",
+          "url": "https://doi.org/10.1056/NEJMoa1705716"
+        },
+        {
+          "label": "DEXA-ARDS (Villar 2020) — dexamethasone in moderate-to-severe ARDS",
+          "url": "https://doi.org/10.1016/S2213-2600(19)30417-5"
+        },
+        {
+          "label": "LaSRS (ARDSNet 2006) — late methylprednisolone in persistent ARDS",
+          "url": "https://doi.org/10.1056/NEJMoa051693"
+        },
+        {
+          "label": "RECOVERY — dexamethasone in hospitalised COVID-19",
+          "url": "https://doi.org/10.1056/NEJMoa2021436"
+        },
+        {
+          "label": "CAPE COD (2023) — hydrocortisone in severe community-acquired pneumonia",
+          "url": "https://doi.org/10.1056/NEJMoa2215145"
+        },
+        {
+          "label": "Torres 2015 JAMA — methylprednisolone in severe CAP with high inflammatory response",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25688779/"
+        },
+        {
+          "label": "GOLD 2026 Report — COPD exacerbation management",
+          "url": "https://goldcopd.org/2026-gold-report/"
+        },
+        {
+          "label": "REDUCE (JAMA 2013) — 5-day versus 14-day glucocorticoid in COPD exacerbation",
+          "url": "https://jamanetwork.com/journals/jama/fullarticle/1688035"
+        },
+        {
+          "label": "GINA Strategy Report 2026 — acute-care exacerbations (adult branch)",
+          "url": "https://ginasthma.org/wp-content/uploads/2026/05/GINA-2026-Strategy-Report-WMS.pdf"
+        },
+        {
+          "label": "NIH adult/adolescent opportunistic-infection guidelines — Pneumocystis pneumonia",
+          "url": "https://clinicalinfo.hiv.gov/en/guidelines/hiv-clinical-guidelines-adult-and-adolescent-opportunistic-infections/pneumocystis"
+        },
+        {
+          "label": "ASCO irAE guideline update (JCO 2021) — pneumonitis",
+          "url": "https://ascopubs.org/doi/10.1200/JCO.21.01440"
+        },
+        {
+          "label": "Respirology 2024 review — corticosteroids for acute exacerbations of interstitial lung disease",
+          "url": "https://onlinelibrary.wiley.com/doi/10.1111/resp.14788"
+        },
+        {
+          "label": "Society for Endocrinology — adrenal crisis emergency guidance",
+          "url": "https://www.endocrinology.org/adrenal-crisis"
+        },
+        {
+          "label": "Endocrine Society — primary adrenal insufficiency clinical practice guideline",
+          "url": "https://academic.oup.com/jcem/article/101/2/364/2810222"
+        },
+        {
+          "label": "Dexamethasone prescribing information (DailyMed) — cerebral oedema regimen",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=dexamethasone"
+        },
+        {
+          "label": "CDC clinical overview — strongyloidiasis and corticosteroid-associated hyperinfection",
+          "url": "https://www.cdc.gov/strongyloides/hcp/clinical-overview/index.html"
+        },
+        {
+          "label": "IDSA seasonal influenza guideline — adjunctive corticosteroids",
+          "url": "https://www.idsociety.org/practice-guideline/influenza/"
+        },
+        {
+          "label": "NTUH product identity: Solu-Cortef Sterile Powder 100 mg hydrocortisone/vial (SOL1LA06; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=SOL1LA06",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        },
+        {
+          "label": "NTUH product identity: Florinef Tablet 0.1 mg/tab (FLO4LA18; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=FLO4LA18",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        },
+        {
+          "label": "NTUH product identity: Dexamethasone Injection 5 mg/1 mL/amp (DEX1LA21; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=DEX1LA21",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        },
+        {
+          "label": "NTUH product identity: Pantoloc i.v. Injection 40 mg pantoprazole/vial (PAN1HA40; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PAN1HA40",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        },
+        {
+          "label": "NTUH product identity: Nexium Tablet 40 mg (as magnesium trihydrate)/tab (NEX4HA41; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=NEX4HA41",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        },
+        {
+          "label": "NTUH product identity: Baktar Tablet 400 mg sulfamethoxazole & 80 mg trimethoprim/tab (BAK4AI02; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=BAK4AI02",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        }
+      ],
+      "entry": {
+        "title": "Which indication, and are its entry criteria met?",
+        "guidance": "Every regimen in this guide belongs to exactly one indication and appears only after that indication’s criteria are reviewed and met. Unknown is not met, and no dose is carried between indications.",
+        "source": {
+          "label": "SSC 2026 adult guideline — corticosteroids in septic shock",
+          "url": "https://sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-campaign-international-guidelines-for-management-of-sepsis-and-septic-shock-2026"
+        },
+        "kind": "derived-criteria",
+        "scope": "Indication, entry criteria, regimen, screening and stopping are separate findings. Unknown is not met."
+      },
+      "fields": [
+        {
+          "key": "phase",
+          "label": "Review timing",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "before-starting",
+              "Before starting"
+            ],
+            [
+              "on-treatment",
+              "Already on treatment"
+            ],
+            [
+              "stopping",
+              "Stopping or tapering"
+            ]
+          ],
+          "threshold": "Starting, continuing and stopping are different decisions; they do not share the same safeguards."
+        },
+        {
+          "key": "indicationGroup",
+          "label": "Indication group?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "infection-critical-illness",
+              "Infection / critical illness"
+            ],
+            [
+              "airway-exacerbation",
+              "COPD or asthma exacerbation"
+            ],
+            [
+              "pneumonitis-ild",
+              "Pneumonitis / interstitial lung disease"
+            ],
+            [
+              "adrenal-insufficiency",
+              "Adrenal insufficiency"
+            ],
+            [
+              "tumour-raised-pressure",
+              "Tumour-related raised intracranial pressure"
+            ],
+            [
+              "other",
+              "Other / not covered here"
+            ]
+          ],
+          "threshold": "Each group has its own entry criteria and its own reviewed regimen. No dose carries between groups."
+        },
+        {
+          "key": "infectionIndication",
+          "label": "Which infection route?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "septic-shock",
+              "Septic shock"
+            ],
+            [
+              "ards",
+              "ARDS"
+            ],
+            [
+              "covid-oxygen",
+              "COVID-19 needing oxygen"
+            ],
+            [
+              "severe-cap",
+              "Severe community-acquired pneumonia"
+            ],
+            [
+              "pneumocystis",
+              "Pneumocystis pneumonia"
+            ]
+          ]
+        },
+        {
+          "key": "airwayIndication",
+          "label": "Which airway exacerbation?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "copd",
+              "COPD exacerbation"
+            ],
+            [
+              "asthma",
+              "Asthma exacerbation"
+            ]
+          ]
+        },
+        {
+          "key": "lungInflammationIndication",
+          "label": "Which lung inflammation?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "ae-ild",
+              "Acute exacerbation of interstitial lung disease"
+            ],
+            [
+              "checkpoint-pneumonitis",
+              "Immune-checkpoint-inhibitor pneumonitis"
+            ],
+            [
+              "radiation-pneumonitis",
+              "Radiation pneumonitis"
+            ]
+          ]
+        },
+        {
+          "key": "adrenalState",
+          "label": "Adrenal presentation?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "crisis",
+              "Suspected adrenal crisis"
+            ],
+            [
+              "sick-day",
+              "Intercurrent illness / fever"
+            ],
+            [
+              "maintenance",
+              "Stable replacement review"
+            ]
+          ],
+          "threshold": "Crisis is a clinical emergency diagnosis; do not wait for a cortisol result in a shocked patient."
+        },
+        {
+          "key": "adrenalAxis",
+          "label": "Primary or secondary?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "primary",
+              "Primary (adrenal)"
+            ],
+            [
+              "secondary",
+              "Secondary / tertiary"
+            ]
+          ],
+          "threshold": "Mineralocorticoid replacement applies to primary adrenal insufficiency only."
+        },
+        {
+          "key": "pneumonitisGrade",
+          "label": "Pneumonitis severity grade?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "grade-2",
+              "Grade 2 — symptomatic, limiting instrumental activities"
+            ],
+            [
+              "grade-3-4",
+              "Grade 3–4 — severe, oxygen or life-threatening"
+            ]
+          ]
+        },
+        {
+          "key": "entryCriteria",
+          "label": "Entry criteria for this indication?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "met",
+              "Reviewed · criteria met"
+            ],
+            [
+              "not-met",
+              "Reviewed · criteria not met"
+            ]
+          ],
+          "threshold": "Unknown is not “met”. The exact criteria for the selected indication are listed in the first stage."
+        },
+        {
+          "key": "infectionScreen",
+          "label": "Pre-exposure infection screen?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "cleared",
+              "Reviewed · no untreated TB, fungal or Strongyloides risk"
+            ],
+            [
+              "risk-identified",
+              "Risk identified / untreated"
+            ],
+            [
+              "pending",
+              "Ordered · result pending"
+            ]
+          ],
+          "threshold": "Active tuberculosis, untreated invasive fungal infection and Strongyloides exposure are the screening triggers."
+        },
+        {
+          "key": "influenza",
+          "label": "Influenza suspected or confirmed?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "yes",
+              "Yes / suspected"
+            ],
+            [
+              "no",
+              "No — assessed"
+            ]
+          ],
+          "threshold": "Influenza changes the pneumonia branches; it does not remove a COPD or asthma exacerbation indication."
+        },
+        {
+          "key": "ulcerRisk",
+          "label": "Gastroduodenal ulcer or bleeding risk?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "present",
+              "NSAID, anticoagulant, prior ulcer, or ICU stress-ulcer criteria"
+            ],
+            [
+              "absent",
+              "Reviewed · none of those"
+            ]
+          ],
+          "threshold": "Acid suppression follows these risk factors; a corticosteroid alone is not an automatic indication."
+        },
+        {
+          "key": "glucoseMonitoring",
+          "label": "Capillary glucose monitoring?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "arranged",
+              "Arranged"
+            ],
+            [
+              "not-arranged",
+              "Not arranged"
+            ]
+          ]
+        },
+        {
+          "key": "prolongedExposure",
+          "label": "Expected ≥20 mg prednisolone-equivalent daily for ≥4 weeks?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "yes",
+              "Yes / already reached"
+            ],
+            [
+              "no",
+              "No — short course"
+            ]
+          ],
+          "threshold": "This is the Pneumocystis-prophylaxis and adrenal-suppression trigger, not a dose recommendation."
+        }
+      ],
+      "hasVisibleFieldKeys": true,
+      "stages": [
+        {
+          "id": "indication",
+          "title": "Indication & entry criteria",
+          "empty": "Select the indication and review its criteria."
+        },
+        {
+          "id": "regimen",
+          "title": "Reviewed regimen",
+          "empty": "A regimen appears once the indication criteria are reviewed and met."
+        },
+        {
+          "id": "screen",
+          "title": "Before & during exposure",
+          "empty": "Screening and safeguards follow the criteria review."
+        },
+        {
+          "id": "stop",
+          "title": "Duration, taper & stopping",
+          "empty": "Duration follows the indication."
+        },
+        {
+          "id": "monitor",
+          "title": "Monitor & reassess",
+          "empty": "Reassessment follows an established indication."
+        }
+      ],
+      "conflictActionIds": [
+        "steroid-septic-shock-saved-row-discrepancy",
+        "steroid-cap-oxygen-cue-discrepancy",
+        "steroid-cap-torres-alternative",
+        "steroid-cap-influenza-exclusion",
+        "steroid-ards-late-initiation-safety",
+        "steroid-raised-pressure-lymphoma-caution"
+      ],
+      "quickReference": {
+        "summary": "Name the indication, check that indication’s entry criteria, then use only that indication’s regimen — and decide screening, glucose monitoring, ulcer risk, Pneumocystis prophylaxis and the stop date at the same time.",
+        "recognition": [
+          "Indications with a randomised-trial regimen: septic shock, moderate-to-severe ARDS, COVID-19 needing oxygen, severe community-acquired pneumonia, COPD exacerbation duration.",
+          "Indications with guideline regimens: asthma exacerbation, Pneumocystis pneumonia, adrenal insufficiency, tumour-related raised intracranial pressure.",
+          "Indications resting on observational practice only: acute exacerbation of ILD, radiation pneumonitis."
+        ],
+        "redFlags": [
+          "Suspected adrenal crisis — give hydrocortisone 100 mg IV or IM immediately; do not wait for a cortisol result in a shocked patient.",
+          "Active tuberculosis, untreated invasive fungal infection, or Strongyloides exposure risk before immunosuppression.",
+          "Suspected primary CNS lymphoma before biopsy — corticosteroid can make the histology non-diagnostic.",
+          "Starting a corticosteroid in persistent ARDS at or after day 14, or in influenza pneumonia, without specialist review."
+        ],
+        "steps": [
+          {
+            "role": "Indication",
+            "text": "Choose one indication and review its explicit entry criteria. Unknown is not met, and no regimen appears until they are."
+          },
+          {
+            "role": "Regimen",
+            "text": "Use only the regimen recorded for that indication. Do not carry a dose across indications or convert between glucocorticoids from memory."
+          },
+          {
+            "role": "Screen",
+            "text": "Tuberculosis, invasive fungal infection and Strongyloides before exposure; glucose monitoring, ulcer-risk-driven acid suppression, and Pneumocystis prophylaxis at ≥20 mg prednisolone-equivalent for ≥4 weeks."
+          },
+          {
+            "role": "Stop",
+            "text": "Short defined courses stop without a taper; prolonged or repeated courses taper, and replacement therapy is reduced to maintenance rather than stopped."
+          },
+          {
+            "role": "Monitor",
+            "text": "Re-check the indication, response and stop date. Improvement on a steroid is not confirmation of the diagnosis."
+          }
+        ],
+        "monitoring": [
+          "Capillary glucose through the course, weighted to afternoon and evening values when the steroid is dosed in the morning.",
+          "Infection signs, blood pressure, mood, sleep and — for longer courses — bone protection, muscle weakness and adrenal suppression.",
+          "The recorded stop or taper date at each review, including what appears on the discharge medication list."
+        ],
+        "sources": [
+          {
+            "label": "SSC 2026 adult guideline — corticosteroids in septic shock",
+            "url": "https://sccm.org/clinical-resources/guidelines/guidelines/surviving-sepsis-campaign-international-guidelines-for-management-of-sepsis-and-septic-shock-2026"
+          },
+          {
+            "label": "APROCCHSS (Annane 2018) — hydrocortisone plus fludrocortisone regimen",
+            "url": "https://doi.org/10.1056/NEJMoa1705716"
+          },
+          {
+            "label": "DEXA-ARDS (Villar 2020) — dexamethasone in moderate-to-severe ARDS",
+            "url": "https://doi.org/10.1016/S2213-2600(19)30417-5"
+          },
+          {
+            "label": "RECOVERY — dexamethasone in hospitalised COVID-19",
+            "url": "https://doi.org/10.1056/NEJMoa2021436"
+          },
+          {
+            "label": "CAPE COD (2023) — hydrocortisone in severe community-acquired pneumonia",
+            "url": "https://doi.org/10.1056/NEJMoa2215145"
+          },
+          {
+            "label": "GOLD 2026 Report — COPD exacerbation management",
+            "url": "https://goldcopd.org/2026-gold-report/"
+          },
+          {
+            "label": "NIH adult/adolescent opportunistic-infection guidelines — Pneumocystis pneumonia",
+            "url": "https://clinicalinfo.hiv.gov/en/guidelines/hiv-clinical-guidelines-adult-and-adolescent-opportunistic-infections/pneumocystis"
+          },
+          {
+            "label": "ASCO irAE guideline update (JCO 2021) — pneumonitis",
+            "url": "https://ascopubs.org/doi/10.1200/JCO.21.01440"
+          },
+          {
+            "label": "Society for Endocrinology — adrenal crisis emergency guidance",
+            "url": "https://www.endocrinology.org/adrenal-crisis"
+          },
+          {
+            "label": "Endocrine Society — primary adrenal insufficiency clinical practice guideline",
+            "url": "https://academic.oup.com/jcem/article/101/2/364/2810222"
+          },
+          {
+            "label": "NTUH product identity: Solu-Cortef Sterile Powder 100 mg hydrocortisone/vial (SOL1LA06; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=SOL1LA06",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          },
+          {
+            "label": "NTUH product identity: Florinef Tablet 0.1 mg/tab (FLO4LA18; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=FLO4LA18",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          },
+          {
+            "label": "NTUH product identity: Dexamethasone Injection 5 mg/1 mL/amp (DEX1LA21; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=DEX1LA21",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          },
+          {
+            "label": "NTUH product identity: Pantoloc i.v. Injection 40 mg pantoprazole/vial (PAN1HA40; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PAN1HA40",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          },
+          {
+            "label": "NTUH product identity: Nexium Tablet 40 mg (as magnesium trihydrate)/tab (NEX4HA41; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=NEX4HA41",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          },
+          {
+            "label": "NTUH product identity: Baktar Tablet 400 mg sulfamethoxazole & 80 mg trimethoprim/tab (BAK4AI02; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=BAK4AI02",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          }
+        ]
+      },
+      "sourceMetadata": {
+        "reviewedAt": "2026-09-23",
+        "guideVersion": "Per-indication primary-source review recorded 2026-09-23",
+        "sourceReview": "Adult systemic corticosteroid indication, entry-criteria, regimen, screening and stopping aid. Evidence strength differs by indication and is labelled per branch. It is not a prescription, a dose converter, an order set or an authorization."
+      },
+      "engine": {
+        "module": "../shared/systemic-corticosteroid-engine.mjs",
+        "sourcePath": "portal/static/js/management-guides/systemic-corticosteroid-engine.mjs",
+        "sha256": "dbd5399eee998cbfe186eecf6d3f0ca9bd56a333318ebbc10213ac91032d6c79",
+        "files": [
+          {
+            "path": "shared/systemic-corticosteroid-engine.mjs",
+            "sourcePath": "portal/static/js/management-guides/systemic-corticosteroid-engine.mjs",
+            "sha256": "dbd5399eee998cbfe186eecf6d3f0ca9bd56a333318ebbc10213ac91032d6c79",
+            "rewritten": false
+          }
+        ]
+      }
+    },
+    {
       "id": "gi-bleed",
       "title": "Acute GI Bleeding",
       "reviewedAt": "2026-09-19",
@@ -15405,6 +16537,550 @@
             "path": "shared/gi-bleeding-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/gi-bleeding-engine.mjs",
             "sha256": "fce807200e119a8d721a0c43ee37cff692d5f39c9368f7804a3ed62f27cee784",
+            "rewritten": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "anticoagulant-bleeding",
+      "title": "Anticoagulant-Related Bleeding",
+      "reviewedAt": "2026-09-19",
+      "reviewLabel": "Upgraded guide · focused source review",
+      "reviewState": "source-reviewed-local-regimen-review-pending",
+      "reviewNotice": "Severity, drug exposure and initial versus post-reversal review.",
+      "guideVersion": "Focused adult review 2026-09-19",
+      "resourceNotice": "Internal hospital resource tables are omitted from this shared edition.",
+      "resourceCaution": null,
+      "scope": "Adult anticoagulant-related bleeding triage, agent-specific initial-regimen review, response/rebleed review and individualized restart-decision review. It is not an order set, stock check, transfusion protocol, procedure plan, automatic restart protocol or authorization.",
+      "reviewLimitations": [
+        "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
+        "ACC 2020 is the broad oral-anticoagulant pathway source. FDA’s December 2025 safety/availability communication means its historical andexanet regimen is not emitted; Taiwan/NTUH availability and governance were not verified.",
+        "Acute GI bleeding is deliberately routed to ACG/CAG 2022 qualifications, which conditionally advise against several routine reversal approaches. Intracranial haemorrhage is routed to the AHA/ASA 2022 emergency pathway; spinal and other neurocritical bleeding require their own urgent route.",
+        "NTUH public formulary codes are references only: BER1EB25 (Beriplex four-factor PCC), KAT1EB04 (phytonadione), PRA1QB42 (idarucizumab) and PRF1QB08 (protamine). They do not establish current stock, restriction, orderability or patient suitability.",
+        "No automatic anticoagulant restart, bridging strategy, transfusion plan, antiplatelet reversal, trauma/massive-haemorrhage, pregnancy, cardiac-surgery, HIT, fondaparinux or procedure-specific protocol is implemented."
+      ],
+      "sources": [
+        {
+          "label": "ACC anticoagulant-related bleeding pathway (2020)",
+          "url": "https://cvquality.acc.org/docs/default-source/initiatives/reduce-the-risk-pci-bleed/2020-acc-expert-consensus-decision-pathway-on-management-of-bleeding-in-patients-on-oral-anticoagulants.pdf"
+        },
+        {
+          "label": "AHA/ASA spontaneous ICH guideline (2022)",
+          "url": "https://www.heart.org/en/-/media/CPR2-Files/Private/2022-Guideline-for-the-Management-of-Patients-With-Spontaneous-Intracerebral-Hemorrhage-1.pdf"
+        },
+        {
+          "label": "ACG/CAG acute gastrointestinal bleeding guideline (2022)",
+          "url": "https://gi.org/wp-content/uploads/2022/03/ACG-CAG-Guideline.pdf"
+        },
+        {
+          "label": "KCENTRA prescribing information (DailyMed)",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=eee1afb8-324c-42e4-8bf0-f0c9da5e6d42"
+        },
+        {
+          "label": "PRAXBIND prescribing information (DailyMed)",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c7400f8a-dcf4-a6df-6d07-983081b1bf34"
+        },
+        {
+          "label": "Protamine sulfate prescribing information (DailyMed)",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=c76876da-b9a8-45d0-9278-7df3288d3a06"
+        },
+        {
+          "label": "Enoxaparin prescribing information (DailyMed)",
+          "url": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=31e7c4d0-ba45-4b20-8e25-2d12892372e5"
+        },
+        {
+          "label": "FDA safety communication: Andexxa (December 2025)",
+          "url": "https://www.fda.gov/safety/medical-product-safety-information/update-safety-andexxa-astrazeneca-fda-safety-communication"
+        },
+        {
+          "label": "NTUH product identity: Beriplex P/N 500 for Injection, (factor II 400-960 IU, factor VII 200-500 IU, factor IX 400-620 IU, factor × 440-1200 IU, protein C 300-900 IU, total protein 120-280 mg)/vial (BER1EB25; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=BER1EB25",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        },
+        {
+          "label": "NTUH product identity: Katimin-1 Injection 10 mg/1 mL/amp (KAT1EB04; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=KAT1EB04",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        },
+        {
+          "label": "NTUH product identity: Praxbind Solution for Injection/Infusion 2.5 g/50 mL/vial, 2 vials/box (PRA1QB42; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PRA1QB42",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        },
+        {
+          "label": "NTUH product identity: Protaminsulfat Solution for Injection and Infusion, 50 mg/5 mL/amp (PRF1QB08; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PRF1QB08",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        }
+      ],
+      "entry": {
+        "kind": "derived-criteria",
+        "title": "Confirm presentation and immediate danger",
+        "scope": "Unknown findings remain unconfirmed; initial treatment and response are separate."
+      },
+      "fields": [
+        {
+          "key": "phase",
+          "label": "Review point?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "initial",
+              "Initial bleeding assessment"
+            ],
+            [
+              "after-initial-action",
+              "After first bleeding / reversal action"
+            ],
+            [
+              "restart-review",
+              "After hemostasis · restart decision review"
+            ]
+          ],
+          "threshold": "Initial treatment, response/rebleeding, and any later anticoagulant decision are separate reviews."
+        },
+        {
+          "key": "currentEmergency",
+          "label": "Immediate bleeding emergency?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "yes",
+              "Present"
+            ],
+            [
+              "no",
+              "Absent · assessed"
+            ]
+          ],
+          "threshold": "ABC compromise, shock, ongoing major blood loss, impaired consciousness, focal neurology or airway risk requires urgent action now."
+        },
+        {
+          "key": "bleedSeverity",
+          "label": "Bleeding severity?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "major",
+              "Major / life-threatening"
+            ],
+            [
+              "nonmajor",
+              "Clinically relevant, not major"
+            ],
+            [
+              "no-active-bleed",
+              "No active bleed / another problem"
+            ]
+          ],
+          "threshold": "ACC major bleed: critical site, haemodynamic instability, haemoglobin fall ≥2 g/dL, or ≥2 RBC units."
+        },
+        {
+          "key": "bleedSite",
+          "label": "Bleed setting / site?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "intracranial",
+              "Spontaneous intracerebral haemorrhage suspected"
+            ],
+            [
+              "spinal-or-other-neurocritical",
+              "Spinal or other intracranial / neurocritical bleed"
+            ],
+            [
+              "acute-gi",
+              "Acute gastrointestinal bleed"
+            ],
+            [
+              "other-critical-or-uncontrolled",
+              "Other critical site / uncontrolled major bleed"
+            ],
+            [
+              "noncritical-major",
+              "Major by physiology / blood loss; no critical site identified"
+            ]
+          ],
+          "threshold": "Acute GI bleeding and intracranial haemorrhage have source-specific qualifications; do not silently apply a generic card."
+        },
+        {
+          "key": "agent",
+          "label": "Exact anticoagulant?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "vka",
+              "Warfarin / vitamin K antagonist"
+            ],
+            [
+              "dabigatran",
+              "Dabigatran"
+            ],
+            [
+              "factor-xa",
+              "Apixaban, rivaroxaban or edoxaban"
+            ],
+            [
+              "ufh",
+              "Unfractionated heparin"
+            ],
+            [
+              "enoxaparin",
+              "Enoxaparin / LMWH"
+            ],
+            [
+              "other-or-multiple",
+              "Other, mixed or multiple agents"
+            ],
+            [
+              "no-anticoagulant",
+              "No anticoagulant exposure established"
+            ]
+          ],
+          "threshold": "Do not select a reversal strategy from an incomplete medication list or a drug class alone."
+        },
+        {
+          "key": "residualEffect",
+          "label": "Likely clinically relevant residual effect?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "likely",
+              "Likely present"
+            ],
+            [
+              "unlikely",
+              "Unlikely after reconciled timing / clearance"
+            ]
+          ],
+          "threshold": "Base this on exact agent, dose, last administration, renal/liver context and any appropriate assay; a normal PT/INR does not exclude a factor-Xa inhibitor effect."
+        },
+        {
+          "key": "exposureDetails",
+          "label": "Agent, dose, last time and clearance context reconciled?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "complete",
+              "Complete"
+            ],
+            [
+              "incomplete",
+              "Incomplete / conflicting"
+            ]
+          ],
+          "threshold": "For heparins, record units or mg and elapsed time. For DOACs, document the exact drug and renal context."
+        },
+        {
+          "key": "sourceControl",
+          "label": "Resuscitation and source-control status?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "in-progress-or-uncontrolled",
+              "In progress / bleeding not controlled"
+            ],
+            [
+              "controlled",
+              "Controlled after assessment"
+            ]
+          ],
+          "threshold": "Reversal must not delay airway/circulation support, endoscopic, procedural, surgical or other definitive haemostasis."
+        },
+        {
+          "key": "initialActionExposure",
+          "label": "Has an initial reversal / haemostatic action already been given?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "not-given",
+              "No reversal / haemostatic agent given"
+            ],
+            [
+              "given",
+              "Given — record exact agent, amount and time"
+            ]
+          ],
+          "threshold": "This prevents a prior dose being presented again as a new initial regimen."
+        },
+        {
+          "key": "productSafety",
+          "label": "Selected agent’s current local product and safety gate?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "eligible",
+              "Confirmed appropriate in the local emergency plan"
+            ],
+            [
+              "unavailable-or-safety-concern",
+              "Unavailable, contraindicated or safety concern"
+            ]
+          ],
+          "threshold": "Before confirming: PCC—review HIT/heparin allergy, DIC and thrombosis risk; protamine—prior reaction/risk and resuscitation readiness; idarucizumab—hypersensitivity. Also verify current local product, restriction and protocol."
+        },
+        {
+          "key": "vkaInr",
+          "label": "Pre-treatment INR band?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "below-1-3",
+              "Below 1.3"
+            ],
+            [
+              "1-3-to-1-9",
+              "1.3–1.9"
+            ],
+            [
+              "2-to-under-4",
+              "2–<4"
+            ],
+            [
+              "4-to-6",
+              "4–6"
+            ],
+            [
+              "over-6",
+              ">6"
+            ]
+          ],
+          "threshold": "Use the pretreatment INR. Spontaneous intracerebral haemorrhage has a separate AHA lower-INR consideration."
+        },
+        {
+          "key": "enoxaparinTiming",
+          "label": "Time since the enoxaparin dose?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "under-8h",
+              "Less than 8 hours"
+            ],
+            [
+              "8-to-under-12h",
+              "8 to under 12 hours"
+            ],
+            [
+              "12h-or-more",
+              "12 hours or more"
+            ]
+          ],
+          "threshold": "Protamine only partially reverses enoxaparin. The exact enoxaparin dose must also be known."
+        },
+        {
+          "key": "postActionCourse",
+          "label": "Course after the first action?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "controlled",
+              "Bleeding controlled; no rebleed"
+            ],
+            [
+              "ongoing-or-rebleed",
+              "Ongoing bleeding / rebleed"
+            ],
+            [
+              "worsening-or-new-emergency",
+              "Worsening / new emergency feature"
+            ]
+          ],
+          "threshold": "Current deterioration overrides an earlier improvement or completed initial regimen."
+        },
+        {
+          "key": "restartReview",
+          "label": "Restart decision review complete?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "not-ready",
+              "Not ready — hemostasis/source plan incomplete"
+            ],
+            [
+              "individualized-review-recorded",
+              "Indication, thrombotic risk, rebleed risk and patient goals reviewed"
+            ]
+          ],
+          "threshold": "This records a review only. It does not select an anticoagulant, dose, bridge or restart time."
+        }
+      ],
+      "hasVisibleFieldKeys": true,
+      "stages": [
+        {
+          "id": "stabilize",
+          "title": "Current safety"
+        },
+        {
+          "id": "classify",
+          "title": "Bleed and agent"
+        },
+        {
+          "id": "control",
+          "title": "Source control"
+        },
+        {
+          "id": "reverse",
+          "title": "Reversal review"
+        },
+        {
+          "id": "reassess",
+          "title": "Response / rebleed"
+        },
+        {
+          "id": "restart",
+          "title": "Later decision review"
+        }
+      ],
+      "conflictActionIds": [
+        "nonmajor-emergency-contradiction"
+      ],
+      "quickReference": {
+        "summary": "Stabilize, classify severity/site and exact exposure, control the source, then review any reversal and later restart decision separately.",
+        "recognition": [
+          "Major bleeding: critical site, haemodynamic instability, haemoglobin fall ≥2 g/dL, or ≥2 RBC units.",
+          "Exact agent, dose, last time and clearance context determine whether a residual effect is plausible."
+        ],
+        "redFlags": [
+          "Airway/ABC compromise, shock, ongoing major blood loss, impaired consciousness or focal neurology.",
+          "Intracranial haemorrhage, spinal/neurocritical bleeding and acute GI bleeding require source-specific routes; do not use a generic card without the setting."
+        ],
+        "steps": [
+          {
+            "role": "Stabilize",
+            "text": "Support ABCs and control the bleeding source in parallel."
+          },
+          {
+            "role": "Reconcile",
+            "text": "Confirm exact anticoagulant, dose, last time, clearance and whether any reversal was already given."
+          },
+          {
+            "role": "Reassess",
+            "text": "Ongoing bleeding/rebleed needs a new specialist review; a later restart decision is individualized."
+          }
+        ],
+        "monitoring": [
+          "Reassess haemodynamics, bleeding, haemoglobin/testing and source-control findings at a defined review point.",
+          "Monitor for thrombosis after reversal; do not infer a restart agent, dose or time from this guide."
+        ],
+        "sources": [
+          {
+            "label": "ACC anticoagulant-related bleeding pathway (2020)",
+            "url": "https://cvquality.acc.org/docs/default-source/initiatives/reduce-the-risk-pci-bleed/2020-acc-expert-consensus-decision-pathway-on-management-of-bleeding-in-patients-on-oral-anticoagulants.pdf"
+          },
+          {
+            "label": "AHA/ASA spontaneous ICH guideline (2022)",
+            "url": "https://www.heart.org/en/-/media/CPR2-Files/Private/2022-Guideline-for-the-Management-of-Patients-With-Spontaneous-Intracerebral-Hemorrhage-1.pdf"
+          },
+          {
+            "label": "ACG/CAG acute gastrointestinal bleeding guideline (2022)",
+            "url": "https://gi.org/wp-content/uploads/2022/03/ACG-CAG-Guideline.pdf"
+          },
+          {
+            "label": "KCENTRA prescribing information (DailyMed)",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=eee1afb8-324c-42e4-8bf0-f0c9da5e6d42"
+          },
+          {
+            "label": "PRAXBIND prescribing information (DailyMed)",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c7400f8a-dcf4-a6df-6d07-983081b1bf34"
+          },
+          {
+            "label": "Protamine sulfate prescribing information (DailyMed)",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=c76876da-b9a8-45d0-9278-7df3288d3a06"
+          },
+          {
+            "label": "Enoxaparin prescribing information (DailyMed)",
+            "url": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=31e7c4d0-ba45-4b20-8e25-2d12892372e5"
+          },
+          {
+            "label": "FDA safety communication: Andexxa (December 2025)",
+            "url": "https://www.fda.gov/safety/medical-product-safety-information/update-safety-andexxa-astrazeneca-fda-safety-communication"
+          },
+          {
+            "label": "NTUH product identity: Beriplex P/N 500 for Injection, (factor II 400-960 IU, factor VII 200-500 IU, factor IX 400-620 IU, factor × 440-1200 IU, protein C 300-900 IU, total protein 120-280 mg)/vial (BER1EB25; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=BER1EB25",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          },
+          {
+            "label": "NTUH product identity: Katimin-1 Injection 10 mg/1 mL/amp (KAT1EB04; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=KAT1EB04",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          },
+          {
+            "label": "NTUH product identity: Praxbind Solution for Injection/Infusion 2.5 g/50 mL/vial, 2 vials/box (PRA1QB42; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PRA1QB42",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          },
+          {
+            "label": "NTUH product identity: Protaminsulfat Solution for Injection and Infusion, 50 mg/5 mL/amp (PRF1QB08; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PRF1QB08",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          }
+        ]
+      },
+      "sourceMetadata": {
+        "reviewedAt": "2026-09-19",
+        "sourceReview": "Focused source review; see per-guide scope."
+      },
+      "engine": {
+        "module": "../shared/anticoagulant-bleeding-engine.mjs",
+        "sourcePath": "portal/static/js/management-guides/anticoagulant-bleeding-engine.mjs",
+        "sha256": "d01c5d6b15f8c6919793ae12345d4e174aa5527a540a00bcd5c2a3fc65cef234",
+        "files": [
+          {
+            "path": "shared/anticoagulant-bleeding-engine.mjs",
+            "sourcePath": "portal/static/js/management-guides/anticoagulant-bleeding-engine.mjs",
+            "sha256": "d01c5d6b15f8c6919793ae12345d4e174aa5527a540a00bcd5c2a3fc65cef234",
             "rewritten": false
           }
         ]
@@ -16204,6 +17880,393 @@
             "path": "shared/heart-failure-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/heart-failure-engine.mjs",
             "sha256": "8d92910482461a54d846d45b925d8a4dc9e6fcd365543e656660b2fb9c6a387e",
+            "rewritten": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "hypertensive-emergency",
+      "title": "Severely Elevated Blood Pressure",
+      "reviewedAt": "2026-09-19",
+      "reviewLabel": "Upgraded guide · focused source review",
+      "reviewState": "source-reviewed-local-regimen-review-pending",
+      "reviewNotice": "Acute organ injury determines the emergency route.",
+      "guideVersion": "Focused adult source review 2026-09-19",
+      "resourceNotice": "Internal hospital resource tables are omitted from this shared edition.",
+      "resourceCaution": null,
+      "scope": "Adult acute-care severe BP entry: accurate repeat measurement, new/worsening target-organ-damage distinction, independent urgent signals, condition-specific exception routing, and separated initial-versus-response review.",
+      "reviewLimitations": [
+        "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
+        "This is not a BP calculator, diagnosis, patient chart, medication-administration record, prescription, order set, infusion protocol, target authorization, or discharge decision.",
+        "All findings default to unknown. The guide never treats a missing repeat BP, missing acute-organ assessment, unentered emergency priority, unclassified exception, unverified prior treatment or absent response as a negative finding.",
+        "Aortic disease, acute stroke/ICH, pregnancy/postpartum severe hypertension, acute coronary syndrome and pulmonary oedema require condition-specific evaluation and targets. The general nonstroke/nonpregnant target is deliberately withheld until no compelling exception is identified.",
+        "Only the eligible general emergency route can show the source Table 26 nicardipine or labetalol regimen after immediate emergency priority is explicitly absent and its strategy, safety and prior-exposure gates are complete. No preparation, line, combination, exception-route regimen, orderability or administration record is generated.",
+        "Exact product identity, current availability, regimen alignment, patient suitability and authorization remain separate checks."
+      ],
+      "sources": [
+        {
+          "label": "AHA scientific statement: elevated BP in acute care (2024)",
+          "url": "https://www.ahajournals.org/doi/10.1161/HYP.0000000000000238"
+        },
+        {
+          "label": "2025 ACC/AHA high blood pressure guideline",
+          "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001356"
+        },
+        {
+          "label": "2024 ESC elevated BP and hypertension guideline",
+          "url": "https://academic.oup.com/eurheartj/article/45/38/3912/7741010"
+        },
+        {
+          "label": "NTUH product identity: Perdipine Injection 10 mg/10 mL/amp (PER1DE10; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PER1DE10",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        },
+        {
+          "label": "NTUH product identity: Trandate Injection 25 mg/5 mL/amp (TRA1DB18; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=TRA1DB18",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        }
+      ],
+      "entry": {
+        "kind": "derived-criteria",
+        "title": "Confirm BP and acute organ injury",
+        "scope": "Entry, current danger and treatment response are separate findings. Unknown remains unconfirmed."
+      },
+      "fields": [
+        {
+          "key": "reviewPhase",
+          "label": "Review point?",
+          "options": [
+            [
+              "unknown",
+              "Not established"
+            ],
+            [
+              "initial-assessment",
+              "Initial assessment / initial plan"
+            ],
+            [
+              "after-initial-bp-action",
+              "After an initial BP action · review response"
+            ]
+          ],
+          "threshold": "Initial action and response are separate. Unknown does not restart treatment."
+        },
+        {
+          "key": "repeatBp",
+          "label": "Accurate repeat BP?",
+          "options": [
+            [
+              "unknown",
+              "Not confirmed"
+            ],
+            [
+              "severe-confirmed",
+              "Repeat remains in the severe range"
+            ],
+            [
+              "not-severe-confirmed",
+              "Repeat is below the severe range"
+            ]
+          ],
+          "threshold": "Repeat with correct cuff and position. ACC/AHA 2025: >180 systolic and/or >120 diastolic; the number alone does not establish emergency.",
+          "help": "Record measured systolic/diastolic values and time separately. Pain, distress, acute illness and measurement technique can alter the reading."
+        },
+        {
+          "key": "acuteTargetOrganDamage",
+          "label": "New or worsening acute target-organ damage?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed / unconfirmed"
+            ],
+            [
+              "present",
+              "Present"
+            ],
+            [
+              "absent",
+              "Absent · assessed"
+            ]
+          ],
+          "threshold": "Assess new/worsening brain, heart/lung, aortic, kidney or retinal/microvascular injury. Chronic findings alone do not establish emergency.",
+          "help": "Examples include hypertensive encephalopathy, intracranial haemorrhage or acute ischaemic stroke, acute coronary syndrome, acute pulmonary oedema/heart failure, acute aortic syndrome, acute kidney injury, retinal haemorrhage/papilloedema or microangiopathy. Pregnancy-related severe hypertension needs its own route."
+        },
+        {
+          "key": "immediateEmergencyPriority",
+          "label": "Immediate emergency priority?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "yes",
+              "Present"
+            ],
+            [
+              "no",
+              "Absent · assessed"
+            ]
+          ],
+          "threshold": "Independent of phase: ABC compromise, neurologic change, seizure, chest/back pain, collapse or rapid deterioration needs urgent action now."
+        },
+        {
+          "key": "emergencyPattern",
+          "label": "Specific emergency pattern?",
+          "options": [
+            [
+              "unknown",
+              "Not classified"
+            ],
+            [
+              "none-identified",
+              "No specific pattern identified after assessment"
+            ],
+            [
+              "aortic-syndrome",
+              "Acute aortic syndrome / dissection"
+            ],
+            [
+              "acute-stroke-or-ich",
+              "Acute ischaemic stroke or intracranial haemorrhage"
+            ],
+            [
+              "pregnancy-severe-hypertension",
+              "Pregnancy / postpartum severe hypertension or eclampsia concern"
+            ],
+            [
+              "acute-cardiopulmonary",
+              "Acute coronary syndrome or pulmonary oedema / acute heart failure"
+            ],
+            [
+              "other-acute-hmod-no-compelling-exception",
+              "Other acute target-organ damage · no compelling exception identified"
+            ]
+          ],
+          "threshold": "Aortic, stroke/ICH, pregnancy and acute cardiac/pulmonary patterns use condition-specific targets, not the general percentage target."
+        },
+        {
+          "key": "initialStrategy",
+          "label": "Selected eligible initial strategy?",
+          "options": [
+            [
+              "unknown",
+              "Not selected"
+            ],
+            [
+              "nicardipine",
+              "Nicardipine IV"
+            ],
+            [
+              "labetalol",
+              "Labetalol IV"
+            ],
+            [
+              "other-specialist-plan",
+              "Other specialist plan"
+            ]
+          ],
+          "threshold": "Shown only for the eligible nonstroke, nonpregnant general-emergency route. Named exceptions use their own pathway."
+        },
+        {
+          "key": "nicardipineSafety",
+          "label": "Nicardipine safety gate?",
+          "options": [
+            [
+              "unknown",
+              "Not cleared"
+            ],
+            [
+              "eligible",
+              "No advanced aortic stenosis identified"
+            ],
+            [
+              "advanced-aortic-stenosis",
+              "Advanced aortic stenosis present / concern"
+            ]
+          ],
+          "threshold": "ACC/AHA 2025 Table 26 lists advanced aortic stenosis as a contraindication."
+        },
+        {
+          "key": "labetalolSafety",
+          "label": "Labetalol safety gate?",
+          "options": [
+            [
+              "unknown",
+              "Not cleared"
+            ],
+            [
+              "eligible",
+              "No listed current concern identified"
+            ],
+            [
+              "reactive-airway-or-obstructive-lung",
+              "Reactive airway / obstructive lung disease"
+            ],
+            [
+              "bradycardia-heart-block-or-decompensated-hf",
+              "Bradycardia, 2nd/3rd-degree block, or decompensated HF"
+            ]
+          ],
+          "threshold": "Do not use with reactive airway/obstructive lung disease; avoid with bradycardia, 2nd/3rd-degree block or decompensated HF."
+        },
+        {
+          "key": "priorBpTreatmentExposure",
+          "label": "Prior BP-agent exposure?",
+          "options": [
+            [
+              "unknown",
+              "Not reconciled"
+            ],
+            [
+              "none-confirmed",
+              "None confirmed"
+            ],
+            [
+              "one-or-more-confirmed",
+              "One or more actions confirmed"
+            ],
+            [
+              "unclear-or-multiple",
+              "Unclear or multiple exposures"
+            ]
+          ],
+          "threshold": "Before an initial regimen or response decision, reconcile agent, route, timing and total exposure. Never repeat a loading/initial sequence automatically."
+        },
+        {
+          "key": "responseState",
+          "label": "Current BP / organ-damage response?",
+          "options": [
+            [
+              "unknown",
+              "Not established"
+            ],
+            [
+              "improving-within-named-plan",
+              "Improving / stable within a named plan"
+            ],
+            [
+              "persistent-or-worsening",
+              "Persistent or worsening BP / organ findings"
+            ],
+            [
+              "excessive-fall-or-hypoperfusion",
+              "Excessive fall or new hypoperfusion concern"
+            ]
+          ],
+          "threshold": "A lower BP alone does not establish recovery. Reassess the organ finding and harm from excessive reduction alongside the measured BP trend."
+        }
+      ],
+      "hasVisibleFieldKeys": true,
+      "stages": [
+        {
+          "id": "confirm",
+          "title": "Confirm BP and acute organ status",
+          "empty": "Confirm a credible repeat BP and whether new or worsening acute target-organ damage is present."
+        },
+        {
+          "id": "urgent",
+          "title": "Immediate safety and exception route",
+          "empty": "Keep immediate emergency features and named condition-specific exceptions visible."
+        },
+        {
+          "id": "route",
+          "title": "Choose the bounded BP route",
+          "empty": "Classify the acute target-organ context before considering a general BP-reduction target."
+        },
+        {
+          "id": "reassess",
+          "title": "Keep initial action and response separate",
+          "empty": "Record whether this is initial planning or a response review, then reconcile actual exposure and current organ status."
+        }
+      ],
+      "conflictActionIds": [
+        "reconcile-organ-damage-with-emergency-pattern",
+        "reconcile-priority-with-emergency-pattern"
+      ],
+      "quickReference": {
+        "summary": "Repeat BP accurately, separate acute target-organ damage from the number, preserve emergency exceptions, and keep initial action distinct from response.",
+        "recognition": [
+          "AHA 2024 distinguishes hypertensive emergency from asymptomatic markedly elevated inpatient BP by new or worsening acute target-organ damage, not BP alone.",
+          "Confirm a credible repeat BP and screen current neurologic, cardiac/pulmonary, aortic, kidney and microvascular findings. Unknown does not establish absence.",
+          "Immediate emergency priority is independent of phase; aortic, stroke/ICH, pregnancy and acute cardiopulmonary patterns need condition-specific targets."
+        ],
+        "redFlags": [
+          "Airway/breathing compromise, altered consciousness, seizure, active focal deficit, collapse, rapidly worsening course or acute chest/back symptoms.",
+          "Suspected acute aortic syndrome, acute stroke/ICH, pregnancy/postpartum severe hypertension/eclampsia concern, acute coronary syndrome or pulmonary oedema.",
+          "Excessive BP fall, new hypoperfusion, persistent/worsening organ findings, unknown treatment exposure or a contradiction between a named emergency pattern and an “absent” organ-damage entry."
+        ],
+        "steps": [
+          {
+            "role": "Confirm",
+            "text": "Repeat BP with credible technique and assess new or worsening acute target-organ damage before classifying the route."
+          },
+          {
+            "role": "Route exceptions",
+            "text": "Aortic disease, stroke/ICH, pregnancy and acute cardiopulmonary patterns bypass the general percentage target and use their own urgent pathway."
+          },
+          {
+            "role": "General emergency",
+            "text": "Only for a confirmed nonstroke, nonpregnant emergency without a compelling exception: ACC/AHA 2025 limits first-hour SBP reduction to no more than 25%, then if stable toward <160/100 mmHg over 2–6 hours in monitored care."
+          },
+          {
+            "role": "Asymptomatic severe BP",
+            "text": "Without acute target-organ damage, do not reflexively lower BP with IV treatment; review measurement, reversible causes, home regimen and follow-up through the treating team."
+          },
+          {
+            "role": "Response",
+            "text": "After any initial action, reconcile actual exposure and the named condition-specific target before judging response or adding treatment."
+          }
+        ],
+        "monitoring": [
+          "For hypertensive emergency, ACC/AHA 2025 recommends ICU admission for continuous BP and target-organ monitoring with consideration of appropriate parenteral therapy.",
+          "Trend BP with timing, current organ findings, perfusion and actual treatment exposure. A lower BP alone does not establish recovery.",
+          "Use urgent condition-specific reassessment for worsening findings or excessive BP reduction; this guide does not select a repeat or second-agent regimen."
+        ],
+        "sources": [
+          {
+            "label": "AHA scientific statement: elevated BP in acute care (2024)",
+            "url": "https://www.ahajournals.org/doi/10.1161/HYP.0000000000000238"
+          },
+          {
+            "label": "2025 ACC/AHA high blood pressure guideline",
+            "url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001356"
+          },
+          {
+            "label": "2024 ESC elevated BP and hypertension guideline",
+            "url": "https://academic.oup.com/eurheartj/article/45/38/3912/7741010"
+          },
+          {
+            "label": "NTUH product identity: Perdipine Injection 10 mg/10 mL/amp (PER1DE10; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PER1DE10",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          },
+          {
+            "label": "NTUH product identity: Trandate Injection 25 mg/5 mL/amp (TRA1DB18; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=TRA1DB18",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          }
+        ]
+      },
+      "sourceMetadata": {
+        "reviewedAt": "2026-09-19",
+        "sourceReview": "Focused primary-source review; see per-guide review scope."
+      },
+      "engine": {
+        "module": "../shared/severe-bp-engine.mjs",
+        "sourcePath": "portal/static/js/management-guides/severe-bp-engine.mjs",
+        "sha256": "685cc29b40e031b924bf16c06ea0829ea6ce4efdad7908d6c0dbfa7c2e37d9d1",
+        "files": [
+          {
+            "path": "shared/severe-bp-engine.mjs",
+            "sourcePath": "portal/static/js/management-guides/severe-bp-engine.mjs",
+            "sha256": "685cc29b40e031b924bf16c06ea0829ea6ce4efdad7908d6c0dbfa7c2e37d9d1",
             "rewritten": false
           }
         ]
@@ -18537,6 +20600,774 @@
             "path": "shared/asthma-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/asthma-engine.mjs",
             "sha256": "83621d80646ca1e50522bf16465e5f18e78c1a904fbbb958e7fe9fe19bd867c8",
+            "rewritten": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "anaphylaxis",
+      "title": "Anaphylaxis",
+      "reviewedAt": "2026-09-17",
+      "reviewLabel": "Upgraded guide · source reviewed",
+      "reviewState": "source-reviewed-local-regimen-review-pending",
+      "reviewNotice": "Adult guide reviewed 17 September 2026. Local products and schedules require separate regimen review.",
+      "guideVersion": "RCUK 2025 special circumstances and 2021 emergency guidance + WAO 2020 + NICE NG258 (May 2026)",
+      "resourceNotice": "Internal hospital resource tables are omitted from this shared edition.",
+      "resourceCaution": null,
+      "scope": "Adult suspected anaphylaxis in a healthcare setting: visible WAO acute-presentation criteria, immediate current-ABC rescue, IM-repeat timing, refractory escalation, and post-resolution observation review.",
+      "reviewLimitations": [
+        "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
+        "No paediatric, peri-operative, obstetric, cardiac-arrest, local emergency-cart, IV-adrenaline, infusion, airway-procedure, product-preparation, or pump protocol is encoded.",
+        "The supervised allergy-challenge exception to the usual observation categories is outside this engine.",
+        "The guide cannot establish diagnosis, resolve product concentration ambiguity, prove administration, prescribe an injector, select an order, or authorize treatment."
+      ],
+      "sources": [
+        {
+          "label": "Resuscitation Council UK special causes guideline (2025)",
+          "url": "https://www.resus.org.uk/print/pdf/node/36442"
+        },
+        {
+          "label": "Resuscitation Council UK emergency treatment of anaphylaxis (2021)",
+          "url": "https://www.resus.org.uk/sites/default/files/2021-05/Emergency%20Treatment%20of%20Anaphylaxis%20May%202021_0.pdf"
+        },
+        {
+          "label": "Resuscitation Council UK ABCDE approach (updated 2024)",
+          "url": "https://www.resus.org.uk/library/abcde-approach"
+        },
+        {
+          "label": "World Allergy Organization Anaphylaxis Guidance (2020)",
+          "url": "https://www.worldallergyorganizationjournal.org/article/S1939-4551%2820%2930375-6/fulltext"
+        },
+        {
+          "label": "NICE NG258 period of observation (2026)",
+          "url": "https://www.nice.org.uk/guidance/ng258/chapter/Period-of-observation"
+        },
+        {
+          "label": "NICE NG258 timing of blood samples (2026)",
+          "url": "https://www.nice.org.uk/guidance/ng258/chapter/Timing-of-blood-samples"
+        },
+        {
+          "label": "NTUH product identity: Adrenalin Injection 1 mg epinephrine/1 mL/amp (ADR1DG02; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=ADR1DG02",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        }
+      ],
+      "entry": {
+        "title": "Does the presentation suggest anaphylaxis?",
+        "scope": "Review acute onset, skin/mucosal findings and airway, breathing or circulation compromise. Skin signs may be absent; urgent treatment must not wait for completed criteria.",
+        "source": {
+          "label": "World Allergy Organization Anaphylaxis Guidance (2020)",
+          "url": "https://www.worldallergyorganizationjournal.org/article/S1939-4551%2820%2930375-6/fulltext"
+        },
+        "fields": [
+          {
+            "key": "acuteOnset",
+            "label": "Acute onset in minutes to several hours?",
+            "options": [
+              [
+                "unknown",
+                "Unknown / not assessed"
+              ],
+              [
+                "yes",
+                "Yes"
+              ],
+              [
+                "no",
+                "No — assessed"
+              ]
+            ],
+            "threshold": "WAO criteria use an acute onset in minutes to several hours. An uncertain timeline does not make current airway, breathing or circulation findings safe."
+          },
+          {
+            "key": "skinMucosal",
+            "label": "Typical skin or mucosal findings?",
+            "options": [
+              [
+                "unknown",
+                "Unknown / not assessed"
+              ],
+              [
+                "present",
+                "Present"
+              ],
+              [
+                "absent",
+                "Absent — assessed"
+              ]
+            ],
+            "threshold": "Typical findings include generalized hives, pruritus/flushing, or swollen lips, tongue or uvula. Skin/mucosal findings may be absent in anaphylaxis."
+          },
+          {
+            "key": "airway",
+            "label": "Laryngeal / airway involvement at acute presentation?",
+            "options": [
+              [
+                "unknown",
+                "Unknown / not assessed"
+              ],
+              [
+                "laryngeal-involvement",
+                "Present — stridor, voice change, or throat/tongue swelling"
+              ],
+              [
+                "not-observed",
+                "Not observed — assessed"
+              ]
+            ],
+            "threshold": "WAO criterion 2 includes acute laryngeal involvement after a known or probable allergen. Any current airway compromise needs emergency assessment without waiting for this presentation-criteria form."
+          },
+          {
+            "key": "breathing",
+            "label": "Bronchospasm or respiratory compromise at acute presentation?",
+            "options": [
+              [
+                "unknown",
+                "Unknown / not assessed"
+              ],
+              [
+                "respiratory-compromise",
+                "Present — wheeze, dyspnoea, hypoxaemia, or bronchospasm"
+              ],
+              [
+                "not-observed",
+                "Not observed — assessed"
+              ]
+            ],
+            "threshold": "Respiratory compromise is a WAO criterion and an RCUK airway/breathing/circulation emergency feature. For isolated lower-respiratory symptoms, complete the visible WAO exception check before criterion 2 is marked met."
+          },
+          {
+            "key": "circulation",
+            "label": "Circulation compromise at acute presentation?",
+            "options": [
+              [
+                "unknown",
+                "Unknown / not assessed"
+              ],
+              [
+                "hypotension-or-collapse",
+                "Hypotension / collapse"
+              ],
+              [
+                "cardiac-arrest",
+                "Cardiac arrest"
+              ],
+              [
+                "not-observed",
+                "Not observed — assessed"
+              ]
+            ],
+            "threshold": "WAO includes reduced blood pressure or collapse. Current cardiac arrest starts the resuscitation algorithm; IM absorption is then unreliable. Current ABC is entered separately after treatment begins."
+          },
+          {
+            "key": "severeGi",
+            "label": "Severe gastrointestinal symptoms?",
+            "options": [
+              [
+                "unknown",
+                "Unknown / not assessed"
+              ],
+              [
+                "present",
+                "Present — severe crampy pain or repetitive vomiting"
+              ],
+              [
+                "absent",
+                "Absent — assessed"
+              ]
+            ],
+            "threshold": "WAO criterion 1 includes severe gastrointestinal symptoms with acute skin/mucosal involvement, especially after a non-food allergen."
+          },
+          {
+            "key": "knownOrProbableAllergen",
+            "label": "Known or highly probable allergen just before onset?",
+            "options": [
+              [
+                "unknown",
+                "Unknown / not assessed"
+              ],
+              [
+                "yes",
+                "Yes"
+              ],
+              [
+                "no",
+                "No — assessed"
+              ]
+            ],
+            "threshold": "WAO criterion 2 uses a known or highly probable allergen with acute laryngeal, respiratory, or circulation compromise. Do not delay rescue while trigger history is incomplete."
+          },
+          {
+            "key": "isolatedLowerRespiratoryException",
+            "label": "Only lower-respiratory symptoms after a common inhalant or perceived food inhalation without ingestion?",
+            "options": [
+              [
+                "unknown",
+                "Unknown / not assessed"
+              ],
+              [
+                "yes",
+                "Yes — WAO criterion 2 lower-respiratory exception"
+              ],
+              [
+                "no",
+                "No — not this isolated lower-respiratory exception"
+              ],
+              [
+                "not-applicable",
+                "Not applicable — laryngeal, circulation, or additional systemic findings"
+              ]
+            ],
+            "threshold": "WAO criterion 2 excludes isolated lower-respiratory symptoms triggered by common inhalant allergens and perceived food “inhalational” reactions without ingestion. If only bronchospasm is entered, unknown does not automatically meet criterion 2; assess this exception while treating any current ABC danger."
+          }
+        ],
+        "kind": "derived-criteria"
+      },
+      "fields": [
+        {
+          "key": "phase",
+          "label": "Review state",
+          "options": [
+            [
+              "unknown",
+              "Not selected"
+            ],
+            [
+              "initial",
+              "Before first IM adrenaline dose — confirmed not yet given"
+            ],
+            [
+              "after-one-im-dose",
+              "After one IM adrenaline dose"
+            ],
+            [
+              "after-two-im-doses",
+              "After two IM adrenaline doses"
+            ],
+            [
+              "resolved-observation",
+              "Symptoms resolved — observation review"
+            ]
+          ],
+          "essential": "Choose a treatment state to keep initial rescue, a timed repeat dose, refractory care and observation separate. Until selected, ABC assessment remains visible and urgent."
+        },
+        {
+          "key": "acuteOnset",
+          "label": "Acute onset in minutes to several hours?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "yes",
+              "Yes"
+            ],
+            [
+              "no",
+              "No — assessed"
+            ]
+          ],
+          "threshold": "WAO criteria use an acute onset in minutes to several hours. An uncertain timeline does not make current airway, breathing or circulation findings safe."
+        },
+        {
+          "key": "skinMucosal",
+          "label": "Typical skin or mucosal findings?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "present",
+              "Present"
+            ],
+            [
+              "absent",
+              "Absent — assessed"
+            ]
+          ],
+          "threshold": "Typical findings include generalized hives, pruritus/flushing, or swollen lips, tongue or uvula. Skin/mucosal findings may be absent in anaphylaxis."
+        },
+        {
+          "key": "airway",
+          "label": "Laryngeal / airway involvement at acute presentation?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "laryngeal-involvement",
+              "Present — stridor, voice change, or throat/tongue swelling"
+            ],
+            [
+              "not-observed",
+              "Not observed — assessed"
+            ]
+          ],
+          "threshold": "WAO criterion 2 includes acute laryngeal involvement after a known or probable allergen. Any current airway compromise needs emergency assessment without waiting for this presentation-criteria form."
+        },
+        {
+          "key": "breathing",
+          "label": "Bronchospasm or respiratory compromise at acute presentation?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "respiratory-compromise",
+              "Present — wheeze, dyspnoea, hypoxaemia, or bronchospasm"
+            ],
+            [
+              "not-observed",
+              "Not observed — assessed"
+            ]
+          ],
+          "threshold": "Respiratory compromise is a WAO criterion and an RCUK airway/breathing/circulation emergency feature. For isolated lower-respiratory symptoms, complete the visible WAO exception check before criterion 2 is marked met."
+        },
+        {
+          "key": "circulation",
+          "label": "Circulation compromise at acute presentation?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "hypotension-or-collapse",
+              "Hypotension / collapse"
+            ],
+            [
+              "cardiac-arrest",
+              "Cardiac arrest"
+            ],
+            [
+              "not-observed",
+              "Not observed — assessed"
+            ]
+          ],
+          "threshold": "WAO includes reduced blood pressure or collapse. Current cardiac arrest starts the resuscitation algorithm; IM absorption is then unreliable. Current ABC is entered separately after treatment begins."
+        },
+        {
+          "key": "currentAirway",
+          "label": "Current laryngeal / airway involvement?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "laryngeal-involvement",
+              "Present — stridor, voice change, or throat/tongue swelling"
+            ],
+            [
+              "not-observed",
+              "Not observed — assessed"
+            ]
+          ],
+          "threshold": "This is a current-response finding after treatment starts. Any present airway compromise needs emergency assessment immediately; unknown is not an absent airway threat."
+        },
+        {
+          "key": "currentBreathing",
+          "label": "Current bronchospasm or respiratory compromise?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "respiratory-compromise",
+              "Present — wheeze, dyspnoea, hypoxaemia, or bronchospasm"
+            ],
+            [
+              "not-observed",
+              "Not observed — assessed"
+            ]
+          ],
+          "threshold": "This is a current-response finding after treatment starts. Any present breathing compromise needs emergency assessment immediately; unknown is not an absent respiratory threat."
+        },
+        {
+          "key": "currentCirculation",
+          "label": "Current circulation compromise?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "hypotension-or-collapse",
+              "Hypotension / collapse"
+            ],
+            [
+              "cardiac-arrest",
+              "Cardiac arrest"
+            ],
+            [
+              "not-observed",
+              "Not observed — assessed"
+            ]
+          ],
+          "threshold": "This is a current-response finding after treatment starts. Cardiac arrest starts the resuscitation algorithm; unknown is not an absent circulation threat."
+        },
+        {
+          "key": "severeGi",
+          "label": "Severe gastrointestinal symptoms?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "present",
+              "Present — severe crampy pain or repetitive vomiting"
+            ],
+            [
+              "absent",
+              "Absent — assessed"
+            ]
+          ],
+          "threshold": "WAO criterion 1 includes severe gastrointestinal symptoms with acute skin/mucosal involvement, especially after a non-food allergen."
+        },
+        {
+          "key": "knownOrProbableAllergen",
+          "label": "Known or highly probable allergen just before onset?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "yes",
+              "Yes"
+            ],
+            [
+              "no",
+              "No — assessed"
+            ]
+          ],
+          "threshold": "WAO criterion 2 uses a known or highly probable allergen with acute laryngeal, respiratory, or circulation compromise. Do not delay rescue while trigger history is incomplete."
+        },
+        {
+          "key": "isolatedLowerRespiratoryException",
+          "label": "Only lower-respiratory symptoms after a common inhalant or perceived food inhalation without ingestion?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "yes",
+              "Yes — WAO criterion 2 lower-respiratory exception"
+            ],
+            [
+              "no",
+              "No — not this isolated lower-respiratory exception"
+            ],
+            [
+              "not-applicable",
+              "Not applicable — laryngeal, circulation, or additional systemic findings"
+            ]
+          ],
+          "threshold": "WAO criterion 2 excludes isolated lower-respiratory symptoms triggered by common inhalant allergens and perceived food “inhalational” reactions without ingestion. If only bronchospasm is entered, unknown does not automatically meet criterion 2; assess this exception while treating any current ABC danger."
+        },
+        {
+          "key": "priorImDoseVerification",
+          "label": "Previous IM dose(s) verified as the adult IM-adrenaline route?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not verified"
+            ],
+            [
+              "confirmed-appropriate",
+              "Confirmed appropriate adult IM adrenaline dose(s)"
+            ],
+            [
+              "given-details-uncertain",
+              "Given, but product, route, dose, or timing is uncertain"
+            ]
+          ],
+          "threshold": "Adult RCUK IM rescue uses 500 micrograms (0.5 mL) from a 1 mg/mL preparation in the anterolateral thigh. Do not treat a product with an unknown concentration or an IV preparation as a verified IM dose."
+        },
+        {
+          "key": "lastImTiming",
+          "label": "Time since the last IM adrenaline dose?",
+          "options": [
+            [
+              "unknown",
+              "Unknown"
+            ],
+            [
+              "under-five-minutes",
+              "Under 5 minutes"
+            ],
+            [
+              "five-minutes-or-more",
+              "5 minutes or more"
+            ]
+          ],
+          "threshold": "RCUK repeats IM adrenaline after 5 minutes if airway, breathing, or circulation problems persist. This is a categorical timing check, not a dose calculator."
+        },
+        {
+          "key": "betaBlocker",
+          "label": "Current beta-blocker exposure?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not reviewed"
+            ],
+            [
+              "yes",
+              "Yes"
+            ],
+            [
+              "no",
+              "No — assessed"
+            ]
+          ],
+          "threshold": "Beta-blocker exposure can affect refractory-treatment review; it does not replace IM adrenaline, IV fluid, or critical-care escalation."
+        },
+        {
+          "key": "symptomsAfterTreatment",
+          "label": "Symptoms fully resolved after treatment?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not confirmed"
+            ],
+            [
+              "all-resolved",
+              "Yes — all symptoms resolved"
+            ],
+            [
+              "persisting-or-recurred",
+              "No — persisting or recurrent symptoms"
+            ]
+          ],
+          "threshold": "Observation timing starts only after resolution. A normal current ABC finding alone does not establish complete symptom resolution."
+        },
+        {
+          "key": "imDoseCourse",
+          "label": "IM-adrenaline treatment course?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not reconciled"
+            ],
+            [
+              "single-dose",
+              "One IM dose"
+            ],
+            [
+              "two-doses",
+              "Two IM doses"
+            ],
+            [
+              "more-than-two-doses",
+              "More than two IM doses"
+            ]
+          ],
+          "threshold": "NICE NG258 uses the number of IM doses in observation risk stratification. The special supervised-allergy-challenge exception is outside this engine."
+        },
+        {
+          "key": "previousBiphasic",
+          "label": "Previous biphasic reaction?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not reviewed"
+            ],
+            [
+              "yes",
+              "Yes"
+            ],
+            [
+              "no",
+              "No — assessed"
+            ]
+          ],
+          "threshold": "NICE NG258 assigns at least 6 hours of observation after resolution when there is a history of biphasic reaction."
+        },
+        {
+          "key": "severeRespiratoryRisk",
+          "label": "Severe asthma or severe respiratory compromise in this reaction?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not reviewed"
+            ],
+            [
+              "yes",
+              "Yes"
+            ],
+            [
+              "no",
+              "No — assessed"
+            ]
+          ],
+          "threshold": "NICE NG258 assigns at least 12 hours after resolution for severe asthma or anaphylaxis involving severe respiratory compromise."
+        },
+        {
+          "key": "ongoingAbsorption",
+          "label": "Continuing allergen absorption possible?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "yes",
+              "Yes — for example, slow-release medicine"
+            ],
+            [
+              "no",
+              "No — assessed"
+            ]
+          ],
+          "threshold": "NICE NG258 assigns at least 12 hours after resolution when continuing absorption is possible."
+        },
+        {
+          "key": "dischargeAccessRisk",
+          "label": "Out-of-hours, unable to respond to deterioration, or difficult emergency access?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "yes",
+              "Yes"
+            ],
+            [
+              "no",
+              "No — assessed"
+            ]
+          ],
+          "threshold": "NICE NG258 assigns at least 12 hours after resolution for these discharge-access risks."
+        },
+        {
+          "key": "fastTrackReadiness",
+          "label": "All 2-hour fast-track conditions confirmed?",
+          "options": [
+            [
+              "unknown",
+              "Unknown / not assessed"
+            ],
+            [
+              "all-confirmed",
+              "Yes — prompt single-dose response, two in-date trained injectors, and supervision"
+            ],
+            [
+              "not-all-confirmed",
+              "No / incomplete"
+            ]
+          ],
+          "threshold": "All required: good response within 5–10 minutes to one IM dose given within 30 minutes of symptom onset; all symptoms resolved; two in-date auto-injectors with knowledge of when/how to use them; adequate adult supervision if needed. A qualified clinician may consider discharge after observation, not automatically."
+        }
+      ],
+      "hasVisibleFieldKeys": true,
+      "stages": [
+        {
+          "id": "confirm",
+          "title": "Entry & ABC",
+          "empty": "Complete the visible entry and ABC assessment."
+        },
+        {
+          "id": "rescue",
+          "title": "Immediate rescue",
+          "empty": "No current rescue branch is established from the entered findings."
+        },
+        {
+          "id": "reassess",
+          "title": "Timed reassessment",
+          "empty": "Record response and actual administration times."
+        },
+        {
+          "id": "observe",
+          "title": "Observation & follow-up",
+          "empty": "Observation begins only after complete symptom resolution."
+        }
+      ],
+      "conflictActionIds": [],
+      "quickReference": {
+        "summary": "Treat airway, breathing, or circulation compromise immediately; separate initial IM rescue, a 5-minute repeat, refractory specialist escalation, and post-resolution observation.",
+        "recognition": [
+          "WAO criteria are met by acute skin/mucosal plus systemic involvement, or acute laryngeal/respiratory/circulation involvement after a known or probable allergen; skin may be absent.",
+          "When clinical assessment suspects adult anaphylaxis, RCUK uses IM adrenaline 500 micrograms from confirmed 1 mg/mL in the anterolateral thigh, with a 5-minute repeat for persistent ABC problems."
+        ],
+        "redFlags": [
+          "Airway/laryngeal involvement, respiratory compromise, hypotension/collapse, altered consciousness, or cardiac arrest.",
+          "Persistent respiratory or circulation symptoms after two appropriate IM doses: refractory anaphylaxis needs immediate critical-care support.",
+          "Any proposed IV adrenaline bolus, product concentration ambiguity, unverified prior dose, persistent/recurrent symptoms, or high-risk observation feature."
+        ],
+        "steps": [
+          {
+            "role": "Entry and emergency response",
+            "text": "Assess acute onset, skin/mucosal features, trigger, and ABC. Do not wait for a completed diagnostic entry to call for help and treat ABC compromise."
+          },
+          {
+            "role": "Initial and repeat IM adrenaline",
+            "text": "Initial adult IM dose is 500 micrograms (0.5 mL from 1 mg/mL) in the anterolateral thigh. If one dose has been given and ABC features persist, repeat after 5 minutes; reconcile actual timing and product."
+          },
+          {
+            "role": "Refractory and recovery",
+            "text": "Persistent respiratory/circulation symptoms after two appropriate IM doses need critical-care, monitored infusion-level care under local protocol. After complete resolution, NICE NG258 observation risk categories guide clinician review."
+          }
+        ],
+        "monitoring": [
+          "Pulse oximetry, non-invasive BP, ECG, ABC trajectory, and exact adrenaline administrations should be monitored/recorded as soon as possible without delaying rescue.",
+          "For suspected adult anaphylaxis, NICE NG258: sample tryptase as soon as possible after emergency treatment starts and again ideally at 1–2 hours, no later than 4 hours from onset; specialist follow-up may need baseline tryptase."
+        ],
+        "sources": [
+          {
+            "label": "Resuscitation Council UK special causes guideline (2025)",
+            "url": "https://www.resus.org.uk/print/pdf/node/36442"
+          },
+          {
+            "label": "Resuscitation Council UK emergency treatment of anaphylaxis (2021)",
+            "url": "https://www.resus.org.uk/sites/default/files/2021-05/Emergency%20Treatment%20of%20Anaphylaxis%20May%202021_0.pdf"
+          },
+          {
+            "label": "Resuscitation Council UK ABCDE approach (updated 2024)",
+            "url": "https://www.resus.org.uk/library/abcde-approach"
+          },
+          {
+            "label": "World Allergy Organization Anaphylaxis Guidance (2020)",
+            "url": "https://www.worldallergyorganizationjournal.org/article/S1939-4551%2820%2930375-6/fulltext"
+          },
+          {
+            "label": "NICE NG258 period of observation (2026)",
+            "url": "https://www.nice.org.uk/guidance/ng258/chapter/Period-of-observation"
+          },
+          {
+            "label": "NICE NG258 timing of blood samples (2026)",
+            "url": "https://www.nice.org.uk/guidance/ng258/chapter/Timing-of-blood-samples"
+          },
+          {
+            "label": "NTUH product identity: Adrenalin Injection 1 mg epinephrine/1 mL/amp (ADR1DG02; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=ADR1DG02",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          }
+        ]
+      },
+      "sourceMetadata": {
+        "reviewedAt": "2026-09-17",
+        "sourceReview": "Adult source-reviewed interactive guide; independent clinician and local regimen validation remain separate."
+      },
+      "engine": {
+        "module": "../shared/anaphylaxis-engine.mjs",
+        "sourcePath": "portal/static/js/management-guides/anaphylaxis-engine.mjs",
+        "sha256": "1d22fd34475f6c62a57614f4fb10b4f4197d0fc7c7486b73f1877cd6a722eea3",
+        "files": [
+          {
+            "path": "shared/anaphylaxis-engine.mjs",
+            "sourcePath": "portal/static/js/management-guides/anaphylaxis-engine.mjs",
+            "sha256": "1d22fd34475f6c62a57614f4fb10b4f4197d0fc7c7486b73f1877cd6a722eea3",
             "rewritten": false
           }
         ]
@@ -21072,6 +23903,583 @@
       }
     },
     {
+      "id": "hypomagnesemia",
+      "title": "Hypomagnesemia",
+      "reviewedAt": "2026-09-15",
+      "reviewLabel": null,
+      "reviewState": "source-reviewed-prototype-vendored",
+      "reviewNotice": null,
+      "guideVersion": "Frozen source review recorded 2026-09-15; see the vendored source-review record.",
+      "resourceNotice": "Internal hospital resource tables are omitted from this shared edition.",
+      "resourceCaution": null,
+      "scope": "Adult hypomagnesaemia triage, route, renal safeguards and reassessment.",
+      "reviewLimitations": [
+        "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
+        "SPS is professional medicines advice, not a national hospital protocol; it expressly directs clinicians to local policy. The UK SmPC is product safety information, not a complete replacement guideline.",
+        "This engine does not calculate a deficit, choose a line, pump, dilution, infusion rate, repeat course or renal-adjusted dose. It does not provide a torsades, cardiac-arrest, pregnancy/eclampsia or paediatric regimen.",
+        "For AKI, CKD stage 4–5, dialysis or transplant, SPS advises specialist input and says there are no published treatment data. For CKD stage 1–3, SPS advises cautious IV use and considering a 25–50% lower initial IV dose; the engine does not calculate that adjustment.",
+        "NTUH’s public formulary lists two distinct magnesium sulfate 10% products, MAG1FA11 (20 mL ampoule) and MGS1FA11 (200 mL bottle); source doses must not be converted into their volume or ampoule count without local pharmacy/protocol review.",
+        "An oral magnesium compound name, compound mass or acid-neutralising capacity does not establish an elemental-magnesium replacement dose or suitability. Check the exact product label and current replacement protocol."
+      ],
+      "sources": [
+        {
+          "label": "NHS SPS Treating acute hypomagnesaemia in adults (published December 2024)",
+          "url": "https://sps.nhs.uk/articles/treating-acute-hypomagnesaemia-in-adults/"
+        },
+        {
+          "label": "UK magnesium sulfate 50% SmPC — product safety and toxicity",
+          "url": "https://www.medicines.org.uk/emc/product/1990/smpc"
+        },
+        {
+          "label": "NTUH product identity: Magnesium Sulfate Injection 10% 20 mL/amp (Mg 0.8 mEq/mL) (MAG1FA11; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=MAG1FA11",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        },
+        {
+          "label": "NTUH product identity: Magnesium Sulfate Injection 10% 200 mL/btl (Mg 0.8 mEq/mL) (MGS1FA11; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=MGS1FA11",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        }
+      ],
+      "entry": {
+        "title": "Measured Mg <0.7 mmol/L; <0.5 is the severe biochemical band.",
+        "scope": "Cardiac or neurologic danger requires assessment even before the result is confirmed.",
+        "kind": "source-scope"
+      },
+      "fields": [
+        {
+          "key": "magnesium",
+          "label": "Magnesium result?",
+          "options": [
+            [
+              "unknown",
+              "Not verified"
+            ],
+            [
+              "mild",
+              "0.5 to <0.7 mmol/L"
+            ],
+            [
+              "severe",
+              "<0.5 mmol/L"
+            ],
+            [
+              "lowUnbanded",
+              "Low result; band not entered"
+            ],
+            [
+              "notLow",
+              "≥0.7 mmol/L / not low"
+            ]
+          ],
+          "help": "SPS defines hypomagnesaemia as serum magnesium below 0.7 mmol/L. Its mild band is 0.5 to 0.7 mmol/L and severe is below 0.5 mmol/L. Use an actual time-linked result; unknown is not normal.",
+          "essential": "Measured Mg <0.7 mmol/L; <0.5 is the severe biochemical band."
+        },
+        {
+          "key": "danger",
+          "label": "Severe neuro / cardiac feature?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "yes",
+              "Present / suspected"
+            ],
+            [
+              "no",
+              "Absent · assessed"
+            ]
+          ],
+          "help": "SPS lists nystagmus, tetany, seizures and cardiac arrhythmias as severe features. A feature can need emergency assessment even if the magnesium result has not yet been verified or does not explain it.",
+          "essential": "Severe features: nystagmus, tetany, seizure or arrhythmia."
+        },
+        {
+          "key": "enteralRoute",
+          "label": "Enteral route usable?",
+          "options": [
+            [
+              "unknown",
+              "Not established"
+            ],
+            [
+              "yes",
+              "Usable"
+            ],
+            [
+              "no",
+              "Unavailable / not absorbed"
+            ]
+          ],
+          "help": "Usable means safe swallowing, a functioning gastrointestinal route and an appropriate formulation. Severe deficit, limited absorption, nil by mouth status or a need for immediate correction can make oral treatment unsuitable."
+        },
+        {
+          "key": "renalRisk",
+          "label": "Kidney risk context?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "yes",
+              "AKI, CKD4–5, dialysis or transplant"
+            ],
+            [
+              "ckd1to3",
+              "CKD1–3 · IV caution"
+            ],
+            [
+              "no",
+              "No kidney risk found"
+            ]
+          ],
+          "help": "SPS advises specialist input before replacement in AKI, CKD stage 4–5, dialysis or transplant. For CKD stage 1–3, use IV magnesium with caution and consider reducing its initial dose by 25–50%; SPS says oral magnesium needs no adjustment. This guide does not calculate an individual renal dose."
+        },
+        {
+          "key": "cause",
+          "label": "Likely loss / contributor?",
+          "options": [
+            [
+              "unknown",
+              "Not established"
+            ],
+            [
+              "gi",
+              "GI loss / limited absorption"
+            ],
+            [
+              "medicine",
+              "Medicine contributor"
+            ],
+            [
+              "renal",
+              "Renal loss / wasting concern"
+            ],
+            [
+              "notFound",
+              "No cause found after review"
+            ]
+          ],
+          "help": "SPS lists low intake, intestinal loss, medicine effects, renal loss and transcellular shift. Medicine contributors include aminoglycosides, loop or thiazide diuretics, proton-pump inhibitors and tacrolimus. This selector does not diagnose renal wasting."
+        },
+        {
+          "key": "associatedElectrolytes",
+          "label": "Low potassium or calcium?",
+          "options": [
+            [
+              "unknown",
+              "Not checked"
+            ],
+            [
+              "yes",
+              "Low potassium and/or calcium"
+            ],
+            [
+              "no",
+              "Neither low · reviewed"
+            ]
+          ],
+          "help": "Hypomagnesaemia often coexists with hypokalaemia and hypocalcaemia. Check and treat documented associated deficits with their own assessment and local protocol; this guide does not select their regimen."
+        }
+      ],
+      "hasVisibleFieldKeys": false,
+      "stages": [
+        {
+          "id": "assess",
+          "title": "Confirm & triage",
+          "empty": "Verify magnesium, urgent features and associated electrolytes."
+        },
+        {
+          "id": "urgent",
+          "title": "Escalate emergency features",
+          "empty": "Escalate documented severe features; assess any unknown urgency."
+        },
+        {
+          "id": "route",
+          "title": "Choose replacement route",
+          "empty": "A route follows verified severity, renal risk and enteral access."
+        },
+        {
+          "id": "cause",
+          "title": "Correct contributors",
+          "empty": "Identify losses and medicine contributors."
+        },
+        {
+          "id": "reassess",
+          "title": "Reassess response",
+          "empty": "Set magnesium, electrolyte and clinical surveillance."
+        }
+      ],
+      "conflictActionIds": [],
+      "quickReference": {
+        "summary": "Confirm the low magnesium result and emergency features, select a route only after renal review, address the cause, then measure response.",
+        "recognition": [
+          "SPS defines hypomagnesaemia as serum magnesium below 0.7 mmol/L; <0.5 mmol/L is its severe band.",
+          "Severe features include nystagmus, tetany, seizures and cardiac arrhythmias.",
+          "Check potassium, calcium and renal function with a documented deficit; unknown findings are not normal findings."
+        ],
+        "redFlags": [
+          "Seizure, tetany, nystagmus, arrhythmia, haemodynamic concern or other active emergency physiology.",
+          "Magnesium <0.5 mmol/L, inability to use the enteral route, persistent GI loss or recurrent unexplained deficit.",
+          "AKI, CKD stage 4–5, dialysis, transplant, uncertain renal clearance or an uncertain emergency feature. In CKD stage 1–3, IV magnesium needs a cautious local dose review."
+        ],
+        "steps": [
+          {
+            "role": "Confirm & triage",
+            "text": "Record the actual serum magnesium, symptoms, potassium, calcium and renal context. Do not infer a normal value or a mild band."
+          },
+          {
+            "role": "Escalate emergency features",
+            "text": "Severe neurologic or cardiac features need monitored emergency assessment; do not wait for routine replacement planning."
+          },
+          {
+            "role": "Choose route",
+            "text": "SPS uses oral replacement for eligible mild deficiency and hospital IV magnesium for severe/symptomatic deficiency or an unavailable enteral route. Verify local product, dilution and monitoring."
+          },
+          {
+            "role": "Correct contributors",
+            "text": "Address GI loss/absorption, medicines, renal-loss context and documented potassium or calcium deficits."
+          },
+          {
+            "role": "Reassess",
+            "text": "After IV magnesium, measure magnesium after each dose; with oral therapy, SPS suggests review at 7 days and again at 1–3 months according to cause."
+          }
+        ],
+        "monitoring": [
+          "During replacement, monitor magnesium, potassium, calcium, renal function and blood pressure; use ECG monitoring for severe symptoms.",
+          "Oral magnesium may be poorly absorbed and cause diarrhoea. Do not turn local antacid/laxative products into an unverified replacement conversion.",
+          "In advanced kidney disease, AKI, dialysis or transplant, obtain a specialist plan rather than applying a generic renal dose."
+        ],
+        "sources": [
+          {
+            "label": "NHS SPS Treating acute hypomagnesaemia in adults (published December 2024)",
+            "url": "https://sps.nhs.uk/articles/treating-acute-hypomagnesaemia-in-adults/"
+          },
+          {
+            "label": "UK magnesium sulfate 50% SmPC — product safety and toxicity",
+            "url": "https://www.medicines.org.uk/emc/product/1990/smpc"
+          },
+          {
+            "label": "NTUH product identity: Magnesium Sulfate Injection 10% 20 mL/amp (Mg 0.8 mEq/mL) (MAG1FA11; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=MAG1FA11",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          },
+          {
+            "label": "NTUH product identity: Magnesium Sulfate Injection 10% 200 mL/btl (Mg 0.8 mEq/mL) (MGS1FA11; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=MGS1FA11",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          }
+        ]
+      },
+      "sourceMetadata": {
+        "prototypeReviewedAt": "2026-09-15",
+        "guideVersion": "Frozen source review recorded 2026-09-15; see the vendored source-review record.",
+        "sourceReview": "Adult hypomagnesaemia triage, route, renal-safeguard and reassessment aid. It is not a local magnesium replacement prescription, protocol, order set or authorization."
+      },
+      "engine": {
+        "module": "../shared/hypomagnesemia-engine.mjs",
+        "sourcePath": "portal/static/js/management-guides/hypomagnesemia-engine.mjs",
+        "sha256": "dbe41009e90e32691b5ad79827fdeaacdaf47407207caab5555fb5ca06d3bfce",
+        "files": [
+          {
+            "path": "shared/hypomagnesemia-engine.mjs",
+            "sourcePath": "portal/static/js/management-guides/hypomagnesemia-engine.mjs",
+            "sha256": "dbe41009e90e32691b5ad79827fdeaacdaf47407207caab5555fb5ca06d3bfce",
+            "rewritten": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "hypermagnesemia",
+      "title": "Hypermagnesemia",
+      "reviewedAt": "2026-09-15",
+      "reviewLabel": "Upgraded guide · hospital-source review",
+      "reviewState": "source-reviewed-hospital-guidance-prototype-vendored",
+      "reviewNotice": "Queensland Health hospital-source guidance and the UK SmPC were recorded in the frozen review. This is not a national-society or local NTUH protocol.",
+      "guideVersion": "Frozen Queensland Health hospital-source review and UK SmPC record, reviewed 2026-09-15.",
+      "resourceNotice": "Internal hospital resource tables are omitted from this shared edition.",
+      "resourceCaution": null,
+      "scope": "Adult hypermagnesaemia toxicity, source control and clearance review.",
+      "reviewLimitations": [
+        "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
+        "There is no current national-society HyperMg guideline used here. Queensland Health is a current state-health source and the UK SmPC is official product information; neither is a local NTUH protocol or a complete critical-care algorithm.",
+        "This engine shows Queensland’s source calcium statement for severe/symptomatic toxicity, but does not translate it into a local ampoule, dilution, line, repeat dose, fluid volume, diuretic regimen or dialysis prescription.",
+        "Fluid-supported excretion and furosemide are conditional on volume tolerance, urine output and renal function. The engine deliberately blocks a reflex fluid/diuretic action for oliguria, severe renal dysfunction, congestion/hypovolaemia or unknown clearance.",
+        "Obstetric magnesium can be intentional for eclampsia/pre-eclampsia. Toxicity still requires emergency support, but the source directs obstetric coordination; this guide does not independently stop or alter maternal therapy.",
+        "Calcium, furosemide and saline product listings establish product identity only, not orderability or a safe regimen."
+      ],
+      "sources": [
+        {
+          "label": "Queensland Health HYPER-electrolyte disturbances — Hypermagnesaemia (updated May 2026)",
+          "url": "https://www.health.qld.gov.au/clinical-practice/guidelines-procedures/medicines/safety/electrolyte-disturbances/hyper"
+        },
+        {
+          "label": "UK magnesium sulfate 50% SmPC — toxicity manifestations and treatment",
+          "url": "https://www.medicines.org.uk/emc/product/1990/smpc"
+        },
+        {
+          "label": "NTUH product identity: Calglon Injection 10% (Ca 0.465 mEq/mL) 10 mL/amp (CAL1FA03; access checked 2026-11-07)",
+          "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=CAL1FA03",
+          "accessedAt": "2026-11-07",
+          "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+        }
+      ],
+      "entry": {
+        "title": "Measured Mg >1.05 mmol/L; >2.5 is the source severe band.",
+        "scope": "Assess breathing, reflexes, ECG and renal clearance; coordinate intentional obstetric magnesium with the obstetric team.",
+        "kind": "source-scope"
+      },
+      "fields": [
+        {
+          "key": "magnesium",
+          "label": "Magnesium result?",
+          "options": [
+            [
+              "unknown",
+              "Not verified"
+            ],
+            [
+              "elevated",
+              ">1.05 to 2.5 mmol/L"
+            ],
+            [
+              "severe",
+              ">2.5 mmol/L"
+            ],
+            [
+              "highUnbanded",
+              "High result; band not entered"
+            ],
+            [
+              "notHigh",
+              "≤1.05 mmol/L / not high"
+            ]
+          ],
+          "help": "Queensland Health calls severe hypermagnesaemia above 2.5 mmol/L. The magnesium-sulfate SmPC notes that manifestations overlap across concentrations; a result alone does not replace assessment of reflexes, breathing, consciousness, blood pressure or ECG.",
+          "essential": "Measured Mg >1.05 mmol/L; >2.5 is the source severe band."
+        },
+        {
+          "key": "toxicity",
+          "label": "Neuro / respiratory toxicity?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "yes",
+              "Present / suspected"
+            ],
+            [
+              "no",
+              "Absent · assessed"
+            ]
+          ],
+          "help": "Concerning findings include loss of deep-tendon reflexes, weakness or paralysis, respiratory depression, reduced consciousness and hypotension. These require emergency assessment; they are not automatically explained by a magnesium value.",
+          "essential": "Toxicity: lost reflexes, weakness/paralysis, respiratory depression, reduced consciousness or hypotension."
+        },
+        {
+          "key": "ecg",
+          "label": "ECG / conduction concern?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "yes",
+              "Present / suspected"
+            ],
+            [
+              "no",
+              "Absent · assessed"
+            ]
+          ],
+          "help": "The SmPC describes bradycardia, conduction/ECG change, arrhythmia and cardiac arrest with magnesium toxicity. A reviewed ECG finding changes urgency; an unknown ECG does not mean a normal ECG."
+        },
+        {
+          "key": "source",
+          "label": "Mg exposure / obstetric therapy?",
+          "options": [
+            [
+              "unknown",
+              "Not established"
+            ],
+            [
+              "obstetric",
+              "Obstetric magnesium therapy"
+            ],
+            [
+              "other",
+              "Supplement, antacid, enema or drug"
+            ],
+            [
+              "none",
+              "No source found after review"
+            ]
+          ],
+          "help": "Queensland Health advises reviewing magnesium-containing antacids, enemas, supplements and medicines. Magnesium can be deliberately used in pregnancy for eclampsia/pre-eclampsia; contact the obstetric team before altering prescribed maternal therapy."
+        },
+        {
+          "key": "renalClearance",
+          "label": "Renal dysfunction / dialysis?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "yes",
+              "Present / receiving dialysis"
+            ],
+            [
+              "no",
+              "No severe dysfunction reviewed"
+            ]
+          ],
+          "help": "Severe renal dysfunction limits magnesium elimination. The SmPC says peritoneal dialysis or haemodialysis rapidly lowers magnesium in this setting; it does not make dialysis an automatic action for every elevated result."
+        },
+        {
+          "key": "volumeUrine",
+          "label": "Volume / urine clearance state?",
+          "options": [
+            [
+              "unknown",
+              "Not assessed"
+            ],
+            [
+              "ready",
+              "Euvolaemic · safe to trial saline"
+            ],
+            [
+              "lowOutput",
+              "After saline · urine <60 mL/hour"
+            ],
+            [
+              "notReady",
+              "Not euvolaemic / unsafe to force"
+            ],
+            [
+              "oliguric",
+              "Oliguria / anuria"
+            ]
+          ],
+          "help": "Queensland Health uses sodium chloride to promote kidney excretion only in an appropriate fluid/urine context, aiming for at least 60 mL/hour. Select “After saline” only when a clinician has assessed volume tolerance and a saline strategy has not achieved that urine target. Fluid overload, hypovolaemia, oliguria and severe renal dysfunction need a separate plan."
+        }
+      ],
+      "hasVisibleFieldKeys": false,
+      "stages": [
+        {
+          "id": "assess",
+          "title": "Confirm & expose risk",
+          "empty": "Verify magnesium, reflexes, breathing, ECG and renal context."
+        },
+        {
+          "id": "stabilize",
+          "title": "Stabilize toxicity",
+          "empty": "Escalate documented toxicity; complete any unknown assessment."
+        },
+        {
+          "id": "source",
+          "title": "Stop the source safely",
+          "empty": "Clarify whether magnesium exposure is ongoing or obstetric."
+        },
+        {
+          "id": "clear",
+          "title": "Lower magnesium safely",
+          "empty": "Renal clearance strategy follows volume and urine assessment."
+        },
+        {
+          "id": "monitor",
+          "title": "Monitor & escalate",
+          "empty": "Set serial clinical and laboratory review from the trajectory."
+        }
+      ],
+      "conflictActionIds": [],
+      "quickReference": {
+        "summary": "Confirm the high magnesium and toxicity, stabilize respiratory/cardiac risk, stop the source safely, then select clearance only after renal and volume review.",
+        "recognition": [
+          "Queensland Health defines severe hypermagnesaemia as >2.5 mmol/L; clinical toxicity and trend remain decisive.",
+          "Check reflexes, weakness/paralysis, respiratory state, consciousness, blood pressure, ECG/conduction, calcium, potassium and renal function.",
+          "Review magnesium-containing prescribed, OTC and administered products, including antacids, enemas and supplements."
+        ],
+        "redFlags": [
+          "Loss of deep-tendon reflexes, respiratory depression, paralysis, reduced consciousness, hypotension, bradycardia, conduction abnormality or arrhythmia.",
+          "Magnesium >2.5 mmol/L, rapidly rising level, oliguria/anuria, severe renal dysfunction or dialysis context.",
+          "Potential obstetric magnesium toxicity: obtain urgent support and coordinate with obstetrics before changing prescribed therapy."
+        ],
+        "steps": [
+          {
+            "role": "Confirm & expose risk",
+            "text": "Verify magnesium and trend, then assess reflexes, breathing, consciousness, ECG and renal context. Unknown is not reassuring."
+          },
+          {
+            "role": "Stabilize toxicity",
+            "text": "For confirmed high magnesium with toxicity, Queensland gives calcium gluconate 2.2 mmol in 0.9% sodium chloride over 5 minutes; repeat if needed. Its effect is immediate but transient and does not remove magnesium."
+          },
+          {
+            "role": "Stop source safely",
+            "text": "Review and hold a non-obstetric magnesium source through the responsible team. In pregnancy/eclampsia context, contact obstetrics before altering prescribed therapy."
+          },
+          {
+            "role": "Lower magnesium safely",
+            "text": "For severe or symptomatic HyperMg, use renal excretion measures only when volume tolerance and urine output are established. Consider a loop only after the source saline/urine strategy; limited clearance may need renal/critical-care discussion."
+          },
+          {
+            "role": "Monitor & escalate",
+            "text": "Trend magnesium, calcium, potassium, renal function, reflexes, respiration and ECG/rhythm. Initial calcium response is not magnesium clearance."
+          }
+        ],
+        "monitoring": [
+          "Set serial magnesium and clinical observation timing to toxicity, kidney function and clearance strategy; do not apply one generic interval to every case.",
+          "Document exposure cessation, urine output, fluid balance, ECG/rhythm, reflexes, respiratory state and changes in consciousness.",
+          "For severe renal dysfunction, the SmPC says peritoneal dialysis or haemodialysis can rapidly lower magnesium, but the decision remains clinician-owned."
+        ],
+        "sources": [
+          {
+            "label": "Queensland Health HYPER-electrolyte disturbances — Hypermagnesaemia (updated May 2026)",
+            "url": "https://www.health.qld.gov.au/clinical-practice/guidelines-procedures/medicines/safety/electrolyte-disturbances/hyper"
+          },
+          {
+            "label": "UK magnesium sulfate 50% SmPC — toxicity manifestations and treatment",
+            "url": "https://www.medicines.org.uk/emc/product/1990/smpc"
+          },
+          {
+            "label": "NTUH product identity: Calglon Injection 10% (Ca 0.465 mEq/mL) 10 mL/amp (CAL1FA03; access checked 2026-11-07)",
+            "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=CAL1FA03",
+            "accessedAt": "2026-11-07",
+            "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+          }
+        ]
+      },
+      "sourceMetadata": {
+        "prototypeReviewedAt": "2026-09-15",
+        "reviewState": "source-reviewed-hospital-guidance",
+        "guideVersion": "Frozen Queensland Health hospital-source review and UK SmPC record, reviewed 2026-09-15.",
+        "sourceReview": "Adult HyperMg toxicity, source-control and clearance-review aid. Queensland Health is hospital-source guidance, not a national-society or local NTUH protocol."
+      },
+      "engine": {
+        "module": "../shared/hypermagnesemia-engine.mjs",
+        "sourcePath": "portal/static/js/management-guides/hypermagnesemia-engine.mjs",
+        "sha256": "d848d881760e2e850d71e55afca02040a5172adb9b2b4f27b521b3a0711eba1c",
+        "files": [
+          {
+            "path": "shared/hypermagnesemia-engine.mjs",
+            "sourcePath": "portal/static/js/management-guides/hypermagnesemia-engine.mjs",
+            "sha256": "d848d881760e2e850d71e55afca02040a5172adb9b2b4f27b521b3a0711eba1c",
+            "rewritten": false
+          }
+        ]
+      }
+    },
+    {
       "id": "hypernatremia",
       "title": "Hypernatremia",
       "reviewedAt": "2026-09-15",
@@ -23141,41 +26549,5 @@
       }
     }
   ],
-  "excludedGuides": [
-    {
-      "id": "status-epilepticus",
-      "title": "Seizure / Status Epilepticus",
-      "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
-    },
-    {
-      "id": "systemic-corticosteroids",
-      "title": "Systemic Corticosteroids",
-      "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
-    },
-    {
-      "id": "anticoagulant-bleeding",
-      "title": "Anticoagulant-Related Bleeding",
-      "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
-    },
-    {
-      "id": "hypertensive-emergency",
-      "title": "Severely Elevated Blood Pressure",
-      "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
-    },
-    {
-      "id": "anaphylaxis",
-      "title": "Anaphylaxis",
-      "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
-    },
-    {
-      "id": "hypomagnesemia",
-      "title": "Hypomagnesemia",
-      "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
-    },
-    {
-      "id": "hypermagnesemia",
-      "title": "Hypermagnesemia",
-      "reason": "This guide includes internal hospital resource context and is omitted from the shared edition pending a portable source review."
-    }
-  ]
+  "excludedGuides": []
 }

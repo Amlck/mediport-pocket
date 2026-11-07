@@ -53,10 +53,9 @@ in each PR. A passing software check does not establish clinical approval.
 
 | PR / branch | Agent | Files mainly touched | Status |
 | --- | --- | --- | --- |
-| [#3](https://github.com/Amlck/mediport-pocket/pull/3) `claude/guide-wording-cleanup` | Claude (author), Codex (restack/review) | Guide wording/UI, browser checks, coordination notes | Rebased onto merged #2; wording fixes and consumer coordination complete; required CI before second merge |
-| [#4](https://github.com/Amlck/mediport-pocket/pull/4) `claude/taita-fluids` | Claude (author), Codex (rebase/review) | Fluid data/aliases, README, release notes, browser checks, coordination notes | Clinical evidence fixes in progress; preserve concurrent alias assertions; merge fourth after #6 |
+| [#4](https://github.com/Amlck/mediport-pocket/pull/4) `claude/taita-fluids` | Claude (author), Codex (rebase/review) | Fluid data/aliases, README, release notes, browser checks, coordination notes | Evidence corrections and combined-build checks complete; preserve alias assertions; refresh onto merged #6 for fourth merge |
 
-| [#6](https://github.com/Amlck/mediport-pocket/pull/6) `claude/restore-remaining-guides` | Claude (author), Codex (sources/review) | Remaining guide sources/wording, access evidence | Restack on fixed #3; verify public-source claims; merge third after checks |
+| [#6](https://github.com/Amlck/mediport-pocket/pull/6) `claude/restore-remaining-guides` | Claude (author), Codex (sources/review) | Remaining guide sources/wording, access evidence | Rebased onto merged #3; 17 dated public identity checks and source-scope regressions pass; required CI before third merge |
 
 ## Decisions
 
@@ -78,11 +77,10 @@ in each PR. A passing software check does not establish clinical approval.
   and their Taita/台大N號/台N search aliases. Its alias assertions are specific
   to that PR; they do not establish a general ban on verified public hospital
   names or codes.
-- **2026-11-07 · Guide proposals (#2, #3, unmerged).** #2 proposes restoring
-  13 guides; #3 is stacked on it for wording/UI cleanup. Their public diffs
-  record wording transformations in `sources.transformations` with original
-  and output hashes. The PRs report unchanged clinical thresholds, doses,
-  branches and sources; review those claims against the final rebased diffs.
+- **2026-11-07 · Guides (#2, #3, merged).** #2 restored 13 guides with urgent
+  outputs visible before phase selection; #3 removed unavailable-resource UI
+  and wording. Public transformations record original and output hashes.
+  #6 restores the final seven with dated public identity-source checks.
 
 ## Open items
 
@@ -94,19 +92,23 @@ in each PR. A passing software check does not establish clinical approval.
   rewrites require source evidence and owner review.
 - New clinical material needs public primary-source links, review dates and
   recorded limitations before release.
-- The NTUH index is still the 2026-08-28 snapshot. A re-scrape needs NTUH
-  access (Codex).
+- The NTUH search index is still the 2026-08-28 snapshot. The separate
+  guide-product identity checks on 2026-11-07 do not refresh that catalog or
+  establish current availability; see [ntuh-guide-source-review.md](ntuh-guide-source-review.md).
 - The Taita proposal (#4) has publicly verified composition, but its precise
   rate/renal/monitoring schedules need identifiable supporting evidence and
   review scope; see the review in #4.
-- #2 emergency/provenance fixes are merged. #3 scopes the delirium limitation
-  and removes unavailable-resource wording; coordinated `Medical` work is ready.
+- #2 emergency/provenance and #3 delirium/fever wording fixes are merged;
+  coordinated `Medical` work is complete.
 
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
 
+- **2026-11-07 · Codex · #6 merge preparation** · #3 merged at `c7fdb6b` after required CI. Restacked #6 onto that main, preserving the reviewed runtime bytes, and retargeted for required CI; third in the owner-requested order.
+
 - **2026-11-07 · Codex · #3 merge preparation** · #2 merged at `551bad7` after checks; restacked #3 onto that main without runtime changes, then retargeted it for required CI. Coordinated `Medical` work is complete; continuing the owner-requested #2 → #3 → #6 → #4 order.
+- **2026-11-07 · Codex · #6 fixes** · Claimed/reviewed the remaining guides and checked 17 anonymous public product identities; removed unsupported absence, stock and preparation implications, preserved prior guide records and added source/hash regressions. Source access is distinct from clinical dosing review. Merge third after #2 → #3, before #4, as the owner requested.
 
 - **2026-11-07 · Codex · #3 fixes** · Claimed/scoped the delirium validation warning and removed unreachable fever resource wording with targeted regressions and matching hashes. Consumer resource-UI coordination is in `Medical`; owner-authorized public merge order is #2 → #3 → #6 → #4.
 
