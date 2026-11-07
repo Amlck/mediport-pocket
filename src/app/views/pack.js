@@ -1,5 +1,5 @@
 import { h, icon, formatDate, note, disclosure } from '../lib/ui.js';
-import { THEMES, CONTRASTS, TEXT_SIZES, appearance } from '../lib/theme.js';
+import { THEMES, CONTRASTS, TEXT_SIZES, OPENINGS, appearance } from '../lib/theme.js';
 import { checkForUpdates } from '../lib/offline.js';
 import { installedRelease } from '../lib/pack-presentation.js';
 import { sourceCard } from '../lib/source.js';
@@ -8,10 +8,11 @@ function row(k, v, mono = false, stacked = false) {
   return h('div', { class: `kvrow ${stacked ? 'stacked' : ''}` }, h('span', { class: 'k' }, k), h('span', { class: `v ${mono ? 'mono' : ''}` }, v));
 }
 
-function appearanceCard() {
+function appearanceCard(ctx) {
   const swatches = h('div', { class: 'swatches', role: 'group', 'aria-label': 'Palette' });
   const contrast = h('div', { class: 'segmented', role: 'group', 'aria-label': 'Contrast' });
   const textSize = h('div', { class: 'segmented', role: 'group', 'aria-label': 'Text size' });
+  const opening = h('div', { class: 'segmented', role: 'group', 'aria-label': 'Opening' });
   const render = () => {
     const pref = appearance.get();
     swatches.replaceChildren(...THEMES.map((t) => h('button', {
@@ -27,13 +28,21 @@ function appearanceCard() {
       type: 'button', 'aria-pressed': String(pref.textSize === size.id),
       onclick: () => { appearance.set({ textSize: size.id }); render(); },
     }, size.label)));
+    opening.replaceChildren(...OPENINGS.map((o) => h('button', {
+      type: 'button', 'aria-pressed': String(pref.opening === o.id), title: o.note,
+      onclick: () => { appearance.set({ opening: o.id }); render(); },
+    }, o.label)));
+    play.disabled = pref.opening === 'off' || !ctx?.playOpening;
   };
+  const play = h('button', { type: 'button', class: 'btn-small', onclick: () => ctx?.playOpening?.() }, 'Play');
   render();
   return h('div', { class: 'card' },
     h('div', { class: 'card-title' }, 'Appearance'),
     h('div', { class: 'seg-row' }, h('span', { class: 'seg-label' }, 'Text size'), textSize),
     h('div', { class: 'mt-8' }, swatches),
     h('div', { class: 'seg-row mt-8' }, h('span', { class: 'seg-label' }, 'Contrast'), contrast),
+    h('div', { class: 'seg-row mt-8' }, h('span', { class: 'seg-label' }, 'Opening'), opening, play),
+    h('p', { class: 'muted mt-6' }, 'The opening plays when Home opens fresh. It never plays when reduce motion is on.'),
     h('p', { class: 'muted mt-6' }, 'Stored on this device only. Severity colors (red, amber, green) never change.'));
 }
 
@@ -110,7 +119,7 @@ export function packView(ctx) {
   const el = h('div', { class: 'page' },
     offlineCard(ctx),
     h('p', { class: 'muted pad-x' }, release.clinicalReviewNotice),
-    appearanceCard(),
+    appearanceCard(ctx),
     release.profile === 'public-share' ? sourceCard(release) : null,
     h('h2', { class: 'section-title' }, 'Contents'),
     h('div', { class: 'kvlist' },

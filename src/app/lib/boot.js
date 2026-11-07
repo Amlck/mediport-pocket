@@ -1,16 +1,18 @@
-// Boot sequence: a short DOM/SVG opening that doubles as the loading screen.
-// Mechanics after the Rhine Lab terminal recreation (typed word, converging
-// rings, stroke-drawn mark, staggered brand lines, typed status,
-// gentle accent settle, defocus out); all text, marks and colours are Mediport's own.
-// The mark is the gate from lib/mark.js: the rings locate it, it draws itself
-// closed, the leaves part, and a trajectory passes THROUGH the gate — wide where
-// it is near (bottom-left, standing on a horizontal base), narrowing to a
-// destination beyond it (top-right). The leaves slide apart across the path
-// (left up-left, right down-right) so the opening is a diagonal channel and the
-// path never overlaps a leaf — no layering to read. The light it drags through
-// tints the right leaf. The orbiting point becomes the destination; it never
-// disappears or hands off to a second shape. It ends on the passage: gate open, trajectory in place,
-// destination lit. The resting icon is the closed-seam gate.
+// Classic opening: a short DOM/SVG/canvas sequence that doubles as the loading
+// screen. One point of light runs the whole sequence: it traces the outline of
+// each letter of MEDIPORT in the app's own typeface (lib/boot-trace.js), and
+// each letter fills once its outline closes; it then drops onto the inner ring
+// and draws it, flies to the destination and becomes the diamond. The spark
+// motif (a hot point dragging a hairline, deterministic sputter, outExpo snaps,
+// fine grain) follows github.com/mexicat/pdoom-video (MIT); all code is our own,
+// and the particle scheme follows that video's sparkParticles idea.
+// The mark is the gate from lib/mark.js: it draws itself closed, the leaves
+// part, and a trajectory passes THROUGH the gate — wide where it is near
+// (bottom-left, standing on a horizontal base), narrowing to a destination
+// beyond it (top-right). The leaves slide apart across the path so the opening
+// is a diagonal channel and the path never overlaps a leaf. The light it drags
+// through tints the right leaf. It ends on the passage: gate open, trajectory in
+// place, destination lit. The resting icon is the closed-seam gate.
 //
 // One rAF timeline paints every frame from real elapsed time (minus any hold
 // waiting for the pack), so a throttled or slow device drops frames instead of
@@ -20,23 +22,28 @@
 
 import { h } from './ui.js';
 import { MARK, leafPolygons, pointsAttr } from './mark.js';
+import { traceWord } from './boot-trace.js';
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const WORD = 'MEDIPORT';
-const LETTER_MS = 90;
 const T = {
-  rings: 400, ringsDrawn: 1400,
-  depart: 1400, located: 2160,       // orbiting point leaves the ring and becomes the star
-  gate: 1300, gateDrawn: 1900,        // leaf outlines stroke on, then fill
-  open: 1900, opened: 2200,           // leaves part to the resting seam
-  beam: 2340, beamEnd: 2920,          // broad path follows the opening, near → far
-  swing: 2020, swung: 2360,           // give the path clearance before it reaches the gate
-  flood: 2520, flooded: 2900,         // the passing light fills the smaller leaf
-  brand: 2350, brandStep: 120,
-  status: 2650, statusStep: 200,
-  settled: 3180,                    // one arrival pulse after the path reaches its tip
-  exit: 3460, exitMs: 260,
+  write: 60, traced: 900, written: 1000, // the point traces each letter, then rests at the end
+  fillMs: 160,                        // each letter fills once its outline closes
+  drop: 1000, dropped: 1180,          // and drops to the ring's start
+  ring: 1180, ringDrawn: 1650,        // drawing the inner ring itself
+  outer: 900, outerIn: 1350,          // outer ring snaps in from below
+  depart: 1650, located: 2300,        // the point flies and becomes the destination
+  gate: 1550, gateDrawn: 2100,        // leaf outlines stroke on, then fill
+  open: 2100, opened: 2330,           // leaves part to the resting seam
+  swing: 2200, swung: 2520,           // give the path clearance before it reaches the gate
+  beam: 2480, beamEnd: 3000,          // broad path follows the opening, near → far
+  flood: 2650, flooded: 3000,         // the passing light fills the smaller leaf
+  brand: 2450, brandStep: 120,
+  status: 2750, statusStep: 200,
+  settled: 3260,                      // one arrival pulse after the path reaches its tip
+  exit: 3540, exitMs: 260,
 };
+const PEN_UP_SPEED = 3;               // hops between outlines run this much faster
 // Mark placement inside the 200-unit scene: 64-grid × SCALE, centred.
 const SCALE = 2.05;
 const OFFSET = (200 - 64 * SCALE) / 2;
@@ -74,6 +81,86 @@ const clamp01 = (value) => Math.min(1, Math.max(0, value));
 const seg = (t, start, end) => clamp01((t - start) / (end - start));
 const easeOut = (p) => 1 - (1 - p) ** 3;
 const easeInOut = (p) => (p < 0.5 ? 4 * p ** 3 : 1 - (-2 * p + 2) ** 3 / 2);
+const outExpo = (p) => (p >= 1 ? 1 : 1 - 2 ** (-10 * p));
+const bezier = (c, p) => { const q = 1 - p; return [0, 1].map((a) => q ** 3 * c[0][a] + 3 * q ** 2 * p * c[1][a] + 3 * q * p ** 2 * c[2][a] + p ** 3 * c[3][a]); };
+// Deterministic noise for sputter and grain: the same frame always looks the same.
+const hash = (n, s) => { const x = Math.sin(n * 127.1 + s * 311.7) * 43758.5453; return x - Math.floor(x); };
+const mixRgb = (a, b, k) => a.map((v, i) => Math.round(v + (b[i] - v) * k));
+const rgba = ([r, g, b], a = 1) => `rgba(${r},${g},${b},${a})`;
+const parseRgb = (value) => (value.match(/[\d.]+/g) || ['8', '145', '178']).slice(0, 3).map(Number);
+
+// Lays outlines and pen-up hops on one clock at constant pen speed (a plotter).
+function schedule(loops) {
+  const at = (s, l) => { const p = s.path.getPointAtLength(l); return [p.x, p.y]; };
+  loops.forEach((s) => {
+    s.len = s.path.getTotalLength();
+    s.path.setAttribute('stroke-dasharray', String(s.len));
+    s.from = at(s, 0);
+  });
+  const hops = loops.slice(1).map((s, i) => Math.hypot(s.from[0] - loops[i].from[0], s.from[1] - loops[i].from[1]));
+  const total = loops.reduce((sum, s) => sum + s.len, 0) + hops.reduce((x, y) => x + y, 0) / PEN_UP_SPEED;
+  const v = total / (T.traced - T.write) || 1;
+  let clock = T.write;
+  loops.forEach((s, i) => {
+    if (i > 0) { s.hopStart = clock; clock += hops[i - 1] / PEN_UP_SPEED / v; }
+    s.start = clock; clock += s.len / v; s.end = clock;
+  });
+  return function pen(t) {
+    for (let i = 0; i < loops.length; i++) {
+      const s = loops[i];
+      if (t < s.start) {
+        if (i === 0) return { p: s.from, down: false };
+        const a = loops[i - 1].from, k = seg(t, s.hopStart, s.start);
+        return { p: [a[0] + (s.from[0] - a[0]) * k, a[1] + (s.from[1] - a[1]) * k], down: false };
+      }
+      if (t <= s.end) return { p: at(s, s.len * seg(t, s.start, s.end)), down: true };
+    }
+    return { p: loops.length ? loops[loops.length - 1].from : [0, 0], down: false };
+  };
+}
+
+// The word as SVG in the app's typeface: per letter a <text> fill, plus outline
+// paths traced from that same rendered font. Sized after mounting (needs the font).
+function buildTracedWord(word) {
+  const cs = getComputedStyle(word);
+  const size = parseFloat(cs.fontSize);
+  const font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+  const probe = document.createElement('canvas').getContext('2d');
+  probe.font = font;
+  const m = probe.measureText('M');
+  const advance = m.width + 0.26 * size;          // .boot-word's letter-spacing
+  const height = Math.round(size * 1.25);
+  const baseline = (height + m.actualBoundingBoxAscent) / 2;
+  // Room for the former caret (.55em + .1em) keeps the letters where they always sat.
+  const width = advance * WORD.length + 0.65 * size;
+  word.setAttribute('viewBox', `0 0 ${width.toFixed(2)} ${height}`);
+  word.setAttribute('width', width.toFixed(2));
+  word.setAttribute('height', String(height));
+  const fills = [...WORD].map((ch, i) => {
+    const text = svg('text', { x: (i * advance).toFixed(2), y: baseline.toFixed(2), class: 'boot-trace-fill' });
+    text.textContent = ch;
+    return text;
+  });
+  const loops = traceWord(WORD, font, advance, baseline, height).map(({ letter, d }) => ({
+    letter, path: svg('path', { d, class: 'boot-trace-line' }),
+  }));
+  word.append(...fills, ...loops.map((l) => l.path));
+  return { fills, loops };
+}
+
+function grainFrames(w, h) {
+  return [0, 1, 2, 3].map((f) => {
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const g = c.getContext('2d'), img = g.createImageData(w, h);
+    for (let i = 0; i < w * h; i++) {
+      const v = Math.round(255 * hash(i, f + 1));
+      img.data[i * 4] = v; img.data[i * 4 + 1] = v; img.data[i * 4 + 2] = v; img.data[i * 4 + 3] = 255;
+    }
+    g.putImageData(img, 0, 0);
+    return c;
+  });
+}
 
 function svg(tag, attrs) {
   const el = document.createElementNS(SVG_NS, tag);
@@ -94,14 +181,13 @@ export function bootAllowed(path) {
  * While the overlay is up it holds focus and the shell behind it is inert.
  */
 export function startBoot({ host, offline }) {
-  const letters = [...WORD].map((ch) => h('span', { class: 'boot-letter' }, ch));
-  const caret = h('span', { class: 'boot-caret' });
-  const word = h('div', { class: 'boot-word', 'aria-hidden': 'true' }, letters, caret);
+  const word = svg('svg', { class: 'boot-word boot-traced', 'aria-hidden': 'true' });
 
   const R_OUTER = 70;
   const R_INNER = 50;
   const outer = svg('circle', { r: R_OUTER, cx: -120, cy: 100, class: 'boot-ring outer', 'stroke-dasharray': 2 * Math.PI * R_OUTER, 'stroke-dashoffset': 2 * Math.PI * R_OUTER });
-  const inner = svg('circle', { r: R_INNER, cx: 320, cy: 100, class: 'boot-ring inner', 'stroke-dasharray': 2 * Math.PI * R_INNER, 'stroke-dashoffset': 2 * Math.PI * R_INNER });
+  // The inner ring is the point's own line: an arc drawn as the point travels it.
+  const inner = svg('path', { d: '', class: 'boot-ring inner' });
   // A rounded square starts as a circle, then sharpens and turns into the diamond.
   // Keep it in scene coordinates throughout, including its final mark-relative position.
   const node = svg('rect', { x: -5, y: -5, width: 10, height: 10, rx: 5, class: 'boot-node' });
@@ -164,11 +250,27 @@ export function startBoot({ host, offline }) {
     class: 'boot', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Mediport Pocket is opening',
     'aria-describedby': 'boot-keys', tabindex: '-1',
   }, word, scene, brand, status, hint, keysHint, announcer);
+  const sparkCanvas = h('canvas', { class: 'boot-spark', 'aria-hidden': 'true' });
+  const grainCanvas = h('canvas', { class: 'boot-grain', 'aria-hidden': 'true' });
+  overlay.append(sparkCanvas, grainCanvas);
   // Everything else in the phone frame is out of reach until the overlay leaves.
   const background = [...host.children].filter((el) => !el.inert);
   background.forEach((el) => { el.inert = true; });
   host.append(overlay);
   overlay.focus({ preventScroll: true });
+
+  const { fills, loops } = buildTracedWord(word);
+  const pen = schedule(loops);
+  const letterEnd = fills.map((_, i) => Math.max(T.write, ...loops.filter((l) => l.letter === i).map((l) => l.end)));
+  const dpr = Math.min(2, window.devicePixelRatio || 1);
+  const W = overlay.clientWidth || 390, H = overlay.clientHeight || 844;
+  sparkCanvas.width = Math.round(W * dpr); sparkCanvas.height = Math.round(H * dpr);
+  grainCanvas.width = W; grainCanvas.height = H;
+  const sg = sparkCanvas.getContext('2d'), gg = grainCanvas.getContext('2d');
+  const grain = grainFrames(Math.ceil(W / 2), Math.ceil(H / 2));
+  const darkQuery = matchMedia('(prefers-color-scheme: dark)');
+  const ringAngle = (t) => -Math.PI / 4 + 2 * Math.PI * easeOut(seg(t, T.ring, T.ringDrawn));
+  const ringPoint = (a) => [100 + R_INNER * Math.cos(a), 100 + R_INNER * Math.sin(a)];
 
   const leafLength = [leftLeaf, rightLeaf].map((leaf) => {
     let length = 160;
@@ -267,31 +369,97 @@ export function startBoot({ host, offline }) {
     return pointsAttr([...base, [hx + nx * wh, hy + ny * wh], [hx - nx * wh, hy - ny * wh]]);
   }
 
-  function paint(now) {
-    // Typed word
-    const typed = Math.min(WORD.length, Math.floor(t / LETTER_MS));
-    letters.forEach((el, i) => { el.style.opacity = i < typed ? '1' : '0'; });
-    caret.style.opacity = t < WORD.length * LETTER_MS + 400 && Math.floor(t / 260) % 2 === 0 ? '1' : '0';
-
-    // Rings converge from off-screen and draw themselves
-    const converge = easeOut(seg(t, T.rings, T.rings + 500));
-    const draw = easeInOut(seg(t, T.rings + 200, T.ringsDrawn));
-    outer.setAttribute('cx', String(-120 + 220 * converge));
-    inner.setAttribute('cx', String(320 - 220 * converge));
-    outer.setAttribute('stroke-dashoffset', String(2 * Math.PI * R_OUTER * (1 - draw)));
-    inner.setAttribute('stroke-dashoffset', String(2 * Math.PI * R_INNER * (1 - draw)));
-    // One persistent point: orbit → curved departure → destination → arrival pulse.
-    // Before departure it follows the inner ring; the rings collapse only once it leaves.
-    const orbit = -Math.PI / 4 - 2 * Math.PI * (1 - easeOut(seg(t, T.rings + 200, T.depart)));
-    // CSS rotates the rings -90° about (100,100), so their cx convergence is vertical here.
-    let point = [100 + R_INNER * Math.cos(orbit),
-      100 - 220 * (1 - converge) + R_INNER * Math.sin(orbit)];
-    if (t >= T.depart) {
-      const p = easeInOut(seg(t, T.depart, T.located)), q = 1 - p;
-      point = [0, 1].map((axis) => q ** 3 * flightControls[0][axis]
-        + 3 * q ** 2 * p * flightControls[1][axis]
-        + 3 * q * p ** 2 * flightControls[2][axis] + p ** 3 * flightControls[3][axis]);
+  // Where the point is at time tb, in canvas pixels, plus whether the pen is down.
+  function headAt(tb, map) {
+    if (tb < T.written) { const { p, down } = pen(tb); return { p: map.word(p), down }; }
+    if (tb < T.dropped) {
+      const p0 = map.word(pen(T.written).p), p3 = map.scene(departure);
+      return { p: bezier([p0, [p0[0] + 10, p0[1] + 18], [p3[0] - 10, p3[1] - 10], p3], easeInOut(seg(tb, T.drop, T.dropped))) };
     }
+    if (tb < T.depart) return { p: map.scene(ringPoint(ringAngle(tb))) };
+    return { p: map.scene(bezier(flightControls, easeInOut(seg(tb, T.depart, T.located)))) };
+  }
+  function rateAt(tb) {
+    if (tb < T.write) return 0;
+    if (tb < T.traced) return pen(tb).down ? 60 : 0;
+    if (tb < T.written) return 15;
+    if (tb < T.ringDrawn) return 40;
+    return tb < T.located - 150 ? 55 : 0;
+  }
+  function paintSpark(t) {
+    sg.setTransform(dpr, 0, 0, dpr, 0, 0);
+    sg.clearRect(0, 0, W, H);
+    const morph = easeInOut(seg(t, T.depart + 100, T.located));
+    const I = clamp01(t / T.write) * (1 - morph) * (0.88 + 0.12 * Math.sin(t * 0.0917) * Math.sin(t * 0.0573));
+    if (I <= 0.001) return;
+    // Screen positions → canvas pixels; k undoes the overlay's exit shrink.
+    const base = overlay.getBoundingClientRect();
+    const k = base.width / overlay.offsetWidth || 1;
+    const toPx = (m) => ([px, py]) => [(m.a * px + m.c * py + m.e - base.left) / k, (m.b * px + m.d * py + m.f - base.top) / k];
+    const map = { word: toPx(word.getScreenCTM()), scene: toPx(scene.getScreenCTM()) };
+    const dark = darkQuery.matches;
+    const accent = parseRgb(getComputedStyle(node).fill);
+    const core = dark ? [255, 255, 255] : mixRgb(accent, [0, 0, 0], 0.25);
+    sg.globalCompositeOperation = dark ? 'lighter' : 'source-over';
+    sg.lineCap = 'round';
+    // Hot tail: the last ~120 ms of travel, thinning and cooling.
+    const N = 12;
+    let prev = headAt(t, map).p;
+    for (let n = 1; n <= N; n++) {
+      const tb = t - n * 10;
+      if (tb < T.write) break;
+      const hd = headAt(tb, map), f = 1 - n / N;
+      const lift = hd.down === false ? 0.3 : 1;
+      sg.strokeStyle = rgba(mixRgb(accent, core, 0.5 * f * f), I * f * f * 0.9 * lift);
+      sg.lineWidth = 0.6 + 2 * f;
+      sg.beginPath(); sg.moveTo(prev[0], prev[1]); sg.lineTo(hd.p[0], hd.p[1]); sg.stroke();
+      prev = hd.p;
+    }
+    // Sputter: born on a fixed 60/s clock, thinned by hash, so any frame is reproducible.
+    const RATE = 60, LIFE = 320, SPEED = 0.075, G = 0.00016;
+    for (let n = Math.floor((t - LIFE) * RATE / 1000); n <= Math.floor(t * RATE / 1000); n++) {
+      const tb = (n * 1000) / RATE, age = t - tb;
+      if (tb > t || tb < 0 || hash(n, 4) * RATE >= rateAt(tb)) continue;
+      const life = LIFE * (0.35 + 0.65 * hash(n, 3));
+      if (age > life) continue;
+      const hp = headAt(tb, map).p, a = hash(n, 1) * Math.PI * 2, sp = SPEED * (0.25 + hash(n, 2) ** 2 * 1.2);
+      const vx = Math.cos(a) * sp, vy = Math.sin(a) * sp - SPEED * 0.3;
+      const pos = (s) => [hp[0] + vx * s, hp[1] + vy * s + 0.5 * G * s * s];
+      const [x0, y0] = pos(Math.max(0, age - 18)), [x1, y1] = pos(age);
+      const kk = 1 - age / life;
+      sg.strokeStyle = rgba(mixRgb(accent, core, kk * kk), Math.min(1, kk * 1.4) * I);
+      sg.lineWidth = 0.6 + kk * 0.8;
+      sg.beginPath(); sg.moveTo(x0, y0); sg.lineTo(x1, y1); sg.stroke();
+    }
+    // Head: soft halo, bright core.
+    const [x, y] = headAt(t, map).p;
+    const halo = sg.createRadialGradient(x, y, 0, x, y, 12);
+    halo.addColorStop(0, rgba(accent, (dark ? 0.55 : 0.32) * I));
+    halo.addColorStop(1, rgba(accent, 0));
+    sg.fillStyle = halo; sg.beginPath(); sg.arc(x, y, 12, 0, Math.PI * 2); sg.fill();
+    sg.fillStyle = rgba(core, I);
+    sg.beginPath(); sg.arc(x, y, 2.3, 0, Math.PI * 2); sg.fill();
+  }
+  function paintGrain(t) {
+    gg.imageSmoothingEnabled = false;
+    gg.drawImage(grain[Math.max(0, Math.floor(t / 42)) % 4], 0, 0, W, H);
+  }
+
+  function paint(now) {
+    // Word: each outline draws with the pen; a letter fills once its last outline closes.
+    loops.forEach((l) => l.path.setAttribute('stroke-dashoffset', String(l.len * (1 - seg(t, l.start, l.end)))));
+    fills.forEach((text, i) => {
+      const fill = easeOut(seg(t, letterEnd[i], letterEnd[i] + T.fillMs));
+      text.style.fillOpacity = String(fill);
+      loops.forEach((l) => { if (l.letter === i) l.path.style.strokeOpacity = String(1 - fill); });
+    });
+
+    // The outer ring snaps in from below (CSS rotates it -90°, so cx moves vertically) and draws itself.
+    const converge = outExpo(seg(t, T.outer, T.outerIn));
+    outer.setAttribute('cx', String(-120 + 220 * converge));
+    outer.setAttribute('stroke-dashoffset', String(2 * Math.PI * R_OUTER * (1 - easeInOut(seg(t, T.outer + 200, T.ringDrawn)))));
+    // The point, once it has flown, is the destination diamond: one identity, no handoff.
+    const point = t >= T.depart ? bezier(flightControls, easeInOut(seg(t, T.depart, T.located))) : departure;
     const morph = easeInOut(seg(t, T.depart + 100, T.located));
     const size = 10 + (DEST_SIZE * SCALE - 10) * morph;
     const pulse = 1 + 0.12 * Math.sin(Math.PI * seg(t, T.beamEnd, T.settled)) ** 2;
@@ -301,13 +469,23 @@ export function startBoot({ host, offline }) {
     node.setAttribute('height', String(size));
     node.setAttribute('rx', String(5 * (1 - morph) + 0.5 * SCALE * morph));
     node.setAttribute('transform', `translate(${point[0]} ${point[1]}) rotate(${45 * morph}) scale(${pulse})`);
-    node.style.opacity = String(easeOut(seg(t, T.rings + 300, T.rings + 480)));
+    node.style.opacity = String(morph);
 
     // Rings collapse into the gate as its two leaves draw themselves closed, then fill
     const collapse = easeInOut(seg(t, T.depart, T.gateDrawn));
     outer.setAttribute('r', String(R_OUTER * (1 - 0.35 * collapse)));
-    inner.setAttribute('r', String(R_INNER * (1 - 0.6 * collapse)));
     outer.style.opacity = inner.style.opacity = String(1 - collapse);
+    // The inner ring: an arc from its start (top-right) to where the point has drawn it.
+    if (t < T.ring) inner.setAttribute('d', '');
+    else {
+      const a1 = ringAngle(t), r = R_INNER * (1 - 0.6 * collapse);
+      const steps = Math.max(2, Math.ceil(((a1 + Math.PI / 4) / (Math.PI * 2)) * 90));
+      const pts = Array.from({ length: steps + 1 }, (_, i) => {
+        const a = -Math.PI / 4 + ((a1 + Math.PI / 4) * i) / steps;
+        return `${(100 + r * Math.cos(a)).toFixed(2)} ${(100 + r * Math.sin(a)).toFixed(2)}`;
+      });
+      inner.setAttribute('d', `M${pts.join(' L')}`);
+    }
     const drawn = easeInOut(seg(t, T.gate, T.gate + 0.7 * (T.gateDrawn - T.gate)));
     const filled = easeOut(seg(t, T.gate + 0.55 * (T.gateDrawn - T.gate), T.gateDrawn));
     [leftLeaf, rightLeaf].forEach((leaf, i) => {
@@ -318,7 +496,7 @@ export function startBoot({ host, offline }) {
 
     // The gate opens: leaves part from touching (shifted inward by seam/2) to the icon's
     // seam, then slide apart across the path for the passage and stay there.
-    const openP = easeOut(seg(t, T.open, T.opened));
+    const openP = outExpo(seg(t, T.open, T.opened));
     const swing = easeInOut(seg(t, T.swing, T.swung));
     const inward = (MARK.seam / 2) * (1 - openP);
     const lx = LEFT_SWING * swing * SWING_DIR[0], ly = LEFT_SWING * swing * SWING_DIR[1];
@@ -375,6 +553,9 @@ export function startBoot({ host, offline }) {
     });
     hint.style.opacity = t > 900 && t < T.exit ? '1' : '0';
 
+    paintSpark(t);
+    paintGrain(t);
+
     // A quiet destination pulse finishes the passage; the page never flashes.
     if (t >= T.exit) {
       if (exitStarted === null) { exitStarted = t; overlay.classList.add('exit'); host.classList.add('boot-reveal'); }
@@ -386,7 +567,8 @@ export function startBoot({ host, offline }) {
     // Hold at the status phase until the pack has loaded; the app renders underneath meanwhile.
     if (heldSince === null && packInfo === null && !skipRequested && now - startTime - heldTotal >= T.status) heldSince = now;
     if (heldSince !== null && packInfo !== null) { heldTotal += now - heldSince; heldSince = null; }
-    t = heldSince !== null ? T.status : now - startTime - heldTotal;
+    // The first frame's timestamp can precede startTime by a few ms; never paint negative time.
+    t = heldSince !== null ? T.status : Math.max(0, now - startTime - heldTotal);
     paint(now);
     if (!done) frame = requestAnimationFrame(tick);
   }

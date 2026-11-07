@@ -1,7 +1,8 @@
 {
   "date": "2026-11-07",
-  "label": "Mediport Pocket · recoverable offline checks",
+  "label": "Mediport Pocket · choose your opening",
   "changes": [
+    "Choose the opening under Installed pack → Appearance → Opening: Cinematic (new rendered temple opening that hands off to Home), Classic (the original drawn opening, now traced by a spark in the app's own font) or Off. Reduce motion always turns the opening off.",
     "Offline registration and update checks now stop with a clear retry message when the browser does not respond. A working downloaded pack stays usable while registration is retried.",
     "Adds the four Taita-series fluids with linked manufacturer instructions, source-check scope and evidence limits; unsupported numerical rate, renal and timed-monitoring defaults are removed.",
     "Adds the last seven management guides: status epilepticus, systemic corticosteroids, anticoagulant-associated bleeding, hypertensive emergency, anaphylaxis, hypomagnesaemia and hypermagnesaemia.",

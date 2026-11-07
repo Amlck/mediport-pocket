@@ -638,10 +638,9 @@ details.part.alk > summary { background: #2f8a5b; }
 .boot { position: absolute; inset: 0; z-index: 20; background: var(--surface); color: var(--ink); display: grid; grid-template-rows: 1fr auto auto 1fr; justify-items: center; align-items: center; padding: calc(var(--safe-t) + 24px) 24px calc(var(--safe-b) + 24px); overflow: hidden; cursor: pointer; user-select: none; -webkit-user-select: none; transition: opacity .26s ease-in, transform .26s ease-in, filter .26s ease-in; }
 .boot.exit { opacity: 0; transform: scale(.96); filter: blur(6px); }
 .boot-word { position: relative; z-index: 1; align-self: end; font-family: var(--mono); font-size: 1.75rem; font-weight: 700; letter-spacing: .26em; display: flex; will-change: transform, opacity; }
-.boot-letter { opacity: 0; }
-.boot-caret { width: .55em; height: 1.05em; margin-left: .1em; background: var(--accent); align-self: center; }
 .boot-scene { width: 184px; height: 184px; }
-.boot-ring { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 100px 100px; }
+.boot-ring { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; }
+.boot-ring.outer { transform: rotate(-90deg); transform-origin: 100px 100px; }
 .boot-ring.inner { stroke: var(--ink-3); stroke-width: 2; }
 .boot-node { fill: var(--accent); opacity: 0; }
 .boot-atmosphere { opacity: 0; }
@@ -659,6 +658,16 @@ details.part.alk > summary { background: #2f8a5b; }
 .boot-status { align-self: start; font-family: var(--mono); font-size: 0.75rem; letter-spacing: .08em; color: var(--ink-3); display: grid; gap: 6px; text-align: center; min-height: 40px; margin-top: 18px; }
 .boot-status-line { min-height: 14px; }
 .boot-status-line.ready { color: var(--accent); }
+/* The word is traced from the rendered font; the fill is that same font. */
+.boot-traced { display: block; overflow: visible; letter-spacing: 0; }
+.boot-trace-fill { fill: var(--ink); fill-opacity: 0; }
+.boot-trace-line { fill: none; stroke: var(--ink); stroke-width: 1.2; stroke-linejoin: round; stroke-linecap: round; }
+.boot-spark, .boot-grain { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; }
+.boot-grain { z-index: 4; opacity: .05; mix-blend-mode: overlay; }
+@media (prefers-color-scheme: dark) {
+  .boot-grain { opacity: .07; }
+  .boot-beam, .boot-node { filter: drop-shadow(0 0 3px var(--accent)); }
+}
 .boot-hint { position: absolute; bottom: calc(var(--safe-b) + 18px); left: 0; right: 0; text-align: center; font-size: 0.75rem; color: var(--ink-3); opacity: 0; transition: opacity .3s; }
 @media (prefers-reduced-motion: reduce) { .boot { display: none; } }
 .boot:focus { outline: none; }
@@ -669,3 +678,19 @@ details.part.alk > summary { background: #2f8a5b; }
 .boot-reveal .screen > * { animation: boot-reveal .28s cubic-bezier(.2, .7, .2, 1) both; }
 .boot-reveal .screen > :nth-child(2) { animation-delay: .05s; }
 .boot-reveal .tabbar { animation: boot-reveal .28s cubic-bezier(.2, .7, .2, 1) .08s both; }
+
+/* Cinematic opening: the rendered clip, then the flat lockup it crossfades into. */
+.cine { position: absolute; inset: 0; z-index: 20; overflow: hidden; cursor: pointer; user-select: none; -webkit-user-select: none; }
+.cine:focus { outline: none; }
+.cine-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.cine-lockup { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform-origin: 0 0; pointer-events: none; }
+.cine-bg { fill: #1e293b; }
+.cine-disc { fill: #243246; }
+.cine-rim { fill: none; stroke: #67e8f9; stroke-width: 4; }
+.cine-rim.soft { stroke-width: 10; opacity: .45; }
+.cine-name { fill: #eef2f6; text-anchor: middle; font-family: -apple-system, "SF Pro Display", "Segoe UI", system-ui, sans-serif; font-weight: 600; font-size: 64px; letter-spacing: 20px; }
+.cine-sub { fill: #7dd3e6; text-anchor: middle; font-family: -apple-system, "SF Pro Text", "Segoe UI", system-ui, sans-serif; font-weight: 500; font-size: 22px; letter-spacing: 9px; }
+.cine-leaf-l { fill: #f3f5f4; }
+.cine-leaf-r { fill: #0891b2; }
+.cine-status { position: absolute; left: 0; right: 0; bottom: calc(var(--safe-b) + 64px); text-align: center; font-family: var(--mono); font-size: 0.75rem; letter-spacing: .08em; color: #94a3b8; pointer-events: none; }
+.cine-hint { color: rgba(226, 232, 240, .7); z-index: 2; }
