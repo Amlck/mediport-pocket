@@ -190,7 +190,7 @@ export function evaluate(input = {}) {
       if (['unknown', 'not-started'].includes(v.causeStatus)) add(
         'delirium-identify-and-treat-causes', 'assess', 'Identify and treat cause(s)',
         'Look for a cause or combination of causes with directed bedside assessment and tests.',
-        'Use observations, examination, medicines, oxygenation, glucose and selectively chosen local investigations. The 106 linked local rows are source material, not a routine delirium panel.',
+        'Use observations, examination, medicines, oxygenation, glucose and selectively chosen investigations. There is no routine delirium panel.',
         {resourceGroup: 'delirium-evaluation'},
       );
       if (v.causeStatus === 'unresolved') add(
@@ -319,7 +319,7 @@ export const config = Object.freeze({
   sources: Object.freeze([nice, mhra]),
   reviewLimitations: Object.freeze([
     'NICE supplies the current ward-screening and short-term-haloperidol principles, not a universal numeric delirium regimen.',
-    'The linked 106 local source rows are retained as product/order identity references. Their headings, raw doses and embedded advice were not treated as current prescribing guidance.',
+    'Local order sets and regimens are separate from this guide and are not current prescribing guidance.',
   ]),
   stages: Object.freeze([
     {id: 'entry', title: 'Current safety'},

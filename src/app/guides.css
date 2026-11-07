@@ -343,48 +343,6 @@
 .guide-page .guide-clinical-reference li strong { color: var(--ink); }
 .guide-page.page > .card { margin-top: 16px; }
 
-.guide-local-folder .guide-folder-date {
-  margin: -3px 0 8px;
-  color: var(--ink-2);
-  font-size: 0.75rem;
-}
-.guide-instruction-review {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: start;
-  gap: 3px 8px;
-  min-width: 0;
-  padding-left: 8px;
-  border-left: 2px solid var(--line);
-  color: var(--ink-2);
-}
-.guide-instruction-review.specific {
-  border-left-color: var(--attention);
-  color: var(--attention);
-}
-.guide-instruction-review > p {
-  min-width: 0;
-  margin: 0;
-  font-size: 0.78125rem;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
-}
-.guide-instruction-review > p strong { font-weight: 700; }
-.guide-instruction-review details.disclosure { min-width: 0; }
-.guide-instruction-review details.disclosure[open] { grid-column: 1 / -1; }
-.guide-instruction-review details.disclosure > summary {
-  min-height: 44px;
-  font-size: 0.75rem;
-  color: var(--accent);
-  white-space: normal;
-}
-.guide-instruction-review details.disclosure .body {
-  padding-top: 2px;
-  font-size: 0.78125rem;
-  color: var(--ink-2);
-  line-height: 1.45;
-  overflow-wrap: anywhere;
-}
 
 .guide-footer.summarybar {
   background: var(--surface);

@@ -453,14 +453,6 @@ table.renal tr.matched td:first-child { color: var(--select); }
 .pocket-share-link { overflow-wrap: anywhere; word-break: break-word; }
 
 /* Local rows (historical) --------------------------------------------------- */
-.lrow { padding: 10px 0; border-top: 1px solid var(--line); display: grid; gap: 5px; }
-.lrow:first-child { border-top: 0; }
-.lrow .name { font-size: 0.875rem; line-height: 1.35; }
-.lrow .instr { font-family: var(--mono); font-size: 0.78125rem; color: var(--ink-2); white-space: pre-wrap; }
-.lrow .meta { display: flex; gap: 6px; flex-wrap: wrap; }
-.lrow .code { font-family: var(--mono); font-size: 0.6875rem; }
-.lrow .ident { font-size: 0.8125rem; color: var(--ink-2); }
-.lrow .review { font-size: 0.8125rem; color: var(--attention); }
 
 /* Sheet ------------------------------------------------------------------- */
 .sheet-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.42); z-index: 20; opacity: 0; transition: opacity .22s; }
