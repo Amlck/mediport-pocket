@@ -418,19 +418,35 @@ export function evaluate(input = {}) {
   return {values, actions, stageNotes: stageNotes(values, actions)};
 }
 
+const NTUH_PUBLIC_PRODUCT_SOURCES = Object.freeze([
+  {
+    "label": "NTUH product identity: Magnesium Sulfate Injection 10% 20 mL/amp (Mg 0.8 mEq/mL) (MAG1FA11; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=MAG1FA11",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  },
+  {
+    "label": "NTUH product identity: Magnesium Sulfate Injection 10% 200 mL/btl (Mg 0.8 mEq/mL) (MGS1FA11; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=MGS1FA11",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  }
+]);
+
 export const config = {
   id: 'hypomagnesemia',
   title: 'Hypomagnesemia',
   reviewedAt: '2026-09-15',
   scope: 'Adult hypomagnesaemia triage, route, renal safeguards and reassessment.',
   reviewLimitations: [
+    "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
     'SPS is professional medicines advice, not a national hospital protocol; it expressly directs clinicians to local policy. The UK SmPC is product safety information, not a complete replacement guideline.',
     'This engine does not calculate a deficit, choose a line, pump, dilution, infusion rate, repeat course or renal-adjusted dose. It does not provide a torsades, cardiac-arrest, pregnancy/eclampsia or paediatric regimen.',
     'For AKI, CKD stage 4–5, dialysis or transplant, SPS advises specialist input and says there are no published treatment data. For CKD stage 1–3, SPS advises cautious IV use and considering a 25–50% lower initial IV dose; the engine does not calculate that adjustment.',
     'NTUH’s public formulary lists two distinct magnesium sulfate 10% products, MAG1FA11 (20 mL ampoule) and MGS1FA11 (200 mL bottle); source doses must not be converted into their volume or ampoule count without local pharmacy/protocol review.',
-    'The local oral MgO and oral magnesium-sulfate entries are antacid/laxative-class product identities. Their label fields, including MgO acid-neutralising capacity, do not establish an elemental-magnesium replacement dose or suitability.',
+    'An oral magnesium compound name, compound mass or acid-neutralising capacity does not establish an elemental-magnesium replacement dose or suitability. Check the exact product label and current replacement protocol.',
   ],
-  sources: [SPS, SMPC],
+  sources: [SPS, SMPC, ...NTUH_PUBLIC_PRODUCT_SOURCES],
   fields,
   stages,
   evaluate,
@@ -458,7 +474,7 @@ export const config = {
       'Oral magnesium may be poorly absorbed and cause diarrhoea. Do not turn local antacid/laxative products into an unverified replacement conversion.',
       'In advanced kidney disease, AKI, dialysis or transplant, obtain a specialist plan rather than applying a generic renal dose.',
     ],
-    sources: [SPS, SMPC],
+    sources: [SPS, SMPC, ...NTUH_PUBLIC_PRODUCT_SOURCES],
   },
 };
 

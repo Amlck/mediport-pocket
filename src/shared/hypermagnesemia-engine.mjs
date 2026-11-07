@@ -390,6 +390,15 @@ export function evaluate(input = {}) {
   return {values, actions, stageNotes: stageNotes(values, actions)};
 }
 
+const NTUH_PUBLIC_PRODUCT_SOURCES = Object.freeze([
+  {
+    "label": "NTUH product identity: Calglon Injection 10% (Ca 0.465 mEq/mL) 10 mL/amp (CAL1FA03; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=CAL1FA03",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  }
+]);
+
 export const config = {
   id: 'hypermagnesemia',
   title: 'Hypermagnesemia',
@@ -397,13 +406,14 @@ export const config = {
   reviewLabel: 'Upgraded · hospital-source review',
   scope: 'Adult hypermagnesaemia toxicity, source control and clearance review.',
   reviewLimitations: [
+    "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
     'There is no current national-society HyperMg guideline used here. Queensland Health is a current state-health source and the UK SmPC is official product information; neither is a local NTUH protocol or a complete critical-care algorithm.',
     'This engine shows Queensland’s source calcium statement for severe/symptomatic toxicity, but does not translate it into a local ampoule, dilution, line, repeat dose, fluid volume, diuretic regimen or dialysis prescription.',
     'Fluid-supported excretion and furosemide are conditional on volume tolerance, urine output and renal function. The engine deliberately blocks a reflex fluid/diuretic action for oliguria, severe renal dysfunction, congestion/hypovolaemia or unknown clearance.',
     'Obstetric magnesium can be intentional for eclampsia/pre-eclampsia. Toxicity still requires emergency support, but the source directs obstetric coordination; this guide does not independently stop or alter maternal therapy.',
     'Calcium, furosemide and saline product listings establish product identity only, not orderability or a safe regimen.',
   ],
-  sources: [QUEENSLAND, SMPC],
+  sources: [QUEENSLAND, SMPC, ...NTUH_PUBLIC_PRODUCT_SOURCES],
   fields,
   stages,
   evaluate,
@@ -431,7 +441,7 @@ export const config = {
       'Document exposure cessation, urine output, fluid balance, ECG/rhythm, reflexes, respiratory state and changes in consciousness.',
       'For severe renal dysfunction, the SmPC says peritoneal dialysis or haemodialysis can rapidly lower magnesium, but the decision remains clinician-owned.',
     ],
-    sources: [QUEENSLAND, SMPC],
+    sources: [QUEENSLAND, SMPC, ...NTUH_PUBLIC_PRODUCT_SOURCES],
   },
 };
 

@@ -748,6 +748,21 @@ export function evaluate(input = {}) {
   });
 }
 
+const NTUH_PUBLIC_PRODUCT_SOURCES = Object.freeze([
+  {
+    "label": "NTUH product identity: Perdipine Injection 10 mg/10 mL/amp (PER1DE10; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PER1DE10",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  },
+  {
+    "label": "NTUH product identity: Trandate Injection 25 mg/5 mL/amp (TRA1DB18; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=TRA1DB18",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  }
+]);
+
 export const config = Object.freeze({
   id: 'hypertensive-emergency',
   title: 'Severely Elevated Blood Pressure',
@@ -755,13 +770,14 @@ export const config = Object.freeze({
   scope: 'Adult acute-care severe BP entry: accurate repeat measurement, new/worsening target-organ-damage distinction, independent urgent signals, condition-specific exception routing, and separated initial-versus-response review.',
   reviewLabel: 'Upgraded · acute-care BP review',
   reviewLimitations: Object.freeze([
+    "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
     'This is not a BP calculator, diagnosis, patient chart, medication-administration record, prescription, order set, infusion protocol, target authorization, or discharge decision.',
     'All findings default to unknown. The guide never treats a missing repeat BP, missing acute-organ assessment, unentered emergency priority, unclassified exception, unverified prior treatment or absent response as a negative finding.',
     'Aortic disease, acute stroke/ICH, pregnancy/postpartum severe hypertension, acute coronary syndrome and pulmonary oedema require condition-specific evaluation and targets. The general nonstroke/nonpregnant target is deliberately withheld until no compelling exception is identified.',
     'Only the eligible general emergency route can show the source Table 26 nicardipine or labetalol regimen after immediate emergency priority is explicitly absent and its strategy, safety and prior-exposure gates are complete. No preparation, line, combination, exception-route regimen, orderability or administration record is generated.',
     'Exact product identity, current availability, regimen alignment, patient suitability and authorization remain separate checks.',
   ]),
-  sources: SEVERE_BP_SOURCES,
+  sources: Object.freeze([...SEVERE_BP_SOURCES, ...NTUH_PUBLIC_PRODUCT_SOURCES]),
   fields: SEVERE_BP_FIELDS,
   stages,
   visibleFieldKeys,
@@ -794,7 +810,7 @@ export const config = Object.freeze({
       'Trend BP with timing, current organ findings, perfusion and actual treatment exposure. A lower BP alone does not establish recovery.',
       'Use urgent condition-specific reassessment for worsening findings or excessive BP reduction; this guide does not select a repeat or second-agent regimen.',
     ]),
-    sources: SEVERE_BP_SOURCES,
+    sources: Object.freeze([...SEVERE_BP_SOURCES, ...NTUH_PUBLIC_PRODUCT_SOURCES]),
   }),
 });
 

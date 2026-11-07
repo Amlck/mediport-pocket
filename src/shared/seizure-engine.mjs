@@ -645,7 +645,7 @@ function addSecondLineActions(actions, values) {
               'seizure-second-line-phenytoin-local-protocol-only',
               'second-line',
               'IV phenytoin: use a current local/expert protocol; no fosphenytoin substitution',
-              'NICE lists IV phenytoin as a second-line option. NTUH’s public formulary (2026-08-28 snapshot) lists injectable phenytoin but no fosphenytoin product; no phenytoin regimen is promoted here.',
+              'NICE lists IV phenytoin as a second-line option. An NTUH public page identifies Aleviatin phenytoin injection; neither that identity nor the dated catalog establishes current availability or absence of an alternative. No phenytoin regimen is promoted here.',
               'ESETT studied fosphenytoin in mg PE. Where only injectable phenytoin is available, do not convert that mg-PE regimen to phenytoin. Confirm cardiac/BP monitoring, preparation, rate, local availability and an accountable protocol.',
               {tone: 'urgent', source: nice, resourceGroup: 'seizure-second-line'},
             ));
@@ -654,7 +654,7 @@ function addSecondLineActions(actions, values) {
               'seizure-second-line-phenytoin-safety-concern',
               'second-line',
               'Phenytoin safety or protocol concern: select an accountable alternative route',
-              'Do not infer that a stored phenytoin row is safe, available, or interchangeable with fosphenytoin.',
+              'A product name alone does not establish safety, current availability or interchangeability with fosphenytoin.',
               'Reconcile the haemodynamic, rhythm/conduction, preparation and local-protocol concern with the emergency/neurology team. This guide does not supply a replacement loading regimen.',
               {tone: 'attention', source: nice, resourceGroup: 'seizure-second-line'},
             ));
@@ -1038,6 +1038,15 @@ export function evaluate(input = {}) {
   });
 }
 
+const NTUH_PUBLIC_PRODUCT_SOURCES = Object.freeze([
+  {
+    "label": "NTUH product identity: Aleviatin Injection 250 mg/5 mL/amp (ALE1JA07; access checked 2026-11-07)",
+    "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=ALE1JA07",
+    "accessedAt": "2026-11-07",
+    "scope": "Product identity and label strength only; not clinical dosing authority or current availability."
+  }
+]);
+
 export const config = Object.freeze({
   id: 'status-epilepticus',
   title: 'Seizure / Status Epilepticus',
@@ -1047,7 +1056,7 @@ export const config = Object.freeze({
   fields: SEIZURE_FIELDS,
   visibleFieldKeys,
   evaluate,
-  sources: SEIZURE_SOURCES,
+  sources: Object.freeze([...SEIZURE_SOURCES, ...NTUH_PUBLIC_PRODUCT_SOURCES]),
   stages: STAGES,
   conflictActionIds: Object.freeze([
     'seizure-reviewpoint-benzodiazepine-exposure-conflict',
@@ -1056,6 +1065,7 @@ export const config = Object.freeze({
     'seizure-active-course-response-conflict',
   ]),
   reviewLimitations: Object.freeze([
+    "NTUH public product pages were checked anonymously on 2026-11-07 for identity and label strength only. The catalog snapshot is dated 2026-08-28; these checks do not establish current stock, absence of an alternative, substitution, preparation, orderability or patient suitability.",
     'The guide is scoped to adult acute convulsive seizure/status review. It does not diagnose epilepsy, psychogenic events, aetiology, nonconvulsive status, post-ictal state or an individual medicine contraindication.',
     'All fields default to unknown. Missing seizure duration, recovery between events, ABC status, glucose, medication exposure, timing, completion or response never establishes a benign seizure, treatment failure, recovery, local availability or permission to repeat treatment.',
     'The first-line numeric references appear only in an explicitly initial active status episode after current danger is assessed absent, no worsening response or second-line activity is entered, and no benzodiazepine exposure is confirmed. IM midazolam also requires its explicit AES weight band. Response and later phases deliberately withhold these references to avoid a stale repeat dose.',
@@ -1086,7 +1096,7 @@ export const config = Object.freeze({
       'ACNS recommends continuous EEG for persistent abnormal mental status after convulsive seizures/status and for monitoring refractory-status therapy.',
       'An order record, selected strategy, timer, infusion order or routine awake EEG does not prove medication completion, seizure control or continuous-EEG availability.',
     ]),
-    sources: SEIZURE_SOURCES,
+    sources: Object.freeze([...SEIZURE_SOURCES, ...NTUH_PUBLIC_PRODUCT_SOURCES]),
   }),
 });
 
