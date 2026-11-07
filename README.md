@@ -58,7 +58,7 @@ calculations are never force-reloaded.
 
 ## What is included
 
-The initial public edition contains 175 drug monographs, 12 management guides,
+The public edition contains 175 drug monographs, 25 management guides,
 clinical calculator workflows and seven POCUS topics. POCUS includes 50 figures,
 five motion clips and five posters with individual credits and reuse licenses.
 
@@ -76,8 +76,10 @@ are checked during the build. Other listings link only to NTUH; a shared name,
 ingredient substring or catalog search match does not establish equivalence.
 
 This public edition omits saved local regimens, internal hospital resource
-tables, four Taita monographs and 20 guides containing captured
-hospital context. Four ECG illustrations without recorded reuse provenance are
+tables, four Taita monographs and seven guides with hospital-specific
+product or stocking context (status epilepticus, systemic corticosteroids,
+anticoagulant bleeding, hypertensive emergency, anaphylaxis, hypomagnesaemia
+and hypermagnesaemia) pending public-source and clinical portability review. Four ECG illustrations without recorded reuse provenance are
 omitted while the text reading workflow remains. Steroid equivalence is
 available without historical local product counts. Ordinary calculator lab
 review remains; the guided numeric lab-to-guide bridge is omitted because its
