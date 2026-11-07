@@ -1,7 +1,8 @@
 {
   "date": "2026-11-07",
-  "label": "Mediport Pocket · 32 guides, Taita fluids and public references",
+  "label": "Mediport Pocket · recoverable offline checks",
   "changes": [
+    "Offline registration and update checks now stop with a clear retry message when the browser does not respond. A working downloaded pack stays usable while registration is retried.",
     "Adds the four Taita-series fluids with linked manufacturer instructions, source-check scope and evidence limits; unsupported numerical rate, renal and timed-monitoring defaults are removed.",
     "Adds the last seven management guides: status epilepticus, systemic corticosteroids, anticoagulant-associated bleeding, hypertensive emergency, anaphylaxis, hypomagnesaemia and hypermagnesaemia.",
     "Public product identity links were checked on 7 November 2026. They do not establish current availability, preparation or dosing suitability; guideline sources and original clinical review dates remain separate.",

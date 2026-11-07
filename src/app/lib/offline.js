@@ -1,12 +1,30 @@
 let registration;
 let emit = () => {};
-let checking = false;
+let updateCheck = null;
+let initialization = null;
+let initializationGeneration = 0;
+let listening = false;
+const watchedWorkers = new WeakSet();
+const watchedRegistrations = new WeakSet();
 let statusGeneration = 0;
 let verifiedActiveWorker = null;
 let verifiedWaitingWorker = null;
-let current = { state: 'checking', version: null, installed: null, downloaded: null,
+let current = { state: 'checking', version: null, installed: null, downloaded: null, retryable: true,
   message: 'Checking downloaded references…', updateAvailable: false, update: null };
 const announce = patch => { current = { ...current, ...patch }; emit(current); };
+// Browser worker APIs can stay pending while a host or storage operation is
+// unreachable. A deadline releases the UI; it does not cancel browser work.
+// Late success may still be useful, but must not replace a newer attempt.
+function bounded(pending, milliseconds, text, onLate) {
+  return new Promise((resolve, reject) => {
+    let expired = false;
+    const timer = setTimeout(() => { expired = true; reject(new Error(text)); }, milliseconds);
+    Promise.resolve(pending).then(value => {
+      if (expired) { Promise.resolve().then(() => onLate?.(value)).catch(() => {}); return; }
+      clearTimeout(timer); resolve(value);
+    }, error => { if (!expired) { clearTimeout(timer); reject(error); } });
+  });
+}
 function identity(status) {
   if (typeof status?.version !== 'string' || !status.version.trim()) return null;
   const notes = status.releaseNotes;
@@ -22,9 +40,10 @@ function message(worker, type) {
   return new Promise((resolve, reject) => {
     if (!worker) return reject(new Error('Offline worker is not active yet.'));
     const channel = new MessageChannel();
-    const timer = setTimeout(() => reject(new Error('Offline check timed out. Reopen while connected.')), type === 'REPAIR' ? 30000 : 15000);
+    const timer = setTimeout(() => { channel.port1.close(); reject(new Error('Offline check timed out. Check your connection and try again.')); }, type === 'REPAIR' ? 30000 : 15000);
     channel.port1.onmessage = event => { clearTimeout(timer); channel.port1.close(); resolve(event.data); };
-    worker.postMessage({ type }, [channel.port2]);
+    try { worker.postMessage({ type }, [channel.port2]); }
+    catch (error) { clearTimeout(timer); channel.port1.close(); reject(error); }
   });
 }
 // The result of the last update check is reported apart from the offline
@@ -33,8 +52,7 @@ function message(worker, type) {
 // `update` is { tone, text } or null (nothing to say beyond the status line).
 const UPDATE_CHECKING = { tone: 'info', text: 'Checking the pack server for a newer version…' };
 const UPDATE_CURRENT = { tone: 'ok', text: 'Up to date. The pack server has no newer version.' };
-const UPDATE_UNREACHABLE = { tone: 'attention', text: 'Update check failed: the pack server could not be reached. Nothing changed on this phone; the installed version is still complete and works offline. Check that this phone can reach the pack server (VPN connected, Mac awake), then try again.' };
-const UPDATE_SLOW = { tone: 'attention', text: 'No answer from the pack server after 10 seconds. The installed version stays in use. Check that this phone can reach the pack server (VPN connected, Mac awake).' };
+const UPDATE_UNREACHABLE = { tone: 'attention', text: 'Update check could not finish. Check your internet connection and try again. The last verified offline status is shown; this check does not change the reference page already open.' };
 const UPDATE_READY = 'A new reference version is downloaded. Close ALL Pocket windows, then reopen Pocket to install it.';
 const UPDATE_DOWNLOADING = 'A new reference version was found. Downloading and verifying it… keep this page open.';
 // The status message is derived from the registration every time, so a refresh
@@ -64,11 +82,12 @@ async function refreshStatus() {
     const result = await message(active, 'STATUS');
     if (generation !== statusGeneration || active !== (navigator.serviceWorker.controller || registration?.active)) return;
     const installed = identity(result);
-    const state = result?.complete === true ? 'ready' : result?.complete === false ? 'incomplete' : 'unavailable';
+    const state = !installed ? 'unavailable' : result?.complete === true ? 'ready' : result?.complete === false ? 'incomplete' : 'unavailable';
     if (installed) verifiedActiveWorker = active;
     announce({ state, installed: installed || current.installed,
       version: installed?.version || current.installed?.version || null,
-      message: result?.complete === undefined ? 'Installed version found; offline completeness was not reported by this older copy.'
+      message: !installed ? 'The offline worker did not report an installed version. Try checking again.'
+        : result?.complete === undefined ? 'Installed version found; offline completeness was not reported by this older copy.'
         : statusMessage(state) });
   } catch (error) {
     if (generation !== statusGeneration) return;
@@ -97,70 +116,119 @@ async function refreshStatus() {
       message: 'Could not verify the downloaded update. Reconnect and check again.' });
   }
 }
-function watch(worker) {
-  if (!worker) return;
+function watch(worker, owner) {
+  if (!worker || watchedWorkers.has(worker)) return;
+  watchedWorkers.add(worker);
   worker.addEventListener('statechange', () => {
+    if (owner !== registration) return;
     if (worker.state === 'installed') {
       refreshStatus();
     }
     if (worker.state === 'redundant') {
       if (current.updateAvailable) refreshStatus();
-      else announce({ message: 'Download did not complete. The installed version remains in use. Reconnect and check again.' });
+      else announce({ state: current.installed ? current.state : 'unavailable', retryable: true,
+        message: current.installed ? 'Download did not complete. The installed version remains in use. Reconnect and check again.'
+          : 'Offline download did not complete. Check your connection and try again.' });
     }
     if (worker.state === 'activated') refreshStatus();
   });
 }
-export async function setupOffline(onState) {
-  emit = onState; emit(current);
-  if (!('serviceWorker' in navigator) || !window.isSecureContext) {
-    announce({ state: 'unavailable', message: 'Offline installation requires HTTPS or a localhost preview.' }); return;
-  }
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    refreshStatus();
-  });
-  window.addEventListener('online', refreshStatus);
-  window.addEventListener('offline', refreshStatus);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshStatus(); });
-  try {
-    registration = await navigator.serviceWorker.register('/sw.js', { scope: '/', updateViaCache: 'none' });
-    registration.addEventListener('updatefound', () => {
+async function useRegistration(next, generation) {
+  if (!next || generation !== initializationGeneration) return;
+  registration = next;
+  if (!watchedRegistrations.has(next)) {
+    watchedRegistrations.add(next);
+    next.addEventListener('updatefound', () => {
+      if (next !== registration) return;
       // An update found while a version is already active: say so, because the
       // download and hash check of the whole pack can take a while on a phone.
       if (registration.active) announce({ message: UPDATE_DOWNLOADING, update: null });
-      watch(registration.installing);
+      watch(next.installing, next);
     });
-    watch(registration.installing);
-    if (registration.active) await refreshStatus();
-    else announce({ state: 'downloading', message: 'Downloading the complete reference pack. Keep this page open.' });
-    if (registration.waiting) await refreshStatus();
-  } catch (error) {
-    if (navigator.serviceWorker.controller) {
-      registration = await navigator.serviceWorker.getRegistration();
-      await refreshStatus();
-    } else announce({ state: 'unavailable', message: 'Offline download unavailable. Reconnect and reopen the app.' });
   }
+  watch(next.installing, next);
+  if (navigator.serviceWorker.controller || next.active || next.waiting) await refreshStatus();
+  else if (next.installing) announce({ state: 'downloading', retryable: true, message: 'Downloading the complete reference pack. Keep this page open.' });
+  else announce({ state: 'unavailable', retryable: true, message: 'No offline installation is running. Check your connection and try again.' });
 }
-export async function checkForUpdates() {
-  if (checking) return;
-  if (!registration) { announce({ message: 'Offline installation is not available yet. Reopen while connected.' }); return; }
-  checking = true;
+function initialize() {
+  if (initialization) return initialization;
+  const generation = ++initializationGeneration;
+  initialization = Promise.resolve().then(async () => {
+    // Registration of an update must not hide an existing controller's status.
+    if (navigator.serviceWorker.controller) refreshStatus();
+    if (!current.installed) announce({ state: 'checking', retryable: true, update: null, message: 'Connecting to offline installation…' });
+    try {
+      const next = await bounded(Promise.resolve().then(() => navigator.serviceWorker.register('/sw.js', { scope: '/', updateViaCache: 'none' })),
+        10000, 'Offline registration did not finish. Check your connection and try again.',
+        late => { if (!registration) return useRegistration(late, generation); });
+      await useRegistration(next, generation);
+    } catch {
+      if (generation !== initializationGeneration) return;
+      announce({ state: current.installed ? current.state : 'unavailable', retryable: true,
+        message: current.installed ? 'Offline registration could not finish. The last verified status is shown. Try checking again.'
+          : 'Offline installation could not finish. Check your internet connection and try again.' });
+      // A registration may already exist even if registering its update failed.
+      try {
+        const existing = await bounded(Promise.resolve().then(() => navigator.serviceWorker.getRegistration()),
+          10000, 'Offline registration lookup did not finish.', late => { if (!registration) return useRegistration(late, generation); });
+        if (existing && !registration) await useRegistration(existing, generation);
+      } catch { /* The explicit retry state above remains available. */ }
+    }
+  }).finally(() => { initialization = null; });
+  return initialization;
+}
+function supported() {
+  if ('serviceWorker' in navigator && window.isSecureContext) return true;
+  announce({ state: 'unavailable', retryable: false, message: 'Offline installation requires a browser with service workers and HTTPS or a localhost preview.' });
+  return false;
+}
+export async function setupOffline(onState) {
+  emit = onState; emit(current);
+  if (!supported()) return;
+  if (!listening) {
+    listening = true;
+    navigator.serviceWorker.addEventListener('controllerchange', refreshStatus);
+    window.addEventListener('online', refreshStatus);
+    window.addEventListener('offline', refreshStatus);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshStatus(); });
+  }
+  if (registration) await refreshStatus();
+  else await initialize();
+}
+async function runUpdateCheck() {
+  if (!supported()) return;
+  if (!registration) await initialize();
+  if (!registration) return;
+  const target = registration;
+  let repairWorker = null;
   announce({ update: UPDATE_CHECKING });
-  // iOS lets an unreachable host hang rather than fail; say so instead of going quiet.
-  const slow = setTimeout(() => announce({ update: UPDATE_SLOW }), 10000);
   try {
-    await registration.update();
-    clearTimeout(slow);
+    await bounded(Promise.resolve().then(() => target.update()), 10000,
+      'Update check did not finish.', () => { if (target === registration) return refreshStatus(); });
     await refreshStatus();
     if (current.state === 'incomplete' && !registration.waiting && !registration.installing) {
+      repairWorker = navigator.serviceWorker.controller || registration.active;
       announce({ state: 'downloading', message: 'Repairing the installed reference download…', update: null });
-      const repaired = await message(navigator.serviceWorker.controller || registration.active, 'REPAIR');
+      const repaired = await message(repairWorker, 'REPAIR');
       await refreshStatus();
       if (!repaired.ok) { announce({ update: { tone: 'attention', text: repaired.message } }); return; }
     }
     // A found update speaks through the status line (downloading / ready).
     announce({ update: registration.installing || registration.waiting ? null : UPDATE_CURRENT });
-  } catch { announce({ update: UPDATE_UNREACHABLE }); }
-  finally { clearTimeout(slow); checking = false; }
+  } catch {
+    if (repairWorker) {
+      // The failed operation describes the worker it started against. A newly
+      // activated controller (or a later verification) has its own evidence.
+      if (repairWorker !== (navigator.serviceWorker.controller || registration?.active)) await refreshStatus();
+      else if (current.state === 'downloading') announce({ state: 'incomplete', message: statusMessage('incomplete') });
+    }
+    announce({ update: UPDATE_UNREACHABLE });
+  }
+}
+export async function checkForUpdates() {
+  if (!updateCheck) updateCheck = Promise.resolve().then(runUpdateCheck).finally(() => { updateCheck = null; });
+  return updateCheck;
 }
 export async function applyUpdate() {
   if (!current.updateAvailable || !registration?.waiting) await checkForUpdates();
