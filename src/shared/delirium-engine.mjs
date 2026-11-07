@@ -319,7 +319,7 @@ export const config = Object.freeze({
   sources: Object.freeze([nice, mhra]),
   reviewLimitations: Object.freeze([
     'NICE supplies the current ward-screening and short-term-haloperidol principles, not a universal numeric delirium regimen.',
-    'Local order sets and regimens are separate from this guide and are not current prescribing guidance.',
+    'This guide has not validated local order sets or regimens. Verify their current source, version and patient-specific suitability separately.',
   ]),
   stages: Object.freeze([
     {id: 'entry', title: 'Current safety'},
