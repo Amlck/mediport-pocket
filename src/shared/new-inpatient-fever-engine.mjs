@@ -424,7 +424,7 @@ function addFocusedEvaluation(actions, values) {
         inIcu ? 'Target the respiratory syndrome' : 'Use local respiratory source evaluation',
         inIcu ? 'ICU: chest radiograph; viral testing only with respiratory syndrome.' : 'Choose specimen, imaging, and isolation from the syndrome.',
         inIcu
-          ? 'SCCM/IDSA recommends chest radiography for fever developing during ICU stay and suggests viral NAAT testing when pneumonia or new upper-respiratory symptoms are suspected. The available local respiratory rows are source references only; choose specimen, assay and imaging from the clinical syndrome and local availability.'
+          ? 'SCCM/IDSA recommends chest radiography for fever developing during ICU stay and suggests viral NAAT testing when pneumonia or new upper-respiratory symptoms are suspected. Choose specimen, assay and imaging from the clinical syndrome and local availability.'
           : 'SCCM/IDSA does not define a ward respiratory bundle. Use local assessment to choose specimen, imaging, infection-control action and test timing; there is no preselected panel.',
         {resourceGroup: 'respiratory'},
       ));
@@ -436,7 +436,7 @@ function addFocusedEvaluation(actions, values) {
         inIcu ? 'Target urinary testing to suspected UTI' : 'Use local urinary source evaluation',
         inIcu ? 'Pyuria plus suspected UTI: replace catheter, then culture the new specimen.' : 'Do not culture urine merely because fever is present.',
         inIcu
-          ? 'For a febrile ICU patient with pyuria and suspected UTI, SCCM/IDSA recommends replacing an indwelling urinary catheter and obtaining culture from the newly placed catheter. It warns that asymptomatic bacteriuria can lead to unnecessary antibiotics. The local urinalysis/culture rows are references, not defaults.'
+          ? 'For a febrile ICU patient with pyuria and suspected UTI, SCCM/IDSA recommends replacing an indwelling urinary catheter and obtaining culture from the newly placed catheter. It warns that asymptomatic bacteriuria can lead to unnecessary antibiotics. Select urinalysis and culture from the suspected urinary source; they are not defaults.'
           : 'The ICU urinary recommendation is not a ward default. Select urinalysis/culture only from urinary symptoms, catheter context, another likely source, and local policy.',
         {resourceGroup: 'urinary'},
       ));
@@ -447,7 +447,7 @@ function addFocusedEvaluation(actions, values) {
         'evaluate',
         'Target enteric testing to the diarrheal syndrome',
         'Do not order the entire stool group.',
-        'The fever guideline’s general rule is source-focused testing after history and examination. The local stool rows contain different culture, toxin, antigen and PCR methods; choose the clinically appropriate assay and infection-control response from the diarrheal syndrome and local policy.',
+        'The fever guideline’s general rule is source-focused testing after history and examination. Culture, toxin, antigen and PCR tests answer different questions; choose the clinically appropriate assay and infection-control response from the diarrheal syndrome and local policy.',
         {resourceGroup: 'diarrhea'},
       ));
       break;

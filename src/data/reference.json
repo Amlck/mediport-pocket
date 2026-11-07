@@ -134,9 +134,9 @@
       },
       {
         "sourcePath": "portal/static/js/management-guides/delirium-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged. Follow-up portability review (2026-11-07): scope the local-protocol validation limitation to this guide and remove remaining unavailable resource-row descriptions; numeric clinical rules and cited sources are unchanged.",
         "originalSha256": "2a3c78d45e2febebfecc6c31c8db7d9240ed907e47e8d722b4732d40cbf27f09",
-        "outputSha256": "95b5c099695f1cefb21ee7e331e3c87ce18799041e1353bbf5f33c7a502b30d9"
+        "outputSha256": "15ae8b10474a80d37577557bc06ab107d03b5e2013216ab4cb5d6fc98f56a3c7"
       },
       {
         "sourcePath": "portal/static/js/management-guides/dka-hhs-engine.mjs",
@@ -212,9 +212,9 @@
       },
       {
         "sourcePath": "portal/static/js/management-guides/new-inpatient-fever-engine.mjs",
-        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged.",
+        "transformation": "Public portability edit (2026-11-07): remove descriptions of the hospital resource library (saved rows, folders, catalog identities, local product strengths), Portal-only tools and internal maintenance notes; clinical recommendations, thresholds and sources are unchanged. Follow-up portability review (2026-11-07): scope the local-protocol validation limitation to this guide and remove remaining unavailable resource-row descriptions; numeric clinical rules and cited sources are unchanged.",
         "originalSha256": "9b34b028c16123794fda8f9a8064682f285a42ebde859dd7eda4c4cf2a2cacdf",
-        "outputSha256": "9a21c16bb521eb91e9223ee83d41c5cc32d79332feb54cc9c048d3bb57531aad"
+        "outputSha256": "eeefb3658be1e8ecf5a6e4f3fb90620181a59ac11a829bba8c744c51cda97919"
       },
       {
         "sourcePath": "portal/static/js/management-guides/sepsis-engine.mjs",
@@ -14334,7 +14334,7 @@
       "scope": "Adult ward/long-term-care delirium recognition, screening, cause review, support, short-term behavioural-safety consideration and reassessment. It is not a diagnosis, emergency-neurology protocol, medication order, dosing protocol or discharge decision.",
       "reviewLimitations": [
         "NICE supplies the current ward-screening and short-term-haloperidol principles, not a universal numeric delirium regimen.",
-        "Local order sets and regimens are separate from this guide and are not current prescribing guidance."
+        "This guide has not validated local order sets or regimens. Verify their current source, version and patient-specific suitability separately."
       ],
       "sources": [
         {
@@ -14635,12 +14635,12 @@
       "engine": {
         "module": "../shared/delirium-engine.mjs",
         "sourcePath": "portal/static/js/management-guides/delirium-engine.mjs",
-        "sha256": "95b5c099695f1cefb21ee7e331e3c87ce18799041e1353bbf5f33c7a502b30d9",
+        "sha256": "15ae8b10474a80d37577557bc06ab107d03b5e2013216ab4cb5d6fc98f56a3c7",
         "files": [
           {
             "path": "shared/delirium-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/delirium-engine.mjs",
-            "sha256": "95b5c099695f1cefb21ee7e331e3c87ce18799041e1353bbf5f33c7a502b30d9",
+            "sha256": "15ae8b10474a80d37577557bc06ab107d03b5e2013216ab4cb5d6fc98f56a3c7",
             "rewritten": false
           }
         ]
@@ -23129,12 +23129,12 @@
       "engine": {
         "module": "../shared/new-inpatient-fever-engine.mjs",
         "sourcePath": "portal/static/js/management-guides/new-inpatient-fever-engine.mjs",
-        "sha256": "9a21c16bb521eb91e9223ee83d41c5cc32d79332feb54cc9c048d3bb57531aad",
+        "sha256": "eeefb3658be1e8ecf5a6e4f3fb90620181a59ac11a829bba8c744c51cda97919",
         "files": [
           {
             "path": "shared/new-inpatient-fever-engine.mjs",
             "sourcePath": "portal/static/js/management-guides/new-inpatient-fever-engine.mjs",
-            "sha256": "9a21c16bb521eb91e9223ee83d41c5cc32d79332feb54cc9c048d3bb57531aad",
+            "sha256": "eeefb3658be1e8ecf5a6e4f3fb90620181a59ac11a829bba8c744c51cda97919",
             "rewritten": false
           }
         ]
