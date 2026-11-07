@@ -55,7 +55,7 @@ in each PR. A passing software check does not establish clinical approval.
 | --- | --- | --- | --- |
 | [#2](https://github.com/Amlck/mediport-pocket/pull/2) `claude/restore-portable-guides` | Claude (author), Codex (rebase/review) | Guide data/engines, README, release notes, browser checks, coordination notes | Rebased on `f640cd7`; emergency-phase/provenance findings recorded in #2; leave unmerged |
 | [#3](https://github.com/Amlck/mediport-pocket/pull/3) `claude/guide-wording-cleanup` | Claude (author), Codex (restack/review) | Guide wording/UI, browser checks, coordination notes | Keep stacked on #2; wording/consumer-compatibility findings recorded in #3; local browser checks because current CI targets main-based PRs only; leave unmerged |
-| [#4](https://github.com/Amlck/mediport-pocket/pull/4) `claude/taita-fluids` | Claude (author), Codex (rebase/review) | Fluid data/aliases, README, release notes, browser checks, coordination notes | Rebased on `f640cd7`; composition verified against public sources, precise clinical schedules need evidence binding (see #4); leave unmerged |
+| [#4](https://github.com/Amlck/mediport-pocket/pull/4) `claude/taita-fluids` | Claude (author), Codex (rebase/review) | Fluid data/aliases, README, release notes, browser checks, coordination notes | Rebased on `f640cd7`; composition verified against public sources, unsupported clinical schedules removed; linked product evidence and scoped review recorded; merge fourth after #6 |
 
 | [#6](https://github.com/Amlck/mediport-pocket/pull/6) `claude/restore-remaining-guides` | Claude | Remaining guide data/engines | Stacked on #3; outside the current Codex #2–#4 review; needs restack after its parent updates |
 
@@ -97,9 +97,10 @@ in each PR. A passing software check does not establish clinical approval.
   recorded limitations before release.
 - The NTUH index is still the 2026-08-28 snapshot. A re-scrape needs NTUH
   access (Codex).
-- The Taita proposal (#4) has publicly verified composition, but its precise
-  rate/renal/monitoring schedules need identifiable supporting evidence and
-  review scope; see the review in #4.
+- The Taita proposal (#4) now removes unsupported numerical rate/renal and
+  timed-monitoring defaults. Its linked manufacturer evidence, review scope
+  and remaining clinical-review limits are recorded in
+  [taita-source-review.md](taita-source-review.md).
 - #2 needs emergency outputs visible before routine phase selection and an
   accurate source-transformation notice. #3 needs a scoped delirium limitation
   and consumer coordination (`Medical`); details are in the public PR reviews.
@@ -107,6 +108,8 @@ in each PR. A passing software check does not establish clinical approval.
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-07 · Codex · #4 evidence fix** · Claimed/corrected the four fluid records against linked manufacturer evidence and scoped adult fluid guidance; removed unsupported numerical schedules, retained composition/aliases, and added source-bound regressions. The owner authorizes merge fourth, after #2 → #3 → #6; consumer coordination is in `Medical`.
 
 - **2026-11-07 · Codex · #4** · Claimed/rebased #4 onto `f640cd7`, retaining NTUH search/source policy and combining release notes. Verified public fluid composition; recorded the unsupported clinical-schedule attribution. The existing NTUH keyboard test now waits for All-scope activation. Preserved Claude's concurrent `fd84bd3` Taita-only alias assertions after the lease guard stopped the first push.
 - **2026-11-07 · Codex · #5** · Merged #5 at `f640cd7` after the owner explicitly requested it in this session. The same request authorizes rebase/review of #2–#4 and expressly leaves all three unmerged.
