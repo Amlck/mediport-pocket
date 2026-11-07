@@ -51,13 +51,8 @@ in each PR. A passing software check does not establish clinical approval.
 
 ## In progress
 
-| PR / branch | Agent | Files mainly touched | Status |
-| --- | --- | --- | --- |
-| [#2](https://github.com/Amlck/mediport-pocket/pull/2) `claude/restore-portable-guides` | Claude (author), Codex (fix/validation) | Guide renderer, emergency browser regressions, provenance notice, coordination notes | Emergency/provenance fixes complete; owner-authorized merge first, after checks and consumer coordination |
-| [#3](https://github.com/Amlck/mediport-pocket/pull/3) `claude/guide-wording-cleanup` | Claude (author), Codex (restack/review) | Guide wording/UI, browser checks, coordination notes | Keep stacked on #2 until it merges; wording fixes and consumer coordination in progress; merge second after checks |
-| [#4](https://github.com/Amlck/mediport-pocket/pull/4) `claude/taita-fluids` | Claude (author), Codex (rebase/review) | Fluid data/aliases, README, release notes, browser checks, coordination notes | Clinical evidence corrections complete; preserve concurrent alias assertions; combined 32-guide/179-drug validation before merging fourth after #6 |
-
-| [#6](https://github.com/Amlck/mediport-pocket/pull/6) `claude/restore-remaining-guides` | Claude (author), Codex (sources/review) | Remaining guide sources/wording, access evidence | Restacked on fixed #3; 17 dated public identity checks and source-scope regressions pass; merge third after #3 and consumer coordination |
+No active claims remain in this completed change set. New work must be claimed
+before editing; the authorized merge sequence and handoffs are recorded below.
 
 ## Decisions
 
@@ -75,39 +70,37 @@ in each PR. A passing software check does not establish clinical approval.
   [CONTRIBUTING.md](../CONTRIBUTING.md#public-hospital-sources): verified public
   hospital names and codes are allowed with source/access evidence and reuse
   rights. Keep private-work details out of these shared notes.
-- **2026-11-07 · Taita proposal (#4, unmerged).** #4 proposes the four fluids
-  and their Taita/台大N號/台N search aliases. Its alias assertions are specific
-  to that PR; they do not establish a general ban on verified public hospital
-  names or codes.
-- **2026-11-07 · Guide proposals (#2, #3, unmerged).** #2 proposes restoring
-  13 guides; #3 is stacked on it for wording/UI cleanup. Their public diffs
-  record wording transformations in `sources.transformations` with original
-  and output hashes. The PRs report unchanged clinical thresholds, doses,
-  branches and sources; review those claims against the final rebased diffs.
+- **2026-11-07 · Taita fluids (#4).** Four fluids retain their Taita/台大N號/台N
+  search aliases, composition and product identity. Linked manufacturer
+  evidence and scoped adult guidance replace unsupported numerical defaults;
+  source-check dates are distinct from clinical approval. Alias assertions are
+  specific to these fluids and do not ban verified public names or codes.
+- **2026-11-07 · Guides (#2, #3, merged).** #2 restored 13 guides with urgent
+  outputs visible before phase selection; #3 removed unavailable-resource UI
+  and wording. Public transformations record original and output hashes.
+  #6 restores the final seven with dated public identity-source checks.
 
 ## Open items
 
-- `main` currently has 12 guides. If #2 merges as proposed, seven would remain
-  excluded: status epilepticus, systemic corticosteroids, anticoagulant
-  bleeding, hypertensive emergency, anaphylaxis, hypomagnesaemia and
-  hypermagnesaemia. Review public provenance, portability and clinical scope
-  guide by guide; NTUH codes alone are not grounds for exclusion. Clinical
-  rewrites require source evidence and owner review.
+- The completed release has all 32 guides and 179 drug monographs. Clinical
+  review of the public edition remains pending; original review dates and
+  limitations remain visible.
 - New clinical material needs public primary-source links, review dates and
   recorded limitations before release.
 - The NTUH search index is still the 2026-08-28 snapshot. The separate
   guide-product identity checks on 2026-11-07 do not refresh that catalog or
   establish current availability; see [ntuh-guide-source-review.md](ntuh-guide-source-review.md).
-- The Taita proposal (#4) has publicly verified composition, but its precise
-  rate/renal/monitoring schedules need identifiable supporting evidence and
-  review scope; see the review in #4.
-- #2 needs emergency outputs visible before routine phase selection and an
-  accurate source-transformation notice. #3 needs a scoped delirium limitation
-  and consumer coordination (`Medical`); details are in the public PR reviews.
+- Future Taita rate/renal/timed-monitoring recommendations need identifiable
+  supporting evidence and review scope; #4 removes unsupported schedules.
+  See [taita-source-review.md](taita-source-review.md).
+- #2 emergency/provenance and #3 delirium/fever wording fixes are merged;
+  coordinated `Medical` work is complete.
 
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-07 · Codex · #4 merge preparation** · #2, #3 and #6 merged in order (`551bad7`, `c7fdb6b`, `5d54e2a`). Brought #4 onto that main, preserving the exact jointly reviewed runtime; final required CI and deployment checks complete this owner-authorized sequence. Coordination with `Medical` is ready.
 
 - **2026-11-07 · Codex · #4 combined stage** · Staged the corrected fluids after the full guide stack for joint source/inventory/consumer validation; all 32 preceding guide records and all existing drug records are preserved. Actual public merges remain #2 → #3 → #6 → #4.
 
@@ -115,6 +108,9 @@ Newest first. One or two lines each: date, agent, what changed, where.
 
 - **2026-11-07 · Codex · #4** · Claimed/rebased #4 onto `f640cd7`, retaining NTUH search/source policy and combining release notes. Verified public fluid composition; recorded the unsupported clinical-schedule attribution. The existing NTUH keyboard test now waits for All-scope activation. Preserved Claude's concurrent `fd84bd3` Taita-only alias assertions after the lease guard stopped the first push.
 
+- **2026-11-07 · Codex · #6 merge preparation** · #3 merged at `c7fdb6b` after required CI. Restacked #6 onto that main, preserving the reviewed runtime bytes, and retargeted for required CI; third in the owner-requested order.
+
+- **2026-11-07 · Codex · #3 merge preparation** · #2 merged at `551bad7` after checks; restacked #3 onto that main without runtime changes, then retargeted it for required CI. Coordinated `Medical` work is complete; continuing the owner-requested #2 → #3 → #6 → #4 order.
 - **2026-11-07 · Codex · #6 fixes** · Claimed/reviewed the remaining guides and checked 17 anonymous public product identities; removed unsupported absence, stock and preparation implications, preserved prior guide records and added source/hash regressions. Source access is distinct from clinical dosing review. Merge third after #2 → #3, before #4, as the owner requested.
 
 - **2026-11-07 · Codex · #3 fixes** · Claimed/scoped the delirium validation warning and removed unreachable fever resource wording with targeted regressions and matching hashes. Consumer resource-UI coordination is in `Medical`; owner-authorized public merge order is #2 → #3 → #6 → #4.
