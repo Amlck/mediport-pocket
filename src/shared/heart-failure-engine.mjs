@@ -126,7 +126,7 @@ export const HEART_FAILURE_FIELDS = Object.freeze([
     ['stable-window-confirmed', 'Compensated / stable window confirmed'],
     ['active-decompensation-or-not-ready', 'Active decompensation, hypotension/hypoperfusion, or other blocker remains'],
   ], {
-    threshold: 'The legacy workspace checks four pillars, exact drug/formulation, safety, tolerance and ownership.',
+    threshold: 'A GDMT readiness review checks the four pillars, exact drug/formulation, safety, tolerance and ownership.',
   }),
   field('dischargeReview', 'Transition plan?', [
     ['unknown', 'Not completed'],
@@ -396,7 +396,7 @@ function addLoopActions(values, actions) {
       'decongest',
       'Reconcile loop agent, total exposure, route and timing',
       'Do not infer loop-naive status or repeat a dose from an incomplete medication history.',
-      'Record the exact loop drug, home/current total dose, route, last dose/time, delivery and response window before using the existing local dose workspace.',
+      'Record the exact loop drug, home/current total dose, route, last dose/time, delivery and response window before applying the local diuretic protocol.',
       aha2022,
       {tone: 'attention', resourceGroup: 'loop-diuretic'},
     ));
@@ -434,7 +434,7 @@ function addLoopActions(values, actions) {
       'decongest',
       'Loop-naive: furosemide 40–80 mg IV total initial daily dose',
       '2024 ACC workflow reference only after confirmed congestion, adequate perfusion and safety review; not a bolus schedule or order.',
-      'Use the existing local dose workspace for the monitored plan and local protocol. Recheck symptoms, urine output, balance, weight, BP/perfusion and kidney/electrolyte trajectory before any further dose.',
+      'Follow the local diuretic protocol for the monitored plan. Recheck symptoms, urine output, balance, weight, BP/perfusion and kidney/electrolyte trajectory before any further dose.',
       acc2024,
       {resourceGroup: 'loop-diuretic'},
     ));
@@ -446,7 +446,7 @@ function addLoopActions(values, actions) {
       'decongest',
       'Prior loop: 1–2.5× home total daily furosemide-equivalent IV',
       '2024 ACC workflow reference only after actual home agent, total daily dose, route and last-dose timing are reconciled; not a bolus or automatic repeat.',
-      'Use the existing local dose workspace for the equivalence method and local protocol. The next strategy must follow current congestion, perfusion and observed response, not a copied home regimen.',
+      'Use the local protocol for the loop-diuretic equivalence method. The next strategy must follow current congestion, perfusion and observed response, not a copied home regimen.',
       acc2024,
       {resourceGroup: 'loop-diuretic'},
     ));
@@ -584,7 +584,7 @@ function addChronicActions(values, actions) {
       'optimize',
       'Stable optimization window is not confirmed',
       'Complete the hemodynamic, congestion/perfusion, kidney/electrolyte, tolerance and ownership review before a chronic medication change.',
-      'The existing readiness workspace preserves the detailed four-pillar check. This engine does not select, start, stop or titrate a medicine.',
+      'A dedicated GDMT review carries the detailed four-pillar check. This engine does not select, start, stop or titrate a medicine.',
       acc2024,
       {tone: 'attention', resourceGroup: 'gdmt-reference'},
     ));
@@ -595,8 +595,8 @@ function addChronicActions(values, actions) {
       'hf-open-legacy-hfref-readiness',
       'optimize',
       'Stable HFrEF: four-pillar source-linked dose review',
-      'Review ARNI/ACEi/ARB, bisoprolol/carvedilol/metoprolol succinate, MRA and dapagliflozin/empagliflozin in the existing readiness workspace.',
-      'That workspace retains 2022 AHA/ACC/HFSA Table 14 doses and eligibility: never co-administer ACEi with ARNI; MRA initiation needs eGFR >30 and K <5.0; review BP, heart rate, renal/electrolytes, tolerance, local product and follow-up. No prescription is generated here.',
+      'Review ARNI/ACEi/ARB, bisoprolol/carvedilol/metoprolol succinate, MRA and dapagliflozin/empagliflozin in a dedicated GDMT review.',
+      'The 2022 AHA/ACC/HFSA guideline (Table 14) sets doses and eligibility: never co-administer ACEi with ARNI; MRA initiation needs eGFR >30 and K <5.0; review BP, heart rate, renal/electrolytes, tolerance, local product and follow-up. No prescription is generated here.',
       acc2024,
       {resourceGroup: 'gdmt-reference'},
     ));
@@ -639,7 +639,7 @@ function addTransitionActions(values, actions) {
     values.dischargeReview === 'residual-congestion-or-unresolved-gap'
       ? 'Do not treat a discharge checkbox as evidence that congestion, medication, laboratory or follow-up gaps are resolved.'
       : 'Confirm current congestion state, oral plan, medication reconciliation, laboratory follow-up, education/access and named early review.',
-    'The existing HF GDMT and cardiovascular discharge workspaces remain the detailed local references. This guide does not create an order, close a task or authorize discharge.',
+    'GDMT and discharge planning need their own detailed review. This guide does not create an order, close a task or authorize discharge.',
     acc2024,
     {tone: 'attention', resourceGroup: 'gdmt-reference'},
   ));
@@ -655,7 +655,7 @@ function result(values, actions, extra = {}) {
       assess: 'Confirm emergency physiology, the HF working route, congestion, perfusion and competing causes.',
       stabilize: 'Escalate emergency or low-perfusion states; routine branches do not replace monitored haemodynamic care.',
       decongest: 'Use actual loop exposure, safety and observed response; never infer a repeat dose.',
-      optimize: 'Use the existing source-linked readiness workspace only after a stable window is explicit.',
+      optimize: 'Start a GDMT readiness review only after a stable window is explicit.',
       transition: 'Make residual congestion, medication and follow-up gaps visible; this is not discharge authorization.',
     }),
     gaps: gapsFor(values),
@@ -709,12 +709,12 @@ export const config = Object.freeze({
   id: 'heart-failure',
   title: 'Heart Failure',
   reviewedAt: '2026-09-19',
-  scope: 'Adult inpatient HF review: emergency routing, congestion/perfusion, source-labelled loop references, cautious nitrate consideration, and a handoff to existing GDMT/discharge workspaces. It uses AHA/ACC 2022 and ACC 2024 sources; ESC 2026 review is pending. It is not a diagnosis engine, medication order interface, dose calculator, or discharge authority.',
+  scope: 'Adult inpatient HF review: emergency routing, congestion/perfusion, source-labelled loop references, cautious nitrate consideration, and a handoff to GDMT and discharge review. It uses AHA/ACC 2022 and ACC 2024 sources; ESC 2026 review is pending. It is not a diagnosis engine, medication order interface, dose calculator, or discharge authority.',
   reviewLabel: 'Upgraded · ACC 2024 scope / ESC 2026 review pending',
   reviewLimitations: Object.freeze([
-    'The current 2026 ESC material defines HFrEF as LVEF <50%, while the legacy 2022 US workspace uses ≤40%. A dedicated ESC 2026 source mode remains review pending; this engine does not claim ESC 2026 implementation.',
-    'The engine intentionally retains the existing local HF dose, four-pillar readiness and cardiovascular discharge workspaces rather than duplicating their numeric catalogues or changing their behavior.',
-    'No dedicated captured HF bundle was established in this batch. Resource groups expose exact catalog identities and related source rows for inspection; orderability, formulation and local protocol remain separate reviews.',
+    'The current 2026 ESC material defines HFrEF as LVEF <50%, while the 2022 US guideline used here uses ≤40%. A dedicated ESC 2026 source mode remains review pending; this engine does not claim ESC 2026 implementation.',
+    'Detailed loop-diuretic dosing, four-pillar GDMT titration and discharge planning are outside this guide.',
+    'Orderability, formulation and local protocol remain separate reviews.',
   ]),
   sources: Object.freeze([aha2022, acc2024]),
   entry: Object.freeze({
@@ -752,7 +752,7 @@ export const config = Object.freeze({
       Object.freeze({role: 'Emergency', text: 'Escalate immediately; routine loop, nitrate, GDMT and discharge branches are withheld.'}),
       Object.freeze({role: 'Congestion', text: 'Require confirmed congestion, adequate perfusion, reconciled exposure and a safety review before a local loop plan.'}),
       Object.freeze({role: 'Response', text: 'Record symptoms, oxygen/support, urine output, balance, weight, BP/perfusion and renal/electrolytes before any repeat or intensification.'}),
-      Object.freeze({role: 'Stable HFrEF', text: 'Use the existing four-pillar readiness workspace only after a compensated window is explicit.'}),
+      Object.freeze({role: 'Stable HFrEF', text: 'Start four-pillar GDMT review only after a compensated window is explicit.'}),
     ]),
     monitoring: Object.freeze([
       'Trend current congestion, oxygen/support, BP/perfusion, urine output, balance, weight and kidney/electrolyte trajectory at a frequency matched to severity.',

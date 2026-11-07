@@ -3,11 +3,7 @@ import { test, expect } from '@playwright/test';
 // Answers every visible question in each guide, one option at a time, so each
 // engine renders real branches. Public output, including collapsed sections,
 // must not describe the hospital resource library that the public edition omits.
-const PRIVATE_WORDING = /\b(?:saved|captured|curated)\s+(?:[\w-]+\s+){0,4}(?:rows?|folders?|sets?|regimens?)\b|\blocal (?:rows?|folders?|catalog)\b|\bcatalog identit/i;
-
-// Guides from the first public extraction whose limitation text still needs
-// the same wording cleanup. Remove entries as they are cleaned.
-const WORDING_CLEANUP_PENDING = new Set(['delirium', 'heart-failure', 'hyperkalemia', 'hypotension', 'new-inpatient-fever']);
+const PRIVATE_WORDING = /\b(?:saved|captured|curated)\s+(?:[\w-]+\s+){0,4}(?:rows?|folders?|sets?|regimens?)\b|\blocal (?:source )?(?:rows?|folders?|catalog)\b|\bcatalog identit|\bresource groups?\b|\blinked (?:local |source )?(?:rows?|folders?)\b|\bworkspaces?\b|\bfever-episode tracker\b/i;
 
 test.beforeEach(async ({ request }) => {
   const release = await (await request.get('/release.json')).json();
@@ -32,10 +28,8 @@ test('every guide answers through its choices without errors or private resource
       }
       const label = `${guide.id} pick ${pick}`;
       expect(await page.locator('#screen').innerText(), label).not.toMatch(/\[object Object\]|\bundefined\b|\bNaN\b/);
-      if (!WORDING_CLEANUP_PENDING.has(guide.id)) {
-        const allText = await page.locator('#screen').evaluate((el) => el.textContent);
-        expect(allText.match(PRIVATE_WORDING)?.[0] ?? null, label).toBeNull();
-      }
+      const allText = await page.locator('#screen').evaluate((el) => el.textContent);
+      expect(allText.match(PRIVATE_WORDING)?.[0] ?? null, label).toBeNull();
     }
   }
   expect(errors).toEqual([]);

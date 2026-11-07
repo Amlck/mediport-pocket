@@ -107,7 +107,6 @@ export function packView(ctx) {
   const refs = release.references || {};
   const hashes = Object.entries(refs.sourceHashes || {});
   const excluded = data.excludedGuides || [];
-  const guideRows = (refs.guides || []).reduce((sum, guide) => sum + (guide.localRowCount || 0), 0);
   const el = h('div', { class: 'page' },
     offlineCard(ctx),
     h('p', { class: 'muted pad-x' }, release.clinicalReviewNotice),
@@ -119,7 +118,6 @@ export function packView(ctx) {
       row('Management guides', `${data.guides.length} of ${data.guides.length + excluded.length} enabled`),
       row('POCUS reference topics', String(data.pocus?.topics?.length || 0)),
       row('NTUH formulary listings', data.ntuh ? `${data.ntuh.entries.length} · snapshot ${data.ntuh.source.snapshotDate}` : '0'),
-      row('Historical local rows', String(guideRows)),
       row('References omitted at build', `${refs.omittedReferenceCount ?? 0} (${Object.entries(refs.omittedReferencesByReason || {}).map(([k, v]) => `${k} ${v}`).join(', ') || 'none'})`)),
     excluded.length ? h('div', { class: 'card' }, disclosure(`${excluded.length} enabled guide${excluded.length === 1 ? '' : 's'} left out of this pack`,
       excluded.map((item) => h('p', { class: 'small' }, h('strong', null, item.title), ' — ', item.reason)))) : null,

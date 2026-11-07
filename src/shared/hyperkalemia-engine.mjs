@@ -515,7 +515,7 @@ export const config = Object.freeze({
   reviewLabel: 'Upgraded · source reviewed; historical local references',
   reviewLimitations: Object.freeze([
     'This is adult acute decision support, not a cardiac-arrest algorithm, local protocol, prescription, order set, medication-administration record, or authorization.',
-    'The July 2026 UKKA source review is distinct from the retained 9 September local Hyper K saved-set snapshot. The latter is historical and requires deliberate re-mapping before it can be treated as current local row identity.',
+    'The July 2026 UKKA source review guides this engine; local hyperkalaemia order sets require separate reconciliation.',
     'Product identity, current availability/orderability, prepared concentration, device/pump settings, route, dose, and patient-specific suitability require separate local verification.',
     'The phase selector intentionally keeps initial findings and post-treatment response apart; a potassium fall does not establish episode resolution or a safe disposition.',
   ]),
