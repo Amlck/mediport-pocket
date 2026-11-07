@@ -51,8 +51,7 @@ in each PR. A passing software check does not establish clinical approval.
 
 ## In progress
 
-No active implementation claims. The completed Drugs catalogue work is recorded
-below; claim new work before editing.
+No active implementation claims. Offline recovery is ready for the owner-authorized merge and deployment verification below.
 
 ## Decisions
 
@@ -99,6 +98,10 @@ below; claim new work before editing.
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-07 · Codex · #9 merge preparation** · The owner authorized the coordinated `Medical` compatibility merge first, then #9, followed by live deployment, synchronization and Safari recovery checks. The reviewed runtime is unchanged from `2c49f14`; GitHub passed 99 Node and 29 browser checks. Removed the completed implementation claim; recovery of the previously stuck Safari remains to be confirmed.
+
+- **2026-11-07 · Codex · Offline recovery** · Claimed the reported stuck Installed pack flow. Reproduced an indefinitely pending browser registration leaving the UI checking with an ineffective update button. Added bounded registration/update checks, retained retry and guarded late replies; 99 Node tests pass. The affected Safari still serves the old pack; the new recovery UI needs release and real-browser confirmation. Consumer compatibility work is in `Medical` / `codex/offline-registration-compatibility`; no merge is authorized.
 
 - **2026-11-07 · Codex · #8 merge preparation** · The owner authorized the coordinated `Medical` work first, then #8, followed by deployment/synchronization verification. The reviewed runtime is unchanged from `0112e79`; 82 Node and 28 browser checks passed. Removed the completed work claim for this authorized merge.
 

@@ -97,7 +97,7 @@ function offlineCard(ctx) {
       releaseSummary(waiting, 'Downloaded · ready to install'),
       h('p', { class: 'small mt-8' }, 'Close all Pocket windows and Safari tabs, then reopen. Your current pack stays in use until then.'),
     ] : []));
-    checkButton.hidden = Boolean(waiting) || (state.state === 'unavailable' && !active);
+    checkButton.hidden = Boolean(waiting) || state.retryable === false;
   });
   return card;
 }
