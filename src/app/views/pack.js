@@ -118,6 +118,7 @@ export function packView(ctx) {
       row('Drug monographs', String(refs.drugCount ?? data.drugs.length)),
       row('Management guides', `${data.guides.length} of ${data.guides.length + excluded.length} enabled`),
       row('POCUS reference topics', String(data.pocus?.topics?.length || 0)),
+      row('NTUH formulary listings', data.ntuh ? `${data.ntuh.entries.length} · snapshot ${data.ntuh.source.snapshotDate}` : '0'),
       row('Historical local rows', String(guideRows)),
       row('References omitted at build', `${refs.omittedReferenceCount ?? 0} (${Object.entries(refs.omittedReferencesByReason || {}).map(([k, v]) => `${k} ${v}`).join(', ') || 'none'})`)),
     excluded.length ? h('div', { class: 'card' }, disclosure(`${excluded.length} enabled guide${excluded.length === 1 ? '' : 's'} left out of this pack`,
@@ -126,7 +127,7 @@ export function packView(ctx) {
     h('div', { class: 'card' },
       h('p', { class: 'small' }, data.publication.label),
       release.profile === 'public-share'
-        ? h('p', { class: 'muted mt-6' }, 'Hospital catalog records and saved local regimens are excluded. Some guides and ECG illustrations are omitted from this edition. Clinician review remains pending.')
+        ? h('p', { class: 'muted mt-6' }, 'Saved local regimens and internal hospital resource tables are excluded. NTUH formulary listings are names and links to NTUH’s public pages only. Some guides and ECG illustrations are omitted from this edition. Clinician review remains pending.')
         : h('p', { class: 'muted mt-6' }, `Public distribution approved: ${release.publishingApproved ? 'Yes' : 'No'}`),
       h('p', { class: 'muted mt-6' }, data.publication.license.notice)),
     h('h2', { class: 'section-title' }, 'Source fingerprints'),

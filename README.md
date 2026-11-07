@@ -62,8 +62,20 @@ The initial public edition contains 175 drug monographs, 12 management guides,
 clinical calculator workflows and seven POCUS topics. POCUS includes 50 figures,
 five motion clips and five posters with individual credits and reuse licenses.
 
-This public edition omits captured hospital catalog identities, order codes and
-saved local regimens, four Taita monographs and 20 guides containing captured
+Search also covers about 2,300 **NTUH formulary listings**. Each listing is
+only a product name, generic name, Chinese name and drug class, linking to
+NTUH's own public product page (`QueryDrugDetail.aspx?Drug_Code=…`). The NTUH
+code appears only because that public URL needs it. NTUH's dose, dose-adjustment
+and package-insert content stays on NTUH's site and is not copied here. Listings
+open online, come from a dated snapshot, and do not confirm current
+availability. Products marked discontinued, compassionate-use only or not
+dispensed are left out, and NTUH's internal billing, ward-stock and local
+prescribing-restriction notes are removed from product names. Where Pocket has a
+monograph for the product, the listing names it and the monograph links back to
+its NTUH listings.
+
+This public edition omits saved local regimens, internal hospital resource
+tables, four Taita monographs and 20 guides containing captured
 hospital context. Four ECG illustrations without recorded reuse provenance are
 omitted while the text reading workflow remains. Steroid equivalence is
 available without historical local product counts. Ordinary calculator lab
@@ -113,6 +125,7 @@ not connect to a hospital system or use patient records.
 | `src/app/` | App shell, views, styles and icons |
 | `src/shared/` | Editable public calculator and guide modules |
 | `src/data/reference.json` | Public reference data, review metadata and provenance |
+| `src/data/ntuh-index.json` | Generated NTUH formulary link index; regenerate, do not hand-edit |
 | `src/images/` | Allowlisted teaching media with attribution in the reference data |
 | `src/sw-template.js` | Verified offline download and cache behavior |
 | `scripts/` | Standalone build and loopback preview tooling |
@@ -132,6 +145,20 @@ private supplements and release process. No private repository credential is
 needed here. Hospital integrations, internal resources and patient data must
 remain outside this repository. Shared fixes belong here; private adaptations
 belong in the consuming project.
+
+## Refresh the NTUH listings
+
+The index is generated from a scrape of NTUH's public pharmacology catalog
+(`QueryDrugInfoPhr.aspx`) and, optionally, the public drug-search audit that
+maps monographs to NTUH codes. Both inputs are produced outside this repository:
+
+```sh
+node scripts/generate-ntuh-index.mjs path/to/ntuh-pharmacology-catalog.json path/to/ntuh-formulary-data.js
+npm test
+```
+
+The build rejects an index carrying anything other than link fields, an
+internal annotation, or a link to anything but NTUH's public detail page.
 
 ## Verify a build
 

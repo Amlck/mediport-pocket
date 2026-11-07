@@ -79,15 +79,16 @@ class PackTimeoutError extends Error {
 }
 
 async function fetchPack(signal) {
-  const [reference, release, abg, calculators, glycemic, labEntry] = await Promise.all([
+  const [reference, ntuh, release, abg, calculators, glycemic, labEntry] = await Promise.all([
     fetch(new URL('./data/reference.json', import.meta.url), { signal }).then(assertOk).then((r) => r.json()),
+    fetch(new URL('./data/ntuh-index.json', import.meta.url), { signal }).then(assertOk).then((r) => r.json()),
     fetch(new URL('./release.json', import.meta.url), { signal }).then(assertOk).then((r) => r.json()),
     import('./shared/abg.mjs'),
     import('./shared/calculators.mjs'),
     import('./shared/glycemic.mjs'),
     import('./shared/lab-review-entry.mjs'),
   ]);
-  return { reference, release, engines: { abg, calculators, glycemic, labEntry } };
+  return { reference: { ...reference, ntuh }, release, engines: { abg, calculators, glycemic, labEntry } };
 }
 
 // A pack that turns up after the timeout is ignored: the error page is already

@@ -72,7 +72,7 @@ async function sourceAssets() {
   const roots = [
     { directory: 'app', prefix: '', pattern: /\.(html|css|js|svg|png)$/ },
     { directory: 'shared', prefix: 'shared', pattern: /\.(mjs|js)$/ },
-    { directory: 'data', prefix: 'data', pattern: /^reference\.json$/ },
+    { directory: 'data', prefix: 'data', pattern: /^(reference|ntuh-index)\.json$/ },
     { directory: 'images', prefix: 'images', pattern: /\.(png|mp4)$/ },
   ];
   for (const root of roots) {
@@ -85,6 +85,26 @@ async function sourceAssets() {
   return selected.sort((a, b) => a.path.localeCompare(b.path, 'en'));
 }
 
+// The NTUH index is a link list: names, class and the code its public URL
+// needs. Copied NTUH content or internal annotations must not enter the pack.
+export const NTUH_DETAIL_URL = 'https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=';
+const NTUH_ENTRY_KEYS = new Set(['code', 'generic', 'product', 'chinese', 'schedule', 'classes', 'monograph']);
+export function assertNtuhIndex(index, reference) {
+  if (index?.schemaVersion !== 1 || !Array.isArray(index.entries) || !Array.isArray(index.classes)) throw new Error('NTUH index has an unexpected shape.');
+  if (index.source?.detailUrl !== NTUH_DETAIL_URL) throw new Error('NTUH index must link only to the public detail page.');
+  const drugIds = new Set(reference.drugs.map((drug) => drug.id));
+  const codes = new Set();
+  for (const entry of index.entries) {
+    for (const key of Object.keys(entry)) if (!NTUH_ENTRY_KEYS.has(key)) throw new Error(`NTUH index entry carries a non-link field: ${key}`);
+    if (!/^[A-Z0-9 ]{8}$/.test(entry.code) || codes.has(entry.code)) throw new Error(`Invalid or repeated NTUH code: ${entry.code}`);
+    codes.add(entry.code);
+    if (!entry.generic || !entry.product) throw new Error(`NTUH entry ${entry.code} needs a generic and product name.`);
+    if (/[@《》]|\((?:PPCD|Cash|DC)\)|常備|計價|恩慈|停產|關機|不發藥/.test(entry.product)) throw new Error(`NTUH entry ${entry.code} keeps an internal annotation.`);
+    if (entry.monograph !== null && !drugIds.has(entry.monograph)) throw new Error(`NTUH entry ${entry.code} links an unknown monograph.`);
+    if (!entry.classes.every((value) => Number.isInteger(value) && value >= 0 && value < index.classes.length)) throw new Error(`NTUH entry ${entry.code} has an invalid class reference.`);
+  }
+}
+
 export async function build({ directory = DIST, builtAt, sourceCommit } = {}) {
   const output = await safeOutput(directory);
   const date = buildDate(builtAt);
@@ -95,9 +115,11 @@ export async function build({ directory = DIST, builtAt, sourceCommit } = {}) {
   const releaseNotes = JSON.parse(await readFile(path.join(ROOT, 'release-notes.json'), 'utf8'));
   if (!/^\d{4}-\d{2}-\d{2}$/.test(releaseNotes.date) || !releaseNotes.label?.trim() || !Array.isArray(releaseNotes.changes) || !releaseNotes.changes.length || !releaseNotes.changes.every(value => typeof value === 'string' && value.trim())) throw new Error('Release notes need a date, label and nonempty change list.');
   const inputs = await sourceAssets();
-  for (const required of ['index.html', 'app.js', 'icon-192.png', 'icon-512.png', 'data/reference.json', 'shared/abg.mjs', 'shared/calculators.mjs', 'shared/glycemic.mjs', 'shared/lab-review-entry.mjs']) if (!inputs.some(input => input.path === required)) throw new Error(`Required public source is missing: ${required}`);
+  for (const required of ['index.html', 'app.js', 'icon-192.png', 'icon-512.png', 'data/reference.json', 'data/ntuh-index.json', 'shared/abg.mjs', 'shared/calculators.mjs', 'shared/glycemic.mjs', 'shared/lab-review-entry.mjs']) if (!inputs.some(input => input.path === required)) throw new Error(`Required public source is missing: ${required}`);
   const reference = JSON.parse(await readFile(path.join(ROOT, 'src/data/reference.json'), 'utf8'));
   if (Object.hasOwn(reference, 'guideResources')) throw new Error('Internal hospital resource tables may not enter the public build.');
+  const ntuh = JSON.parse(await readFile(path.join(ROOT, 'src/data/ntuh-index.json'), 'utf8'));
+  assertNtuhIndex(ntuh, reference);
   const workerTemplate = `${parseByteRange.toString()}\n${await readFile(path.join(ROOT, 'src/sw-template.js'), 'utf8')}`;
   // A separate stage means failed source reads never remove a prior usable build.
   await mkdir(path.dirname(output), { recursive: true });
@@ -133,7 +155,7 @@ export async function build({ directory = DIST, builtAt, sourceCommit } = {}) {
           'src/sw-template.js': hash(await readFile(path.join(ROOT, 'src/sw-template.js'))),
           'src/byte-range.mjs': hash(await readFile(path.join(ROOT, 'src/byte-range.mjs'))),
         },
-        drugCount: reference.drugs.length, guideCount: reference.guides.length, pocusCount: reference.pocus?.topics?.length || 0,
+        drugCount: reference.drugs.length, ntuhListingCount: ntuh.entries.length, guideCount: reference.guides.length, pocusCount: reference.pocus?.topics?.length || 0,
         guides: reference.guides.map(guide => ({ id: guide.id, title: guide.title, reviewedAt: guide.reviewedAt, localRowCount: 0 })),
         excludedGuides: reference.excludedGuides || [], omittedReferenceCount: reference.publication?.referencePolicy?.omittedCount || 0,
         omittedReferencesByReason: reference.publication?.referencePolicy?.omittedByReason || {},

@@ -1,7 +1,7 @@
 import { h, icon, favorites, starButton, disclosure, listOrText, note } from '../lib/ui.js';
 import { patientSession } from '../lib/session.js';
 import { fluidContentsCard } from './fluid-parts.js';
-import { buildSearchIndex, searchIndex } from '../lib/search.js';
+import { buildSearchIndex, searchIndex, ntuhDetailUrl } from '../lib/search.js';
 import { comparisonReturnHref } from '../lib/reference-navigation.js';
 import { doseEntries, reviewLabel } from '../lib/drug-comparison.js';
 
@@ -222,15 +222,28 @@ function informationSection(title, value, { id, open = false, subgroup } = {}) {
     { open, className: 'drug-disclosure' }));
 }
 
-function sourcesSection(drug) {
+// Product-level links to NTUH's public detail pages for this monograph. Names
+// and codes only; the page itself is NTUH's and opens online.
+function ntuhListings(ntuh, drug) {
+  const listings = (ntuh?.entries || []).filter((entry) => entry.monograph === drug.id);
+  if (!listings.length) return null;
+  return h('div', { class: 'drug-ntuh-listings' },
+    h('p', { class: 'drug-source-field' }, `NTUH formulary listings (snapshot ${ntuh.source.snapshotDate}; not a live availability check):`),
+    listings.map((entry) => h('a', { class: 'reflink', href: ntuhDetailUrl(ntuh, entry.code), target: '_blank', rel: 'noopener noreferrer' },
+      icon('external', 16), [entry.product, entry.chinese].filter(Boolean).join(' · '))));
+}
+
+function sourcesSection(drug, ntuh) {
   const references = (Array.isArray(drug.references) ? drug.references : []).filter((ref) => typeof ref?.text === 'string' && ref.text.trim());
-  const linked = references.some((ref) => typeof ref.url === 'string' && ref.url.startsWith('https://'));
+  const listings = ntuhListings(ntuh, drug);
+  const linked = Boolean(listings) || references.some((ref) => typeof ref.url === 'string' && ref.url.startsWith('https://'));
   return h('section', { class: 'drug-section drug-information', id: 'drug-sources' }, disclosure(
     h('h2', null, 'Sources'),
     [references.length ? references.map((ref) => typeof ref.url === 'string' && ref.url.startsWith('https://')
       ? h('a', { class: 'reflink', href: ref.url, target: '_blank', rel: 'noopener noreferrer' }, icon('external', 16), ref.text)
       : h('p', { class: 'drug-source-text' }, ref.text))
       : h('p', null, 'No reference attributions are listed in this entry.'),
+    listings,
     linked ? h('p', { class: 'muted' }, 'Links open online and are not part of the offline pack.') : null,
     drug.aliases?.length ? h('p', { class: 'drug-source-field' }, 'Also known as: ', drug.aliases.join(', ')) : null,
     drug.indicationTags?.length ? h('p', { class: 'drug-source-field' }, 'Indication lookup tags: ', drug.indicationTags.join(' · ')) : null,
@@ -256,7 +269,7 @@ export function drugDetailView(ctx, [id]) {
   const dose = doseSection(drug);
   const renal = renalSection(drug, ctx);
   const monitoring = informationSection('Monitoring', drug.monitoring, { id: 'drug-monitoring' });
-  const sources = sourcesSection(drug);
+  const sources = sourcesSection(drug, ctx.data.ntuh);
   const compareReturn = comparisonReturnHref(ctx.data.drugs, location.hash, drug.id);
   const targets = [
     ['Dose', dose], ['Renal', renal], ['Monitoring', monitoring], ['Sources', sources],

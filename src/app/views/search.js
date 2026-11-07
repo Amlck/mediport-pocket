@@ -11,13 +11,13 @@ import { CATALOGUE } from './calculators.js';
 
 export const searchSession = { query: '', recent: [], focus: false };
 const PAGE = 6;
-const SCOPE_LABELS = { all: 'All', guide: 'Guides', pocus: 'POCUS', calculator: 'Calculators', drug: 'Drugs' };
+const SCOPE_LABELS = { all: 'All', guide: 'Guides', pocus: 'POCUS', calculator: 'Calculators', drug: 'Drugs', ntuh: 'NTUH' };
 
 let index = null;
 function indexFor(ctx) {
   if (!index) index = buildSearchIndex({ drugs: ctx.data.drugs, guides: ctx.data.guides,
     pocus: ctx.data.pocus?.topics || [], pocusScope: ctx.data.pocus?.scope || '', calculators: CATALOGUE,
-    drugIndicationLookup: ctx.data.drugIndicationLookup });
+    drugIndicationLookup: ctx.data.drugIndicationLookup, ntuh: ctx.data.ntuh });
   return index;
 }
 
@@ -29,7 +29,22 @@ function remember(query) {
 
 // The matched alias leads the second line: it is the part that explains the
 // hit, and a long drug class would otherwise push it past the ellipsis.
+// An NTUH listing opens NTUH's public page in a new tab. A Pocket monograph
+// for the same product is named on the row; the Drug reference section above
+// links to it directly.
+function ntuhRow(hit) {
+  const { entry } = hit;
+  return h('a', { class: 'row ntuh-row', href: entry.href, target: '_blank', rel: 'noopener noreferrer' },
+    h('span', { class: 'row-icon' }, icon('external', 22)),
+    h('div', { class: 'row-main' }, h('div', { class: 'row-title' }, entry.title),
+      entry.monograph ? h('div', { class: 'drug-match' }, `Pocket monograph: ${entry.monograph.name}`) : null,
+      entry.schedule ? h('div', { class: 'drug-match' }, `管制藥品 第${entry.schedule}級 · Controlled drug schedule ${entry.schedule}`) : null,
+      h('div', { class: 'row-sub' }, entry.sub)),
+    h('span', { class: 'sr-only' }, ' (opens NTUH page)'));
+}
+
 function resultRow(hit) {
+  if (hit.entry.kind === 'ntuh') return ntuhRow(hit);
   const { entry, where } = hit;
   const sub = where && !entry.isPocusDetail && !['text', 'indication'].includes(where) ? `“${where}” · ${entry.sub}` : entry.sub;
   const matchLabel = where === 'indication' ? `Matched tag: ${hit.matchedIndications.join(' · ')}`
@@ -79,7 +94,8 @@ export function searchView(ctx, [routeKind] = []) {
         h('li', null, `${ctx.data.guides.length} management guides — title, scope and stage names`),
         h('li', null, `${ctx.data.pocus?.topics?.length || 0} POCUS topics — views, findings and pitfalls`),
         h('li', null, `${CATALOGUE.length} calculators — title and what they cover`),
-        h('li', null, `${ctx.data.drugs.length} drug monographs — names, brands, indications and aliases in English and Chinese`)),
+        h('li', null, `${ctx.data.drugs.length} drug monographs — names, brands, indications and aliases in English and Chinese`),
+        ctx.data.ntuh ? h('li', null, `${ctx.data.ntuh.entries.length} NTUH formulary listings — product, generic and Chinese names, linking to NTUH’s public pages`) : null),
       h('p', { class: 'muted mt-8' }, activeKind === 'all'
         ? 'Spelling is folded, so haemoglobin finds hemoglobin and K⁺ finds potassium.'
         : `Results will be limited to ${SCOPE_LABELS[activeKind].toLowerCase()}.`)),
@@ -92,6 +108,8 @@ export function searchView(ctx, [routeKind] = []) {
       h('div', { class: 'letter' }, `${section.label} · ${section.total}`),
       section.kind === 'drug' && section.items.some((hit) => hit.where === 'indication')
         ? h('p', { class: 'drug-lookup-note pad-x' }, 'Reference matches · check the monograph.') : null,
+      section.kind === 'ntuh'
+        ? h('p', { class: 'drug-lookup-note pad-x' }, `Opens NTUH’s public page online. Snapshot ${ctx.data.ntuh.source.snapshotDate}; a listing does not confirm current availability.`) : null,
       h('div', { class: 'list' }, rows.map(resultRow)),
       section.total > rows.length ? h('div', { class: 'pad-x' }, h('button', {
         class: 'btn-small', type: 'button',
@@ -128,7 +146,8 @@ export function searchView(ctx, [routeKind] = []) {
       if (event.key !== 'Enter') return;
       event.preventDefault();
       const query = searchSession.query.trim();
-      const first = searchIndex(entries, query, optionsFor(1)).sections[0]?.items[0];
+      // Enter opens the best in-app result; external listings need a tap.
+      const first = searchIndex(entries, query, optionsFor(1)).sections.find((section) => section.kind !== 'ntuh')?.items[0];
       if (!first) return;
       remember(query);
       input.blur();
