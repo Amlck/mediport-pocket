@@ -43,7 +43,7 @@ const INTERNAL = [
 ];
 const SCHEDULE = /\(管([1-4])\)\s*/;
 
-const decodeEntities = (text) => text.replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+const decodeEntities = (text) => text.replace(/&#(?:x([a-f0-9]+)|(\d+));?/gi, (_, hex, decimal) => String.fromCodePoint(hex ? Number.parseInt(hex, 16) : Number(decimal)))
   .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
 
 export function cleanProduct(label) {

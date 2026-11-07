@@ -94,6 +94,9 @@ test('reviewed links bind exact product qualifiers and the monograph clinical sc
 });
 
 test('Chinese status markers omit products and administrative cleanup preserves Chinese product names', () => {
+  assert.equal(cleanChineseName('&#x54CC;明克注射劑'), '哌明克注射劑');
+  assert.equal(cleanChineseName('龐肌&#x9176;凍晶注射劑'), '龐肌酶凍晶注射劑');
+  assert.equal(cleanChineseName('衛尼吉&#37238濃縮輸注液'), '衛尼吉酶濃縮輸注液');
   assert.equal(cleanChineseName('@ 麻佳因注射液'), '麻佳因注射液');
   assert.equal(cleanChineseName('組織修復凝合劑(第二代) (常備查核用線上不開機)'), '組織修復凝合劑(第二代)');
   assert.equal(cleanChineseName('倍拉維膜衣錠 (供外籍無健保者憑單領藥)'), '倍拉維膜衣錠');
@@ -103,6 +106,7 @@ test('Chinese status markers omit products and administrative cleanup preserves 
     row('SAL1FAB4', 'Sodium Chloride', 'Saline 0.45% 500 mL/bag (7.7 mEq/100 mL)', { chineseName: '沙林注射液0.45% [PP軟袋] (關機)' }),
     row('DUP1AA01', 'Exampleol', 'Exampleol Tablet', { chineseName: '測試錠' }),
     row('DUP1AA01', 'Exampleol', 'Exampleol Tablet', { chineseName: '測試錠（DC）' }),
+    row('HEX1AA01', 'Exampleol', 'Exampleol Tablet', { chineseName: '測試錠(&#x95DC;&#x6A5F;)' }),
     row('KEEPAA01', 'Exampleol', 'Exampleol Tablet', { chineseName: '測試錠(第二代)' }),
   ] };
   const result = buildNtuhIndex({ catalog });
