@@ -744,7 +744,7 @@ export const config = {
     'The 2019 addendum makes calcium salts non-volume-equivalent. This module exposes only calcium-gluconate source actions and never treats local calcium chloride as a gluconate equivalent or selects a chloride product.',
     'The IV route is source detail, not an order. This aid never selects an infusion pump, line, dilution, volume, repeat dose, calcium-chloride conversion, local concentration or automatic replacement schedule.',
     'End-stage renal failure/dialysis blocks the general large-volume infusion and chronic oral/active-vitamin-D resource links. Severe symptoms remain urgent and require renal/monitored-care decisions outside this engine.',
-    'A catalog product or local resource link establishes only product identity, not availability, suitability, dose, route safety, prescribing authorization or an approved local regimen.',
+    'A product listing establishes only product identity, not availability, suitability, dose, route safety, prescribing authorization or an approved local regimen.',
   ],
   sources: Object.values(source),
   fields,

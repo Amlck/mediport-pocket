@@ -424,8 +424,8 @@ function addFocusedEvaluation(actions, values) {
         inIcu ? 'Target the respiratory syndrome' : 'Use local respiratory source evaluation',
         inIcu ? 'ICU: chest radiograph; viral testing only with respiratory syndrome.' : 'Choose specimen, imaging, and isolation from the syndrome.',
         inIcu
-          ? 'SCCM/IDSA recommends chest radiography for fever developing during ICU stay and suggests viral NAAT testing when pneumonia or new upper-respiratory symptoms are suspected. The available local respiratory rows are source references only; choose specimen, assay and imaging from the clinical syndrome and local availability.'
-          : 'SCCM/IDSA does not define a ward respiratory bundle. Use local assessment to choose specimen, imaging, infection-control action and test timing; the linked rows are not a preselected panel.',
+          ? 'SCCM/IDSA recommends chest radiography for fever developing during ICU stay and suggests viral NAAT testing when pneumonia or new upper-respiratory symptoms are suspected. Choose specimen, assay and imaging from the clinical syndrome and local availability.'
+          : 'SCCM/IDSA does not define a ward respiratory bundle. Use local assessment to choose specimen, imaging, infection-control action and test timing; there is no preselected panel.',
         {resourceGroup: 'respiratory'},
       ));
       break;
@@ -436,7 +436,7 @@ function addFocusedEvaluation(actions, values) {
         inIcu ? 'Target urinary testing to suspected UTI' : 'Use local urinary source evaluation',
         inIcu ? 'Pyuria plus suspected UTI: replace catheter, then culture the new specimen.' : 'Do not culture urine merely because fever is present.',
         inIcu
-          ? 'For a febrile ICU patient with pyuria and suspected UTI, SCCM/IDSA recommends replacing an indwelling urinary catheter and obtaining culture from the newly placed catheter. It warns that asymptomatic bacteriuria can lead to unnecessary antibiotics. The local urinalysis/culture rows are references, not defaults.'
+          ? 'For a febrile ICU patient with pyuria and suspected UTI, SCCM/IDSA recommends replacing an indwelling urinary catheter and obtaining culture from the newly placed catheter. It warns that asymptomatic bacteriuria can lead to unnecessary antibiotics. Select urinalysis and culture from the suspected urinary source; they are not defaults.'
           : 'The ICU urinary recommendation is not a ward default. Select urinalysis/culture only from urinary symptoms, catheter context, another likely source, and local policy.',
         {resourceGroup: 'urinary'},
       ));
@@ -447,7 +447,7 @@ function addFocusedEvaluation(actions, values) {
         'evaluate',
         'Target enteric testing to the diarrheal syndrome',
         'Do not order the entire stool group.',
-        'The fever guideline’s general rule is source-focused testing after history and examination. The local stool rows contain different culture, toxin, antigen and PCR methods; choose the clinically appropriate assay and infection-control response from the diarrheal syndrome and local policy.',
+        'The fever guideline’s general rule is source-focused testing after history and examination. Culture, toxin, antigen and PCR tests answer different questions; choose the clinically appropriate assay and infection-control response from the diarrheal syndrome and local policy.',
         {resourceGroup: 'diarrhea'},
       ));
       break;
@@ -458,7 +458,7 @@ function addFocusedEvaluation(actions, values) {
         inIcu ? 'Use the ICU central-line culture method when indicated' : 'Assess the line/device as a possible source',
         inIcu ? 'If CVC cultures are indicated: central plus peripheral, with at least two lumens.' : 'Choose line/device testing with local specialist input.',
         inIcu
-          ? 'For ICU fever without an obvious source and a central venous catheter, SCCM/IDSA recommends simultaneous central and peripheral blood cultures for differential time to positivity; when central cultures are indicated, sample at least two lumens. When blood cultures are performed in adult ICU patients, collect at least two sets from different sites. The two linked local blood-culture rows preserve multiplicity but do not establish collection sites, bottles, volume, or an automatic order.'
+          ? 'For ICU fever without an obvious source and a central venous catheter, SCCM/IDSA recommends simultaneous central and peripheral blood cultures for differential time to positivity; when central cultures are indicated, sample at least two lumens. When blood cultures are performed in adult ICU patients, collect at least two sets from different sites.'
           : 'The ICU central-line recommendations are not a universal ward instruction. Evaluate device type, signs, alternative sources and local line-infection policy before selecting cultures or removal actions.',
         {resourceGroup: 'cultures'},
       ));
@@ -516,7 +516,7 @@ function addReassessmentAction(actions, values, urgentOverride, assessmentComple
       'reassess',
       'Record the trajectory and an explicit next review',
       'Initial, improving, or persistent/recurrent is not yet recorded.',
-      'Record temperature value, route, time, observations, working source, tests/treatment already given, and a next review plan. The ICU guideline does not supply a universal reassessment interval. The existing local fever-episode tracker can store explicit events and a next-review time; it does not infer a diagnosis, result, or order.',
+      'Record temperature value, route, time, observations, working source, tests/treatment already given, and a next review plan. The ICU guideline does not supply a universal reassessment interval.',
       {tone: 'attention', resourceGroup: 'monitoring'},
     ));
     return;
@@ -666,8 +666,8 @@ export const config = {
     'NICE CG151 is an official but older 2012 anticancer-treatment guideline; its 2019 surveillance decision found no evidence requiring an update. It supplies the emergency neutropenic-sepsis route, not a local antimicrobial regimen, dose, or Taiwan formulary recommendation.',
     'The heat branch uses CDC/NIOSH heat-exposure guidance for emergency recognition/cooling only. A separate focused CMAJ serotonin-toxicity review supports recognition-only escalation for drug/toxin concern; neither branch diagnoses a toxic syndrome or provides syndrome-specific treatment.',
     'The conditional IV acetaminophen amounts come from a 2025 DailyMed injection label. They are not a reconciled local regimen or automatic local-vial selection; verify product compatibility, weight, route, all-source exposure, organ/volume risk, allergy, local policy and prescribing authority.',
-    'Resource groups are inspectable source references, not proposed orders. The complete local folders remain visible separately; source-row presence, catalog identity, regimen alignment and live orderability are distinct statuses.',
-    'The existing fever-episode tracker is a durable local documentation loop. This data engine neither opens an episode nor writes a culture, medication, source-control, precaution, chart, or order state.',
+    'Regimen alignment and live orderability are separate reviews.',
+    'This data engine does not write a culture, medication, source-control, precaution, chart or order state.',
   ],
   sources: [
     ICU_SOURCE,

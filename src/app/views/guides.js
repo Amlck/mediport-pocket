@@ -1,4 +1,4 @@
-import { h, icon, starButton, formatDate, note, disclosure, openSheet, stepNumber } from '../lib/ui.js';
+import { h, icon, starButton, formatDate, note, disclosure, stepNumber } from '../lib/ui.js';
 import { patientSession } from '../lib/session.js';
 import { groupBrowseEntries } from '../lib/search.js';
 import { hyperkalemiaShiftPresentation } from '../lib/guide-dose-presentation.js';
@@ -70,7 +70,7 @@ export function guidesView(ctx) {
       ? h('div', { class: 'card' }, disclosure(`${excluded.length} main-app guide${excluded.length === 1 ? '' : 's'} not in this pack`,
         excluded.map((item) => h('p', { class: 'small' }, h('strong', null, item.title), ' — ', item.reason))))
       : null,
-    h('p', { class: 'muted pad-x' }, 'Engines are copied from the main app at build time, byte-for-byte apart from cache-buster query strings on imports. Review labels and pending states are the source’s, not the pack’s.'));
+    h('p', { class: 'muted pad-x' }, 'Guides keep their original source review dates and limitations. Public wording adaptations are recorded with the source code.'));
   return { title: 'Guides', subtitle: `${guides.length} management guides`, el };
 }
 
@@ -84,7 +84,7 @@ function entryContext(entry) {
       icon('external', 16), entry.source.label || entry.source.url) : null);
 }
 
-function metaCard(guide, local) {
+function metaCard(guide) {
   const meta = guide.sourceMetadata || {};
   const metadataLabels = {
     reviewedAt: 'Source metadata review date', sourceReview: 'Source review scope',
@@ -97,7 +97,6 @@ function metaCard(guide, local) {
     h('div', { class: 'guide-meta-strip' },
       h('div', { class: 'guide-provenance-chips' },
         h('span', { class: 'chip accent' }, icon('check', 16), `Reviewed ${formatDate(guide.reviewedAt)}`),
-        local ? h('span', { class: 'chip attention' }, 'Local rows: historical') : null,
         reviewPending(guide) ? h('span', { class: 'chip attention' }, 'Review pending') : null),
       guide.reviewLabel ? h('span', { class: 'guide-review-label' }, guide.reviewLabel) : null),
     h('div', { class: 'guide-meta-disclosures' },
@@ -200,126 +199,8 @@ function questionCard(field, values, set, number) {
     definition ? disclosure('Definitions', h('p', null, definition), { className: 'compact' }) : null);
 }
 
-// Resolves a resource group to source rows the same four ways the main app does:
-// explicit set indices, set + order codes, a whole set, or catalog product codes.
-function localRowsFor(local, groupId) {
-  const sets = local.pathway.sets;
-  const group = groupId ? local.pathway.groups[groupId] : null;
-  const rows = [];
-  const push = (set, index) => rows.push({ kind: 'row', row: set.rows[index], set, index, key: `${set.id}:${index}` });
-  if (!group) {
-    for (const set of sets) set.rows.forEach((_, index) => push(set, index));
-    return rows;
-  }
-  for (const ref of group.selections || []) {
-    const set = sets.find((s) => s.id === ref.set);
-    for (const index of ref.indices || []) if (set?.rows[index]) push(set, index);
-  }
-  if (group.set) {
-    const set = sets.find((s) => s.id === group.set);
-    (set?.rows || []).forEach((row, index) => { if (!group.codes || group.codes.includes(row.orderCode)) push(set, index); });
-  }
-  for (const code of group.catalogCodes || []) {
-    const identity = local.productIdentities.find((p) => p.code === code);
-    rows.push({ kind: 'identity', code, identity, key: `catalog:${code}` });
-  }
-  return rows;
-}
-
-function identityRow(local, { code, identity }) {
-  return h('div', { class: 'lrow' },
-    h('div', { class: 'meta' },
-      h('span', { class: 'chip' }, 'Catalog identity'),
-      h('span', { class: 'chip code' }, code),
-      identity ? null : h('span', { class: 'chip attention' }, 'identity unresolved')),
-    identity ? h('div', { class: 'name' }, identity.tradeLabel || identity.genericName || code) : h('div', { class: 'name' }, code),
-    identity ? h('div', { class: 'ident' }, [identity.genericName, identity.chineseName, identity.maxDose].filter(Boolean).join(' · ')) : null);
-}
-
-// Put the distinct caution beside a saved instruction. The complete source
-// note remains available when its first sentence is only placeholder context
-// or when it contains further qualifications.
-export function instructionReviewPresentation(review) {
-  if (!review) return null;
-  const trimmed = review.trim();
-  if (!trimmed) return null;
-  const sentences = trimmed.split(/(?<=[.!?])\s+/).filter(Boolean);
-  const generic = /^(?:Instruction stored under|Zero-dose saline|Historical free-text instruction|Saved instruction requires independent clinical review|This is source text, not a saline|Section heading:)/i;
-  const material = sentences.filter((sentence) => !generic.test(sentence));
-  const distinct = material.find((sentence) => /\b(?:not|no|do not|does not|cannot|must|should|requires|pending)\b/i.test(sentence)) || material[0];
-  const essential = distinct || sentences[0] || trimmed;
-  return { essential, complete: review, hasMore: essential !== trimmed, specific: Boolean(distinct) };
-}
-
-function localRow(local, entry) {
-  if (entry.kind === 'identity') return identityRow(local, entry);
-  const { row, index, key } = entry;
-  const presentation = local.pathway.rowPresentation?.[key];
-  const review = local.pathway.rowReviewNotes?.[key];
-  const identity = local.productIdentities.find((p) => p.code === row.orderCode);
-  const unresolved = local.unresolvedIdentityCodes.includes(row.orderCode);
-  if (presentation?.kind === 'instruction') {
-    const reviewPresentation = instructionReviewPresentation(review);
-    return h('div', { class: 'lrow' },
-      h('div', { class: 'meta' }, h('span', { class: 'chip' }, `Row ${index + 1}`), h('span', { class: 'chip' }, 'instruction')),
-      h('div', { class: 'instr' }, presentation.label),
-      reviewPresentation ? h('div', { class: `guide-instruction-review ${reviewPresentation.specific ? 'specific' : ''}` },
-        reviewPresentation.specific ? h('p', null, h('strong', null, 'Review note · '), reviewPresentation.essential) : null,
-        reviewPresentation.hasMore || !reviewPresentation.specific
-          ? disclosure(reviewPresentation.specific ? 'Full saved review note' : 'Saved review note', h('p', null, reviewPresentation.complete), { className: 'compact' }) : null) : null);
-  }
-  return h('div', { class: 'lrow' },
-    h('div', { class: 'meta' },
-      h('span', { class: 'chip' }, `Row ${index + 1}`),
-      h('span', { class: 'chip code' }, row.orderCode || '—'),
-      row.category ? h('span', { class: 'chip' }, row.category) : null,
-      row.selfPay ? h('span', { class: 'chip' }, row.selfPay) : null,
-      unresolved ? h('span', { class: 'chip attention' }, 'identity unresolved') : null),
-    h('div', { class: 'name' }, presentation?.label || row.orderName),
-    identity ? h('div', { class: 'ident' }, [identity.genericName, identity.chineseName].filter(Boolean).join(' · ')) : null,
-    review ? h('div', { class: 'review' }, review) : null);
-}
-
-export function rowsBySet(local, rows) {
-  const groups = new Map();
-  for (const entry of rows) {
-    const label = entry.kind === 'identity' ? 'Catalog identity' : entry.set.label || entry.set.id;
-    const key = entry.kind === 'identity' ? 'catalog' : entry.set.id;
-    if (!groups.has(key)) groups.set(key, {
-      label, generatedAt: entry.kind === 'identity' ? local.sourceSnapshot.catalogGeneratedAt : entry.set.generatedAt, rows: [],
-    });
-    groups.get(key).rows.push(entry);
-  }
-  return [...groups.values()];
-}
-
-function openLocalSheet(local, guide, groupId) {
-  const group = groupId ? local.pathway.groups[groupId] : null;
-  const rows = localRowsFor(local, groupId);
-  const sections = rowsBySet(local, rows);
-  openSheet({
-    title: group ? (group.label || groupId.replaceAll('-', ' ')) : `All ${rows.length} historical rows`,
-    body: [
-      note('attention', 'Historical source rows. Each folder is dated below; rows are not current regimens, orders or availability claims.'),
-      group?.note ? h('p', { class: 'small' }, group.note) : null,
-      disclosure('Full source notices', [
-        guide.resourceNotice ? h('p', null, guide.resourceNotice) : null,
-        guide.resourceCaution ? h('p', null, h('strong', null, 'Guide resource caution: '), guide.resourceCaution) : null,
-        local.notices.map((text) => h('p', null, text)),
-      ]),
-      sections.map((section) => h('div', { class: 'card guide-local-folder' },
-        h('div', { class: 'card-title' }, `${section.label} · ${section.rows.length}`),
-        h('p', { class: 'guide-folder-date' }, `Folder snapshot: ${formatDate(section.generatedAt)}`),
-        section.rows.map((entry) => localRow(local, entry)))),
-      rows.length ? null : h('p', { class: 'muted' }, 'This group names no rows in the snapshot.'),
-    ],
-  });
-}
-
-function actionCard(action, local, guide, guideById, drugs) {
+function actionCard(action, guide, guideById, drugs) {
   const tone = action.tone || '';
-  const group = action.resourceGroup && local?.pathway.groups[action.resourceGroup];
-  const rowCount = group ? localRowsFor(local, action.resourceGroup).length : 0;
   const dose = hyperkalemiaShiftPresentation(guide.id, action);
   const related = (action.related || []).map((id) => guideById.get(id)).filter(Boolean);
   const references = actionDrugReferences(guide.id, action, drugs);
@@ -353,12 +234,10 @@ function actionCard(action, local, guide, guideById, drugs) {
     disclosure([h('span', null, 'Details'), action.sourceSection ? h('span', { class: 'sec' }, ` · §${action.sourceSection}`) : null], [
       h('p', null, action.detail),
       action.sourceUrl ? h('a', { class: 'reflink', href: action.sourceUrl, target: '_blank', rel: 'noopener noreferrer' }, icon('external', 16), action.sourceLabel || 'Guideline source') : null,
-      group ? h('button', { class: 'btn-small', type: 'button', onclick: () => openLocalSheet(local, guide, action.resourceGroup) },
-        icon('rows', 16), ` ${group.label || action.resourceGroup.replaceAll('-', ' ')} (${rowCount})`) : null,
     ]));
 }
 
-function resultsSection(guide, result, local, questions, values, onAssessment, guideById, drugs) {
+function resultsSection(guide, result, questions, values, onAssessment, guideById, drugs) {
   const actions = result.actions || [];
   const unanswered = questions.filter((field) => values[field.key] === UNKNOWN).length;
   const stages = guide.stages.filter((stage) => !result.visibleStageIds || result.visibleStageIds.includes(stage.id));
@@ -383,18 +262,9 @@ function resultsSection(guide, result, local, questions, values, onAssessment, g
       const stageTone = own.some((a) => a.tone === 'urgent') ? 'urgent' : own.some((a) => a.tone === 'attention') ? 'attention' : '';
       return h('div', { class: 'stage' },
         h('div', { class: 'stage-head' }, stepNumber(i + 1, stageTone), h('h3', null, stage.title)),
-        own.length ? own.map((a) => actionCard(a, local, guide, guideById, drugs)) : h('p', { class: 'stage-empty' }, result.stageNotes?.[stage.id] || stage.empty || 'No additional action from the reviewed findings.'));
+        own.length ? own.map((a) => actionCard(a, guide, guideById, drugs)) : h('p', { class: 'stage-empty' }, result.stageNotes?.[stage.id] || stage.empty || 'No additional action from the reviewed findings.'));
     }),
     withheld.length ? h('div', { class: 'card' }, disclosure('Not prioritized from these answers', withheld.map((t) => h('p', null, t)))) : null);
-}
-
-function localCard(local, guide) {
-  if (!local) return null;
-  const total = local.pathway.sets.reduce((sum, set) => sum + set.rows.length, 0);
-  return h('div', { class: 'card' },
-    h('div', { class: 'card-title' }, 'Local historical resources'),
-    h('p', { class: 'small' }, `${total} saved rows across ${local.pathway.sets.length} historical folder${local.pathway.sets.length === 1 ? '' : 's'}, each dated in the source view and kept separate from guideline actions.`),
-    h('button', { class: 'btn-ghost', type: 'button', onclick: () => openLocalSheet(local, guide, null) }, 'View all rows'));
 }
 
 function sepsisReference(guide) {
@@ -438,7 +308,6 @@ export function guideView(ctx, [id]) {
   const guide = ctx.data.guides.find((g) => g.id === id);
   if (!guide) return notFound(id);
   const guideById = new Map(ctx.data.guides.map((item) => [item.id, item]));
-  const local = ctx.data.guideResources?.[id] || null;
   const session = sessionFor(guide);
   const phaseField = guide.fields.find((f) => f.key === 'phase') || null;
   const el = h('div', { class: 'page guide-page' });
@@ -482,7 +351,7 @@ export function guideView(ctx, [id]) {
 
   function render() {
     if (!engine) {
-      el.replaceChildren(metaCard(guide, local), note('plain', 'Loading guide engine…'));
+      el.replaceChildren(metaCard(guide), note('plain', 'Loading guide engine…'));
       counts.replaceChildren(h('span', null, 'Loading'));
       planButton.hidden = true;
       return;
@@ -493,33 +362,40 @@ export function guideView(ctx, [id]) {
     const result = config.evaluate(values);
     const questions = guide.fields.filter((f) => f.key !== 'phase' && visibleKeys.includes(f.key));
     const gated = phaseField && values.phase === UNKNOWN;
+    const urgentActions = (result.actions || []).filter((action) => action.tone === 'urgent');
     const lastDiagnosticKey = config.diagnosticFields?.at(-1)?.key;
     el.replaceChildren(...[
-      metaCard(guide, local),
+      metaCard(guide),
       phaseField ? phaseControl(phaseField, values, set) : h('h2', { id: 'assessment', class: 'guide-section-label', tabindex: '-1' }, 'Assessment'),
       questions.map((field, index) => [questionCard(field, values, set, index + 1), field.key === lastDiagnosticKey ? diagnosisCard(result) : null]),
-      gated ? note('plain', `Choose ${phaseField.label.toLowerCase()} to see staged actions.`)
-        : resultsSection(guide, result, local, questions, values, () => jumpTo('#assessment'), guideById, ctx.data.drugs),
-      localCard(local, guide),
+      gated && urgentActions.length ? h('section', { class: 'results', id: 'plan', 'aria-label': 'Urgent actions before phase selection' },
+        h('div', { class: 'results-head' },
+          h('h2', { id: 'plan-title', tabindex: '-1' }, 'Urgent actions'),
+          h('div', { class: 'chips' }, h('span', { class: 'chip urgent' }, `${urgentActions.length} urgent`)),
+          h('button', { class: 'guide-back-to-assessment', type: 'button', onclick: () => jumpTo('#assessment') }, 'Assessment ↑')),
+        h('p', { class: 'muted' }, 'Select the review phase for the remaining staged plan.'),
+        urgentActions.map((action) => actionCard(action, guide, guideById, ctx.data.drugs))) : null,
+      gated ? note('plain', `Choose ${phaseField.label.toLowerCase()} to see the remaining staged actions.`)
+        : resultsSection(guide, result, questions, values, () => jumpTo('#assessment'), guideById, ctx.data.drugs),
       sepsisReference(guide),
       sourcesCard(guide),
       h('button', { class: 'btn-ghost', type: 'button', onclick: reset }, icon('reset', 18), ' Reset answers'),
     ].flat(Infinity).filter(Boolean));
 
-    const urgent = (result.actions || []).filter((a) => a.tone === 'urgent').length;
+    const urgent = urgentActions.length;
     const answered = questions.filter((f) => values[f.key] !== UNKNOWN).length;
     counts.replaceChildren(...[
-      gated ? h('span', null, 'No phase selected') : h('span', null, `${answered}/${questions.length} answered · ${(result.actions || []).length} actions`),
-      !gated && urgent ? h('span', { class: 'chip urgent' }, `${urgent} urgent`) : null,
+      gated ? h('span', null, urgent ? 'Urgent actions · phase not selected' : 'No phase selected') : h('span', null, `${answered}/${questions.length} answered · ${(result.actions || []).length} actions`),
+      urgent ? h('span', { class: 'chip urgent' }, `${urgent} urgent`) : null,
     ].filter(Boolean));
-    planButton.hidden = Boolean(gated);
+    planButton.hidden = Boolean(gated && !urgent);
     restoreReadingPosition();
   }
 
   render();
   if (!engine) {
     ctx.loadEngine(id).then((loaded) => { engine = loaded; if (el.isConnected) render(); })
-      .catch((error) => { if (el.isConnected) el.replaceChildren(metaCard(guide, local), note('urgent', `Guide engine could not be loaded: ${error.message || error}`)); });
+      .catch((error) => { if (el.isConnected) el.replaceChildren(metaCard(guide), note('urgent', `Guide engine could not be loaded: ${error.message || error}`)); });
   }
   const onMount = () => { mounted = true; restoreReadingPosition(); };
   const onUnmount = () => {

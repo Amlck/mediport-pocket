@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-07",
+  "snapshotDate": "2026-08-28",
+  "access": "Anonymous HTTPS GET without cookies or application credentials; exact public source URLs are recorded below",
+  "scope": "Product identity and displayed label strength/package only. No dosing review, current stock, absence or substitution claim. Full source HTML is not redistributed.",
+  "products": [
+    {
+      "code": "PER1DE10",
+      "generic": "Nicardipine HCl",
+      "product": "Perdipine Injection 10 mg/10 mL/amp",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PER1DE10"
+    },
+    {
+      "code": "TRA1DB18",
+      "generic": "Labetalol HCl",
+      "product": "Trandate Injection 25 mg/5 mL/amp",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=TRA1DB18"
+    },
+    {
+      "code": "BER1EB25",
+      "generic": "Factor IX Complex, Factors II, VII, IX, X, PCC",
+      "product": "Beriplex P/N 500 for Injection, (factor II 400-960 IU, factor VII 200-500 IU, factor IX 400-620 IU, factor × 440-1200 IU, protein C 300-900 IU, total protein 120-280 mg)/vial",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=BER1EB25"
+    },
+    {
+      "code": "KAT1EB04",
+      "generic": "Phytonadione",
+      "product": "Katimin-1 Injection 10 mg/1 mL/amp",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=KAT1EB04"
+    },
+    {
+      "code": "PRA1QB42",
+      "generic": "Idarucizumab",
+      "product": "Praxbind Solution for Injection/Infusion 2.5 g/50 mL/vial, 2 vials/box",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PRA1QB42"
+    },
+    {
+      "code": "PRF1QB08",
+      "generic": "Protamine Sulfate",
+      "product": "Protaminsulfat Solution for Injection and Infusion, 50 mg/5 mL/amp",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PRF1QB08"
+    },
+    {
+      "code": "ADR1DG02",
+      "generic": "Epinephrine HCl",
+      "product": "Adrenalin Injection 1 mg epinephrine/1 mL/amp",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=ADR1DG02"
+    },
+    {
+      "code": "MAG1FA11",
+      "generic": "Magnesium Sulfate",
+      "product": "Magnesium Sulfate Injection 10% 20 mL/amp (Mg 0.8 mEq/mL)",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=MAG1FA11"
+    },
+    {
+      "code": "MGS1FA11",
+      "generic": "Magnesium Sulfate",
+      "product": "Magnesium Sulfate Injection 10% 200 mL/btl (Mg 0.8 mEq/mL)",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=MGS1FA11"
+    },
+    {
+      "code": "CAL1FA03",
+      "generic": "Calcium Gluconate",
+      "product": "Calglon Injection 10% (Ca 0.465 mEq/mL) 10 mL/amp",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=CAL1FA03"
+    },
+    {
+      "code": "BAK4AI02",
+      "generic": "Co-trimoxazole",
+      "product": "Baktar Tablet 400 mg sulfamethoxazole & 80 mg trimethoprim/tab",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=BAK4AI02"
+    },
+    {
+      "code": "DEX1LA21",
+      "generic": "Dexamethasone Sodium Phosphate",
+      "product": "Dexamethasone Injection 5 mg/1 mL/amp",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=DEX1LA21"
+    },
+    {
+      "code": "NEX4HA41",
+      "generic": "Esomeprazole Magnesium",
+      "product": "Nexium Tablet 40 mg (as magnesium trihydrate)/tab",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=NEX4HA41"
+    },
+    {
+      "code": "FLO4LA18",
+      "generic": "Fludrocortisone Acetate",
+      "product": "Florinef Tablet 0.1 mg/tab",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=FLO4LA18"
+    },
+    {
+      "code": "SOL1LA06",
+      "generic": "Hydrocortisone Sodium Succinate",
+      "product": "Solu-Cortef Sterile Powder 100 mg hydrocortisone/vial",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=SOL1LA06"
+    },
+    {
+      "code": "PAN1HA40",
+      "generic": "Pantoprazole Sodium",
+      "product": "Pantoloc i.v. Injection 40 mg pantoprazole/vial",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=PAN1HA40"
+    },
+    {
+      "code": "ALE1JA07",
+      "generic": "Phenytoin Sodium",
+      "product": "Aleviatin Injection 250 mg/5 mL/amp",
+      "url": "https://reg.ntuh.gov.tw/pharmacyoutside/QueryDrugDetail.aspx?Drug_Code=ALE1JA07"
+    }
+  ],
+  "guideProducts": {
+    "hypertensive-emergency": [
+      "PER1DE10",
+      "TRA1DB18"
+    ],
+    "anticoagulant-bleeding": [
+      "BER1EB25",
+      "KAT1EB04",
+      "PRA1QB42",
+      "PRF1QB08"
+    ],
+    "anaphylaxis": [
+      "ADR1DG02"
+    ],
+    "hypomagnesemia": [
+      "MAG1FA11",
+      "MGS1FA11"
+    ],
+    "hypermagnesemia": [
+      "CAL1FA03"
+    ],
+    "status-epilepticus": [
+      "ALE1JA07"
+    ],
+    "systemic-corticosteroids": [
+      "SOL1LA06",
+      "FLO4LA18",
+      "DEX1LA21",
+      "PAN1HA40",
+      "NEX4HA41",
+      "BAK4AI02"
+    ]
+  }
+}

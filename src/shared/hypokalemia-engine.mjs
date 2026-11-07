@@ -459,7 +459,7 @@ export const config = {
     'AAFP is a published clinical review rather than a local hospital protocol; DailyMed labels are U.S. product-specific prescribing information. Local formulation, availability, concentration, access, monitoring and authorization still govern care.',
     'The engine never assigns an IV dose, total replacement deficit, infusion rate, line or automatic repeat dose. It deliberately excludes a routine high-rate ward regimen and never supports IV push.',
     'K ≤2.5 mmol/L, ECG/rhythm/neuromuscular danger, pregnancy, DKA, refeeding, dialysis, critical illness and complex acid-base disease require context-specific escalation or separate pathways.',
-    'A catalog product or local resource link establishes only product identity, not current orderability, suitability, dose, route safety, or permission to prescribe.',
+    'A product listing establishes only product identity, not current orderability, suitability, dose, route safety, or permission to prescribe.',
   ],
   sources: Object.values(source),
   fields,

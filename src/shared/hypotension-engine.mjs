@@ -480,7 +480,7 @@ function addResuscitation(actions, values) {
         'resuscitate',
         'Persistent septic-shock physiology: use the local norepinephrine critical-care protocol',
         'SSC 2026 identifies norepinephrine as first-line and an initial MAP target of 65 mmHg.',
-        'Escalate to critical care immediately. SSC 2026 allows peripheral vasopressor initiation rather than delay solely for central access, but does not supply a generic duration, dose, concentration, line-size or titration order. Use the local protocol and individualize the target rather than copying saved resource-row details.',
+        'Escalate to critical care immediately. SSC 2026 allows peripheral vasopressor initiation rather than delay solely for central access, but does not supply a generic duration, dose, concentration, line-size or titration order. Use the local protocol and individualize the target rather than copying a fixed order.',
         {tone: 'urgent', resourceGroup: 'vasopressor', related: ['sepsis-septic-shock'], source: SSC_2026},
       ));
     } else {
@@ -690,7 +690,7 @@ export const config = {
     'NICE NG253 (2025) uses reassessed 250 mL sepsis boluses, while SSC 2026 suggests at least 30 mL/kg in 3 hours for sepsis-induced hypoperfusion or septic shock. The engine deliberately delegates this choice to the dedicated sepsis pathway and never combines the standards.',
     'The NICE CG174 500 mL crystalloid criterion is limited here to credible non-haemorrhagic hypovolaemia with current hypoperfusion and no high/unknown fluid-harm concern; it never authorizes automatic repeats.',
     'Norepinephrine is referenced only as a septic-shock critical-care handoff. Concentration, access, duration, monitoring, titration, add-on agents and patient-specific MAP target require the local protocol and clinician assessment.',
-    'Local shock rows, catalog identity, product availability, major-haemorrhage process, pressor safety, antimicrobial selection, anaphylaxis dosing and ACS treatment remain separately reviewed local work.',
+    'Product availability, major-haemorrhage process, pressor safety, antimicrobial selection, anaphylaxis dosing and ACS treatment remain separately reviewed local work.',
   ],
   sources: HYPOTENSION_SOURCES,
   fields,
