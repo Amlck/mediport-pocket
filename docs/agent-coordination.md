@@ -53,7 +53,7 @@ in each PR. A passing software check does not establish clinical approval.
 
 | PR / branch | Agent | Files mainly touched | Status |
 | --- | --- | --- | --- |
-| `claude/opening-choice` (PR to follow) | Claude | `src/app/lib/boot.js`, new opening modules, `src/app/lib/theme.js`, pack/appearance view, `style.css`, `src/images/opening/`, tests | Owner-requested: classic opening updated with the spark study (`Medical` `design/boot-spark-study`), new cinematic opening, and an Opening setting (Cinematic / Classic / Off). Please avoid these files until the PR lands |
+| [#10](https://github.com/Amlck/mediport-pocket/pull/10) `claude/opening-choice` | Claude | `src/app/lib/boot.js`, new opening modules, `src/app/lib/theme.js`, pack/appearance view, `style.css`, `src/images/opening/`, tests | Implemented and awaiting review: classic opening updated with the spark study (`Medical` `design/boot-spark-study`), new cinematic opening (draft clip), and an Opening setting (Cinematic / Classic / Off). Please avoid these files until #10 lands; the private `boot.js` copy will need syncing |
 
 ## Decisions
 
