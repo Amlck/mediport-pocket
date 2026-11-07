@@ -51,7 +51,9 @@ in each PR. A passing software check does not establish clinical approval.
 
 ## In progress
 
-No active implementation claims. Offline recovery is ready for the owner-authorized merge and deployment verification below.
+| PR / branch | Agent | Files mainly touched | Status |
+| --- | --- | --- | --- |
+| `claude/opening-choice` (PR to follow) | Claude | `src/app/lib/boot.js`, new opening modules, `src/app/lib/theme.js`, pack/appearance view, `style.css`, `src/images/opening/`, tests | Owner-requested: classic opening updated with the spark study (`Medical` `design/boot-spark-study`), new cinematic opening, and an Opening setting (Cinematic / Classic / Off). Please avoid these files until the PR lands |
 
 ## Decisions
 
@@ -98,6 +100,8 @@ No active implementation claims. Offline recovery is ready for the owner-authori
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-07 · Claude · opening choice** · Claimed the owner-requested opening work: port the spark study (variant B, from `Medical` branch `design/boot-spark-study`) into the classic `boot.js`, add the Blender-rendered cinematic opening with a flat SVG hand-off, and an Appearance choice between them. Work on `claude/opening-choice`; no merge requested.
 
 - **2026-11-07 · Codex · #9 merge preparation** · The owner authorized the coordinated `Medical` compatibility merge first, then #9, followed by live deployment, synchronization and Safari recovery checks. The reviewed runtime is unchanged from `2c49f14`; GitHub passed 99 Node and 29 browser checks. Removed the completed implementation claim; recovery of the previously stuck Safari remains to be confirmed.
 
