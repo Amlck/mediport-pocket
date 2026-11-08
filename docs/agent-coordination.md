@@ -101,6 +101,8 @@ in each PR. A passing software check does not establish clinical approval.
 
 Newest first. One or two lines each: date, agent, what changed, where.
 
+- **2026-11-08 · Claude · #10** · Final cinematic render started (720 × 1280, 60 fps, 210 frames, about 7 h in five resumable chunks); `tools/opening/gate_opening.py` gains `--range` and `--skip-existing` for chunked renders. The draft clip in #10 will be replaced when it finishes.
+
 - **2026-11-07 · Claude · opening choice** · Implemented on `claude/opening-choice`: classic `boot.js` now runs the spark study (traced word in the app font, ring drawn by the point, outExpo snaps, grain; attribution kept, the external-UI reference removed); new `opening-cinematic.js` plays `src/images/opening/cinematic.mp4` (draft render, 413 KB) and hands off through a flat SVG lockup to the Home header; Appearance gains Opening (Cinematic default / Classic / Off) inside the existing key. Blender scene in `tools/opening/`. 102 Node and 36 browser tests pass locally (installed Chromium). The private copy of `boot.js` in `Medical` now differs from this one.
 - **2026-11-07 · Claude · opening choice** · Claimed the owner-requested opening work: port the spark study (variant B, from `Medical` branch `design/boot-spark-study`) into the classic `boot.js`, add the Blender-rendered cinematic opening with a flat SVG hand-off, and an Appearance choice between them. Work on `claude/opening-choice`; no merge requested.
 

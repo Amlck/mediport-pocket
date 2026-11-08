@@ -9,7 +9,9 @@ Render with Blender's Python module (pip install bpy, Blender 5.2):
   python gate_opening.py OUT --frames 0.2,0.45,0.62,1.0 --res 360x640 --samples 24
   python gate_opening.py OUT --sequence 105 --res 360x640 --samples 24 \
       --export-geometry final-geometry.json
-  ffmpeg -framerate 30 -i OUT/f%04d.png -c:v libx264 -pix_fmt yuv420p -crf 19 \
+  # Final: 60 fps, in chunks that resume after an interruption
+  python gate_opening.py OUT --sequence 210 --res 720x1280 --samples 40 --range 0:53 --skip-existing
+  ffmpeg -framerate 60 -i OUT/f%04d.png -c:v libx264 -pix_fmt yuv420p -crf 19 \
       -movflags +faststart ../../src/images/opening/cinematic.mp4
 
 pose(t) drives everything for t in [0, 1]; each frame is set from it and
@@ -1070,13 +1072,23 @@ def main():
     ap.add_argument('--res', default='432x768')
     ap.add_argument('--samples', type=int, default=32)
     ap.add_argument('--export-geometry', default='')
+    ap.add_argument('--range', default='', help='render only sequence frames a:b (end exclusive), for chunked renders')
+    ap.add_argument('--skip-existing', action='store_true', help='resume: skip frames whose PNG already exists')
     a = ap.parse_args(sys.argv[1:])
     w, h = (int(v) for v in a.res.split('x'))
     os.makedirs(a.out, exist_ok=True)
     s = build((w, h), a.samples)
     times = [float(v) for v in a.frames.split(',') if v] if a.frames else \
         [i / (a.sequence - 1) for i in range(a.sequence)]
+    lo, hi = 0, len(times)
+    if a.range:
+        lo, hi = (int(v) for v in a.range.split(':'))
     for i, t in enumerate(times):
+        if not lo <= i < hi:
+            continue
+        out = os.path.join(a.out, f'f{i:04d}.png')
+        if a.skip_existing and os.path.exists(out) and os.path.getsize(out) > 0:
+            continue
         apply(s, t)
         s['sc'].render.filepath = os.path.join(a.out, f'f{i:04d}.png')
         if a.export_geometry and abs(t - 1.0) < 1e-6:
