@@ -101,6 +101,8 @@ in each PR. A passing software check does not establish clinical approval.
 
 Newest first. One or two lines each: date, agent, what changed, where.
 
+- **2026-11-08 · Claude · #10 render** · Final render paused at frames 0–89 of 210 at the owner's request. Those frames are preserved losslessly on the temporary branch `claude/opening-render-frames` (45 MB, no PR, does not deploy); it will be deleted once #10 carries the final clip. Please don't build on it.
+
 - **2026-11-08 · Claude · #10** · Final cinematic render started (720 × 1280, 60 fps, 210 frames, about 7 h in five resumable chunks); `tools/opening/gate_opening.py` gains `--range` and `--skip-existing` for chunked renders. The draft clip in #10 will be replaced when it finishes.
 
 - **2026-11-07 · Claude · opening choice** · Implemented on `claude/opening-choice`: classic `boot.js` now runs the spark study (traced word in the app font, ring drawn by the point, outExpo snaps, grain; attribution kept, the external-UI reference removed); new `opening-cinematic.js` plays `src/images/opening/cinematic.mp4` (draft render, 413 KB) and hands off through a flat SVG lockup to the Home header; Appearance gains Opening (Cinematic default / Classic / Off) inside the existing key. Blender scene in `tools/opening/`. 102 Node and 36 browser tests pass locally (installed Chromium). The private copy of `boot.js` in `Medical` now differs from this one.
