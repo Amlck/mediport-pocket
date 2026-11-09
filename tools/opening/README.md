@@ -4,7 +4,8 @@
 code: geometry, materials, lights, camera and compositing. Nothing is hand-placed in a
 `.blend` file, so a change is a diff and anyone can re-render.
 
-- **Clip in the app:** `src/images/opening/cinematic.mp4`.
+- **Clip in the app:** `src/images/opening/cinematic.mp4`: the final render, 720 × 1280 at
+  60 fps (210 frames, 40 samples), H.264 High, CRF 20, about 1.1 MB.
 - **Flat lockup:** `src/app/lib/opening-cinematic.js` holds the final-frame logo and
   iris geometry exported by `--export-geometry`; `final-geometry.json` here is the
   current export. Re-export and update the constants whenever the camera, iris or

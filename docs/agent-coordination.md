@@ -53,7 +53,7 @@ in each PR. A passing software check does not establish clinical approval.
 
 | PR / branch | Agent | Files mainly touched | Status |
 | --- | --- | --- | --- |
-| [#10](https://github.com/Amlck/mediport-pocket/pull/10) `claude/opening-choice` | Claude | `src/app/lib/boot.js`, new opening modules, `src/app/lib/theme.js`, pack/appearance view, `style.css`, `src/images/opening/`, tests | Implemented and awaiting review: classic opening updated with the spark study (`Medical` `design/boot-spark-study`), new cinematic opening (draft clip), and an Opening setting (Cinematic / Classic / Off). Please avoid these files until #10 lands; the private `boot.js` copy will need syncing |
+| [#10](https://github.com/Amlck/mediport-pocket/pull/10) `claude/opening-choice` | Claude | `src/app/lib/boot.js`, new opening modules, `src/app/lib/theme.js`, pack/appearance view, `style.css`, `src/images/opening/`, tests | Implemented and awaiting review: classic opening updated with the spark study (`Medical` `design/boot-spark-study`), new cinematic opening (final 60 fps clip), and an Opening setting (Cinematic / Classic / Off). Please avoid these files until #10 lands; the private `boot.js` copy will need syncing |
 
 ## Decisions
 
@@ -100,6 +100,8 @@ in each PR. A passing software check does not establish clinical approval.
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-09 · Claude · #10 render** · Final render complete: all 210 frames (720 × 1280, 60 fps, 40 samples). `src/images/opening/cinematic.mp4` now carries it (H.264 High, CRF 20, 1.15 MB); the final-frame geometry is unchanged, so the lockup constants stand. 102 Node and 15 opening/media browser tests pass. The temporary `claude/opening-render-frames` branch is deleted.
 
 - **2026-11-08 · Claude · #10 render** · Final render paused at frames 0–89 of 210 at the owner's request. Those frames are preserved losslessly on the temporary branch `claude/opening-render-frames` (45 MB, no PR, does not deploy); it will be deleted once #10 carries the final clip. Please don't build on it.
 
