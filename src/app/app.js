@@ -18,7 +18,7 @@ import { labReviewView } from './views/lab-review.js';
 import { pocusView, pocusTopicView } from './views/pocus.js';
 import { appearance } from './lib/theme.js';
 import { setupOffline } from './lib/offline.js';
-import { bootAllowed, startBoot } from './lib/boot.js';
+import { openingAllowed, startOpening } from './lib/opening.js';
 
 const TABS = [
   { id: 'home', label: 'Home', icon: 'home', hash: '#/home' },
@@ -251,7 +251,13 @@ appearance.applyStored();
 // The boot overlay plays over the shell while the pack loads and the worker
 // reports; it only runs on a cold open of Home, never on a pasted deep link.
 renderLoading();
-const boot = bootAllowed(currentPath()) ? startBoot({ host: document.getElementById('phone'), offline }) : null;
+const boot = openingAllowed(currentPath()) ? startOpening({ host: document.getElementById('phone'), offline }) : null;
+// The pack page can replay the chosen opening over the current screen.
+ctx.playOpening = () => {
+  if (document.querySelector('#phone > .boot, #phone > .cine')) return;
+  const replay = startOpening({ host: document.getElementById('phone'), offline });
+  if (ctx.data) replay.setPack({ release: ctx.release, data: ctx.data });
+};
 // Only a failed pack load shows the error page; the offline client reports its
 // own problems on the pack page and never replaces a working app.
 loadPack().then(

@@ -1,4 +1,4 @@
-// Appearance preference: palette, contrast and text size. A per-device UI convenience,
+// Appearance preference: palette, contrast, text size and opening. A per-device UI convenience,
 // stored separately from favorites. Nothing clinical is derived from it.
 
 export const THEMES = [
@@ -17,6 +17,12 @@ export const TEXT_SIZES = [
   { id: 'large', label: 'Large' },
 ];
 
+export const OPENINGS = [
+  { id: 'cinematic', label: 'Cinematic', note: 'The rendered temple opening.' },
+  { id: 'classic', label: 'Classic', note: 'The original drawn opening with its spark.' },
+  { id: 'off', label: 'Off', note: 'Open straight to Home.' },
+];
+
 const KEY = 'mediport-pocket-variant-b:appearance';
 
 function read() {
@@ -26,9 +32,10 @@ function read() {
       theme: THEMES.some((t) => t.id === parsed.theme) ? parsed.theme : 'portal',
       contrast: CONTRASTS.some((c) => c.id === parsed.contrast) ? parsed.contrast : 'standard',
       textSize: TEXT_SIZES.some((s) => s.id === parsed.textSize) ? parsed.textSize : 'standard',
+      opening: OPENINGS.some((o) => o.id === parsed.opening) ? parsed.opening : 'cinematic',
     };
   } catch {
-    return { theme: 'portal', contrast: 'standard', textSize: 'standard' };
+    return { theme: 'portal', contrast: 'standard', textSize: 'standard', opening: 'cinematic' };
   }
 }
 

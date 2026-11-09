@@ -103,6 +103,25 @@ This is an educational reference; packaging dates and successful tests are not
 clinician review or validation for a particular patient. Physical iPhone/Safari
 installation and clinician review remain separate from browser verification.
 
+## Opening
+
+Pocket can open in three ways, chosen under **Installed pack → Appearance →
+Opening** and stored in the same on-device appearance preference:
+
+- **Cinematic** (default): a 3.5-second Blender render in which a grey void
+  becomes a marble temple at golden hour, the gate materialises and an iris
+  closes on the logo. The last frame crossfades into the same logo drawn flat
+  in SVG, aligned from geometry the render exports, and the mark settles into
+  the Home header. The scene is code in `tools/opening/`.
+- **Classic**: the original drawn opening. One spark traces MEDIPORT in the
+  app's own font, draws the ring, flies to the destination and becomes the
+  diamond; the gate opens and the trajectory passes through.
+- **Off**: Home opens directly.
+
+Every opening can be skipped with a tap or Enter, Space or Escape, waits for
+the pack before handing off, and never runs when reduce motion is on or when a
+deep link is opened.
+
 ## Build and run
 
 Use Node.js 22 and npm. The repository is self-contained; a checkout of the
@@ -141,6 +160,7 @@ not connect to a hospital system or use patient records.
 | `src/images/` | Allowlisted teaching media with attribution in the reference data |
 | `src/sw-template.js` | Verified offline download and cache behavior |
 | `scripts/` | Standalone build and loopback preview tooling |
+| `tools/opening/` | Blender scene (as code) for the cinematic opening and its exported geometry |
 | `tests/` | Build, offline and browser checks |
 | `dist/` | Generated deployment output; do not edit directly |
 

@@ -51,7 +51,9 @@ in each PR. A passing software check does not establish clinical approval.
 
 ## In progress
 
-No active implementation claims. Offline recovery is ready for the owner-authorized merge and deployment verification below.
+| PR / branch | Agent | Files mainly touched | Status |
+| --- | --- | --- | --- |
+| [#10](https://github.com/Amlck/mediport-pocket/pull/10) `claude/opening-choice` | Claude | `src/app/lib/boot.js`, new opening modules, `src/app/lib/theme.js`, pack/appearance view, `style.css`, `src/images/opening/`, tests | Implemented and awaiting review: classic opening updated with the spark study (`Medical` `design/boot-spark-study`), new cinematic opening (final 60 fps clip), and an Opening setting (Cinematic / Classic / Off). Please avoid these files until #10 lands; the private `boot.js` copy will need syncing |
 
 ## Decisions
 
@@ -98,6 +100,15 @@ No active implementation claims. Offline recovery is ready for the owner-authori
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-09 · Claude · #10 render** · Final render complete: all 210 frames (720 × 1280, 60 fps, 40 samples). `src/images/opening/cinematic.mp4` now carries it (H.264 High, CRF 20, 1.15 MB); the final-frame geometry is unchanged, so the lockup constants stand. 102 Node and 15 opening/media browser tests pass. The temporary `claude/opening-render-frames` branch was deleted by the owner (this session's git gateway refuses branch deletion).
+
+- **2026-11-08 · Claude · #10 render** · Final render paused at frames 0–89 of 210 at the owner's request. Those frames are preserved losslessly on the temporary branch `claude/opening-render-frames` (45 MB, no PR, does not deploy); it will be deleted once #10 carries the final clip. Please don't build on it.
+
+- **2026-11-08 · Claude · #10** · Final cinematic render started (720 × 1280, 60 fps, 210 frames, about 7 h in five resumable chunks); `tools/opening/gate_opening.py` gains `--range` and `--skip-existing` for chunked renders. The draft clip in #10 will be replaced when it finishes.
+
+- **2026-11-07 · Claude · opening choice** · Implemented on `claude/opening-choice`: classic `boot.js` now runs the spark study (traced word in the app font, ring drawn by the point, outExpo snaps, grain; attribution kept, the external-UI reference removed); new `opening-cinematic.js` plays `src/images/opening/cinematic.mp4` (draft render, 413 KB) and hands off through a flat SVG lockup to the Home header; Appearance gains Opening (Cinematic default / Classic / Off) inside the existing key. Blender scene in `tools/opening/`. 102 Node and 36 browser tests pass locally (installed Chromium). The private copy of `boot.js` in `Medical` now differs from this one.
+- **2026-11-07 · Claude · opening choice** · Claimed the owner-requested opening work: port the spark study (variant B, from `Medical` branch `design/boot-spark-study`) into the classic `boot.js`, add the Blender-rendered cinematic opening with a flat SVG hand-off, and an Appearance choice between them. Work on `claude/opening-choice`; no merge requested.
 
 - **2026-11-07 · Codex · #9 merge preparation** · The owner authorized the coordinated `Medical` compatibility merge first, then #9, followed by live deployment, synchronization and Safari recovery checks. The reviewed runtime is unchanged from `2c49f14`; GitHub passed 99 Node and 29 browser checks. Removed the completed implementation claim; recovery of the previously stuck Safari remains to be confirmed.
 
