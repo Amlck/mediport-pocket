@@ -8,7 +8,7 @@ import { parseByteRange } from '../src/byte-range.mjs';
 const template = await readFile(new URL('../src/sw-template.js', import.meta.url), 'utf8');
 const offlineUi = await readFile(new URL('../src/app/lib/offline.js', import.meta.url), 'utf8');
 const digest = value => createHash('sha256').update(value).digest('hex');
-function harness({ corrupt = false, fail = false, media = false, canonicalShell = false, isolatedShell = false, pinned = false } = {}) {
+function harness({ corrupt = false, fail = false, media = false, canonicalShell = false, isolatedShell = false, pinned = false, windows = 1, waiting = true } = {}) {
   const stores = new Map();
   const handlers = new Map();
   const calls = [];
@@ -22,7 +22,13 @@ function harness({ corrupt = false, fail = false, media = false, canonicalShell 
     async keys() { return [...stores.keys()]; },
     async delete(key) { return stores.delete(key); },
   };
+  const worker = {};
+  const activation = { skipped: 0, windowQueries: [] };
   const self = { location: { href: 'https://pocket.example/pocket/sw.js' },
+    serviceWorker: worker,
+    registration: { waiting: waiting ? worker : null },
+    clients: { async matchAll(options) { activation.windowQueries.push(options); return Array.from({ length: windows }, () => ({})); } },
+    async skipWaiting() { activation.skipped++; },
     addEventListener(type, callback) { handlers.set(type, callback); } };
   vm.runInNewContext(`const RELEASE={version:'test-v1',builtAt:'2026-09-24T15:00:00.000Z',releaseNotes:{date:'2026-09-24',label:'Pocket usability update',changes:['Clearer updates']}}; const ASSETS=[{path:'index.html',${isolatedShell ? "downloadPath:'offline-shell.txt',contentType:'text/html; charset=utf-8'," : canonicalShell ? "downloadPath:'./'," : ''}sha256:'${digest('app shell')}'},{path:'reference.json',sha256:'${digest('reference snapshot')}'}${pinned ? `,{path:'app.js',downloadPath:'__releases/test-v1/app.js',sha256:'${digest('pinned application')}'},{path:'data/reference.json',downloadPath:'__releases/test-v1/data/reference.json',sha256:'${digest('pinned clinical data')}'}` : ''}${media ? `,{path:'images/pocus/clip.mp4',sha256:'${digest('0123456789')}'}` : ''}];\n${parseByteRange.toString()}\n${template}`, {
     self, caches, crypto: webcrypto, URL, Response, Headers, Uint8Array,
@@ -50,7 +56,7 @@ function harness({ corrupt = false, fail = false, media = false, canonicalShell 
     await event('message', {data:{type}, ports:[{postMessage(value) { result = value; }}]});
     return result;
   }
-  return { event, message, caches, stores, calls, setFailure(value) { networkFailure=value; } };
+  return { event, message, caches, stores, calls, activation, setFailure(value) { networkFailure=value; } };
 }
 test('install verifies the complete allowlisted pack before reporting offline ready', async () => {
   const h = harness();
@@ -62,7 +68,33 @@ test('install verifies the complete allowlisted pack before reporting offline re
   assert.deepEqual(Array.from(status.releaseNotes.changes), ['Clearer updates']);
   assert.equal(h.calls.length, 2);
   assert.ok(h.calls.every(call => call.options.credentials === 'omit' && call.options.redirect === 'error'));
-  assert.doesNotMatch(template, /skipWaiting|clients\.claim|type === 'ACTIVATE'/);
+  assert.doesNotMatch(template, /clients\.claim/);
+  assert.equal(h.activation.skipped, 0, 'installing never activates by itself');
+  // skipWaiting appears once, inside the user-requested ACTIVATE handler only.
+  assert.equal(template.match(/skipWaiting/g).length, 1);
+  const activate = template.slice(template.indexOf("type === 'ACTIVATE'"), template.indexOf("type === 'REPAIR'"));
+  assert.match(activate, /skipWaiting/);
+});
+
+test('install now activates only a complete waiting version that is the sole Pocket window', async () => {
+  const h = harness(); await h.event('install');
+  assert.deepEqual({ ...await h.message('ACTIVATE') }, { ok: true, version: 'test-v1' });
+  assert.equal(h.activation.skipped, 1);
+  assert.equal(h.activation.windowQueries[0].type, 'window');
+  assert.equal(h.activation.windowQueries[0].includeUncontrolled, true, 'windows of the running version count');
+
+  const crowded = harness({ windows: 2 }); await crowded.event('install');
+  assert.deepEqual({ ...await crowded.message('ACTIVATE') }, { ok: false, reason: 'windows', windows: 2 });
+  assert.equal(crowded.activation.skipped, 0, 'another open window keeps the running version');
+
+  const active = harness({ waiting: false }); await active.event('install');
+  assert.equal((await active.message('ACTIVATE')).reason, 'not-waiting');
+  assert.equal(active.activation.skipped, 0);
+
+  const partial = harness({ corrupt: true });
+  await assert.rejects(partial.event('install'));
+  assert.equal((await partial.message('ACTIVATE')).reason, 'incomplete');
+  assert.equal(partial.activation.skipped, 0, 'an unverified download never takes over');
 });
 
 test('public install downloads the canonical shell without following redirects and keeps offline navigation', async () => {
@@ -117,11 +149,17 @@ test('offline video ranges and seeks read only the verified full cached media', 
   assert.equal(h.calls.length, 3, 'no runtime media request uses the network');
   assert.equal((await h.message('STATUS')).complete, true, 'seeks leave the full verified cache intact');
 });
-test('update UI keeps applyUpdate instructional and does not force a live page to switch versions', () => {
+test('update UI switches versions only from the explicit install-now action', () => {
   assert.match(offlineUi, /export async function applyUpdate\(\)/);
   assert.match(offlineUi, /Close ALL Pocket windows, then reopen Pocket to install it/);
   assert.match(offlineUi, /navigator\.serviceWorker\.controller \|\| registration\?\.active/);
-  assert.doesNotMatch(offlineUi, /ACTIVATE|skipWaiting|location\.reload|clients\.claim/);
+  assert.doesNotMatch(offlineUi, /skipWaiting|clients\.claim/);
+  // The page's single ACTIVATE request and reload both live in runInstall.
+  const install = offlineUi.slice(offlineUi.indexOf('async function runInstall()'), offlineUi.indexOf('export async function installUpdate()'));
+  assert.equal(offlineUi.match(/'ACTIVATE'/g).length, 1);
+  assert.equal(offlineUi.match(/location\.reload\(\)/g).length, 1);
+  assert.match(install, /'ACTIVATE'/);
+  assert.match(install, /location\.reload\(\)/);
 });
 test('offline fetches use only installed files and never cache arbitrary API or navigation requests', async () => {
   const h = harness(); await h.event('install'); h.setFailure(true);

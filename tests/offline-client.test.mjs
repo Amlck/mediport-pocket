@@ -18,7 +18,8 @@ function events(target = {}) {
       if (!listeners.has(type)) listeners.set(type, []);
       listeners.get(type).push(listener);
     },
-    dispatch(type) { for (const listener of listeners.get(type) || []) listener(); },
+    removeEventListener(type, listener) { listeners.set(type, (listeners.get(type) || []).filter(item => item !== listener)); },
+    dispatch(type) { for (const listener of [...(listeners.get(type) || [])]) listener(); },
   });
 }
 function worker(version = 'installed-v1', { complete = true, answer } = {}) {
@@ -48,11 +49,12 @@ function harness({ register, getRegistration = async () => undefined, controller
   });
   const window = events({ isSecureContext: secure });
   const document = events({ hidden: false });
-  const sandbox = { navigator: { onLine: true, ...(serviceWorkers ? { serviceWorker: container } : {}) }, window, document,
+  const location = { reloads: 0, reload() { this.reloads++; } };
+  const sandbox = { location, navigator: { onLine: true, ...(serviceWorkers ? { serviceWorker: container } : {}) }, window, document,
     setTimeout(callback, duration) { const id = ++nextTimer; timers.set(id, { callback, at: time + duration }); return id; },
     clearTimeout(id) { timers.delete(id); }, MessageChannel: Channel };
   vm.createContext(sandbox);
-  vm.runInContext(source.replaceAll('export async function', 'async function') + '\nthis.api = { setupOffline, checkForUpdates, applyUpdate };', sandbox);
+  vm.runInContext(source.replaceAll('export async function', 'async function') + '\nthis.api = { setupOffline, checkForUpdates, applyUpdate, installUpdate };', sandbox);
   async function advance(duration) {
     time += duration;
     for (;;) {
@@ -62,7 +64,7 @@ function harness({ register, getRegistration = async () => undefined, controller
     }
     await flush();
   }
-  return { ...sandbox.api, container, window, document, calls, channels, advance,
+  return { ...sandbox.api, container, window, document, calls, channels, advance, location,
     start: () => sandbox.api.setupOffline(value => states.push({ ...value })),
     state: () => states.at(-1), states };
 }
@@ -276,7 +278,7 @@ test('pack view retains an actionable update button after a transient registrati
   let publish;
   const node = (tag, attributes, ...children) => ({ tag, attributes, children: children.flat(), isConnected: true,
     replaceChildren(...next) { this.children = next; }, addEventListener() {}, getAttribute() { return null; } });
-  const sandbox = { h: node, note: (_tone, text) => text, installedRelease: () => null, checkForUpdates() {} };
+  const sandbox = { h: node, note: (_tone, text) => text, installedRelease: () => null, checkForUpdates() {}, installUpdate() {} };
   vm.createContext(sandbox); vm.runInContext(view + '\nthis.offlineCard = offlineCard;', sandbox);
   const card = sandbox.offlineCard({ release: {}, offline: { subscribe(listener) { publish = listener; listener({ state: 'checking' }); return () => {}; } } });
   const button = card.children.at(-1).children[0];
@@ -284,4 +286,64 @@ test('pack view retains an actionable update button after a transient registrati
   assert.equal(button.hidden, false);
   publish({ state: 'unavailable', retryable: false });
   assert.equal(button.hidden, true);
+  // A verified downloaded update offers Install update now in its own panel.
+  publish({ state: 'ready', retryable: true, updateAvailable: true, downloaded: { version: 'update-v2' } });
+  const downloaded = card.children[2];
+  assert.equal(downloaded.hidden, false);
+  const install = downloaded.children.flatMap(child => child?.children || []).find(child => child?.children?.[0] === 'Install update now');
+  assert.ok(install, 'install button shown with the downloaded version');
+  assert.equal(button.hidden, true, 'check for update gives way to install');
+});
+
+function waitingUpdate(activate) {
+  const waiting = worker('update-v2', { answer(message, port) {
+    if (message.type === 'STATUS') port.postMessage({ version: 'update-v2', complete: true });
+    if (message.type === 'ACTIVATE') activate(port);
+  } });
+  const next = registration(worker('installed-v1'));
+  next.waiting = waiting;
+  return { next, waiting };
+}
+
+test('install now asks the verified waiting version to take over and reloads once it controls the page', async () => {
+  let h;
+  const { next, waiting } = waitingUpdate(port => { h.container.dispatch('controllerchange'); port.postMessage({ ok: true }); });
+  h = harness({ register: async () => next });
+  await h.start();
+  assert.equal(h.state().updateAvailable, true);
+  assert.equal(h.state().downloaded.version, 'update-v2');
+  assert.equal(await h.installUpdate(), true);
+  assert.deepEqual(waiting.calls.slice(0, 2), ['STATUS', 'ACTIVATE']);
+  assert.equal(h.location.reloads, 1);
+});
+
+test('install now explains a refusal and leaves the running version and page in place', async () => {
+  const { next, waiting } = waitingUpdate(port => port.postMessage({ ok: false, reason: 'windows', windows: 2 }));
+  const h = harness({ register: async () => next });
+  await h.start();
+  assert.equal(await h.installUpdate(), false);
+  assert.equal(h.location.reloads, 0);
+  assert.match(h.state().update.text, /Close the other Pocket windows/);
+  assert.equal(h.state().updateAvailable, true, 'the downloaded update stays ready');
+  assert.equal(h.container.listeners.get('controllerchange').length, 1, 'only the status listener remains');
+  assert.deepEqual(waiting.calls, ['STATUS', 'ACTIVATE']);
+});
+
+test('install now without a verified waiting version sends nothing', async () => {
+  const h = harness({ register: async () => registration() });
+  await h.start();
+  assert.equal(await h.installUpdate(), false);
+  assert.match(h.state().update.text, /no longer waiting/);
+  assert.equal(h.location.reloads, 0);
+});
+
+test('install now reports a version that has not taken control within the deadline', async () => {
+  const { next } = waitingUpdate(port => port.postMessage({ ok: true }));
+  const h = harness({ register: async () => next });
+  await h.start();
+  const pending = h.installUpdate(); await flush();
+  await h.advance(10000);
+  assert.equal(await pending, false);
+  assert.equal(h.location.reloads, 0);
+  assert.match(h.state().update.text, /Close and reopen Pocket to finish/);
 });

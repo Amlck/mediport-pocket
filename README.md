@@ -39,12 +39,15 @@ Keep the same home-screen icon, link and QR code. There is no need to reinstall.
 1. Connect to the internet and open Pocket.
 2. Open **Installed pack → Check for update**.
 3. If an update is available, wait for **Downloaded · ready to install**.
-4. Close **every Pocket app window and any Pocket tabs in Safari or Chrome**, then reopen Pocket.
+4. Tap **Install update now**. Pocket asks you to close any other Pocket
+   windows or tabs first, then installs the verified update and reloads. Or
+   close **every Pocket app window and any Pocket tabs in Safari or Chrome**,
+   then reopen Pocket. (Copies older than this button use the second way.)
 5. Confirm the version under **In use** and **Offline copy verified**.
 
 The current pack stays in use while the new one downloads and is verified. A
-failed download keeps the previous usable pack. Pocket never forces a reload
-in the middle of a calculation. Your phone can also discover updates when
+failed download keeps the previous usable pack. Pocket reloads only when you
+tap **Install update now**, never by itself in the middle of a calculation. Your phone can also discover updates when
 reopened online, but **Check for update** is the explicit way to check now.
 Public updates need an internet connection; no Mac or Tailscale is required.
 
@@ -215,8 +218,11 @@ uses a plain-text copy of the exact app shell, verifies the original shell hash,
 and restores its HTML content type in the cache. It does not accept injected
 HTML as the verified offline shell.
 
-A downloaded update waits until all Pocket windows close and reopen. Existing
-sessions are not reloaded in the middle of a calculation. Already downloaded
+A downloaded update waits until all Pocket windows close and reopen, or until
+**Install update now** is tapped while Pocket has no other window open. The
+worker refuses that request if another window is open or the downloaded files
+no longer verify, because activation removes the previous version's files.
+Existing sessions are never reloaded without that tap. Already downloaded
 offline bytes cannot reliably be recalled by changing server access.
 
 ## Contributions and reuse

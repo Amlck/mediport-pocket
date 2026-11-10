@@ -1,6 +1,6 @@
 import { h, icon, formatDate, note, disclosure } from '../lib/ui.js';
 import { THEMES, CONTRASTS, TEXT_SIZES, OPENINGS, appearance } from '../lib/theme.js';
-import { checkForUpdates } from '../lib/offline.js';
+import { checkForUpdates, installUpdate } from '../lib/offline.js';
 import { installedRelease } from '../lib/pack-presentation.js';
 import { sourceCard } from '../lib/source.js';
 
@@ -80,6 +80,9 @@ function offlineCard(ctx) {
   };
   const checkButton = h('button', { class: 'btn-small', type: 'button' }, 'Check for update');
   checkButton.addEventListener('click', busy(checkButton, 'Checking…', 'Check for update', checkForUpdates));
+  // Built once so a status repaint during the install keeps its busy state.
+  const installButton = h('button', { class: 'btn-primary', type: 'button' }, 'Install update now');
+  installButton.addEventListener('click', busy(installButton, 'Installing…', 'Install update now', installUpdate));
   const card = h('div', { class: 'card stack' },
     status, installed, downloaded,
     h('div', { class: 'chips' }, checkButton));
@@ -97,14 +100,17 @@ function offlineCard(ctx) {
     status.replaceChildren(
       note(OFFLINE_TONES[state.state] || 'plain', `${title}${detail ? `. ${detail}` : ''}`,
         state.state === 'ready' ? 'check' : state.state === 'unavailable' || state.state === 'incomplete' ? 'alert' : 'package'),
-      ...(state.update ? [note(state.update.tone, state.update.text)] : []));
+      // With an update ready, its install feedback sits beside the button instead.
+      ...(state.update && !waiting ? [note(state.update.tone, state.update.text)] : []));
     installed.replaceChildren(active
       ? releaseSummary(active, 'In use', !waiting)
       : h('p', { class: 'muted' }, state.state === 'unavailable' ? 'No installed version reported.' : 'Confirming the installed version…'));
     downloaded.hidden = !waiting;
     downloaded.replaceChildren(...(waiting ? [
       releaseSummary(waiting, 'Downloaded · ready to install'),
-      h('p', { class: 'small mt-8' }, 'Close all Pocket windows and Safari tabs, then reopen. Your current pack stays in use until then.'),
+      h('div', { class: 'mt-8' }, installButton),
+      ...(state.update ? [note(state.update.tone, state.update.text)] : []),
+      h('p', { class: 'small mt-8' }, 'Installs the downloaded version and reloads this page. Close any other Pocket windows or tabs first. You can also close all Pocket windows and Safari tabs and reopen; your current pack stays in use until then.'),
     ] : []));
     checkButton.hidden = Boolean(waiting) || state.retryable === false;
   });
