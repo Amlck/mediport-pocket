@@ -53,7 +53,7 @@ function message(worker, type) {
 const UPDATE_CHECKING = { tone: 'info', text: 'Checking the pack server for a newer version…' };
 const UPDATE_CURRENT = { tone: 'ok', text: 'Up to date. The pack server has no newer version.' };
 const UPDATE_UNREACHABLE = { tone: 'attention', text: 'Update check could not finish. Check your internet connection and try again. The last verified offline status is shown; this check does not change the reference page already open.' };
-const UPDATE_READY = 'A new reference version is downloaded. Close ALL Pocket windows, then reopen Pocket to install it.';
+const UPDATE_READY = 'A new reference version is downloaded. Tap Install update now on the Installed pack page, or close ALL Pocket windows and reopen Pocket.';
 const UPDATE_DOWNLOADING = 'A new reference version was found. Downloading and verifying it… keep this page open.';
 // The status message is derived from the registration every time, so a refresh
 // triggered by visibility or connectivity never hides a waiting or downloading update.
@@ -229,6 +229,50 @@ async function runUpdateCheck() {
 export async function checkForUpdates() {
   if (!updateCheck) updateCheck = Promise.resolve().then(runUpdateCheck).finally(() => { updateCheck = null; });
   return updateCheck;
+}
+// Install now: the one place a page asks a waiting version to take over, and
+// only from the user's tap. The worker refuses while other Pocket windows are
+// open; on success this page reloads once the new version controls it.
+const INSTALL_REFUSED = {
+  windows: 'Close the other Pocket windows and tabs first, then tap Install update now again. Your current pack stays in use.',
+  incomplete: 'The downloaded update is incomplete. Reconnect and check for an update again.',
+  'not-waiting': 'This update is no longer waiting. Check for an update again.',
+};
+let installing = null;
+async function runInstall() {
+  const waiting = registration?.waiting;
+  if (!current.updateAvailable || !waiting || waiting !== verifiedWaitingWorker) {
+    announce({ update: { tone: 'attention', text: INSTALL_REFUSED['not-waiting'] } });
+    return false;
+  }
+  announce({ update: { tone: 'info', text: 'Installing the downloaded version… this page will reload.' } });
+  // Listen before asking: the new version can take control before the reply.
+  let changed = false, onChange = () => {};
+  const controllerChanged = () => { changed = true; onChange(); };
+  navigator.serviceWorker.addEventListener('controllerchange', controllerChanged, { once: true });
+  let result;
+  try { result = await message(waiting, 'ACTIVATE'); }
+  catch { result = { ok: false }; }
+  if (!result?.ok) {
+    navigator.serviceWorker.removeEventListener?.('controllerchange', controllerChanged);
+    announce({ update: { tone: 'attention', text: INSTALL_REFUSED[result?.reason]
+      || 'Could not install the update now. Close all Pocket windows and reopen Pocket to install it.' } });
+    return false;
+  }
+  const switched = changed || await new Promise(resolve => {
+    const timer = setTimeout(() => resolve(false), 10000);
+    onChange = () => { clearTimeout(timer); resolve(true); };
+  });
+  if (!switched) {
+    announce({ update: { tone: 'attention', text: 'The update is installing. Close and reopen Pocket to finish.' } });
+    return false;
+  }
+  location.reload();
+  return true;
+}
+export async function installUpdate() {
+  if (!installing) installing = Promise.resolve().then(runInstall).finally(() => { installing = null; });
+  return installing;
 }
 export async function applyUpdate() {
   if (!current.updateAvailable || !registration?.waiting) await checkForUpdates();

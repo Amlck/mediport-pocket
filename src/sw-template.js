@@ -112,6 +112,25 @@ self.addEventListener('message', event => {
         complete, assets: ASSETS.length });
     })());
   }
+  // Install now: sent only by the user's tap on a verified waiting update.
+  // Activation is refused while another Pocket window is open, because the
+  // activate step removes the previous version's files that window still uses.
+  if (event.data?.type === 'ACTIVATE') {
+    event.waitUntil((async () => {
+      const waiting = self.registration?.waiting;
+      if (!waiting || (self.serviceWorker && waiting !== self.serviceWorker)) {
+        reply({ ok: false, reason: 'not-waiting' }); return;
+      }
+      const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+      if (windows.length > 1) { reply({ ok: false, reason: 'windows', windows: windows.length }); return; }
+      const cache = await caches.open(CACHE);
+      for (const asset of ASSETS) {
+        if (!await cachedAssetMatches(cache, asset)) { reply({ ok: false, reason: 'incomplete' }); return; }
+      }
+      await self.skipWaiting();
+      reply({ ok: true, version: RELEASE.version });
+    })());
+  }
   if (event.data?.type === 'REPAIR') {
     event.waitUntil((async () => {
       try { await downloadPack(); reply({ ok: true }); }

@@ -40,7 +40,7 @@ browsers in each session; a checkout or tool does not grant permission to use it
 | Runs on | The owner's Mac | A cloud container per session |
 | Private Medical repo | Authorized local checkout and CLI access; actions stay within the owner's requested scope | Read access reported; writes only within the assigned, owner-authorized `claude/*` branch |
 | NTUH public sites | Anonymous access verified for the reviewed pages; check each required endpoint | Unreachable from the current container, as reported by the owner |
-| Live public site | Direct HTTP and browser checks available in this session | Unreachable from the current container; relies on CI and Codex for live checks |
+| Live public site | Direct HTTP and browser checks available in this session | Reachable from sessions on the owner's personal `Mediport` cloud environment (allows only the public site's host, added 2026-11-10); other environments still block it |
 | Local browser tests | Used installed Chrome via `PLAYWRIGHT_CHANNEL=chrome`; bundled Playwright Chromium was unavailable locally | Used locally installed Chromium, as reported in the PRs |
 | CI browser tests | Repository-locked Playwright Chromium | Repository-locked Playwright Chromium |
 
@@ -53,7 +53,7 @@ in each PR. A passing software check does not establish clinical approval.
 
 | PR / branch | Agent | Files mainly touched | Status |
 | --- | --- | --- | --- |
-| [#10](https://github.com/Amlck/mediport-pocket/pull/10) `claude/opening-choice` | Claude | `src/app/lib/boot.js`, new opening modules, `src/app/lib/theme.js`, pack/appearance view, `style.css`, `src/images/opening/`, tests | Implemented and awaiting review: classic opening updated with the spark study (`Medical` `design/boot-spark-study`), new cinematic opening (final 60 fps clip), and an Opening setting (Cinematic / Classic / Off). Please avoid these files until #10 lands; the private `boot.js` copy will need syncing |
+| `claude/install-update-now` | Claude | `src/sw-template.js`, `src/app/lib/offline.js`, `src/app/views/pack.js`, offline tests, README, release notes | Owner-requested **Install update now** button; awaiting Codex review. It changes the deliberate "never force activation" rule, so please review before merging. Please avoid these files until it lands |
 
 ## Decisions
 
@@ -100,6 +100,9 @@ in each PR. A passing software check does not establish clinical approval.
 ## Log
 
 Newest first. One or two lines each: date, agent, what changed, where.
+
+- **2026-11-10 · Claude · install update now** · The owner's Mac Safari stayed on the previous pack after Quit and reopen (likely Safari discarding the waiting worker on quit; not confirmed in Safari). At the owner's request, Installed pack now offers **Install update now** for a verified waiting update. The worker's new `ACTIVATE` message refuses unless it is the waiting worker, no other Pocket window is open (`clients.matchAll` with uncontrolled windows) and every asset still verifies; only then `skipWaiting`, and the page reloads after `controllerchange`. No `clients.claim`; install never activates by itself. 107 Node tests pass, and a local two-build Chromium run showed refusal with two windows, then the switch and reload. The copy already installed has no button, so this release itself installs the old way. `Medical`'s consumer copy of `offline.js` may need the same export.
+- **2026-11-10 · Claude · live check** · #10 is live (merge `6465879`, deploy job passed); loaded the live site from the new `Mediport` environment and saw the cinematic opening hand off to Home with no page errors. Removed the #10 claim.
 
 - **2026-11-09 · Claude · #10 render** · Final render complete: all 210 frames (720 × 1280, 60 fps, 40 samples). `src/images/opening/cinematic.mp4` now carries it (H.264 High, CRF 20, 1.15 MB); the final-frame geometry is unchanged, so the lockup constants stand. 102 Node and 15 opening/media browser tests pass. The temporary `claude/opening-render-frames` branch was deleted by the owner (this session's git gateway refuses branch deletion).
 

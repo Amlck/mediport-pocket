@@ -1,7 +1,8 @@
 {
-  "date": "2026-11-07",
-  "label": "Mediport Pocket · choose your opening",
+  "date": "2026-11-10",
+  "label": "Mediport Pocket · install updates in one tap",
   "changes": [
+    "Once an update has downloaded, Installed pack shows Install update now: it installs the verified update and reloads the page. It asks you to close other Pocket windows first, so no open window loses its files mid-use. Closing and reopening every Pocket window still works too.",
     "Choose the opening under Installed pack → Appearance → Opening: Cinematic (new rendered temple opening that hands off to Home), Classic (the original drawn opening, now traced by a spark in the app's own font) or Off. Reduce motion always turns the opening off.",
     "Offline registration and update checks now stop with a clear retry message when the browser does not respond. A working downloaded pack stays usable while registration is retried.",
     "Adds the four Taita-series fluids with linked manufacturer instructions, source-check scope and evidence limits; unsupported numerical rate, renal and timed-monitoring defaults are removed.",
@@ -11,6 +12,6 @@
     "Each guide keeps its original source review date, sources and limitations. Clinician review of the public edition remains pending.",
     "Search now finds about 2,300 NTUH formulary products by product, generic or Chinese name, each linking to NTUH's own public product page.",
     "Drug monographs list their NTUH products under Sources. Listings open online and come from a 28 August 2026 snapshot; they do not confirm current availability.",
-    "Use Installed pack → Check for update, then close and reopen all Pocket windows to install this release."
+    "This release itself installs the previous way: Installed pack → Check for update, then close and reopen all Pocket windows. Later updates offer the button."
   ]
 }
